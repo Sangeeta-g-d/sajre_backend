@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 import random
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import login
+from datetime import datetime
 from django.http import JsonResponse
 
 def generate_otp():
@@ -106,7 +107,14 @@ def participant_basic_details(request):
         # Step 1 fields
         profile.father_name = request.POST.get("fatherName")
         profile.mother_name = request.POST.get("motherName")
-        profile.dob = request.POST.get("dob") or None
+        dob_str = request.POST.get("dob")
+        if dob_str:
+            try:
+                profile.dob = datetime.strptime(dob_str, "%Y-%m-%d").date()
+            except ValueError:
+                profile.dob = None
+        else:
+            profile.dob = None
         profile.full_address = request.POST.get("fullAddress")
         profile.street_address = request.POST.get("streetAddress")
         profile.city = request.POST.get("city")
