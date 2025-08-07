@@ -85,14 +85,16 @@ RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET')
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+from decouple import config
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sajre_db',  # Replace with your database name
-        'USER': 'postgres',  # Your PostgreSQL username
-        'PASSWORD': 'new_password',  # Your PostgreSQL password
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
 }
 
