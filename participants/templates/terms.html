@@ -1,0 +1,143 @@
+{% extends 'sidebar.html' %}
+{% block content %}
+
+<link rel="stylesheet" href="/static/assets/participant/css/terms.css">
+<!-- Include Razorpay checkout script -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<!-- Include your external JS file -->
+<script src="/static/assets/participant/js/payment.js"></script>
+
+<div class="container-fluid">
+    <div class="main-content">
+        <div class="header my-5">
+            <h2 class="text-center">Guidelines</h2>
+        </div>
+
+        <div class="content">
+            <h3>1. Eligibility Criteria</h3>
+            <p>This competition is open to all Indian citizens between the ages of 6 and 21, divided into specific age
+                categories. Participants must provide accurate personal details during registration. Entries submitted
+                must be the original creation of the participant. Submissions on behalf of someone else will not be accepted.</p>
+
+            <h3>2. Age Categories</h3>
+            <p>Participants will be grouped into the following categories:</p>
+            <ul>
+                <li>Junior (6—10 years)</li>
+                <li>Teen (11—16 years)</li>
+                <li>Youth (17—21 years)</li>
+            </ul>
+            <p>Age will be verified through supporting documents, such as school certificates or government-issued ID, if required.</p>
+
+            <h3>3. Enrollment and Fee Structure</h3>
+            <p>Participants must enroll through the official platform by completing the registration form and paying
+                the required fee. The fee varies by category and includes transaction charges and taxes (3%
+                transaction + 10% platform + 18% GST). Once paid, the fee is non-refundable under any circumstances.
+                Enrollment gives access to all competition levels and official announcements.</p>
+
+            <h3>4. Artwork Submission Guidelines</h3>
+            <p>All content on this website is the property of the site owner or its licensors. You may not reproduce, distribute, or create derivative works without permission.</p>
+
+            <h3>5. Limitation of Liability</h3>
+            <p>We will not be liable for any loss or damage arising from your use of this website.</p>
+
+            <h3>6. Governing Law</h3>
+            <p>These terms are governed by the laws of India. Any disputes will be subject to the exclusive jurisdiction of the courts in India.</p>
+        </div>
+
+        <div class="agree-conditions" {% if request.user.accepted_terms %} style="display:none;" {% endif %}>
+            <input 
+                class="form-check-input agreeCheckbox rounded-circle" 
+                type="checkbox" 
+                id="agreeCheckbox"
+                {% if request.user.accepted_terms %} checked {% endif %}
+                required>
+            <label class="form-check-label" for="agreeCheckbox">
+                I agree with NAS Rules
+            </label>
+        </div>
+
+        <div class="form-check mt-4 d-flex justify-content-center">
+            <button id="agreeBtn" 
+                    class="btn reference_frd" 
+                    style="width:150px;"
+                    data-terms-accepted="{% if request.user.accepted_terms %}true{% else %}false{% endif %}"
+                    data-terms-url="{% url 'update_terms_status' %}"
+                    data-csrf-token="{{ csrf_token }}">
+                {% if request.user.accepted_terms %} Proceed {% else %} Agree {% endif %}
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Fees Modal -->
+<div class="modal fade" id="feesModal" tabindex="-1" aria-labelledby="feesModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="border: none; border-radius: 15px; overflow: hidden;">
+            <div class="modal-header" style="background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%); border-bottom: none;">
+                <h5 class="modal-title" id="feesModalLabel" style="color: #4a5568; font-weight: 600;">
+                    <i class="fas fa-palette me-2" style="color: #667eea;"></i>
+                    Payment Details
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="background: linear-gradient(to right, #fdfbfb 0%, #ebedee 100%);">
+                <div class="payment-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Base Fee:</span>
+                        <span class="detail-value">₹{{ base_fee }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Transaction Fee (3%):</span>
+                        <span class="detail-value">₹{{ transaction_fee }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Platform Fee (10%):</span>
+                        <span class="detail-value">₹{{ platform_fee }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">GST (18%):</span>
+                        <span class="detail-value">₹{{ gst }}</span>
+                    </div>
+                    <div class="divider" style="border-top: 1px dashed #cbd5e0; margin: 1rem 0;"></div>
+                    <div class="detail-row total">
+                        <span class="detail-label">Total Payable:</span>
+                        <span class="detail-value" style="color: #4c51bf; font-weight: 700;">₹{{ total }}</span>
+                    </div>
+                </div>
+                
+                <div class="artistic-elements mt-4">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="paint-swatch" style="background: #667eea; width: 20px; height: 20px; border-radius: 50%; margin: 0 5px;"></div>
+                        <div class="paint-swatch" style="background: #764ba2; width: 20px; height: 20px; border-radius: 50%; margin: 0 5px;"></div>
+                        <div class="paint-swatch" style="background: #ff7e5f; width: 20px; height: 20px; border-radius: 50%; margin: 0 5px;"></div>
+                        <div class="paint-swatch" style="background: #feb47b; width: 20px; height: 20px; border-radius: 50%; margin: 0 5px;"></div>
+                    </div>
+                    <p class="text-center mb-0" style="color: #718096; font-size: 0.9rem;">
+                        <i class="fas fa-bolt me-1" style="color: #f6ad55;"></i>
+                        Only 30 seats available! Secure your spot now.
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer" style="background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%); border-top: none;">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" style="border-radius: 8px; padding: 8px 20px;">
+                    Cancel
+                </button>
+                <button type="button" 
+                        class="btn btn-primary" 
+                        style="background: linear-gradient(to right, #667eea 0%, #764ba2 100%); border: none; border-radius: 8px; padding: 8px 25px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);"
+                        data-total-amount="{{ total|floatformat:2 }}"
+                        data-create-order-url="{% url 'create_razorpay_order' %}"
+                        data-razorpay-key="{{ RAZORPAY_KEY_ID|default:'' }}"
+                        data-user-name="{{ request.user.full_name|default:'' }}"
+                        data-user-email="{{ request.user.email|default:'' }}"
+                        data-user-phone="{{ request.user.phone_number|default:'' }}"
+                        data-success-url="{% url 'payment_success' %}"
+                        data-csrf-token="{{ csrf_token }}">
+                    Pay Now
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

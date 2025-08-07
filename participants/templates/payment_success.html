@@ -1,0 +1,51 @@
+{% extends 'sidebar.html' %}
+{% block content %}
+
+<link rel="stylesheet" href="/static/assets/participant/css/payment_success.css">
+
+<div class="container-fluid">
+    <div class="main-content">
+        <div class="payment-success-container text-center py-5">
+            <div class="success-icon mb-4">
+                <div class="icon-circle">
+                    <i class="fas fa-check"></i>
+                </div>
+            </div>
+            
+            <h2 class="mb-3">Payment Successful!</h2>
+            
+            <div class="success-card mx-auto">
+                <div class="card-body">
+                    <p class="mb-2"><strong>Payment ID:</strong> {{ payment_id }}</p>
+                    <p class="mb-4">Thank you for registering for the NAS Competition.</p>
+                    
+                    <div class="payment-details">
+                        <h5 class="mb-3">Payment Summary</h5>
+                        <div class="detail-row">
+                            <span>Competition Fee:</span>
+                            <span>₹{{ amount }}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Payment Status:</span>
+                            <span class="text-success">Completed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="next-steps mt-5">
+                        <h5 class="mb-3">What's Next?</h5>
+                        <ul class="text-start mx-auto">
+                            <li>You'll receive a confirmation email shortly</li>
+                            <li>Prepare your artwork according to competition guidelines</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="{% url 'dashboard' %}" class="btn reference_frd" >
+                        Return to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

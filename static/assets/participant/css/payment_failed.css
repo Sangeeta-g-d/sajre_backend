@@ -1,0 +1,91 @@
+.payment-failed-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.icon-circle {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #f87171 0%, #dc2626 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    color: white;
+    font-size: 40px;
+}
+
+.failed-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    max-width: 600px;
+}
+
+.payment-details {
+    background: #fef2f2;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #fee2e2;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.next-steps ul {
+    max-width: 400px;
+}
+
+.next-steps li {
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.next-steps li:before {
+    content: "•";
+    color: #ef4444;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.retry-btn {
+    background: linear-gradient(88deg, #2F4052, #678CB3);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.retry-btn:hover {
+    background: linear-gradient(88deg, #1f2a35, #547191);
+    color: white;
+}
+
+.back-btn {
+    background: #f8fafc;
+    color: #374151;
+    border: 1px solid #d1d5db;
+    padding: 10px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.back-btn:hover {
+    background: #e5e7eb;
+}

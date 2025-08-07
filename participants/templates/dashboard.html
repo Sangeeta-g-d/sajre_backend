@@ -1,0 +1,256 @@
+{% extends 'sidebar.html' %}
+{% block content %}
+<link rel="stylesheet" href="/static/assets/participant/css/styles.css">
+   <div class="main-container">
+ 
+        <!-- Main Content -->
+        <main class="main-content">
+            <h1 class="banner-title">"You're Just 3 Steps Away From Joining India's Biggest Art Competition!"</h1>
+            
+            <button class="submit-art-btn">Submit Art</button>
+            
+            <!-- Competition Banner -->
+          <div class="competition-banner">
+    <div class="banner-content">
+        {% if upcoming_round %}
+        <div class="countdown-section">
+            <div class="countdown-header">
+                <h2 class="countdown-title">Countdown to Your Canvas Moment</h2>
+                <p class="countdown-subtitle">
+                    {{ upcoming_round.total_seats }} seats total, 
+                    {{ upcoming_round.available_seats }} available
+                </p>
+            </div>
+            <div class="countdown-timer">
+                <div class="time-unit">
+                    <div class="time-value" id="days">00</div>
+                    <div class="time-label">Days</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-value" id="hours">00</div>
+                    <div class="time-label">Hours</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-value" id="minutes">00</div>
+                    <div class="time-label">Minutes</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-value" id="seconds">00</div>
+                    <div class="time-label">Seconds</div>
+                </div>
+            </div>
+
+            {% if is_enrolled %}
+    <a style="text-decoration: none;" class="participate-btn" disabled>Enrolled</a>
+{% else %}
+    <a href="{% url 'terms' %}" style="text-decoration: none;" class="participate-btn">Participate Now</a>
+{% endif %}
+        </div>
+        {% else %}
+        <p class="text-center">🎨 No upcoming rounds scheduled for your category.</p>
+        {% endif %}
+    </div>
+
+    <div class="banner-illustration">
+        <img src="/static/assets/participant/img/image 16.png" alt="Art Character">
+    </div>
+</div>
+
+            <!-- Levels Section -->
+       <!-- Levels Section -->
+<!-- Levels Section -->
+<!-- Levels Section -->
+<div class="levels-section">
+    <video class="levels-bg-video" autoplay muted loop>
+        <source src="level.webm" type="video/mp4">
+    </video>
+    <div class="levels-container">
+        <div class="levels-track" id="levelsTrack">
+            <!-- Level 01 -->
+            <div class="level-item">
+                <div class="level-content" onmouseenter="showLevelTooltip(this, '01', '35200')" onmouseleave="hideLevelTooltip()">
+                    <div class="level-circle locked" onclick="unlockLevel(this, '01')">
+                        <div class="lock-icon">🔒</div>
+                        <div class="unlock-icon">🔓</div>
+                        <span class="level-text">Level 01</span>
+                        <div class="level-status">Unlock level</div>
+                    </div>
+                    <div class="level-stars"></div>
+                </div>
+                <div class="level-connector"></div>
+            </div>
+            
+            <!-- Level 02 -->
+            <div class="level-item">
+                <div class="level-content" onmouseenter="showLevelTooltip(this, '02', '45000')" onmouseleave="hideLevelTooltip()">
+                    <div class="level-circle locked" onclick="unlockLevel(this, '02')">
+                        <div class="lock-icon">🔒</div>
+                        <div class="unlock-icon">🔓</div>
+                        <span class="level-text">Level 02</span>
+                        <div class="level-status">Unlock level</div>
+                    </div>
+                    <div class="level-stars"></div>
+                </div>
+                <div class="level-connector"></div>
+            </div>
+            
+            <!-- Level 03 -->
+            <div class="level-item">
+                <div class="level-content" onmouseenter="showLevelTooltip(this, '03', '55000')" onmouseleave="hideLevelTooltip()">
+                    <div class="level-circle locked" onclick="unlockLevel(this, '03')">
+                        <div class="lock-icon">🔒</div>
+                        <div class="unlock-icon">🔓</div>
+                        <span class="level-text">Level 03</span>
+                        <div class="level-status">Unlock level</div>
+                    </div>
+                    <div class="level-stars"></div>
+                </div>
+                <div class="level-connector"></div>
+            </div>
+            
+            <!-- Level 04 -->
+            <div class="level-item">
+                <div class="level-content" onmouseenter="showLevelTooltip(this, '04', '65000')" onmouseleave="hideLevelTooltip()">
+                    <div class="level-circle locked" onclick="unlockLevel(this, '04')">
+                        <div class="lock-icon">🔒</div>
+                        <div class="unlock-icon">🔓</div>
+                        <span class="level-text">Level 04</span>
+                        <div class="level-status">Unlock level</div>
+                    </div>
+                    <div class="level-stars"></div>
+                </div>
+                <div class="level-connector"></div>
+            </div>
+            
+            <!-- Level 05 -->
+            <div class="level-item">
+                <div class="level-content" onmouseenter="showLevelTooltip(this, '05', '75000')" onmouseleave="hideLevelTooltip()">
+                    <div class="level-circle locked" onclick="unlockLevel(this, '05')">
+                        <div class="lock-icon">🔒</div>
+                        <div class="unlock-icon">🔓</div>
+                        <span class="level-text">Level 05</span>
+                        <div class="level-status">Unlock level</div>
+                    </div>
+                    <div class="level-stars"></div>
+                </div>
+                <div class="level-connector"></div>
+            </div>
+            
+            <!-- Level 06 -->
+            <div class="level-item">
+                <div class="level-content" onmouseenter="showLevelTooltip(this, '06', '85000')" onmouseleave="hideLevelTooltip()">
+                    <div class="level-circle locked" onclick="unlockLevel(this, '06')">
+                        <div class="lock-icon">🔒</div>
+                        <div class="unlock-icon">🔓</div>
+                        <span class="level-text">Level 06</span>
+                        <div class="level-status">Unlock level</div>
+                    </div>
+                    <div class="level-stars"></div>
+                </div>
+                <div class="level-connector"></div>
+            </div>
+            
+            <!-- Level 07 -->
+            <div class="level-item">
+                <div class="level-content" onmouseenter="showLevelTooltip(this, '07', '95000')" onmouseleave="hideLevelTooltip()">
+                    <div class="level-circle locked" onclick="unlockLevel(this, '07')">
+                        <div class="lock-icon">🔒</div>
+                        <div class="unlock-icon">🔓</div>
+                        <span class="level-text">Level 07</span>
+                        <div class="level-status">Unlock level</div>
+                    </div>
+                    <div class="level-stars"></div>
+                </div>
+                <div class="level-connector"></div>
+            </div>
+            
+            <!-- Level 08 -->
+            <div class="level-item">
+                <div class="level-content" onmouseenter="showLevelTooltip(this, '08', '105000')" onmouseleave="hideLevelTooltip()">
+                    <div class="level-circle locked" onclick="unlockLevel(this, '08')">
+                        <div class="lock-icon">🔒</div>
+                        <div class="unlock-icon">🔓</div>
+                        <span class="level-text">Level 08</span>
+                        <div class="level-status">Unlock level</div>
+                    </div>
+                    <div class="level-stars"></div>
+                </div>
+            </div>
+             <!-- Level 09 -->
+            <div class="level-item">
+                <div class="level-content" onmouseenter="showLevelTooltip(this, '08', '105000')" onmouseleave="hideLevelTooltip()">
+                    <div class="level-circle locked" onclick="unlockLevel(this, '08')">
+                        <div class="lock-icon">🔒</div>
+                        <div class="unlock-icon">🔓</div>
+                        <span class="level-text">Level 09</span>
+                        <div class="level-status">Unlock level</div>
+                    </div>
+                    <div class="level-stars"></div>
+                </div>
+            </div>
+             <!-- Level 10 -->
+            <div class="level-item">
+                <div class="level-content" onmouseenter="showLevelTooltip(this, '08', '105000')" onmouseleave="hideLevelTooltip()">
+                    <div class="level-circle locked" onclick="unlockLevel(this, '08')">
+                        <div class="lock-icon">🔒</div>
+                        <div class="unlock-icon">🔓</div>
+                        <span class="level-text">Level 10</span>
+                        <div class="level-status">Unlock level</div>
+                    </div>
+                    <div class="level-stars"></div>
+                </div>
+            </div>
+             <!-- Level 11 -->
+            <div class="level-item">
+                <div class="level-content" onmouseenter="showLevelTooltip(this, '08', '105000')" onmouseleave="hideLevelTooltip()">
+                    <div class="level-circle locked" onclick="unlockLevel(this, '08')">
+                        <div class="lock-icon">🔒</div>
+                        <div class="unlock-icon">🔓</div>
+                        <span class="level-text">Level 11</span>
+                        <div class="level-status">Unlock level</div>
+                    </div>
+                    <div class="level-stars"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+</div>
+        </main>
+    </div>
+
+{% if upcoming_round %}
+<script>
+    // Format as ISO 8601 (safe for JS)
+    const eventDate = new Date("{{ upcoming_round.date|date:'Y-m-d' }}T{{ upcoming_round.start_time|time:'H:i:s' }}");
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = eventDate.getTime() - now;
+
+        if (distance <= 0) {
+            document.getElementById("days").innerText = "00";
+            document.getElementById("hours").innerText = "00";
+            document.getElementById("minutes").innerText = "00";
+            document.getElementById("seconds").innerText = "00";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = String(days).padStart(2, '0');
+        document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+        document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+        document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>
+{% endif %}
+
+{% endblock %}

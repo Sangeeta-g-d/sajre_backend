@@ -1,0 +1,46 @@
+{% extends 'sidebar.html' %}
+{% block content %}
+
+<link rel="stylesheet" href="/static/assets/participant/css/payment_failed.css">
+
+<div class="container-fluid">
+    <div class="main-content">
+        <div class="payment-failed-container text-center py-5">
+            <div class="failed-icon mb-4">
+                <div class="icon-circle">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            
+            <h2 class="mb-3 text-danger">Payment Failed</h2>
+            
+            <div class="failed-card mx-auto">
+                <div class="card-body">
+                    <p class="mb-2"><strong>Payment ID:</strong> {{ payment_id|default:"N/A" }}</p>
+                    <p class="mb-4 text-muted">Unfortunately, your payment could not be processed. Please try again.</p>
+                    
+                    
+                    <div class="next-steps mt-5">
+                        <h5 class="mb-3">What Can You Do?</h5>
+                        <ul class="text-start mx-auto">
+                            <li>Check if your bank account was debited</li>
+                            <li>If debited, the amount will be refunded automatically</li>
+                            <li>You can retry the payment below</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="{% url 'terms' %}" class="btn retry-btn">
+                            Retry Payment
+                        </a>
+                        <a href="{% url 'dashboard' %}" class="btn back-btn">
+                            Return to Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
