@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Event</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;700&display=swap" rel="stylesheet">
+<!-- <link rel="stylesheet" href="sidebar.css"> -->
+
+<link rel="stylesheet" href="/static/assets/home_part/css/art_sidebar.css">
+
+</head>
+<body>
+    <div class="container">
+    
+<nav class="navbar navbar-expand-lg navbar-dark text-black fixed-top">
+    <div class="container-fluid">
+        <!-- Hamburger menu button on left -->
+
+
+        <!-- Logo on right, hamburger button on left -->
+        <div class="navbar-res d-flex justify-content-between align-items-center">
+            <!-- Logo on right -->
+            <a class="navbar-brand" href="#">
+                <img src="/static/assets/auth_style/img/image 1.svg" alt="Logo">
+            </a>
+
+            <!-- Hamburger button on left -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list text-black"></i>
+            </button>
+
+        </div>
+
+
+        <!-- Collapsible menu -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="about_event.php">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.php">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about_events/">Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="art_gallery.php">Projects</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="/contact_us/">Contact Us</a>
+                </li>
+            </ul>
+
+            <!-- Get Started button on right (always visible) -->
+            <a class="btn reference_frd d-none d-lg-flex ms-auto bg-white border text-black" href="#">
+               Login 
+            </a>
+
+              <a class="btn reference_frd d-none d-lg-flex gap" href="#">
+               Signup
+            </a>
+        </div>
+    </div>
+</nav>
+
+
+</div>
+
+{% block content %}
+
+{% endblock %}
+
+<footer id="footer" class="footer" style="background-color: #000000ff; padding: 60px 0 30px; color: #ffffff; font-family: 'Poppins', sans-serif;border-radius:100px 100px 0px 0px; ">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <!-- Newsletter Section -->
+        <div style="display: flex; flex-wrap: wrap; margin-bottom: 50px; padding-bottom: 50px;">
+            <div style="flex: 1 1 300px; margin-right: 30px;">
+                <img src="/static/assets/auth_style/img/image 1.svg" alt="Logo" style="height: 100px; margin-bottom: 20px;">
+                <p style="line-height: 1.6; color: #666;">
+                    From upskilling professionals to nurturing fresh talent, we have consistently focused on delivering relevant and future-ready learning experiences that keep pace with global trends.
+                </p>
+            </div>
+            <div style="flex: 1 1 300px;">
+                <h4 style="font-size: 18px; margin-bottom: 20px; font-weight: 600;">Join A Newsletter</h4>
+                <form style="max-width: 400px;">
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 500;">Your Email</label>
+                        <input type="email" placeholder="example@gmail.com" style="width: 100%; padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                    <button type="submit" style="background-color: #2d3d4e; color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: 600; cursor: pointer; width: 100%; transition: all 0.3s;">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Links Sections -->
+        <div style="display: flex; flex-wrap: wrap; gap: 30px; margin-bottom: 50px;">
+            <!-- Quick Links -->
+            <div style="flex: 1 1 200px;">
+                <h4 style="font-size: 16px; margin-bottom: 20px; font-weight: 600;">Quick Links</h4>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: #666; text-decoration: none; transition: color 0.3s;">Home</a></li>
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: #666; text-decoration: none; transition: color 0.3s;">About Us</a></li>
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: #666; text-decoration: none; transition: color 0.3s;">Terms And Condition</a></li>
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: #666; text-decoration: none; transition: color 0.3s;">Privacy Policy</a></li>
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: #666; text-decoration: none; transition: color 0.3s;">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Courses -->
+            <div style="flex: 1 1 200px;">
+                <h4 style="font-size: 16px; margin-bottom: 20px; font-weight: 600;">Courses</h4>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: #666; text-decoration: none; transition: color 0.3s;">Ethical Hacking</a></li>
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: #666; text-decoration: none; transition: color 0.3s;">Web Designing</a></li>
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: #666; text-decoration: none; transition: color 0.3s;">Fashion Designing</a></li>
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: #666; text-decoration: none; transition: color 0.3s;">Sales & Marketing</a></li>
+                </ul>
+            </div>
+
+            <!-- Get In Touch -->
+            <div style="flex: 1 1 200px;">
+                <h4 style="font-size: 16px; margin-bottom: 20px; font-weight: 600;">Get In Touch</h4>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 15px; display: flex; align-items: center;">
+                        <svg width="20" height="20" viewBox="0 0 25 24" fill="none" style="margin-right: 10px;">
+                            <path d="M21.5 16.42V19.9561C21.5 20.4811 21.0941 20.9167 20.5705 20.9537C20.1331 20.9846 19.7763 21 19.5 21C10.6634 21 3.5 13.8366 3.5 5C3.5 4.72371 3.51545 4.36687 3.54635 3.9295C3.58337 3.40588 4.01894 3 4.54386 3H8.0801C8.33678 3 8.55176 3.19442 8.57753 3.4498C8.60067 3.67907 8.62218 3.86314 8.64207 4.00202C8.84435 5.41472 9.25753 6.75936 9.8487 8.00303C9.94359 8.20265 9.88171 8.44159 9.70185 8.57006L7.54355 10.1118C8.85752 13.1811 11.3189 15.6425 14.3882 16.9565L15.9271 14.8019C16.0572 14.6199 16.299 14.5573 16.501 14.6532C17.7446 15.2439 19.0891 15.6566 20.5016 15.8584C20.6396 15.8782 20.8225 15.8995 21.0502 15.9225C21.3056 15.9483 21.5 16.1633 21.5 16.42Z" fill="#FFCA49"/>
+                        </svg>
+                        <a href="tel:+918363593267" style="color: #666; text-decoration: none;">+91 8363593267</a>
+                    </li>
+                    <li style="display: flex; align-items: center;">
+                        <svg width="20" height="20" viewBox="0 0 25 24" fill="none" style="margin-right: 10px;">
+                            <path d="M3.5 3H21.5C22.0523 3 22.5 3.44772 22.5 4V20C22.5 20.5523 22.0523 21 21.5 21H3.5C2.94772 21 2.5 20.5523 2.5 20V4C2.5 3.44772 2.94772 3 3.5 3ZM12.5606 11.6829L6.14722 6.2377L4.85278 7.7623L12.5731 14.3171L20.1544 7.75616L18.8456 6.24384L12.5606 11.6829Z" fill="#FFCA49"/>
+                        </svg>
+                        <a href="mailto:support@sajre.in" style="color: #666; text-decoration: none;">support@sajre.in</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Map (optional) -->
+            <div style="flex: 1 1 200px;">
+                 <div style="border-radius:16px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902210232338!2d90.38901607538313!3d23.75090367867659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b85b0e1e7e6b%3A0x7e7b7e7b7e7b7e7b!2sSajre%20Edutech!5e0!3m2!1sen!2sbd!4v1718100000000!5m2!1sen!2sbd"
+                    width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+                <!-- You can add your map image here -->
+                <!-- <img src="footer_map.png" alt="Map" style="width: 100%; height: auto; border-radius: 5px;"> -->
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div style="text-align: center; padding-top: 30px; border-top: 1px solid #ddd; color: #666; font-size: 14px;">
+            <p>© 2025 Sajre Edatachi. All Rights Are Reserved.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

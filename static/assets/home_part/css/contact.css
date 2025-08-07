@@ -1,0 +1,340 @@
+
+/* -----------------Get in Touch Form Styles----------------- */
+.get-p {
+    font-family: 'inter';
+    font-weight: 700;
+    font-size: 35px;
+}
+
+.form-check {
+    border-radius: 10px;
+    box-shadow: 0 0 3px rgba(11, 10, 11, 0.2);
+    padding: 10px 20px;
+}
+
+.value-card {
+    background: linear-gradient(135deg, #7E8C92 0%, #133240 100%);
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    color: white;
+    border: none;
+    min-height: 320px;
+}
+
+.value-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.icon-container {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.value-icon {
+    width: 50px;
+    height: 50px;
+    filter: brightness(0) invert(1);
+    transition: transform 0.3s ease;
+}
+
+.value-card:hover .value-icon {
+    transform: scale(1.1);
+}
+
+.value-title {
+    font-family: 'Carattere', cursive;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.value-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.value-text {
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.8;
+    margin-bottom: 0;
+    font-weight: 400;
+    font-size: 1.05rem;
+    font-family: 'Arial', sans-serif;
+}
+
+/* -----------------Timeline Styles----------------- */
+.timeline-container {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    height: 600px;
+}
+
+.left-gradient-line {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    width: 10px;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0) 0%,
+            #4a00e0 10%,
+            #8e2de2 40%,
+            #f39c12 70%,
+            #f1c40f 85%,
+            rgba(255, 255, 255, 0) 100%);
+    z-index: 1;
+    border-radius: 3px;
+
+}
+
+.horizontal-line {
+    position: absolute;
+    height: 4px;
+    width: 130px;
+    left: 100px;
+    z-index: 2;
+    margin-left: -90px;
+}
+
+.line-1 {
+    top: 150px;
+    background: #4a00e052;
+}
+
+.line-2 {
+    top: 300px;
+    background: #4a00e052;
+}
+
+.line-3 {
+    top: 450px;
+    background: #f39c1247;
+}
+
+.circle {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px;
+    border: 3px solid;
+    z-index: 3;
+    left: 135px;
+}
+
+.circle-1 {
+    top: 130px;
+    background-color: #E6E4F3;
+    border-color: #2c1e6d7d;
+    color: #2C1E6D;
+}
+
+.circle-2 {
+    top: 280px;
+    background-color: #E6E4F3;
+    border-color: #2c1e6d7d;
+    color: #2C1E6D;
+}
+
+.circle-3 {
+    top: 430px;
+    background-color: #F5EBD5;
+    border-color: #f7b842cf;
+    color: #B28531;
+}
+
+.label-container {
+    position: absolute;
+    left: 220px;
+    width: 400px;
+}
+
+.label-1 {
+    top: 130px;
+}
+
+.label-2 {
+    top: 280px;
+}
+
+.label-3 {
+    top: 430px;
+}
+
+.label-title {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.label-tagline {
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.label-1 .label-title,
+.label-1 .label-tagline {
+    color: #2C1E6D;
+}
+
+.label-1 .label-tagline {
+    background-color: #E6E4F3;
+    width: 400;
+}
+
+.label-2 .label-title,
+.label-2 .label-tagline {
+    color: #2C1E6D;
+
+}
+
+.label-2 .label-tagline {
+    background-color: #E6E4F3;
+    width: 300;
+}
+
+.label-3 .label-title,
+.label-3 .label-tagline {
+    color: #B28531;
+}
+
+.label-3 .label-tagline {
+    background-color: #F5EBD5;
+    width: 400;
+}
+
+.right-gradient-glow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 500;
+    margin-top: 60px;
+    background: radial-gradient(ellipse at right center,
+            rgba(74, 0, 224, 0.3),
+            /* #4a00e0 */
+            rgba(142, 45, 226, 0.25),
+            /* #8e2de2 */
+            rgba(243, 156, 18, 0.2),
+            /*rgb(206, 177, 130) */
+            rgba(241, 196, 15, 0.15),
+            /* #f1c40f */
+            transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.timeline-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.timeline-container {
+    position: relative;
+    width: 60%;
+    /* your existing timeline styles */
+}
+
+.timeline-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-left: 324px;
+}
+
+.timeline-image {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+
+@media (max-width: 768px) {
+    .navbar-expand-lg .navbar-nav {
+                flex-direction: row;
+                gap:40px;
+            }
+            
+    .timeline-container {
+        width: 100%;
+        padding: 0 10px;
+        min-height: 550px;
+        /* ✅ Set min-height to keep vertical line visible */
+    }
+
+    .left-gradient-line {
+        left: 40px;
+        height: 100%;
+        /* ✅ Will now span full container height */
+        margin-left: -20px;
+        width: 10px;
+    }
+
+    .horizontal-line {
+        left: 40px;
+        width: 80px;
+        margin-left: -20;
+        height: 6px;
+    }
+
+    .circle {
+        left: 75px;
+    }
+
+    .label-container {
+        left: 130px;
+        width: calc(100% - 150px);
+    }
+
+    .label-title {
+        font-size: 14px;
+    }
+
+    .label-tagline {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+
+    .label-1 .label-tagline {
+        background-color: #E6E4F3;
+        width: 130;
+    }
+
+    .label-2 .label-tagline {
+        background-color: #E6E4F3;
+        width: 130;
+    }
+
+    .label-3 .label-tagline {
+        background-color: #F5EBD5;
+        width: 130;
+    }
+
+}
+

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'participants',
     'auth_app',  # Ensure this is the correct app name for your authentication
-    'admin_part'
+    'admin_part',
+    'home_pages'
 ]
 
 MIDDLEWARE = [
