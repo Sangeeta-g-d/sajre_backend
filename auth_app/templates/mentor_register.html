@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SAJRE - Mentor Registration</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/assets/auth_style/css/mentor.css" />
+
+    <!-- Favicon (optional) -->
+    <link rel="icon" type="image/png" href="/static/assets/auth_style/img/favicon.png" />
+
+    <!-- Lottie Files -->
+    <script src="https://cdn.jsdelivr.net/npm/@lottiefiles/dotlottie-web@latest/dist/dotlottie.min.js"></script>
+</head>
+
+<body>
+    <div class="registration-container">
+        <!-- Left Section -->
+        <div class="left-section">
+            <div class="animation-container">
+                <canvas id="lottie-canvas" class="lottie-animation"></canvas>
+            </div>
+        </div>
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <!-- Logo -->
+            <div class="logo-container">
+                <img src="/static/assets/auth_style/img/image 1.svg" alt="SAJRE Logo" class="logo-img" />
+            </div>
+
+            <!-- Form Container -->
+            <div class="form-container">
+
+                <!-- Single Form wraps both steps -->
+                <form method="post" enctype="multipart/form-data" id="mentorRegistrationForm" novalidate>
+                    {% csrf_token %}
+                    <!-- Step 1 -->
+                    <div class="registration-form" id="step1">
+                        <div class="step-indicator">
+                            <div class="step active">1</div>
+                            <div class="step">2</div>
+                        </div>
+
+                        <h2 class="form-title">Qualification</h2>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="higherQualification">Higher Qualification</label>
+                            <select id="higherQualification" name="higherQualification" class="form-control" required>
+                                <option value="" selected disabled>Select Qualification</option>
+                                <option value="PhD">PhD</option>
+                                <option value="Master's Degree">Master's Degree</option>
+                                <option value="Bachelor's Degree">Bachelor's Degree</option>
+                                <option value="Diploma">Diploma</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="passportPhoto">Upload Passport size Photo</label>
+                            <div class="file-upload">
+                                <input type="file" id="passportPhoto" name="passportPhoto" class="file-input" required />
+                                <label for="passportPhoto" class="file-upload-btn">Choose file</label>
+                                <div class="file-name">No file uploaded</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="idProof">ID Proof</label>
+                            <div class="file-upload">
+                                <input type="file" id="idProof" name="idProof" class="file-input" required />
+                                <label for="idProof" class="file-upload-btn">Choose file</label>
+                                <div class="file-name">No file uploaded</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <input type="text" id="fullAddress" name="fullAddress" class="form-control" placeholder="gandhi road, Mumbai" required />
+                            <label for="fullAddress" class="form-label">Full Address</label>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <input type="text" id="storeAdvisor" name="storeAdvisor" class="form-control" placeholder="3rd cross" />
+                            <label for="storeAdvisor" class="form-label">Store/Advisor</label>
+                        </div>
+
+                        <div class="form-row d-flex gap-3 mb-3">
+                            <div class="form-col flex-fill">
+                                <div class="form-group">
+                                    <input type="text" id="city" name="city" class="form-control" placeholder="Dharwad" required />
+                                    <label for="city" class="form-label">City</label>
+                                </div>
+                            </div>
+                            <div class="form-col flex-fill">
+                                <div class="form-group">
+                                    <input type="text" id="district" name="district" class="form-control" placeholder="Dharwad" required />
+                                    <label for="district" class="form-label">District</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row d-flex gap-3 mb-3">
+                            <div class="form-col flex-fill">
+                                <div class="form-group">
+                                    <input type="text" id="state" name="state" class="form-control" placeholder="Karnataka" required />
+                                    <label for="state" class="form-label">State</label>
+                                </div>
+                            </div>
+                            <div class="form-col flex-fill">
+                                <div class="form-group">
+                                    <input type="text" id="pincode" name="pincode" class="form-control" placeholder="580001" required />
+                                    <label for="pincode" class="form-label">PIN Code</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="courseLevel">Course / Level of Education</label>
+                            <input type="text" id="courseLevel" name="courseLevel" class="form-control" placeholder="PhD" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="courseName">Course Name</label>
+                            <input type="text" id="courseName" name="courseName" class="form-control" placeholder="Excel & month bootcamp" />
+                        </div>
+
+                        <hr class="divider" />
+
+                        <button type="button" class="btn btn-next" id="nextButton">NEXT</button>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="registration-form" id="step2" style="display: none;">
+                        <div class="step-indicator">
+                            <div class="step">1</div>
+                            <div class="step-connector active"></div>
+                            <div class="step active">2</div>
+                        </div>
+
+                        <h2 class="form-title">Professional Details</h2>
+
+                        <div class="professional-section">
+                            <div class="form-group mb-3">
+                                <input type="text" id="jobTitle" name="jobTitle" class="form-control" placeholder="Enter job title" />
+                                <label for="jobTitle" class="form-label">Job Title</label>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <input type="number" step="0.1" id="totalExperience" name="totalExperience" class="form-control" placeholder="Enter years of experience" />
+                                <label for="totalExperience" class="form-label">Total Experience (Years)</label>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="workHistory">Work History</label>
+                                <textarea id="workHistory" name="workHistory" class="form-control" rows="3" placeholder="Describe your work history"></textarea>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <input type="text" id="currentEmployer" name="currentEmployer" class="form-control" placeholder="Current employer or working status" />
+                                <label for="currentEmployer" class="form-label">Current Employer / Working Status</label>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <input type="text" id="location" name="location" class="form-control" placeholder="Enter location" />
+                                <label for="location" class="form-label">Location</label>
+                            </div>
+                        </div>
+
+                        <hr class="divider" />
+                        <div class="d-flex justify-content-between mt-3">
+                            <button type="button" class="btn btn-back" id="backButton">BACK</button>
+                            <button type="submit" class="btn btn-next">SUBMIT</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- <div class="footer-links mt-3">
+                    <a href="#">Terms and conditions</a>
+                    <span>•</span>
+                    <a href="#">Privacy policy</a>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script type="module" src="/static/assets/auth_style/js/mentor.js"></script>
+</body>
+
+</html>

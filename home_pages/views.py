@@ -20,3 +20,7 @@ def contact_us(request):
 
 def art_contact(request):
     return render(request,'art_contact.html')
+
+
+def about_us(request):
+    return render(request,'about_us.html')

@@ -144,3 +144,46 @@ class ParticipantProfile(models.Model):
     def save(self, *args, **kwargs):
         self.age = self.calculate_age()
         super().save(*args, **kwargs)
+
+
+class MentorProfile(models.Model):
+    QUALIFICATION_CHOICES = [
+        ("PhD", "PhD"),
+        ("Master's Degree", "Master's Degree"),
+        ("Bachelor's Degree", "Bachelor's Degree"),
+        ("Diploma", "Diploma"),
+        ("Other", "Other"),
+    ]
+
+    user = models.OneToOneField(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name="mentor_profile"
+    )
+
+    # Step 1: Qualification Details
+    higher_qualification = models.CharField(max_length=50, choices=QUALIFICATION_CHOICES)
+    passport_photo = models.ImageField(upload_to="mentors/passport_photos/")
+    id_proof = models.FileField(upload_to="mentors/id_proofs/")
+
+    full_address = models.TextField()
+    store_or_advisor = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=100)
+    district = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    pincode = models.CharField(max_length=10)
+
+    course_level = models.CharField(max_length=255)  # e.g., "PhD"
+    course_name = models.CharField(max_length=255)
+
+    # Step 2: Professional Details
+    job_title = models.CharField(max_length=255)
+    total_experience_years = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
+    work_history = models.TextField(blank=True, null=True)
+    current_employer = models.CharField(max_length=255, blank=True, null=True)
+    location = models.CharField(max_length=255)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Mentor Profile - {self.user.full_name or self.user.email}"

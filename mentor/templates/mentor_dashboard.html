@@ -1,0 +1,290 @@
+{% extends 'mentor_base.html' %}
+{% block content %}
+<link rel="stylesheet" href="/static/assets/mentor/css/mentor-dashboard.css">
+    <div class="main-content">
+        <!-- Updated Header Section with Export Button -->
+        <div class="content-header">
+            <div class="header-text">
+                <h1>Students Registered via Your Referral Link</h1>
+                <p>Track and manage all students who joined through your mentorship program</p>
+            </div>
+            <button class="export-btn">
+                <i class="fas fa-download"></i>
+                Export CSV
+            </button>
+        </div>
+
+        <!-- Stats and Actions Container -->
+        <div class="stats-actions-container">
+            <!-- Stats Cards -->
+            <div class="stats-cards">
+                <!-- Card 1 -->
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-title">Students Referred</div>
+                        <div class="stat-value">245</div>
+                        <div class="stat-details">
+                            <span class="stat-label">Total referrals</span>
+                            <span class="stat-change positive">↑12%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-title">Registered</div>
+                        <div class="stat-value">200</div>
+                        <div class="stat-details">
+                            <span class="stat-label">Via your referral</span>
+                            <span class="stat-change positive">↑12%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="stat-card">
+                    <div class="stat-icon teal">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-title">Successfully Enrolled</div>
+                        <div class="stat-value">45</div>
+                        <div class="stat-details">
+                            <span class="stat-label">Active in competition</span>
+                            <span class="stat-change positive">↑12%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions and Tip Section -->
+            <div class="actions-tip-section">
+                <div class="tip-card">
+                    <div class="tip-title">Mentorship Tip</div>
+                    <div class="tip-content">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Follow up with registered students before deadlines!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+
+           <div class="category-charts-container">
+        <!-- Category Pie Charts Row -->
+        <div class="category-charts-row">
+            <div class="category-chart-card">
+                <div class="category-chart-card-title">Junior Category</div>
+                <div class="chart-container">
+                    <canvas id="juniorPieChart" width="110" height="110"></canvas>
+                    <div class="chart-stats">
+                        <div><strong>Total Users:</strong> 100</div>
+                        <div><strong>Registered:</strong> 99</div>
+                        <div><strong>Enrolled:</strong> 99</div>
+                    </div>
+                </div>
+            </div>
+            <div class="category-chart-card">
+                <div class="category-chart-card-title">Intermediate Category</div>
+                <div class="chart-container">
+                    <canvas id="intermediatePieChart" width="110" height="110"></canvas>
+                    <div class="chart-stats">
+                        <div><strong>Total Users:</strong> 100</div>
+                        <div><strong>Registered:</strong> 99</div>
+                        <div><strong>Enrolled:</strong> 99</div>
+                    </div>
+                </div>
+            </div>
+            <div class="category-chart-card">
+                <div class="category-chart-card-title">Senior Category</div>
+                <div class="chart-container">
+                    <canvas id="seniorPieChart" width="110" height="110"></canvas>
+                    <div class="chart-stats">
+                        <div><strong>Total Users:</strong> 100</div>
+                        <div><strong>Registered:</strong> 99</div>
+                        <div><strong>Enrolled:</strong> 99</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Search and Filter Section -->
+        <div class="search-filter-section">
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search by Name or Category">
+            </div>
+            <button class="filter-btn">
+            <i class="fas fa-filter"></i>
+            Filter
+        </button>
+    </div>
+        
+        <!-- Chart.js CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            // Example data for each category
+            const juniorData = [30, 70]; // e.g. 30 enrolled, 70 not enrolled
+            const intermediateData = [50, 50];
+            const seniorData = [80, 20];
+
+            const chartOptions = {
+                responsive: false,
+                plugins: {
+                    legend: { display: false }
+                }
+            };
+            
+            new Chart(document.getElementById('juniorPieChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['Enrolled', 'Not Enrolled'],
+                    datasets: [{
+                        data: juniorData,
+                        backgroundColor: ['#f95d5d', '#66deb4']
+                    }]
+                },
+                options: chartOptions
+            });
+
+            new Chart(document.getElementById('intermediatePieChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['Enrolled', 'Not Enrolled'],
+                    datasets: [{
+                        data: intermediateData,
+                        backgroundColor: ['#f95d5d', '#66deb4']
+                    }]
+                },
+                options: chartOptions
+            });
+
+            new Chart(document.getElementById('seniorPieChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['Enrolled', 'Not Enrolled'],
+                    datasets: [{
+                        data: seniorData,
+                        backgroundColor: ['#f95d5d', '#66deb4']
+                    }]
+                },
+                options: chartOptions
+            });
+        </script>
+
+
+
+        <!-- Data Table -->
+        <div class="table-container">
+            <table class="students-table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="selectAll"></th>
+                        <th>Student Name</th>
+                        <th>Age Group</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Registration Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="studentsTableBody">
+                    <tr>
+                        <td><input type="checkbox" class="row-checkbox"></td>
+                        <td>
+                            <div class="student-info">
+                                <img src="https://via.placeholder.com/40" alt="Emma Wilson" class="student-avatar">
+                                <div>
+                                    <div class="student-name">Emma Wilson</div>
+                                    <div class="student-email">emma.wilson@email.com</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>11-16</td>
+                        <td><span class="category teen">Teen</span></td>
+                        <td><span class="status enrolled">Enrolled</span></td>
+                        <td>15 Jan, 2024</td>
+                        <td>
+                            <button class="action-btn view-btn">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="row-checkbox"></td>
+                        <td>
+                            <div class="student-info">
+                                <img src="https://via.placeholder.com/40" alt="Emma Wilson" class="student-avatar">
+                                <div>
+                                    <div class="student-name">Emma Wilson</div>
+                                    <div class="student-email">emma.wilson@email.com</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>06-11</td>
+                        <td><span class="category junior">Junior</span></td>
+                        <td><span class="status not-started">Not Started</span></td>
+                        <td>15 Jan, 2024</td>
+                        <td>
+                            <button class="action-btn view-btn">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="row-checkbox"></td>
+                        <td>
+                            <div class="student-info">
+                                <img src="https://via.placeholder.com/40" alt="Emma Wilson" class="student-avatar">
+                                <div>
+                                    <div class="student-name">Emma Wilson</div>
+                                    <div class="student-email">emma.wilson@email.com</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>11-16</td>
+                        <td><span class="category teen">Teen</span></td>
+                        <td><span class="status enrolled">Enrolled</span></td>
+                        <td>15 Jan, 2024</td>
+                        <td>
+                            <button class="action-btn view-btn">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="row-checkbox"></td>
+                        <td>
+                            <div class="student-info">
+                                <img src="https://via.placeholder.com/40" alt="Emma Wilson" class="student-avatar">
+                                <div>
+                                    <div class="student-name">Emma Wilson</div>
+                                    <div class="student-email">emma.wilson@email.com</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>17-22</td>
+                        <td><span class="category youth">Youth</span></td>
+                        <td><span class="status registered">Registered</span></td>
+                        <td>15 Jan, 2024</td>
+                        <td>
+                            <button class="action-btn view-btn">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="/static/assets/mentor/js/mentor-dashboard.js"></script>
+{% endblock %}

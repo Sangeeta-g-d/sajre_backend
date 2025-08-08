@@ -93,8 +93,32 @@ def select_category(request):
         if role:
             request.user.role = role
             request.user.save()
-            # redirect based on role or to home/dashboard
-            return redirect("/participant_basic_details")
+
+            # Role-based redirect
+            if role == 'participant':
+                return redirect('/auth/participant_basic_details')
+            elif role == 'mentor':
+                return redirect('/auth/mentor_register/')
+            elif role == 'driver':
+                return redirect('/driver_dashboard')
+            elif role == 'employee':
+                return redirect('/employee_home')
+            elif role == 'customer':
+                return redirect('/customer_home')
+            elif role == 'admin':
+                return redirect('/admin/dashboard')
+            elif role == 'teacher':
+                return redirect('/teacher_home')
+            elif role == 'school':
+                return redirect('/school_dashboard')
+            elif role == 'college':
+                return redirect('/college_dashboard')
+            elif role == 'vendor':
+                return redirect('/vendor_dashboard')
+
+            # Default fallback redirect
+            return redirect('/dashboard')
+
     return render(request, "selectcategory.html")
 
 
@@ -166,7 +190,6 @@ def login_view(request):
         email = request.POST.get("email")
         password = request.POST.get("password")
         user = authenticate(request, username=email, password=password)
-
         if user is not None:
             login(request, user)
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -189,3 +212,41 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+@login_required
+def mentor_register(request):
+    if request.method == "POST":
+        user = request.user
+        profile, created = MentorProfile.objects.get_or_create(user=user)
+
+        # Step 1: Qualification Details
+        profile.higher_qualification = request.POST.get("higherQualification")
+        profile.full_address = request.POST.get("fullAddress")
+        profile.store_or_advisor = request.POST.get("storeAdvisor")
+        profile.city = request.POST.get("city")
+        profile.district = request.POST.get("district")
+        profile.state = request.POST.get("state")
+        profile.pincode = request.POST.get("pincode")
+        profile.course_level = request.POST.get("courseLevel")
+        profile.course_name = request.POST.get("courseName")
+
+        # Step 2: Professional Details
+        profile.job_title = request.POST.get("jobTitle")
+        profile.total_experience_years = request.POST.get("totalExperience") or 0
+        profile.work_history = request.POST.get("workHistory")
+        profile.current_employer = request.POST.get("currentEmployer")
+        profile.location = request.POST.get("location")
+
+        # File uploads
+        if request.FILES.get("passportPhoto"):
+            profile.passport_photo = request.FILES["passportPhoto"]
+        if request.FILES.get("idProof"):
+            profile.id_proof = request.FILES["idProof"]
+
+        profile.save()
+
+        print("✅ Mentor registration submitted successfully")
+        return redirect("/mentor/dashboard/")  # Change to your dashboard or success page
+
+    return render(request, "mentor_register.html")
