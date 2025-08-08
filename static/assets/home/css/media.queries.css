@@ -1,0 +1,806 @@
+@media only screen and (max-width: 600px){
+    section#hm_banner_slider_section .slide-content{
+            padding: 2rem 1rem; 
+    }
+    section#hm_banner_slider_section h2.hm_slider_title{
+            font-size: 20.95px;
+            line-height: 27px;
+    }
+    section#hm_banner_slider_section button.hm_slider_btn{
+            height: 55px;
+            font-size: 18px;
+    }
+    /* home view event css start */
+    section#view_event_section h6.hm_view_event_title{
+        font-size: 19.96px;
+    }
+    section#view_event_section p.hm_view_event_des {
+        font-size: 7.98px;
+    }
+    section#view_event_section button.hm_view_event_btn{
+        font-size: 14.54px;
+    }
+    section#view_event_section img.GeniUS_img{
+        width: 100%;
+    }
+    
+    /* home view event css end */
+
+    /* home mission css start form here */
+    section#hm_mission_section p.mission_description{
+        font-size: 13px;
+    }
+    section#hm_mission_section .mission_background_img img{
+        left: 20px;
+    }
+    section#hm_mission_section .mission_background_img .spacer{
+        height: 100px;
+    }
+    /* home mission css start form here */
+    /* home crouse section css start */
+    section#hm_crouse_section h2.sm_crouse_title{
+        font-size: 39px;
+    }
+    section#hm_crouse_section .slider-wrapper::after{
+        background: none;
+    }
+    /* home crouse section css end */
+    /* home tutor section css start  */
+    .tutor_full_background.overflow-hidden{
+        background-position: 106% -7%;
+    }
+    section#hm_tutor_section h1.tutor_sub_title{
+        font-size: 30.12px;
+    }
+    section#hm_tutor_section .tutor_full_background p{
+        font-size: 10px;
+    }
+    section#hm_tutor_section .tutor_full_background button {
+        padding: 7px 10px;
+        font-size: 15.06px;
+    }
+    section#hm_tutor_section .text-center.tutor_title{
+        font-size: 39px;
+    }
+    img.tutor_man_img{
+        left: 0px;
+    }
+     /* home tutor section css end  */
+    /* home event section css start form here */
+    section#hm_event_section .section-title{
+        font-size: 39px;
+    }  
+    section#hm_event_section .event-title{
+        font-size: 17.04px;
+    }  
+    section#hm_event_section .event-author{
+        font-size: 9.94px;
+    }
+    section#hm_event_section .event-time{
+        font-size: 9.94px;
+    }
+    section#hm_event_section img.event_child_img {
+        width: 34px;
+        height: 34px;
+    }
+    /* home event section css end form here */
+    /* home customer feedback section css */
+    section#customer_feedback_section h4.feedback_title{
+        font-size: 23.09px;
+    }
+    section#customer_feedback_section p.feedback_des{
+        font-size: 15.87px;
+    }
+    section#customer_feedback_section .feedback-slider .card img.customer_img {
+        width: 43px;
+        height: 43px;
+        border-radius: 12.29px;
+    }
+    section#customer_feedback_section .feedback-slider .card h6.card_title{
+        font-size: 15.87px;
+    }
+    section#customer_feedback_section .feedback-slider .card p.customer_text{
+        font-size: 11.54px;
+    }
+    section#customer_feedback_section{
+        background-image: none;
+    }
+    /* home customer feedback section css */
+    /* home social media section css start */
+    section#social_media_section h2.social_title{
+        font-size: 20.33px;
+    }
+    /* home social media section css end */
+    /* home faq section css start */
+    section#hm_faq_section p.faq_sub_title{
+        font-size: 11.6px;
+    }
+    section#hm_faq_section h2.faq_title{
+        font-size: 17px;
+        line-height: 20.97px;
+    }
+    section#hm_faq_section p.faq_description {
+        font-size: 12.57px;
+        line-height: 11.79px;
+    }
+    
+    section#hm_faq_section .accordion__item .accordion__title{
+        font-size: 12px;
+        padding: 5px 54px 5px 13px;
+    }
+    section#hm_faq_section .accordion__item .accordion__content{
+        padding: 5px 20px 14px 20px;
+    }
+    /* home faq section css end */
+    /* about banner css start form here */
+    section#ab_banner_section .ab_banner_spacer{
+        height: 150px;
+    }
+    section#ab_banner_section h1.ab_banner_title{
+        font-size: 29px;
+    }
+    section#ab_banner_section p.ab_banner_description{
+        font-size: 11.9px;
+    }
+    section#ab_banner_section a.ab_banner_btn{
+        padding: 10.88px 18.8px;
+        font-size: 15.33px;
+    }
+    /* about banner css end form here */
+    /* about us section css start form here */
+    section#about_us_section .about_us_title{
+        font-size: 45px;
+    }
+    section#about_us_section h5.about_us_sub_title{
+        font-size: 20px;
+    }
+    section#about_us_section p.about_us_description{
+        font-size: 12px; 
+    }
+    section#about_us_section img.about_us_side_img {
+        width: 229px;
+    }
+    section#about_us_section .about_us_background_img{
+        min-height: 250px;
+        border-radius: 19.9px;
+    }
+     /* about us section css end form here */
+    /* about mission section css start form here */
+    section#ab_mission_section h1.about_mission_title{
+        font-size: 34px;
+    }
+    section#ab_mission_section p.about_mission_des {
+        font-size: 12px;
+    }
+    /* about mission section css end form here */
+    /* about crouse section css start  */
+    section#about_crouse_section h4.about_crouse_title{
+       font-size: 25.74px;
+    }
+    section#about_crouse_section h6.about_crouse_check_title {
+        font-size: 16.3px;
+    }
+    section#about_crouse_section img.about_crouse_check_img{
+        width: 20px;
+    }
+     /* about crouse section css end  */
+     /* about founder css start form here */
+    section#about_founder_section h3.founder_title.text-center{
+        font-size: 27.42px;
+    }
+    section#about_founder_section h5.author_title{
+        font-size: 25.03px;
+    }
+    section#about_founder_section .author_sub_title{
+        font-size: 14.52px;
+    }
+    section#about_founder_section h5.founder_info_title{
+        font-size: 18.74px;
+    }
+    section#about_founder_section .founder_info_box p{
+        font-size: 12px;
+    }
+    /* about founder css end form here */
+    /* about team section css start form here */
+    section#about_team_section h2.about_team_title {
+        font-size: 31.09px;
+        line-height: 35.69px;
+        padding: 0px 50px;
+    }
+     section#about_team_section .row{
+        width: 100%;
+        margin: auto;
+     }
+     section#about_team_section h5.team_card_title{
+        font-size: 16.49px;
+        line-height: 27.49px;
+     }
+     section#about_team_section p.team_card_role{
+        font-size: 12.83px;
+        line-height: 20.16px;
+     }
+     section#about_team_section p.team_card_des{
+        font-size: 12.83px;
+        line-height: 20.16px;
+     }
+    /* about team section css end form here */
+    /* about profile section css start */
+    section#about_profiles_section .profile-card h5.profile_card_title{
+        font-size: 18.08px;
+    }
+    section#about_profiles_section .profile-card p.profile_card_role{
+        font-size: 14.46px;
+    }
+    section#about_profiles_section .about_profile_div{
+        width: 145px;
+        height: 145px;
+    }
+     /* about profile section css end */
+    footer.footer {
+        border-radius: 95.59px 95.59px 0px 0px;
+    } 
+    p.footer_description{
+        font-size: 12.36px;
+    }
+    form.footer_form h4{
+        font-size: 33.15px;
+    }
+    form.footer_form label{
+        font-size: 12.36px;
+    }
+    form.footer_form input::placeholder {
+        font-size: 12.36px;
+    }
+    form.footer_form input[type="email"]{
+        height: 38px;
+    }
+    form.footer_form  .footer_form_btn button.btn.btn-lg.form-control{
+        font-size: 12.36px;
+    }
+    footer#footer  .row.footer_botton_row p{
+        font-size: 11.24px;
+    }
+    footer#footer .row h4.title {
+        font-size: 12.36px;
+    }
+    footer#footer .row ul li a.nav-link{
+        font-size: 11.24px;
+    }
+   
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+    section#hm_banner_slider_section .slide-content{
+            padding: 2rem 1rem; 
+    }
+    section#hm_banner_slider_section h2.hm_slider_title{
+            font-size: 20.95px;
+            line-height: 27px;
+    }
+    section#hm_banner_slider_section button.hm_slider_btn{
+            height: 55px;
+            font-size: 18px;
+    }
+
+     /* home view event css start */
+    section#view_event_section h6.hm_view_event_title{
+        font-size: 19.96px;
+    }
+    section#view_event_section p.hm_view_event_des {
+        font-size: 7.98px;
+    }
+    section#view_event_section button.hm_view_event_btn{
+        font-size: 14.54px;
+    }
+     section#view_event_section img.GeniUS_img{
+        width: 100%;
+    }
+    /* home view event css end */
+
+    /* home mission css start form here */
+    section#hm_mission_section p.mission_description{
+        font-size: 13px;
+    }
+    section#hm_mission_section .mission_background_img img{
+        left: 20px;
+    }
+    section#hm_mission_section .mission_background_img .spacer{
+        height: 100px;
+    }
+    /* home mission css start form here */
+     /* home crouse section css start */
+    section#hm_crouse_section h2.sm_crouse_title{
+        font-size: 39px;
+    }
+     section#hm_crouse_section .slider-wrapper::after{
+        background: none;
+    }
+    /* home crouse section css end */
+    /* home tutor section css start  */
+    section#hm_tutor_section h1.tutor_sub_title{
+        font-size: 30.12px;
+    }
+    section#hm_tutor_section .tutor_full_background p{
+        font-size: 10px;
+    }
+    section#hm_tutor_section .tutor_full_background button {
+        padding: 7px 10px;
+        font-size: 15.06px;
+    }
+    section#hm_tutor_section .text-center.tutor_title{
+        font-size: 39px;
+    }
+     /* home tutor section css end  */
+     /* home event section css start form here */
+    section#hm_event_section .section-title{
+        font-size: 39px;
+    }  
+    section#hm_event_section .event-title{
+        font-size: 17.04px;
+    }  
+    section#hm_event_section .event-author{
+        font-size: 9.94px;
+    }
+    section#hm_event_section .event-time{
+        font-size: 9.94px;
+    }
+    section#hm_event_section img.event_child_img {
+        width: 34px;
+        height: 34px;
+    }
+    /* home event section css end form here */
+    /* home customer feedback section css */
+    section#customer_feedback_section h4.feedback_title{
+        font-size: 23.09px;
+    }
+    section#customer_feedback_section p.feedback_des{
+        font-size: 15.87px;
+    }
+    section#customer_feedback_section .feedback-slider .card img.customer_img {
+        width: 43px;
+        height: 43px;
+        border-radius: 12.29px;
+    }
+    section#customer_feedback_section .feedback-slider .card h6.card_title{
+        font-size: 15.87px;
+    }
+    section#customer_feedback_section .feedback-slider .card p.customer_text{
+        font-size: 11.54px;
+    }
+     section#customer_feedback_section{
+        background-image: none;
+    }
+    /* home customer feedback section css */
+    /* home social media section css start */
+    section#social_media_section h2.social_title{
+        font-size: 20.33px;
+    }
+     /* home faq section css start */
+    section#hm_faq_section p.faq_sub_title{
+        font-size: 11.6px;
+    }
+    section#hm_faq_section h2.faq_title{
+        font-size: 17px;
+        line-height: 20.97px;
+    }
+    section#hm_faq_section p.faq_description {
+        font-size: 12.57px;
+        line-height: 11.79px;
+    }
+    
+    section#hm_faq_section .accordion__item .accordion__title{
+        font-size: 12px;
+        padding: 5px 54px 5px 13px;
+    }
+    section#hm_faq_section .accordion__item .accordion__content{
+        padding: 5px 20px 14px 20px;
+    }
+    /* home faq section css end */
+     /* about banner css start form here */
+    section#ab_banner_section .ab_banner_spacer{
+        height: 150px;
+    }
+    section#ab_banner_section h1.ab_banner_title{
+        font-size: 29px;
+    }
+    section#ab_banner_section p.ab_banner_description{
+        font-size: 11.9px;
+    }
+    section#ab_banner_section a.ab_banner_btn{
+        padding: 10.88px 18.8px;
+        font-size: 15.33px;
+    }
+    /* about banner css end form here */
+   /* about us section css start form here */
+    section#about_us_section .about_us_title{
+        font-size: 45px;
+    }
+    section#about_us_section h5.about_us_sub_title{
+        font-size: 20px;
+    }
+    section#about_us_section p.about_us_description{
+        font-size: 12px; 
+    }
+    section#about_us_section img.about_us_side_img {
+        width: 229px;
+    }
+    section#about_us_section .about_us_background_img{
+        min-height: 250px;
+        border-radius: 19.9px;
+    }
+     /* about us section css end form here */
+      /* about mission section css start form here */
+    section#ab_mission_section h1.about_mission_title{
+        font-size: 34px;
+    }
+    section#ab_mission_section p.about_mission_des {
+        font-size: 12px;
+    }
+    /* about mission section css end form here */
+    /* about crouse section css start  */
+    section#about_crouse_section h4.about_crouse_title{
+       font-size: 25.74px;
+    }
+    section#about_crouse_section h6.about_crouse_check_title {
+        font-size: 16.3px;
+    }
+    section#about_crouse_section img.about_crouse_check_img{
+        width: 20px;
+    }
+     /* about crouse section css end  */
+    
+     /* about founder css start form here */
+    section#about_founder_section h3.founder_title.text-center{
+        font-size: 27.42px;
+    }
+    section#about_founder_section h5.author_title{
+        font-size: 25.03px;
+    }
+    section#about_founder_section .author_sub_title{
+        font-size: 14.52px;
+    }
+    section#about_founder_section h5.founder_info_title{
+        font-size: 18.74px;
+    }
+    section#about_founder_section .founder_info_box p{
+        font-size: 12px;
+    }
+    /* about founder css end form here */
+    /* about team section css start form here */
+    section#about_team_section h2.about_team_title {
+        font-size: 31.09px;
+        line-height: 35.69px;
+        padding: 0px 50px;
+    }
+     section#about_team_section .row{
+        width: 100%;
+        margin: auto;
+     }
+     section#about_team_section h5.team_card_title{
+        font-size: 16.49px;
+        line-height: 27.49px;
+     }
+     section#about_team_section p.team_card_role{
+        font-size: 12.83px;
+        line-height: 20.16px;
+     }
+     section#about_team_section p.team_card_des{
+        font-size: 12.83px;
+        line-height: 20.16px;
+     }
+    /* about team section css end form here */
+     /* about profile section css start */
+    section#about_profiles_section .profile-card h5.profile_card_title{
+        font-size: 18.08px;
+    }
+    section#about_profiles_section .profile-card p.profile_card_role{
+        font-size: 14.46px;
+    }
+    section#about_profiles_section .about_profile_div{
+        width: 145px;
+        height: 145px;
+    }
+     /* about profile section css end */
+    footer.footer {
+        border-radius: 95.59px 95.59px 0px 0px;
+    } 
+    p.footer_description{
+        font-size: 12.36px;
+    }
+    form.footer_form h4{
+        font-size: 33.15px;
+    }
+    form.footer_form label{
+        font-size: 12.36px;
+    }
+    form.footer_form input::placeholder {
+        font-size: 12.36px;
+    }
+    form.footer_form input[type="email"]{
+        height: 38px;
+    }
+    form.footer_form  .footer_form_btn button.btn.btn-lg.form-control{
+        font-size: 12.36px;
+    }
+    footer#footer .row h4.title {
+        font-size: 12.36px;
+    }
+    footer#footer .row ul li a.nav-link{
+        font-size: 11.24px;
+    }
+    section#hm_banner_slider_section .hm_slider_content{
+        max-width: 605px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    section#hm_banner_slider_section .slide-content{
+            padding: 2rem 1rem; 
+    }
+    section#hm_banner_slider_section h2.hm_slider_title{
+            font-size: 20.95px;
+            line-height: 27px;
+    }
+    section#hm_banner_slider_section button.hm_slider_btn{
+            height: 55px;
+            font-size: 18px;
+    }
+    /* home view event css start */
+    section#view_event_section h6.hm_view_event_title{
+        font-size: 19.96px;
+    }
+    section#view_event_section p.hm_view_event_des {
+        font-size: 7.98px;
+    }
+    section#view_event_section button.hm_view_event_btn{
+        font-size: 14.54px;
+    }
+    /* home view event css end */
+    /* home mission css start form here */
+    section#hm_mission_section p.mission_description{
+        font-size: 15px;
+    }
+    section#hm_mission_section .mission_background_img img{
+        left: 20px;
+    }
+     section#hm_mission_section .mission_background_img .spacer{
+        height: 100px;
+    }
+    /* home mission css start form here */
+    /* home tutor section css start  */
+    section#hm_tutor_section h1.tutor_sub_title{
+        font-size: 30.12px;
+    }
+    section#hm_tutor_section .tutor_full_background p{
+        font-size: 10px;
+    }
+    section#hm_tutor_section .tutor_full_background button {
+        padding: 7px 10px;
+        font-size: 15.06px;
+    }
+    section#hm_tutor_section .text-center.tutor_title{
+        font-size: 33px;
+    }
+     /* home tutor section css end  */
+     /* home event section css start form here */
+    section#hm_event_section .section-title{
+        font-size: 39px;
+    }  
+    section#hm_event_section .event-title{
+        font-size: 17.04px;
+    }  
+    section#hm_event_section .event-author{
+        font-size: 9.94px;
+    }
+    section#hm_event_section .event-time{
+        font-size: 9.94px;
+    }
+    section#hm_event_section img.event_child_img {
+        width: 34px;
+        height: 34px;
+    }
+    /* home event section css end form here */
+     /* home customer feedback section css */
+    section#customer_feedback_section h4.feedback_title{
+        font-size: 23.09px;
+    }
+    section#customer_feedback_section p.feedback_des{
+        font-size: 15.87px;
+    }
+    /* home customer feedback section css */
+     /* home customer feedback section css */
+    section#customer_feedback_section h4.feedback_title{
+        font-size: 23.09px;
+    }
+    section#customer_feedback_section p.feedback_des{
+        font-size: 15.87px;
+    }
+    section#customer_feedback_section .feedback-slider .card img.customer_img {
+        width: 43px;
+        height: 43px;
+        border-radius: 12.29px;
+    }
+    section#customer_feedback_section .feedback-slider .card h6.card_title{
+        font-size: 15.87px;
+    }
+    section#customer_feedback_section .feedback-slider .card p.customer_text{
+        font-size: 11.54px;
+    }
+     section#customer_feedback_section{
+        background-image: none;
+    }
+    /* home customer feedback section css */
+    /* home social media section css start */
+    section#social_media_section h2.social_title{
+        font-size: 20.33px;
+    }
+     /* home faq section css start */
+    section#hm_faq_section p.faq_sub_title{
+        font-size: 11.6px;
+    }
+    section#hm_faq_section h2.faq_title{
+        font-size: 17px;
+        line-height: 20.97px;
+    }
+    section#hm_faq_section p.faq_description {
+        font-size: 12.57px;
+        line-height: 11.79px;
+    }
+    
+    section#hm_faq_section .accordion__item .accordion__title{
+        font-size: 12px;
+        padding: 5px 54px 5px 13px;
+    }
+    section#hm_faq_section .accordion__item .accordion__content{
+        padding: 5px 20px 14px 20px;
+    }
+    /* home faq section css end */
+     /* about banner css start form here */
+    section#ab_banner_section .ab_banner_spacer{
+        height: 150px;
+    }
+    section#ab_banner_section h1.ab_banner_title{
+        font-size: 29px;
+    }
+    section#ab_banner_section p.ab_banner_description{
+        font-size: 11.9px;
+    }
+    section#ab_banner_section a.ab_banner_btn{
+        padding: 10.88px 18.8px;
+        font-size: 15.33px;
+    }
+    /* about banner css end form here */
+     /* about us section css start form here */
+    section#about_us_section .about_us_title{
+        font-size: 45px;
+    }
+    section#about_us_section h5.about_us_sub_title{
+        font-size: 20px;
+    }
+    section#about_us_section p.about_us_description{
+        font-size: 12px; 
+    }
+    section#about_us_section img.about_us_side_img {
+        width: 229px;
+    }
+    section#about_us_section .about_us_background_img{
+        min-height: 250px;
+        border-radius: 19.9px;
+    }
+     /* about us section css end form here */
+      /* about mission section css start form here */
+    section#ab_mission_section h1.about_mission_title{
+        font-size: 34px;
+    }
+    section#ab_mission_section p.about_mission_des {
+        font-size: 12px;
+    }
+    /* about mission section css end form here */
+    /* about crouse section css start  */
+    section#about_crouse_section h4.about_crouse_title{
+       font-size: 25.74px;
+    }
+    section#about_crouse_section h6.about_crouse_check_title {
+        font-size: 16.3px;
+    }
+    section#about_crouse_section img.about_crouse_check_img{
+        width: 20px;
+    }
+     /* about crouse section css end  */
+     /* about founder css start form here */
+    section#about_founder_section h3.founder_title.text-center{
+        font-size: 27.42px;
+    }
+    section#about_founder_section h5.author_title{
+        font-size: 25.03px;
+    }
+    section#about_founder_section .author_sub_title{
+        font-size: 14.52px;
+    }
+    section#about_founder_section h5.founder_info_title{
+        font-size: 18.74px;
+    }
+    section#about_founder_section .founder_info_box p{
+        font-size: 12px;
+    }
+    /* about founder css end form here */
+    /* about team section css start form here */
+    section#about_team_section h2.about_team_title {
+        font-size: 31.09px;
+        line-height: 35.69px;
+        padding: 0px 50px;
+    }
+     section#about_team_section .row{
+        width: 100%;
+        margin: auto;
+     }
+     section#about_team_section h5.team_card_title{
+        font-size: 16.49px;
+        line-height: 27.49px;
+     }
+     section#about_team_section p.team_card_role{
+        font-size: 12.83px;
+        line-height: 20.16px;
+     }
+     section#about_team_section p.team_card_des{
+        font-size: 12.83px;
+        line-height: 20.16px;
+     }
+    /* about team section css end form here */
+     /* about profile section css start */
+    section#about_profiles_section .profile-card h5.profile_card_title{
+        font-size: 18.08px;
+    }
+    section#about_profiles_section .profile-card p.profile_card_role{
+        font-size: 14.46px;
+    }
+    section#about_profiles_section .about_profile_div{
+        width: 145px;
+        height: 145px;
+    }
+     /* about profile section css end */
+    footer.footer {
+        border-radius: 95.59px 95.59px 0px 0px;
+    } 
+    p.footer_description{
+        font-size: 12.36px;
+    }
+    form.footer_form h4{
+        font-size: 28px;
+    }
+    form.footer_form label{
+        font-size: 15px;
+    }
+    form.footer_form input::placeholder {
+        font-size: 15px;
+    }
+    form.footer_form  .footer_form_btn button.btn.btn-lg.form-control{
+        font-size: 15px;
+    }
+    footer#footer .row h4.title {
+        font-size: 12.36px;
+    }
+    footer#footer .row ul li a.nav-link{
+        font-size: 11.24px;
+    }
+    section#hm_banner_slider_section .hm_slider_content{
+        max-width: 780px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1400px) {
+    /* home mission css start form here */
+    section#hm_mission_section p.mission_description{
+        font-size: 18px;
+    }
+    section#hm_mission_section .mission_background_img img{
+        left: 20px;
+    }
+    /* home mission css start form here */
+    
+}
+@media (min-width: 1024px) and (max-width: 1600px){
+    h1.tutor_sub_title{
+        font-size: 33px;
+    }
+}

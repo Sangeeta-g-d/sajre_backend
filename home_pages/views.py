@@ -24,3 +24,7 @@ def art_contact(request):
 
 def about_us(request):
     return render(request,'about_us.html')
+
+
+def index(request):
+    return render(request,'index.html')

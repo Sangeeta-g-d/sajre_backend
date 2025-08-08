@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="548C2P6lbzN3fcCoGIsC2r4uXURbRcgF8XZo1C2s">
+
+    <title>Sajre</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bebas+Neue&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Manrope:wght@200..800&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Sora:wght@100..800&family=Zen+Kaku+Gothic+Antique:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Sora:wght@100..800&family=Zen+Kaku+Gothic+Antique:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Sora:wght@100..800&family=Zen+Kaku+Gothic+Antique:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bebas+Neue&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Sora:wght@100..800&family=Zen+Kaku+Gothic+Antique:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bebas+Neue&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Sora:wght@100..800&family=Zen+Kaku+Gothic+Antique:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bebas+Neue&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Manrope:wght@200..800&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Sora:wght@100..800&family=Zen+Kaku+Gothic+Antique:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bebas+Neue&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Manrope:wght@200..800&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Sora:wght@100..800&family=Zen+Kaku+Gothic+Antique:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bebas+Neue&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Sora:wght@100..800&family=Zen+Kaku+Gothic+Antique:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <link href="https://fonts.cdnfonts.com/css/berlin-sans-fb" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa+Ink:wght@400;700&family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bebas+Neue&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Manrope:wght@200..800&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Sora:wght@100..800&family=Zen+Kaku+Gothic+Antique:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+
+
+    <link rel="stylesheet" type="text/css" href="/static/assets/home/css/slick-theme.css" />
+    <link rel="stylesheet" type="text/css" href="/static/assets/home/css/slick.css" />
+
+
+    <link rel="stylesheet" href="/static/assets/home/css/bootstrap.min.css">
+
+    <link href="/static/assets/home/css/aos.css" rel="stylesheet">
+
+    <link href="/static/assets/home/css/custom.css" rel="stylesheet">
+
+    <link href="/static/assets/home/css/media.queries.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="root">
+        <nav class="navbar navbar-expand-lg app_header tm-bg-primary mt-2">
+            <div class="container navbar_container">
+                <a class="navbar-brand" href="">
+                    <img class="app_logo" src="/static/assets/home/img/logo.png" alt="">
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav d-flex align-items-center ms-auto my-2 my-lg-0 navbar-nav-scroll">
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about_us/">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/art_landing/">Events</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact_us/">Contact Us</a>
+                        </li>
+                        <li class="nav-item bg-primary">
+                            <a class="nav-link" href="/auth/login/">Get started
+                                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.5037 3.91421L1.89712 12.5208L0.48291 11.1066L9.0895 2.5H1.50373V0.5H12.5037V11.5H10.5037V3.91421Z"
+                                        fill="white" />
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Offcanvas Menu for Mobile -->
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Navbar</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+
+
+
+        <div class="home_root">
+            <section id="hm_banner_slider_section">
+                <div class="hm_slider_content">
+                    <!-- The slides will be dynamically generated here -->
+                    <div class="hm_banner_slider_wrapper"></div>
+                    <!-- Navigation -->
+                    <div class="hm_banner_slider_nav">
+                        <div class="nav-arrow" id="prev">
+                            <svg width="23" height="21" viewBox="0 0 23 21" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M7.32701 9.08214H22.3215V12.575H7.32701L13.0778 18.3258L10.608 20.7956L0.64093 10.8286L10.608 0.861511L13.0778 3.33133L7.32701 9.08214Z"
+                                    fill="#999999" />
+                            </svg>
+
+
+                        </div>
+                        <div class="nav-dots">
+                            <!-- Dots will be generated here -->
+                        </div>
+                        <div class="nav-arrow" id="next">
+                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M14.8066 12.6414H0.190491V9.01582H14.8066L9.20089 3.04647L11.6084 0.482788L21.3239 10.8286L11.6084 21.1745L9.20089 18.6108L14.8066 12.6414V12.6414Z"
+                                    fill="#999999" />
+                            </svg>
+
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section id="view_event_section" class="pb-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-5">
+                            <h6 class="hm_view_event_title">
+                                Empowering individuals <br>through future-ready learning
+                            </h6>
+                            <p class="hm_view_event_des">
+                                Bridging the gap between traditional academics and <br>
+                                modern industry demands through hands-on, job- <br> oriented education
+                            </p>
+                            <button class="hm_view_event_btn btn">View Event</button>
+                        </div>
+                        <div class=" d-none d-lg-block col-lg-1"></div>
+                        <div class="col-12 col-md-6 text-md-end">
+                            <img class="GeniUS_img" src="/static/assets/home/img/GeniUS.png"
+                                alt="">
+                        </div>
+                    </div>
+                    <div style="height: 120px;width:100%;"></div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="hm_view_event_slider_container">
+                                <div class="hm_view_event_slider">
+                                    <div>
+                                        <img src="/static/assets/home/img/hm_slider_1.jpg" alt="">
+                                    </div>
+                                    <div>
+                                        <img src="/static/assets/home/img/hm_slider_2.png" alt="">
+                                    </div>
+                                    <div>
+                                        <img src="/static/assets/home/img/hm_slider_3.jpg" alt="">
+                                    </div>
+                                    <div>
+                                        <img src="/static/assets/home/img/hm_slider_4.png" alt="">
+                                    </div>
+                                    <div>
+                                        <img src="/static/assets/home/img/hm_slider_5.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="hm_mission_section" class="py-5">
+                <div class="container px-4 px-lg-0">
+                    <div class="row row-gap-4 items-center">
+                        <div class="col-12 col-lg-6">
+                            <div class="mission_victior_div text-center d-none d-md-block"
+                                style="background-image: url('/static/assets/home/img/minssion_vic_2.png')">
+                                <h2 class="mission_title">Mission & Aim of Edutech</h2>
+                            </div>
+                            <div class="mission_victior_div2 text-center d-md-none">
+                                <h2 class="mission_sm_title"><span class="mission_background">Mission & Aim</span> <br>
+                                    of Edutech</h2>
+                            </div>
+                            <div class="mission_description_div">
+                                <p class="mission_description">
+                                    At the heart of our vision is a strong commitment to innovation we are dedicated to
+                                    designing and delivering forward-looking educational programs that not only reflect
+                                    academic rigor but also respond dynamically to the ever-changing needs of the
+                                    industry. By actively collaborating with experts across sectors and staying attuned
+                                    to emerging technologies and trends, we aim to bridge the long-standing gap between
+                                    theoretical knowledge and practical application. Our programs are built to equip
+                                    learners with the skills, insights, and adaptability required to thrive in
+                                    real-world environments, ensuring that education remains relevant, impactful, and
+                                    future-ready.
+                                </p>
+                            </div>
+                            <div class="py-4 d-none d-md-block">
+                                <button class="mission_btn">Learn more</button>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 text-end">
+                            <div class="mission_background_img"
+                                style="background-image: url('/static/assets/home/img/mission_img.jpg')">
+                                <div class="spacer"></div>
+                                <img src="/static/assets/home/img/misson_img_2.jpg" alt="">
+                                <div class="spacer"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="hm_crouse_section" class="">
+                <div class="container">
+                    <div
+                        class="crouse_header_container gap-2 d-flex align-items-center justify-content-center justify-content-md-between">
+                        <div class="header-text">
+                            <p class="hm_crouse_sub_title d-none d-md-block">Become industry ready</p>
+                            <h2 class="sm_crouse_title">Our Courses</h2>
+                        </div>
+                        <div class="slider-nav">
+                        </div>
+                    </div>
+                    <div class="slider-wrapper ">
+                        <div class="course-slider mb-2">
+                            <div class="course-card">
+                                <div class="card-inner">
+                                    <!-- Front Side -->
+                                    <div class="card-front">
+                                        <img src="/static/assets/home/img/crouse_slider_1.jpg"
+                                            alt="Ethical Hacking Course" class="img-fluid">
+                                        <div class="p-3">
+                                            <h3 class="crouse_card_title">Ethical Hacking</h3>
+                                            <p class="crouse_card_sub_title">This Course Is Make You Industry Ready
+                                                Cyber Expert</p>
+                                            <div class="skill-tags">
+                                                <span>Skill</span>
+                                                <span>Linux</span>
+                                                <span>Phishing</span>
+                                                <span>Hacking</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Back Side -->
+                                    <div class="card-back">
+                                        <div class="crouse_back_top">
+                                            <h3 class="crouse_back_title">Ethical Hacking</h3>
+                                            <p class="crouse_back_sub_title">This Course Is Make You Industry Ready
+                                                Cyber Expert</p>
+                                            <div class="croue_back_skill_tags">
+                                                <span>Skill</span>
+                                                <span>Linux</span>
+                                                <span>Phishing</span>
+                                                <span>Hacking</span>
+                                            </div>
+                                        </div>
+                                        <div class="crouse_back_bottom">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h2 class="mb-0">₹4500</h2>
+                                                <button class="btn btn-dark rounded-5">View Crouse</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="course-card">
+                                <div class="card-inner">
+                                    <!-- Front Side -->
+                                    <div class="card-front">
+                                        <img src="/static/assets/home/img/crouse_slider_1.jpg"
+                                            alt="Ethical Hacking Course" class="img-fluid">
+                                        <div class="p-3">
+                                            <h3 class="crouse_card_title">Ethical Hacking</h3>
+                                            <p class="crouse_card_sub_title">This Course Is Make You Industry Ready
+                                                Cyber Expert</p>
+                                            <div class="skill-tags">
+                                                <span>Skill</span>
+                                                <span>Linux</span>
+                                                <span>Phishing</span>
+                                                <span>Hacking</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Back Side -->
+                                    <div class="card-back">
+                                        <div class="crouse_back_top">
+                                            <h3 class="crouse_back_title">Ethical Hacking</h3>
+                                            <p class="crouse_back_sub_title">This Course Is Make You Industry Ready
+                                                Cyber Expert</p>
+                                            <div class="croue_back_skill_tags">
+                                                <span>Skill</span>
+                                                <span>Linux</span>
+                                                <span>Phishing</span>
+                                                <span>Hacking</span>
+                                            </div>
+                                        </div>
+                                        <div class="crouse_back_bottom">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h2 class="mb-0">₹4500</h2>
+                                                <button class="btn btn-dark rounded-5">View Crouse</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="course-card">
+                                <div class="card-inner">
+                                    <!-- Front Side -->
+                                    <div class="card-front">
+                                        <img src="/static/assets/home/img/crouse_slider_1.jpg"
+                                            alt="Ethical Hacking Course" class="img-fluid">
+                                        <div class="p-3">
+                                            <h3 class="crouse_card_title">Ethical Hacking</h3>
+                                            <p class="crouse_card_sub_title">This Course Is Make You Industry Ready
+                                                Cyber Expert</p>
+                                            <div class="skill-tags">
+                                                <span>Skill</span>
+                                                <span>Linux</span>
+                                                <span>Phishing</span>
+                                                <span>Hacking</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Back Side -->
+                                    <div class="card-back">
+                                        <div class="crouse_back_top">
+                                            <h3 class="crouse_back_title">Ethical Hacking</h3>
+                                            <p class="crouse_back_sub_title">This Course Is Make You Industry Ready
+                                                Cyber Expert</p>
+                                            <div class="croue_back_skill_tags">
+                                                <span>Skill</span>
+                                                <span>Linux</span>
+                                                <span>Phishing</span>
+                                                <span>Hacking</span>
+                                            </div>
+                                        </div>
+                                        <div class="crouse_back_bottom">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h2 class="mb-0">₹4500</h2>
+                                                <button class="btn btn-dark rounded-5">View Crouse</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="course-card">
+                                <div class="card-inner">
+                                    <!-- Front Side -->
+                                    <div class="card-front">
+                                        <img src="/static/assets/home/img/crouse_slider_1.jpg"
+                                            alt="Ethical Hacking Course" class="img-fluid">
+                                        <div class="p-3">
+                                            <h3 class="crouse_card_title">Ethical Hacking</h3>
+                                            <p class="crouse_card_sub_title">This Course Is Make You Industry Ready
+                                                Cyber Expert</p>
+                                            <div class="skill-tags">
+                                                <span>Skill</span>
+                                                <span>Linux</span>
+                                                <span>Phishing</span>
+                                                <span>Hacking</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Back Side -->
+                                    <div class="card-back">
+                                        <div class="crouse_back_top">
+                                            <h3 class="crouse_back_title">Ethical Hacking</h3>
+                                            <p class="crouse_back_sub_title">This Course Is Make You Industry Ready
+                                                Cyber Expert</p>
+                                            <div class="croue_back_skill_tags">
+                                                <span>Skill</span>
+                                                <span>Linux</span>
+                                                <span>Phishing</span>
+                                                <span>Hacking</span>
+                                            </div>
+                                        </div>
+                                        <div class="crouse_back_bottom">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h2 class="mb-0">₹4500</h2>
+                                                <button class="btn btn-dark rounded-5">View Crouse</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="course-card">
+                                <div class="card-inner">
+                                    <!-- Front Side -->
+                                    <div class="card-front">
+                                        <img src="/static/assets/home/img/crouse_slider_1.jpg"
+                                            alt="Ethical Hacking Course" class="img-fluid">
+                                        <div class="p-3">
+                                            <h3 class="crouse_card_title">Ethical Hacking</h3>
+                                            <p class="crouse_card_sub_title">This Course Is Make You Industry Ready
+                                                Cyber Expert</p>
+                                            <div class="skill-tags">
+                                                <span>Skill</span>
+                                                <span>Linux</span>
+                                                <span>Phishing</span>
+                                                <span>Hacking</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Back Side -->
+                                    <div class="card-back">
+                                        <div class="crouse_back_top">
+                                            <h3 class="crouse_back_title">Ethical Hacking</h3>
+                                            <p class="crouse_back_sub_title">This Course Is Make You Industry Ready
+                                                Cyber Expert</p>
+                                            <div class="croue_back_skill_tags">
+                                                <span>Skill</span>
+                                                <span>Linux</span>
+                                                <span>Phishing</span>
+                                                <span>Hacking</span>
+                                            </div>
+                                        </div>
+                                        <div class="crouse_back_bottom">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h2 class="mb-0">₹4500</h2>
+                                                <button class="btn btn-dark rounded-5">View Crouse</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+
+
+            <style>
+                .card-back {
+                    transform: rotateY(180deg);
+                    background-color: #f9f9f9;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    height: 100%;
+                }
+
+                .course-card {
+                    width: 100%;
+                    perspective: 1000px;
+                    position: relative;
+                    height: 420px;
+                }
+
+                .card-inner {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    transition: transform 0.6s;
+                    transform-style: preserve-3d;
+                }
+
+                .course-card:hover .card-inner {
+                    transform: rotateY(180deg);
+                }
+
+                .card-front,
+                .card-back {
+                    backface-visibility: hidden;
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background: #fff;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                }
+
+                .card-front {
+                    z-index: 2;
+                }
+
+                .card-back {
+                    transform: rotateY(180deg);
+                }
+            </style>
+
+            <section id="hm_tutor_section" class="py-5">
+                <div class="container">
+                    <div class="pb-4">
+                        <h1 class="text-center tutor_title">Become Tutor</h1>
+                    </div>
+                    <div class="tutor_full_background overflow-hidden">
+                        <div class="row">
+                            <div class="col-12 p-5 col-lg-6">
+                                <div class="mt-3">
+                                    <h1 class="tutor_sub_title">Share Your Knowledge. Inspire Learners.</h1>
+                                    <p>
+                                        Help students grow by teaching subjects you love — anytime, anywhere.
+                                    </p>
+                                    <button>Become Tutor</button>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 text-end pe-5 position-relative">
+                                <img class="tutor_victor_1 d-none"
+                                    src="/static/assets/home/img/tutor_victor_1.png" alt="">
+                                <div>
+                                    <img class="tutor_victor_2"
+                                        src="/static/assets/home/img/tutor_lg_2.png" alt="">
+                                    <img class="tutor_man_img"
+                                        src="/static/assets/home/img/tutor_man.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="hm_event_section" class="py-5">
+                <div class="container">
+                    <h2 class="text-center section-title mb-5">Events</h2>
+                    <div class="row g-4 justify-content-lg-center">
+
+                        <!-- Card 1 -->
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="event-card">
+                                <img src="/static/assets/home/img/event_1.png" alt="Art Event">
+                                <div class="event-overlay">
+                                    <div class="d-flex gap-3 gap-lg-0 align-items-center justify-content-between">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <div>
+                                                <img class="event_child_img"
+                                                    src="/static/assets/home/img/events_child_1.png"
+                                                    alt="">
+                                            </div>
+                                            <div>
+                                                <div class="event-author">Jerome Bell</div>
+                                                <div class="event-title">National Art Summit (NAS) competition</div>
+                                                <div class="event-time">
+                                                    2 hours 40 minutes
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="dots">⋯</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="event-card">
+                                <img src="/static/assets/home/img/event_2.png" alt="Art Event">
+                                <div class="event-overlay">
+                                    <div class="d-flex gap-3 gap-lg-0 align-items-center justify-content-between">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <div>
+                                                <img class="event_child_img"
+                                                    src="/static/assets/home/img/events_child_1.png"
+                                                    alt="">
+                                            </div>
+                                            <div>
+                                                <div class="event-author">Jerome Bell</div>
+                                                <div class="event-title">
+                                                    24hr Coding Compitation in India
+                                                </div>
+                                                <div class="event-time">
+                                                    2 hours 40 minutes
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="dots">⋯</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="event-card">
+                                <img src="/static/assets/home/img/event_3.png" alt="Art Event">
+                                <div class="event-overlay">
+                                    <div class="d-flex gap-3 gap-lg-0 align-items-center justify-content-between">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <div>
+                                                <img class="event_child_img"
+                                                    src="/static/assets/home/img/events_child_1.png"
+                                                    alt="">
+                                            </div>
+                                            <div>
+                                                <div class="event-author">Jerome Bell</div>
+                                                <div class="event-title">
+                                                    Graphic Design Logo Compitation 2025-26
+                                                </div>
+                                                <div class="event-time">
+                                                    2 hours 40 minutes
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="dots">⋯</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section id="social_media_section" class="py-5 text-center">
+                <div class="container">
+                    <h2 class="social_title py-4">“Social media presents”</h2>
+
+                    <div class="instagram-slider">
+                        <!-- Slide 1 -->
+                        <div class="insta-card position-relative rounded overflow-hidden">
+                            <img src="/static/assets/home/img/social_media_1.jpg"
+                                class="w-100 img-cover" alt="Thumbnail">
+                            <div class="gradient-overlay"></div>
+                            <a href="#" class="play-btn position-absolute top-50 start-50 translate-middle">
+                                <img src="/static/assets/home/img/video_icon.png" alt="Play"
+                                    width="50">
+                            </a>
+                            <div class="insta-footer position-absolute bottom-0 w-100 text-center p-2">
+                                <a href="#" class="view_btn">
+                                    <img src="/static/assets/home/img/view_btn.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="insta-card position-relative rounded overflow-hidden">
+                            <img src="/static/assets/home/img/social_media_1.jpg"
+                                class="w-100 img-cover" alt="Thumbnail">
+                            <div class="gradient-overlay"></div>
+                            <a href="#" class="play-btn position-absolute top-50 start-50 translate-middle">
+                                <img src="/static/assets/home/img/video_icon.png" alt="Play"
+                                    width="50">
+                            </a>
+                            <div class="insta-footer position-absolute bottom-0 w-100 text-center p-2">
+                                <a href="#" class="view_btn">
+                                    <img src="/static/assets/home/img/view_btn.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="insta-card position-relative rounded overflow-hidden">
+                            <img src="/static/assets/home/img/social_media_1.jpg"
+                                class="w-100 img-cover" alt="Thumbnail">
+                            <div class="gradient-overlay"></div>
+                            <a href="#" class="play-btn position-absolute top-50 start-50 translate-middle">
+                                <img src="/static/assets/home/img/video_icon.png" alt="Play"
+                                    width="50">
+                            </a>
+                            <div class="insta-footer position-absolute bottom-0 w-100 text-center p-2">
+                                <a href="#" class="view_btn">
+                                    <img src="/static/assets/home/img/view_btn.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="insta-card position-relative rounded overflow-hidden">
+                            <img src="/static/assets/home/img/social_media_1.jpg"
+                                class="w-100 img-cover" alt="Thumbnail">
+                            <div class="gradient-overlay"></div>
+                            <a href="#" class="play-btn position-absolute top-50 start-50 translate-middle">
+                                <img src="/static/assets/home/img/video_icon.png" alt="Play"
+                                    width="50">
+                            </a>
+                            <div class="insta-footer position-absolute bottom-0 w-100 text-center p-2">
+                                <a href="#" class="view_btn">
+                                    <img src="/static/assets/home/img/view_btn.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="insta-card position-relative rounded overflow-hidden">
+                            <img src="/static/assets/home/img/social_media_1.jpg"
+                                class="w-100 img-cover" alt="Thumbnail">
+                            <div class="gradient-overlay"></div>
+                            <a href="#" class="play-btn position-absolute top-50 start-50 translate-middle">
+                                <img src="/static/assets/home/img/video_icon.png" alt="Play"
+                                    width="50">
+                            </a>
+                            <div class="insta-footer position-absolute bottom-0 w-100 text-center p-2">
+                                <a href="#" class="view_btn">
+                                    <img src="/static/assets/home/img/view_btn.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="insta-card position-relative rounded overflow-hidden">
+                            <img src="/static/assets/home/img/social_media_1.jpg"
+                                class="w-100 img-cover" alt="Thumbnail">
+                            <div class="gradient-overlay"></div>
+                            <a href="#" class="play-btn position-absolute top-50 start-50 translate-middle">
+                                <img src="/static/assets/home/img/video_icon.png" alt="Play"
+                                    width="50">
+                            </a>
+                            <div class="insta-footer position-absolute bottom-0 w-100 text-center p-2">
+                                <a href="#" class="view_btn">
+                                    <img src="/static/assets/home/img/view_btn.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="insta-card position-relative rounded overflow-hidden">
+                            <img src="/static/assets/home/img/social_media_1.jpg"
+                                class="w-100 img-cover" alt="Thumbnail">
+                            <div class="gradient-overlay"></div>
+                            <a href="#" class="play-btn position-absolute top-50 start-50 translate-middle">
+                                <img src="/static/assets/home/img/video_icon.png" alt="Play"
+                                    width="50">
+                            </a>
+                            <div class="insta-footer position-absolute bottom-0 w-100 text-center p-2">
+                                <a href="#" class="view_btn">
+                                    <img src="/static/assets/home/img/view_btn.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- More slides as needed -->
+                    </div>
+                </div>
+            </section>
+
+
+            <section id="customer_feedback_section" class="feedback-section py-5">
+                <div class="container">
+                    <!-- Header & Navigation -->
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 py-4">
+                        <div>
+                            <h4 class="feedback_title">Our Customer Feedback</h4>
+                            <p class="feedback_des mb-0">Don’t take our word for it. Trust our customers</p>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-2">
+                            <button id="prevBtn" class="btn btn-outline-secondary btn-sm d-flex align-items-center">
+                                <svg width="9" height="15" viewBox="0 0 9 15" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M8.81409 2.30699L3.43713 7.69569L8.81409 13.0844L7.15873 14.7397L0.114681 7.69569L7.15873 0.65164L8.81409 2.30699Z"
+                                        fill="#133240" />
+                                </svg>
+                                <span class="ms-1">Previous</span>
+                            </button>
+
+                            <button id="nextBtn" class="btn btn-outline-secondary btn-sm d-flex align-items-center">
+                                <span class="me-1">Next</span>
+                                <svg width="10" height="15" viewBox="0 0 10 15" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M0.551758 13.0846L5.92872 7.69591L0.551758 2.30721L2.20711 0.651855L9.25116 7.69591L2.20711 14.74L0.551758 13.0846Z"
+                                        fill="#133240" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Feedback Slider -->
+                    <div class="feedback-slider">
+                        <!-- Card 1 -->
+                        <div class="card p-3 shadow-sm">
+                            <div class="d-flex justify-content-between mb-3">
+                                <div class="d-flex flex-column row-gap-2">
+                                    <img src="/static/assets/home/img/customer_feed_1.png"
+                                        class="customer_img" width="40" height="40" alt="">
+                                    <h6 class="card_title">Floyd Miles</h6>
+                                </div>
+                                <div class="d-flex gap-1">
+                                    <!-- SVG stars -->
+                                    <svg width="25" height="23" viewBox="0 0 25 23" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12.3769 18.5882L19.6323 22.9673L17.7069 14.714L24.117 9.16096L15.6759 8.44481L12.3769 0.661133L9.07796 8.44481L0.636841 9.16096L7.04693 14.714L5.12155 22.9673L12.3769 18.5882Z"
+                                            fill="#5B6876" />
+                                    </svg>
+                                    <svg width="25" height="23" viewBox="0 0 25 23" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12.3769 18.5882L19.6323 22.9673L17.7069 14.714L24.117 9.16096L15.6759 8.44481L12.3769 0.661133L9.07796 8.44481L0.636841 9.16096L7.04693 14.714L5.12155 22.9673L12.3769 18.5882Z"
+                                            fill="#5B6876" />
+                                    </svg>
+                                    <svg width="25" height="23" viewBox="0 0 25 23" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12.3769 18.5882L19.6323 22.9673L17.7069 14.714L24.117 9.16096L15.6759 8.44481L12.3769 0.661133L9.07796 8.44481L0.636841 9.16096L7.04693 14.714L5.12155 22.9673L12.3769 18.5882Z"
+                                            fill="#5B6876" />
+                                    </svg>
+                                    <svg width="25" height="23" viewBox="0 0 24 23" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M23.7337 9.16096L15.2926 8.43307L11.9937 0.661133L8.69469 8.44481L0.253571 9.16096L6.66366 14.714L4.73828 22.9673L11.9937 18.5882L19.249 22.9673L17.3354 14.714L23.7337 9.16096ZM11.9937 16.3929V5.47457L14.0012 10.2176L19.1434 10.6637L15.2457 14.0448L16.4197 19.0696L11.9937 16.3929Z"
+                                            fill="#5B6876" />
+                                    </svg>
+                                    <svg width="25" height="23" viewBox="0 0 24 23" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M23.7337 9.16096L15.2926 8.43307L11.9937 0.661133L8.69469 8.44481L0.253571 9.16096L6.66366 14.714L4.73828 22.9673L11.9937 18.5882L19.249 22.9673L17.3354 14.714L23.7337 9.16096ZM11.9937 16.3929V5.47457L14.0012 10.2176L19.1434 10.6637L15.2457 14.0448L16.4197 19.0696L11.9937 16.3929Z"
+                                            fill="#5B6876" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <p class="customer_text">
+                                Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia
+                                consequat duis enim velit mollit.
+                                Exercitation veniam consequat sunt nostrud amet.
+                            </p>
+                        </div>
+
+                        <!-- Card 1 -->
+                        <div class="card p-3 shadow-sm">
+                            <div class="d-flex justify-content-between mb-3">
+                                <div class="d-flex flex-column row-gap-2">
+                                    <img src="/static/assets/home/img/customer_feed_2.png"
+                                        class=" customer_img" width="40" height="40" alt="">
+                                    <h6 class="card_title">Floyd Miles</h6>
+                                </div>
+                                <div class="d-flex gap-1">
+                                    <!-- SVG stars -->
+                                    <svg width="25" height="23" viewBox="0 0 25 23" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12.3769 18.5882L19.6323 22.9673L17.7069 14.714L24.117 9.16096L15.6759 8.44481L12.3769 0.661133L9.07796 8.44481L0.636841 9.16096L7.04693 14.714L5.12155 22.9673L12.3769 18.5882Z"
+                                            fill="#5B6876" />
+                                    </svg>
+                                    <svg width="25" height="23" viewBox="0 0 25 23" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12.3769 18.5882L19.6323 22.9673L17.7069 14.714L24.117 9.16096L15.6759 8.44481L12.3769 0.661133L9.07796 8.44481L0.636841 9.16096L7.04693 14.714L5.12155 22.9673L12.3769 18.5882Z"
+                                            fill="#5B6876" />
+                                    </svg>
+                                    <svg width="25" height="23" viewBox="0 0 25 23" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12.3769 18.5882L19.6323 22.9673L17.7069 14.714L24.117 9.16096L15.6759 8.44481L12.3769 0.661133L9.07796 8.44481L0.636841 9.16096L7.04693 14.714L5.12155 22.9673L12.3769 18.5882Z"
+                                            fill="#5B6876" />
+                                    </svg>
+                                    <svg width="25" height="23" viewBox="0 0 24 23" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M23.7337 9.16096L15.2926 8.43307L11.9937 0.661133L8.69469 8.44481L0.253571 9.16096L6.66366 14.714L4.73828 22.9673L11.9937 18.5882L19.249 22.9673L17.3354 14.714L23.7337 9.16096ZM11.9937 16.3929V5.47457L14.0012 10.2176L19.1434 10.6637L15.2457 14.0448L16.4197 19.0696L11.9937 16.3929Z"
+                                            fill="#5B6876" />
+                                    </svg>
+                                    <svg width="25" height="23" viewBox="0 0 24 23" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M23.7337 9.16096L15.2926 8.43307L11.9937 0.661133L8.69469 8.44481L0.253571 9.16096L6.66366 14.714L4.73828 22.9673L11.9937 18.5882L19.249 22.9673L17.3354 14.714L23.7337 9.16096ZM11.9937 16.3929V5.47457L14.0012 10.2176L19.1434 10.6637L15.2457 14.0448L16.4197 19.0696L11.9937 16.3929Z"
+                                            fill="#5B6876" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <p class="customer_text">
+                                Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia
+                                consequat duis enim velit mollit.
+                                Exercitation veniam consequat sunt nostrud amet.
+                            </p>
+                        </div>
+                        <!-- Card 1 -->
+                        <div class="card p-3 shadow-sm">
+                            <div class="d-flex justify-content-between mb-3">
+                                <div class="d-flex flex-column row-gap-2">
+                                    <img src="/static/assets/home/img/customer_feed_3.png"
+                                        class="customer_img" width="40" height="40" alt="">
+                                    <h6 class="card_title">Floyd Miles</h6>
+                                </div>
+                                <div class="d-flex gap-1">
+                                    <!-- SVG stars -->
+                                    <svg width="25" height="23" viewBox="0 0 25 23" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12.3769 18.5882L19.6323 22.9673L17.7069 14.714L24.117 9.16096L15.6759 8.44481L12.3769 0.661133L9.07796 8.44481L0.636841 9.16096L7.04693 14.714L5.12155 22.9673L12.3769 18.5882Z"
+                                            fill="#5B6876" />
+                                    </svg>
+                                    <svg width="25" height="23" viewBox="0 0 25 23" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12.3769 18.5882L19.6323 22.9673L17.7069 14.714L24.117 9.16096L15.6759 8.44481L12.3769 0.661133L9.07796 8.44481L0.636841 9.16096L7.04693 14.714L5.12155 22.9673L12.3769 18.5882Z"
+                                            fill="#5B6876" />
+                                    </svg>
+                                    <svg width="25" height="23" viewBox="0 0 25 23" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12.3769 18.5882L19.6323 22.9673L17.7069 14.714L24.117 9.16096L15.6759 8.44481L12.3769 0.661133L9.07796 8.44481L0.636841 9.16096L7.04693 14.714L5.12155 22.9673L12.3769 18.5882Z"
+                                            fill="#5B6876" />
+                                    </svg>
+                                    <svg width="25" height="23" viewBox="0 0 24 23" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M23.7337 9.16096L15.2926 8.43307L11.9937 0.661133L8.69469 8.44481L0.253571 9.16096L6.66366 14.714L4.73828 22.9673L11.9937 18.5882L19.249 22.9673L17.3354 14.714L23.7337 9.16096ZM11.9937 16.3929V5.47457L14.0012 10.2176L19.1434 10.6637L15.2457 14.0448L16.4197 19.0696L11.9937 16.3929Z"
+                                            fill="#5B6876" />
+                                    </svg>
+                                    <svg width="25" height="23" viewBox="0 0 24 23" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M23.7337 9.16096L15.2926 8.43307L11.9937 0.661133L8.69469 8.44481L0.253571 9.16096L6.66366 14.714L4.73828 22.9673L11.9937 18.5882L19.249 22.9673L17.3354 14.714L23.7337 9.16096ZM11.9937 16.3929V5.47457L14.0012 10.2176L19.1434 10.6637L15.2457 14.0448L16.4197 19.0696L11.9937 16.3929Z"
+                                            fill="#5B6876" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <p class="customer_text">
+                                Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia
+                                consequat duis enim velit mollit.
+                                Exercitation veniam consequat sunt nostrud amet.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="hm_faq_section" class="py-5">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10">
+                            <div class="text-center mb-5">
+                                <p class="faq_sub_title">F A Q s</p>
+                                <h2 class="faq_title">Got questions? We’ve got answers!</h2>
+                                <p class="faq_description">At Sajre Edutech, we understand that learners and
+                                    participants often have
+                                    questions</p>
+                            </div>
+
+                            <div class="accordion">
+                                <div class="accordion__item">
+                                    <div class="accordion__title">
+                                        <div class="accordion__arrow"><span class="accordion__arrow-item ">
+                                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_60_796)">
+                                                        <path
+                                                            d="M0.167847 14.1052C0.167847 13.1491 0.942925 12.374 1.89903 12.374H26.1356C27.0918 12.374 27.8668 13.1491 27.8668 14.1052C27.8668 15.0613 27.0918 15.8364 26.1356 15.8364H1.89903C0.942926 15.8364 0.167847 15.0613 0.167847 14.1052Z"
+                                                            fill="#2D3D4E" />
+                                                        <path
+                                                            d="M12.2861 1.98705C12.2861 1.03094 13.0612 0.255859 14.0173 0.255859C14.9734 0.255859 15.7485 1.03094 15.7485 1.98705V26.2237C15.7485 27.1798 14.9734 27.9548 14.0173 27.9548C13.0612 27.9548 12.2861 27.1798 12.2861 26.2237V1.98705Z"
+                                                            fill="#2D3D4E" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_60_796">
+                                                            <rect width="27.699" height="27.699" fill="white"
+                                                                transform="translate(0.167847 0.255859)" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+
+                                            </span></div>
+                                        <span class="accordion__title-text">
+                                            <span>✦</span>
+                                            <span>Who can participate in Sajre Edutech's art competitions?</span>
+                                        </span>
+                                    </div>
+                                    <div class="accordion__content">
+                                        Indian citizens aged 9 to 35 can participate.
+                                        We have age-based categories to ensure fair competition for everyone.
+                                    </div>
+                                </div>
+                                <div class="accordion__item">
+                                    <div class="accordion__title">
+                                        <div class="accordion__arrow"><span class="accordion__arrow-item ">
+                                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_60_796)">
+                                                        <path
+                                                            d="M0.167847 14.1052C0.167847 13.1491 0.942925 12.374 1.89903 12.374H26.1356C27.0918 12.374 27.8668 13.1491 27.8668 14.1052C27.8668 15.0613 27.0918 15.8364 26.1356 15.8364H1.89903C0.942926 15.8364 0.167847 15.0613 0.167847 14.1052Z"
+                                                            fill="#2D3D4E" />
+                                                        <path
+                                                            d="M12.2861 1.98705C12.2861 1.03094 13.0612 0.255859 14.0173 0.255859C14.9734 0.255859 15.7485 1.03094 15.7485 1.98705V26.2237C15.7485 27.1798 14.9734 27.9548 14.0173 27.9548C13.0612 27.9548 12.2861 27.1798 12.2861 26.2237V1.98705Z"
+                                                            fill="#2D3D4E" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_60_796">
+                                                            <rect width="27.699" height="27.699" fill="white"
+                                                                transform="translate(0.167847 0.255859)" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+
+                                            </span></div>
+                                        <span class="accordion__title-text">
+                                            <span>✦</span>
+                                            <span>How do I register for a course or competition?</span>
+                                        </span>
+                                    </div>
+                                    <div class="accordion__content">
+                                        Здесь контент
+                                    </div>
+                                </div>
+                                <div class="accordion__item">
+                                    <div class="accordion__title">
+                                        <div class="accordion__arrow"><span class="accordion__arrow-item ">
+                                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_60_796)">
+                                                        <path
+                                                            d="M0.167847 14.1052C0.167847 13.1491 0.942925 12.374 1.89903 12.374H26.1356C27.0918 12.374 27.8668 13.1491 27.8668 14.1052C27.8668 15.0613 27.0918 15.8364 26.1356 15.8364H1.89903C0.942926 15.8364 0.167847 15.0613 0.167847 14.1052Z"
+                                                            fill="#2D3D4E" />
+                                                        <path
+                                                            d="M12.2861 1.98705C12.2861 1.03094 13.0612 0.255859 14.0173 0.255859C14.9734 0.255859 15.7485 1.03094 15.7485 1.98705V26.2237C15.7485 27.1798 14.9734 27.9548 14.0173 27.9548C13.0612 27.9548 12.2861 27.1798 12.2861 26.2237V1.98705Z"
+                                                            fill="#2D3D4E" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_60_796">
+                                                            <rect width="27.699" height="27.699" fill="white"
+                                                                transform="translate(0.167847 0.255859)" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+
+                                            </span></div>
+                                        <span class="accordion__title-text">
+                                            <span>✦</span>
+                                            <span>Do participants receive certificates?</span>
+                                        </span>
+                                    </div>
+                                    <div class="accordion__content">
+                                        Здесь контент
+                                    </div>
+                                </div>
+                                <div class="accordion__item">
+                                    <div class="accordion__title">
+                                        <div class="accordion__arrow"><span class="accordion__arrow-item ">
+                                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_60_796)">
+                                                        <path
+                                                            d="M0.167847 14.1052C0.167847 13.1491 0.942925 12.374 1.89903 12.374H26.1356C27.0918 12.374 27.8668 13.1491 27.8668 14.1052C27.8668 15.0613 27.0918 15.8364 26.1356 15.8364H1.89903C0.942926 15.8364 0.167847 15.0613 0.167847 14.1052Z"
+                                                            fill="#2D3D4E" />
+                                                        <path
+                                                            d="M12.2861 1.98705C12.2861 1.03094 13.0612 0.255859 14.0173 0.255859C14.9734 0.255859 15.7485 1.03094 15.7485 1.98705V26.2237C15.7485 27.1798 14.9734 27.9548 14.0173 27.9548C13.0612 27.9548 12.2861 27.1798 12.2861 26.2237V1.98705Z"
+                                                            fill="#2D3D4E" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_60_796">
+                                                            <rect width="27.699" height="27.699" fill="white"
+                                                                transform="translate(0.167847 0.255859)" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+
+                                            </span></div>
+                                        <span class="accordion__title-text">
+                                            <span>✦</span>
+                                            <span>Is there any fee to participate in the art competition?</span>
+                                        </span>
+                                    </div>
+                                    <div class="accordion__content">
+                                        Здесь контент
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+
+        </div>
+        <footer id="footer" class="footer">
+            <div class="container px-4 px-md-0">
+                <div class="row justify-content-between">
+                    <div class="col-12 col-md-6">
+                        <div class="footer_logo_div m-auto m-md-0">
+                            <img class="footer_logo " src="/static/assets/home/img/footer_logo.png"
+                                alt="">
+                        </div>
+                        <p class="footer_description mt-3">
+                            From upskilling professionals to nurturing fresh talent, we have consistently focused on
+                            delivering relevant and future-ready learning experiences that keep pace with global trends.
+                        </p>
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-12 col-md-5">
+                        <form action="" class="footer_form">
+                            <h4>Join a Newsettler</h4>
+                            <div class="input_col mt-4">
+                                <label for="email">Your Email</label>
+                                <input type="email" class="mt-2" placeholder="example@gmail.com">
+                            </div>
+                            <div class="footer_form_btn mt-3">
+                                <button class="btn btn-lg form-control">Subscribe</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row mt-5 gap-4 gap-md-0 row-gap-md-3">
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <h4 class="title">Quick links</h4>
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Terms And Condition</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Privacy Policy</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/contact_us/">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <h4 class="title">Courses</h4>
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Ethical Hacking</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Web Desiging</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Fashion Designing</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Sales & Marketing</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <h4 class="title">Get in touch</h4>
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="">
+                                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M21.5 16.42V19.9561C21.5 20.4811 21.0941 20.9167 20.5705 20.9537C20.1331 20.9846 19.7763 21 19.5 21C10.6634 21 3.5 13.8366 3.5 5C3.5 4.72371 3.51545 4.36687 3.54635 3.9295C3.58337 3.40588 4.01894 3 4.54386 3H8.0801C8.33678 3 8.55176 3.19442 8.57753 3.4498C8.60067 3.67907 8.62218 3.86314 8.64207 4.00202C8.84435 5.41472 9.25753 6.75936 9.8487 8.00303C9.94359 8.20265 9.88171 8.44159 9.70185 8.57006L7.54355 10.1118C8.85752 13.1811 11.3189 15.6425 14.3882 16.9565L15.9271 14.8019C16.0572 14.6199 16.299 14.5573 16.501 14.6532C17.7446 15.2439 19.0891 15.6566 20.5016 15.8584C20.6396 15.8782 20.8225 15.8995 21.0502 15.9225C21.3056 15.9483 21.5 16.1633 21.5 16.42Z"
+                                            fill="#FFCA49" />
+                                    </svg>
+                                    +91 8363593267
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">
+                                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M3.5 3H21.5C22.0523 3 22.5 3.44772 22.5 4V20C22.5 20.5523 22.0523 21 21.5 21H3.5C2.94772 21 2.5 20.5523 2.5 20V4C2.5 3.44772 2.94772 3 3.5 3ZM12.5606 11.6829L6.14722 6.2377L4.85278 7.7623L12.5731 14.3171L20.1544 7.75616L18.8456 6.24384L12.5606 11.6829Z"
+                                            fill="#FFCA49" />
+                                    </svg>
+
+                                    support@sajre.in
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 overflow-hidden">
+                        <img class="footer_map_img" src="/static/assets/home/img/footer_map.png"
+                            alt="">
+                    </div>
+                </div>
+                <div class="row mt-5 pt-5 footer_botton_row justify-content-between">
+                    <div class="col-12 col-lg-6">
+                        <p>© 2025 Sajre edutech. All Rights are Reserved.</p>
+                    </div>
+                    <div class="col-12 col-md-6 d-none d-lg-block text-md-end">
+                        <p>© 2025 Sajre edutech. All Rights are Reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+        <script src="/static/assets/home/js/query.min.js"></script>
+
+        <script src="/static/assets/home/js/slick.min.js"></script>
+
+        <script src="/static/assets/home/js/bootstrap.min.js"></script>
+
+        <script src="/static/assets/home/js/aos.js"></script>
+
+        <script>
+            $(function () {
+                // --- Configuration ---
+                const slidesData = [
+                    {
+                        imageUrl: "/static/assets/home/img/hm_slider_1.jpg",
+                        title: 'Empowering individuals through future-ready learning',
+                        buttonText: 'View Event'
+                    },
+                    {
+                        imageUrl: "/static/assets/home/img/hm_slider_2.png",
+                        title: 'Collaborative Tech Workshops',
+                        buttonText: 'Join Now'
+                    },
+                    {
+                        imageUrl: "/static/assets/home/img/hm_slider_3.jpg",
+                        title: 'Networking for Professionals',
+                        buttonText: 'Get Tickets'
+                    },
+                    {
+                        imageUrl: "/static/assets/home/img/hm_slider_4.png",
+                        title: 'Innovation and Startup Culture',
+                        buttonText: 'Learn More'
+                    },
+                    {
+                        imageUrl: "/static/assets/home/img/hm_slider_5.jpg",
+                        title: 'Global Leadership Summit',
+                        buttonText: 'Register'
+                    }
+                ];
+
+                // --- DOM Elements (jQuery selectors) ---
+                const $sliderWrapper = $('.hm_banner_slider_wrapper');
+                const $navDotsContainer = $('.nav-dots');
+
+                let currentIndex = 0;
+                const totalSlides = slidesData.length;
+
+                // --- Functions ---
+                function createSlides() {
+                    $.each(slidesData, function (index, data) {
+                        // Create slide element with jQuery
+                        const $slide = $('<div></div>')
+                            .addClass('slide')
+                            .css('background-image', `url(${data.imageUrl})`)
+                            .attr('data-index', index);
+
+                        // Create content element with jQuery
+                        const $content = $('<div></div>')
+                            .addClass('slide-content')
+                            .html(`
+                        <h2 class="hm_slider_title">${data.title}</h2>
+                        ${data.buttonText ? `
+                            <button class="hm_slider_btn">
+                                ${data.buttonText}
+                            </button>
+                        ` : ''}
+                    `);
+
+                        // Append content to slide, and slide to wrapper
+                        $slide.append($content);
+                        $sliderWrapper.append($slide);
+
+                        // Create dot element with jQuery
+                        const $dot = $('<div></div>')
+                            .addClass('dot')
+                            .attr('data-index', index);
+                        $navDotsContainer.append($dot);
+                    });
+                }
+
+                function updateSlider() {
+                    // Get all slides and dots as jQuery objects
+                    const $slides = $('.slide');
+                    const $dots = $('.dot');
+
+                    // Remove all positioning classes
+                    $slides.removeClass('active prev prev-2 next next-2');
+                    $dots.removeClass('active');
+
+                    // Add 'active' class to the current slide and dot
+                    $slides.eq(currentIndex).addClass('active');
+                    $dots.eq(currentIndex).addClass('active');
+
+                    // Calculate indices for surrounding slides
+                    const prevIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                    const prev2Index = (currentIndex - 2 + totalSlides) % totalSlides;
+                    const nextIndex = (currentIndex + 1) % totalSlides;
+                    const next2Index = (currentIndex + 2) % totalSlides;
+
+                    // Add classes to surrounding slides
+                    $slides.eq(prevIndex).addClass('prev');
+                    $slides.eq(prev2Index).addClass('prev-2');
+                    $slides.eq(nextIndex).addClass('next');
+                    $slides.eq(next2Index).addClass('next-2');
+                }
+
+                function goToSlide(index) {
+                    currentIndex = index;
+                    updateSlider();
+                }
+
+                // --- Event Listeners (jQuery) ---
+                $('#next').on('click', function () {
+                    goToSlide((currentIndex + 1) % totalSlides);
+                });
+
+                $('#prev').on('click', function () {
+                    goToSlide((currentIndex - 1 + totalSlides) % totalSlides);
+                });
+
+                // Use event delegation for dots since they are created dynamically
+                $navDotsContainer.on('click', '.dot', function () {
+                    goToSlide($(this).data('index'));
+                });
+
+                // --- Initialization ---
+                createSlides();
+                updateSlider(); // Set initial state
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('.hm_view_event_slider').slick({
+                    dots: true,
+                    infinite: true,
+                    speed: 500,
+                    slidesToShow: 1,
+                    arrows: true,
+                    autoplay: true,
+                    autoplaySpeed: 3000,
+                    prevArrow: `<button type="button" class="slick-prev custom-prev">
+                    <svg width="23" height="60" viewBox="0 0 23 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.895004 30L16.7207 0.107056L22.6127 3.22632L8.43834 30L22.6127 56.7737L16.7207 59.893L0.895004 30Z" fill="white"/>
+                    </svg>
+                </button>`,
+                    nextArrow: `<button type="button" class="slick-next custom-next">
+                    <svg width="23" height="60" viewBox="0 0 23 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22.105 30L6.2793 59.8929L0.387299 56.7737L14.5617 30L0.387299 3.22632L6.2793 0.107056L22.105 30Z" fill="white"/>
+                    </svg>
+                </button>`,
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('.course-slider').slick({
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    arrows: true,
+                    appendArrows: $('.slider-nav'), // Appends arrows to the header div
+                    prevArrow: `<button type="button" class="slick-prev"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.38876 9.64299L12.6686 2.36316L10.7493 0.443848L0.192999 11.0002L10.7493 21.5563L12.6686 19.637L5.38876 12.3573H21.9076V9.64299H5.38876Z" fill="#2D3D4E"/>
+            </svg>
+            </button>`,
+                    nextArrow: `<button type="button" class="slick-next"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.6112 9.64299L9.33142 2.36316L11.2507 0.443848L21.807 11.0002L11.2507 21.5563L9.33142 19.637L16.6112 12.3573H0.0924072V9.64299H16.6112Z" fill="#2D3D4E"/>
+            </svg>
+            </button>`,
+                    dots: false,
+                    infinite: true, // Set to false to stop at the end
+                    responsive: [
+                        {
+                            breakpoint: 1200,
+                            settings: {
+                                slidesToShow: 3,
+                            }
+                        },
+                        {
+                            breakpoint: 992, // For tablets
+                            settings: {
+                                slidesToShow: 2,
+                            }
+                        },
+                        {
+                            breakpoint: 600, // For mobile phones
+                            settings: {
+                                slidesToShow: 1,
+                            }
+                        }
+                    ]
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('.instagram-slider').slick({
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    autoplay: true,
+                    autoplaySpeed: 2500,
+                    arrows: false,
+                    dots: false,
+                    responsive: [{
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: 3
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2
+                        }
+                    },
+                    {
+                        breakpoint: 576,
+                        settings: {
+                            slidesToShow: 1
+                        }
+                    }
+                    ]
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('.feedback-slider').slick({
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    arrows: true,
+                    dots: false,
+                    responsive: [
+                        {
+                            breakpoint: 992,
+                            settings: {
+                                slidesToShow: 2
+                            }
+                        },
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                slidesToShow: 1
+                            }
+                        }
+                    ]
+                });
+
+                $('#prevBtn').click(function () {
+                    $('.feedback-slider').slick('slickPrev');
+                });
+
+                $('#nextBtn').click(function () {
+                    $('.feedback-slider').slick('slickNext');
+                });
+            });
+        </script>
+        <script>
+            $(function () {
+
+                //BEGIN
+                $(".accordion__title").on("click", function (e) {
+
+                    e.preventDefault();
+                    var $this = $(this);
+
+                    if (!$this.hasClass("accordion-active")) {
+                        $(".accordion__content").slideUp(400);
+                        $(".accordion__title").removeClass("accordion-active");
+                        $('.accordion__arrow').removeClass('accordion__rotate');
+                    }
+
+                    $this.toggleClass("accordion-active");
+                    $this.next().slideToggle();
+                    $('.accordion__arrow', this).toggleClass('accordion__rotate');
+                });
+
+            });
+        </script>
+        <script>
+            // $(document).ready(function() {
+            //     let lastScrollTop = 0;
+            //     let isHidden = false;
+
+            //     $(window).on('scroll', function() {
+            //         let currentScroll = $(this).scrollTop();
+
+            //         if (currentScroll > lastScrollTop) {
+            //             if (currentScroll > 100 && !isHidden) {
+            //                 $('.app_header').addClass('hide-header');
+            //                 isHidden = true;
+            //             }
+            //             if (currentScroll > 400 && isHidden) {
+            //                 $('.app_header').removeClass('hide-header');
+            //                 isHidden = false;
+            //             }
+            //         }
+            //         lastScrollTop = currentScroll;
+            //     });
+            // });
+        </script>
+        <script>
+            AOS.init();
+        </script>
+    </div>
+</body>
+
+</html>

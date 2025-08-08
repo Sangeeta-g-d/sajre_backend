@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <path fill="white" d="
+    M0,0 
+    H400 
+    V400 
+    H200 
+    Q150,400 150,350 
+    V250 
+    Q150,200 100,200 
+    H0 
+    Z"></path>
+</svg>
