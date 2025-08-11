@@ -145,17 +145,18 @@
             outline: none;
         }
 
-        .form-label {
-            position: absolute;
-            left: 15px;
-            top: 12px;
-            font-size: 14px;
-            color: #6c757d;
-            transition: all 0.2s;
-            pointer-events: none;
-            background-color: #f8f9fa;
-            padding: 0 5px;
-        }
+       .form-label {
+    position: absolute;
+    left: 15px;
+    top: 12px;
+    font-size: 14px;
+    color: #6c757d;
+    transition: all 0.2s;
+    pointer-events: none;
+    background-color: inherit; /* instead of #f8f9fa */
+    padding: 0 5px;
+}
+
 
         .form-control:focus+.form-label,
         .form-control:not(:placeholder-shown)+.form-label {
@@ -363,3 +364,4 @@
             background-color: #2c3e50;
         }
     
+        

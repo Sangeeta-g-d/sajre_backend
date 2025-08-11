@@ -2,8 +2,8 @@
 /* -----------------Get in Touch Form Styles----------------- */
 .get-p {
     font-family: 'inter';
-    font-weight: 700;
-    font-size: 35px;
+    font-weight: 900 !important;
+    font-size: 40px;
 }
 
 .form-check {

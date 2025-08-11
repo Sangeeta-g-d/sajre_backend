@@ -1,6 +1,147 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<style>
+    /* -----------------get in touch forms----------------- */
+    .get-p {
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        font-size: 35px;
+    }
+
+    .form-check {
+        border-radius: 10px;
+        max-height: 100%;
+        box-shadow: 0 0 8px rgba(11, 10, 11, 0.15);
+        /* subtle shadow */
+        padding: 20px;
+        background: #fff;
+        /* keep content readable */
+        margin-bottom: 20px;
+        /* small space below the section */
+    }
+
+    .containerc {
+        max-width: 1140px;
+        /* keeps nice container width */
+        margin: 0 auto;
+        padding: 0 15px;
+        margin-top: -20px;
+    }
+
+    .reference_frd {
+        background: linear-gradient(to right, #133240, #506276);
+        color: white;
+        /* Text color */
+        border: none;
+        /* Remove border */
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 11px;
+        /* Rounded corners */
+        cursor: pointer;
+    }
+
+    .reference_frd:hover {
+        opacity: 0.9;
+        color: white;
+        /* Keep text white on hover */
+    }
+
+    .reference_frd img.btn-icon {
+        width: 35px;
+        /* Adjust icon size */
+        height: 20px;
+    }
+
+    .reference_frd:hover .btn-text,
+    .reference_frd:focus .btn-text {
+        color: #fff !important;
+    }
+
+    .image-wrapper {
+        position: relative;
+        max-width: 100%;
+        border-radius: 16px;
+        overflow: hidden;
+        /* keeps rounded corners for overlay */
+        height: 70%;
+    }
+
+    .image-wrapper .main-image {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+    }
+
+    .image-text {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        color: #ffffffb0;
+        font-size: 16px;
+        line-height: 1.4;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+    }
+
+    /* Mobile-specific styles */
+    @media (max-width: 768px) {
+        .form-check {
+            border-radius: 10px;
+            max-height: 106%;
+            box-shadow: 0 0 8px rgba(11, 10, 11, 0.15);
+            padding: 20px;
+            background: #fff;
+            margin-bottom: 20px;
+        }
+        
+        /* Hero section text adjustments */
+        .hero-text h2 {
+            font-size: 1.8rem !important;
+            width: 100% !important;
+            margin-top: 60px !important;
+            line-height: 1.2;
+        }
+        
+        .hero-text p {
+            font-size: 12px !important;
+        }
+        
+        /* Get in touch section */
+        .get-p {
+            font-size: 28px !important;
+        }
+        
+        /* Form section */
+        .form-section h2 {
+            font-size: 1.5rem !important;
+        }
+        
+        .form-section p {
+            font-size: 11px !important;
+            line-height: 1.4;
+        }
+        
+        /* Image text */
+        .image-text {
+            font-size: 12px !important;
+            padding: 10px !important;
+        }
+        
+        /* Social icons */
+        .social-icons a {
+            font-size: 1.5rem !important;
+        }
+    }
+</style>
+
 <link rel="stylesheet" href="/static/assets/home_part/css/contact.css">
+
+
 <div class="sidebar-overlay"></div>
 
 
@@ -16,7 +157,7 @@
                 box-shadow: 0 8px 32px rgba(0,0,0,0.15);
                 padding: 48px 32px; 
                 position: relative;
-            ">
+            " class="hero-text">
                 <h2 style="
                     font-family: 'Montserrat Alternates', sans-serif;
                     font-weight: bold;
@@ -35,7 +176,7 @@
                     font-size: 14px;
                     margin-bottom: 32px;
                 ">
-                    We’re Here To Answer Your Questions And Support Your Learning Journey.
+                    We're Here To Answer Your Questions And Support Your Learning Journey.
                 </p>
             </div>
         </div>
@@ -46,14 +187,14 @@
 <div class="container my-5">
     <div class="header text-center">
         <p class="get-p">Get in touch</p>
-        <p class="text-muted" >We’re here to help you with any questions or concerns you may have. Feel free to reach out to us through the following channels:</p>
+        <p class="text-muted" style="margin-bottom: 60px;">We're here to help you with any questions or concerns you may have. Feel free to reach out to us through the following channels:</p>
     </div>
 
     <div class="containerc form-check">
         <div class="row">
             <!-- Left Side: Form (6 columns) -->
-            <div class="col-md-6">
-                <h2 class="mb-2" style="font-weight: 700;">Let’s connect</h2>
+            <div class="col-md-6 form-section">
+                <h2 class="mb-2" style="font-weight: 700;">Let's connect</h2>
                 <p class="mb-4" style="font-size:12px;">Let's align our constellations! Reach out and let the magic of collaboration illuminate our skies.</p>
                 <form>
                     <div class="row mb-3">
@@ -73,13 +214,25 @@
                     <div class="mb-3">
                         <textarea class="form-control" placeholder="Address" name="address" rows="2" required></textarea>
                     </div>
-                    <button type="submit" class="btn reference_frd w-100">Submit</button>
+                    <button type="submit" class="btn reference_frd w-100">
+                        <span class="btn-text">Send it to the moon</span>
+                        <!-- <img src="/assets/image/rocket.png" alt="Rocket" class="btn-icon"> -->
+                    </button>
+
                 </form>
             </div>
             <!-- Right Side: Image (6 columns) -->
             <div class="col-md-6 d-flex align-items-center justify-content-center">
-                <img src="/static/assets/home_part/image/form-img.png" alt="Form Image" class="img-fluid" style="max-width: 80%; border-radius: 16px;">
+                <div class="image-wrapper">
+                    <img src="/static/assets/home_part/image/form-img.png" alt="Form Image" class="img-fluid main-image">
+                    <div class="image-text">
+                        "Two lunar months revealed Earth's fragile beauty against vast silence,
+                        transforming my view of our place in the universe."<br>
+                        <strong>Irinel Traista</strong>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -87,7 +240,7 @@
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-12">
-           
+
             <div style="border-radius:16px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.08);">
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902210232338!2d90.38901607538313!3d23.75090367867659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b85b0e1e7e6b%3A0x7e7b7e7b7e7b7e7b!2sSajre%20Edutech!5e0!3m2!1sen!2sbd!4v1718100000000!5m2!1sen!2sbd"
@@ -102,7 +255,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12 text-center">
             <h4 class="mb-4" style="font-weight:700;">Follow Us</h4>
-            <div class="d-flex justify-content-center gap-5">
+            <div class="d-flex justify-content-center gap-5 social-icons">
                 <a href="#" class="text-dark fs-2" aria-label="Snapchat">
                     <i class="bi bi-snapchat"></i>
                 </a>
@@ -122,4 +275,6 @@
         </div>
     </div>
 </div>
+
+
 {% endblock %}

@@ -20,15 +20,18 @@ def register(request):
 
         # Check if email already exists
         if CustomUser.objects.filter(email=email).exists():
-            return render(request, 'registration.html', {'error': 'Email already registered.'})
+            context = {'error': 'Email already registered.'}
+            return render(request, 'registration.html', context)
 
         # Check if phone number already exists
         if CustomUser.objects.filter(phone_number=phone_number).exists():
-            return render(request, 'registration.html', {'error': 'Phone already registered.'})
+            context = {'error': 'Phone already registered.'}
+            return render(request, 'registration.html', context)
 
         # Check password match
         if password != confirm_password:
-            return render(request, 'registration.html', {'error': 'Passwords do not match'})
+            context = {'error': 'Passwords do not match'}
+            return render(request, 'registration.html', context)
 
         # Create user (inactive until OTP verified)
         user = CustomUser.objects.create_user(
@@ -36,7 +39,7 @@ def register(request):
             password=password,
             full_name=full_name,
             phone_number=phone_number,
-            is_active=False  # 🚨 inactive until OTP verified
+            is_active=False
         )
 
         # Generate OTP
@@ -44,7 +47,7 @@ def register(request):
         UserOTP.objects.create(user=user, otp_code=otp_code)
 
         # TODO: Send OTP via SMS/Email
-        print(f"OTP for {email}: {otp_code}")  # 👀 Debug (replace with email/sms service)
+        print(f"OTP for {email}: {otp_code}")
 
         # Redirect to OTP verification page
         return redirect('verify_otp', user_id=user.id)
@@ -103,8 +106,6 @@ def select_category(request):
                 return redirect('/driver_dashboard')
             elif role == 'employee':
                 return redirect('/employee_home')
-            elif role == 'customer':
-                return redirect('/customer_home')
             elif role == 'admin':
                 return redirect('/admin/dashboard')
             elif role == 'teacher':
@@ -191,14 +192,26 @@ def login_view(request):
         password = request.POST.get("password")
         user = authenticate(request, username=email, password=password)
         if user is not None:
+            print(user.role)
             login(request, user)
+
+            # Determine redirect URL based on role
+            if user.role in ["mentor", "vendor"]:
+                redirect_url = "/mentor/mentor_dashboard/"
+            elif user.role == "participant":
+                redirect_url = "/participants/dashboard/"
+            else:
+                redirect_url = "/dashboard/"  # fallback for other roles
+
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
                     'success': True,
                     'message': 'Login successful',
-                    'redirect_url': '/participants/dashboard/' if hasattr(user, 'participant_profile') else '/dashboard/'
+                    'redirect_url': redirect_url
                 })
-            return redirect('/participants/dashboard/' if hasattr(user, 'participant_profile') else '/dashboard/')
+
+            return redirect(redirect_url)
+
         else:
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
@@ -208,6 +221,7 @@ def login_view(request):
             return render(request, "login.html", {'error': 'Invalid email or password'})
 
     return render(request, "login.html")
+
 
 def logout_view(request):
     logout(request)
@@ -219,6 +233,19 @@ def mentor_register(request):
     if request.method == "POST":
         user = request.user
         profile, created = MentorProfile.objects.get_or_create(user=user)
+
+        # Handle referral code if provided
+        referral_code = request.POST.get("referralCode", "").strip()
+        if referral_code:
+            try:
+                referred_by_user = CustomUser.objects.get(referral_code=referral_code)
+                if referred_by_user != user:  # Prevent self-referral
+                    user.referred_by = referred_by_user
+                    user.save()
+                    # You might want to add logic here to award referral points/benefits
+            except CustomUser.DoesNotExist:
+                # Invalid referral code - we'll just ignore it
+                pass
 
         # Step 1: Qualification Details
         profile.higher_qualification = request.POST.get("higherQualification")
@@ -247,6 +274,6 @@ def mentor_register(request):
         profile.save()
 
         print("✅ Mentor registration submitted successfully")
-        return redirect("/mentor/dashboard/")  # Change to your dashboard or success page
+        return redirect("/mentor/mentor_dashboard/")
 
     return render(request, "mentor_register.html")

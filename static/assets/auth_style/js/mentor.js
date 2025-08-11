@@ -33,20 +33,44 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Floating labels
-    document.querySelectorAll('.form-control').forEach(input => {
-        if (input.value && input.nextElementSibling?.classList.contains('form-label')) {
-            input.nextElementSibling.classList.add('active');
-        }
-        input.addEventListener('focus', function () {
-            if (this.nextElementSibling?.classList.contains('form-label')) {
-                this.nextElementSibling.classList.add('active');
+    // Initialize floating labels for all inputs
+    function initFloatingLabels() {
+        document.querySelectorAll('.form-control').forEach(input => {
+            // Check if the input has a value on load
+            if (input.value && input.nextElementSibling?.classList.contains('form-label')) {
+                input.nextElementSibling.classList.add('active');
+            }
+            
+            // For select elements
+            if (input.tagName === 'SELECT' && input.value) {
+                input.nextElementSibling.classList.add('active');
+            }
+
+            input.addEventListener('focus', function () {
+                if (this.nextElementSibling?.classList.contains('form-label')) {
+                    this.nextElementSibling.classList.add('active');
+                }
+            });
+            
+            input.addEventListener('blur', function () {
+                if (!this.value && this.nextElementSibling?.classList.contains('form-label')) {
+                    this.nextElementSibling.classList.remove('active');
+                }
+            });
+            
+            // For select elements - handle change event
+            if (input.tagName === 'SELECT') {
+                input.addEventListener('change', function() {
+                    if (this.value && this.nextElementSibling?.classList.contains('form-label')) {
+                        this.nextElementSibling.classList.add('active');
+                    } else if (!this.value && this.nextElementSibling?.classList.contains('form-label')) {
+                        this.nextElementSibling.classList.remove('active');
+                    }
+                });
             }
         });
-        input.addEventListener('blur', function () {
-            if (!this.value && this.nextElementSibling?.classList.contains('form-label')) {
-                this.nextElementSibling.classList.remove('active');
-            }
-        });
-    });
+    }
+
+    // Call the initialization function
+    initFloatingLabels();
 });

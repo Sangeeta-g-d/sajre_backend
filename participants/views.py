@@ -26,6 +26,7 @@ def dashboard(request):
 
     upcoming_round = None
     is_enrolled = False
+    can_submit_art = False  # ✅ New flag
 
     if profile.age:
         category = CompetitionCategory.objects.filter(
@@ -36,13 +37,12 @@ def dashboard(request):
 
         if category:
             today = now().date()
-            # get earliest upcoming schedule
+            # Get earliest upcoming schedule
             upcoming_round = RoundSchedule.objects.filter(
                 round__level__category=category,
                 date__gte=today
             ).order_by("date", "start_time").first()
 
-            # ✅ check if participant exists and has paid
             try:
                 participant = Participant.objects.get(user=request.user, category=category)
                 if participant.has_paid:
@@ -50,9 +50,15 @@ def dashboard(request):
             except Participant.DoesNotExist:
                 pass
 
+            # ✅ Check if submit is allowed
+            if upcoming_round and is_enrolled and upcoming_round.date == today:
+                can_submit_art = True
+    print(can_submit_art)
+
     return render(request, 'dashboard.html', {
         "upcoming_round": upcoming_round,
-        "is_enrolled": is_enrolled
+        "is_enrolled": is_enrolled,
+        "can_submit_art": can_submit_art  # ✅ Pass to template
     })
 
 

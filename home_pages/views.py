@@ -15,6 +15,7 @@ def art_gallery(request):
     return render(request,'art_gallery.html')
 
 
+
 def contact_us(request):
     return render(request,'contact_us.html')
 
@@ -32,3 +33,10 @@ def index(request):
 
 def comming_soon(request):
     return render(request,'comming_soon.html')
+
+def terms_and_conditions(request):
+    return render(request,'terms_and_conditions.html')
+
+
+def privacy_policy(request):
+    return render(request,'privacy_policy.html')

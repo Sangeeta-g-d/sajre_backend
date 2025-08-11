@@ -49,17 +49,17 @@
         rel="stylesheet">
 
 
-    <link rel="stylesheet" type="text/css" href="assets/css/slick-theme.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/slick.css" />
+    <link rel="stylesheet" type="text/css" href="/static/assets/home/css/slick-theme.css" />
+    <link rel="stylesheet" type="text/css" href="/static/assets/home/css/slick.css" />
 
 
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/assets/home/css/bootstrap.min.css">
 
-    <link href="assets/css/aos.css" rel="stylesheet">
+    <link href="/static/assets/home/css/aos.css" rel="stylesheet">
 
-    <link href="assets/css/custom.css" rel="stylesheet">
+    <link href="/static/assets/home/css/custom.css" rel="stylesheet">
 
-    <link href="assets/css/media.queries.css" rel="stylesheet">
+    <link href="/static/assets/home/css/media.queries.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
@@ -71,7 +71,7 @@
         <nav class="navbar navbar-expand-lg app_header tm-bg-primary mt-2">
             <div class="container navbar_container">
                 <a class="navbar-brand" href="">
-                    <img class="app_logo" src="assets/img/logo.png" alt="">
+                    <img class="app_logo" src="/static/assets/home/img/logo.png" alt="">
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
@@ -85,19 +85,19 @@
                             <a class="nav-link" href="">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about">About Us</a>
+                            <a class="nav-link" href="/about_us/">About Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../public/test.php">Events</a>
+                            <a class="nav-link" href="#" id="openCardBtn">Events</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Projects</a>
+                            <a class="nav-link" href="/comming_soon/">Projects</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Contact Us</a>
+                            <a class="nav-link" href="/contact_us/">Contact Us</a>
                         </li>
                         <li class="nav-item bg-primary">
-                            <a class="nav-link" href="">Get started
+                            <a class="nav-link" href="/auth/login/">Get started
                                 <svg width="13" height="13" viewBox="0 0 13 13" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -111,6 +111,74 @@
             </div>
         </nav>
 
+<!-- Replace your existing modal-card div with this -->
+<div class="modal-card" id="modalCard">
+        <button class="close-btn" id="closeCardBtn">×</button>
+        <div class="modal-container">
+            <div class="modal-navigation">
+                <div class="nav-item">Present Events</div>
+                <div class="nav-item active"> <a class="text-black text-decoration-none" href="/art_landing/"> Upcoming Events</a> </div>
+                <div class="nav-item">Succeeded Events</div>
+            </div>
+            
+            <div class="modal-content">
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="/static/assets/home/img/event-popup.png" alt="Event Image">
+                    </div>
+                    <div class="event-details">
+                        <div class="event-title">National Art Summit (NAS) competition</div>
+                        <div class="event-description">
+                            The Saije Edutech Art Competition is a premier national-level platform committed to discovering, recognizing, and nurturing artistic talent across India.
+                        </div>
+                        <!-- <button class="event-button">View Event</button> -->
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+<script>
+    // Update your existing JavaScript with this
+    const openCardBtn = document.getElementById('openCardBtn');
+    const closeCardBtn = document.getElementById('closeCardBtn');
+    const modalCard = document.getElementById('modalCard');
+    const overlay = document.getElementById('overlay');
+    const tabs = document.querySelectorAll('.modal-tab');
+
+    // Open modal
+    openCardBtn.addEventListener('click', () => {
+        modalCard.style.display = 'block';
+        overlay.style.display = 'block';
+    });
+
+    // Close modal via close button
+    closeCardBtn.addEventListener('click', () => {
+        modalCard.style.display = 'none';
+        overlay.style.display = 'none';
+    });
+
+    // Close modal via overlay click
+    overlay.addEventListener('click', () => {
+        modalCard.style.display = 'none';
+        overlay.style.display = 'none';
+    });
+
+    // Tab switching functionality
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            tabs.forEach(t => t.classList.remove('active'));
+            
+            // Add active class to clicked tab
+            tab.classList.add('active');
+            
+            // Here you would typically load different content based on the tab
+            // For now we'll just keep the same content
+        });
+    });
+</script>
         <!-- Offcanvas Menu for Mobile -->
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel">
@@ -197,12 +265,11 @@
                                 Bridging the gap between traditional academics and <br>
                                 modern industry demands through hands-on, job- <br> oriented education
                             </p>
-                            <button class="hm_view_event_btn btn"> <a href="/art_landing/" class="text-white"> View Event</button>
+                            <button class="hm_view_event_btn btn"> <a href="/art_landing"> View Event</a></button>
                         </div>
                         <div class=" d-none d-lg-block col-lg-1"></div>
                         <div class="col-12 col-md-6 text-md-end">
-                            <img class="GeniUS_img" src="assets/img/GeniUS.png"
-                                alt="">
+                            <img class="GeniUS_img" src="/static/assets/home/img/GeniUS.png" alt="">
                         </div>
                     </div>
                     <div style="height: 120px;width:100%;"></div>
@@ -211,19 +278,19 @@
                             <div class="hm_view_event_slider_container">
                                 <div class="hm_view_event_slider">
                                     <div>
-                                        <img src="assets/img/hm_slider_1.jpg" alt="">
+                                        <img src="/static/assets/home/img/hm_slider_1.jpg" alt="">
                                     </div>
                                     <div>
-                                        <img src="assets/img/hm_slider_2.png" alt="">
+                                        <img src="/static/assets/home/img/hm_slider_2.png" alt="">
                                     </div>
                                     <div>
-                                        <img src="assets/img/hm_slider_3.jpg" alt="">
+                                        <img src="/static/assets/home/img/hm_slider_3.jpg" alt="">
                                     </div>
                                     <div>
-                                        <img src="assets/img/hm_slider_4.png" alt="">
+                                        <img src="/static/assets/home/img/hm_slider_4.png" alt="">
                                     </div>
                                     <div>
-                                        <img src="assets/img/hm_slider_5.jpg" alt="">
+                                        <img src="/static/assets/home/img/hm_slider_5.jpg" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -237,7 +304,7 @@
                     <div class="row row-gap-4 items-center">
                         <div class="col-12 col-lg-6">
                             <div class="mission_victior_div text-center d-none d-md-block"
-                                style="background-image: url('assets/img/minssion_vic_2.png')">
+                                style="background-image: url('/static/assets/home/img/minssion_vic_2.png')">
                                 <h2 class="mission_title">Mission & Aim of Edutech</h2>
                             </div>
                             <div class="mission_victior_div2 text-center d-md-none">
@@ -263,9 +330,9 @@
                         </div>
                         <div class="col-12 col-lg-6 text-end">
                             <div class="mission_background_img"
-                                style="background-image: url('assets/img/mission_img.jpg')">
+                                style="background-image: url('/static/assets/home/img/mission_img.jpg')">
                                 <div class="spacer"></div>
-                                <img src="assets/img/misson_img_2.jpg" alt="">
+                                <img src="/static/assets/home/img/misson_img_2.jpg" alt="">
                                 <div class="spacer"></div>
                             </div>
                         </div>
@@ -289,48 +356,7 @@
                                 <div class="card-inner">
                                     <!-- Front Side -->
                                     <div class="card-front">
-                                        <img src="assets/img/crouse_slider_1.jpg"
-                                            alt="Ethical Hacking Course" class="img-fluid">
-                                        <div class="p-3">
-                                            <h3 class="crouse_card_title">Ethical Hacking</h3>
-                                            <p class="crouse_card_sub_title">This Course Is Make You Industry Ready
-                                                Cyber Expert</p>
-                                            <div class="skill-tags">
-                                                <span>Skill</span>
-                                                <span>Linux</span>
-                                                <span>Phishing</span>
-                                                <span>Hacking</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Back Side -->
-                                    <div class="card-back">
-                                        <div class="crouse_back_top">
-                                            <h3 class="crouse_back_title">Ethical Hacking</h3>
-                                            <p class="crouse_back_sub_title">This Course Is Make You Industry Ready
-                                                Cyber Expert</p>
-                                            <div class="croue_back_skill_tags">
-                                                <span>Skill</span>
-                                                <span>Linux</span>
-                                                <span>Phishing</span>
-                                                <span>Hacking</span>
-                                            </div>
-                                        </div>
-                                        <div class="crouse_back_bottom">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <h2 class="mb-0">₹4500</h2>
-                                                <button class="btn btn-dark rounded-5"><a href="/comming_soon/">View Crouse</a></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="course-card">
-                                <div class="card-inner">
-                                    <!-- Front Side -->
-                                    <div class="card-front">
-                                        <img src="assets/img/crouse_slider_1.jpg"
+                                        <img src="/static/assets/home/img/crouse_slider_1.jpg"
                                             alt="Ethical Hacking Course" class="img-fluid">
                                         <div class="p-3">
                                             <h3 class="crouse_card_title">Ethical Hacking</h3>
@@ -371,7 +397,49 @@
                                 <div class="card-inner">
                                     <!-- Front Side -->
                                     <div class="card-front">
-                                        <img src="assets/img/crouse_slider_1.jpg"
+                                        <img src="/static/assets/home/img/crouse_slider_1.jpg"
+                                            alt="Ethical Hacking Course" class="img-fluid">
+                                        <div class="p-3">
+                                            <h3 class="crouse_card_title">Ethical Hacking</h3>
+                                            <p class="crouse_card_sub_title">This Course Is Make You Industry Ready
+                                                Cyber Expert</p>
+                                            <div class="skill-tags">
+                                                <span>Skill</span>
+                                                <span>Linux</span>
+                                                <span>Phishing</span>
+                                                <span>Hacking</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Back Side -->
+                                    <div class="card-back">
+                                        <div class="crouse_back_top">
+                                            <h3 class="crouse_back_title">Ethical Hacking</h3>
+                                            <p class="crouse_back_sub_title">This Course Is Make You Industry Ready
+                                                Cyber Expert</p>
+                                            <div class="croue_back_skill_tags">
+                                                <span>Skill</span>
+                                                <span>Linux</span>
+                                                <span>Phishing</span>
+                                                <span>Hacking</span>
+                                            </div>
+                                        </div>
+                                        <div class="crouse_back_bottom">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h2 class="mb-0">₹4500</h2>
+                                                <button class="btn btn-dark rounded-5"> <a href="/coming_soon/"></a>
+                                                    View Crouse</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="course-card">
+                                <div class="card-inner">
+                                    <!-- Front Side -->
+                                    <div class="card-front">
+                                        <img src="/static/assets/home/img/crouse_slider_1.jpg"
                                             alt="Ethical Hacking Course" class="img-fluid">
                                         <div class="p-3">
                                             <h3 class="crouse_card_title">Ethical Hacking</h3>
@@ -412,7 +480,7 @@
                                 <div class="card-inner">
                                     <!-- Front Side -->
                                     <div class="card-front">
-                                        <img src="assets/img/crouse_slider_1.jpg"
+                                        <img src="/static/assets/home/img/crouse_slider_1.jpg"
                                             alt="Ethical Hacking Course" class="img-fluid">
                                         <div class="p-3">
                                             <h3 class="crouse_card_title">Ethical Hacking</h3>
@@ -453,7 +521,7 @@
                                 <div class="card-inner">
                                     <!-- Front Side -->
                                     <div class="card-front">
-                                        <img src="assets/img/crouse_slider_1.jpg"
+                                        <img src="/static/assets/home/img/crouse_slider_1.jpg"
                                             alt="Ethical Hacking Course" class="img-fluid">
                                         <div class="p-3">
                                             <h3 class="crouse_card_title">Ethical Hacking</h3>
@@ -564,13 +632,11 @@
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6 text-end pe-5 position-relative">
-                                <img class="tutor_victor_1 d-none"
-                                    src="assets/img/tutor_victor_1.png" alt="">
+                                <img class="tutor_victor_1 d-none" src="/static/assets/home/img/tutor_victor_1.png"
+                                    alt="">
                                 <div>
-                                    <img class="tutor_victor_2"
-                                        src="assets/img/tutor_lg_2.png" alt="">
-                                    <img class="tutor_man_img"
-                                        src="assets/img/tutor_man.png" alt="">
+                                    <img class="tutor_victor_2" src="/static/assets/home/img/tutor_lg_2.png" alt="">
+                                    <img class="tutor_man_img" src="/static/assets/home/img/tutor_man.png" alt="">
                                 </div>
                             </div>
                         </div>
@@ -585,14 +651,13 @@
                         <!-- Card 1 -->
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="event-card">
-                                <img src="assets/img/event_1.png" alt="Art Event">
+                                <img src="/static/assets/home/img/event_1.png" alt="Art Event">
                                 <div class="event-overlay">
                                     <div class="d-flex gap-3 gap-lg-0 align-items-center justify-content-between">
                                         <div class="d-flex gap-3 align-items-center">
                                             <div>
                                                 <img class="event_child_img"
-                                                    src="assets/img/events_child_1.png"
-                                                    alt="">
+                                                    src="/static/assets/home/img/events_child_1.png" alt="">
                                             </div>
                                             <div>
                                                 <div class="event-author">Jerome Bell</div>
@@ -611,14 +676,13 @@
                         <!-- Card 2 -->
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="event-card">
-                                <img src="assets/img/event_2.png" alt="Art Event">
+                                <img src="/static/assets/home/img/event_2.png" alt="Art Event">
                                 <div class="event-overlay">
                                     <div class="d-flex gap-3 gap-lg-0 align-items-center justify-content-between">
                                         <div class="d-flex gap-3 align-items-center">
                                             <div>
                                                 <img class="event_child_img"
-                                                    src="assets/img/events_child_1.png"
-                                                    alt="">
+                                                    src="/static/assets/home/img/events_child_1.png" alt="">
                                             </div>
                                             <div>
                                                 <div class="event-author">Jerome Bell</div>
@@ -639,14 +703,13 @@
                         <!-- Card 3 -->
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="event-card">
-                                <img src="assets/img/event_3.png" alt="Art Event">
+                                <img src="/static/assets/home/img/event_3.png" alt="Art Event">
                                 <div class="event-overlay">
                                     <div class="d-flex gap-3 gap-lg-0 align-items-center justify-content-between">
                                         <div class="d-flex gap-3 align-items-center">
                                             <div>
                                                 <img class="event_child_img"
-                                                    src="assets/img/events_child_1.png"
-                                                    alt="">
+                                                    src="/static/assets/home/img/events_child_1.png" alt="">
                                             </div>
                                             <div>
                                                 <div class="event-author">Jerome Bell</div>
@@ -674,102 +737,95 @@
                     <div class="instagram-slider">
                         <!-- Slide 1 -->
                         <div class="insta-card position-relative rounded overflow-hidden">
-                            <img src="assets/img/social_media_1.jpg"
-                                class="w-100 img-cover" alt="Thumbnail">
+                            <img src="/static/assets/home/img/social_media_1.jpg" class="w-100 img-cover"
+                                alt="Thumbnail">
                             <div class="gradient-overlay"></div>
                             <a href="#" class="play-btn position-absolute top-50 start-50 translate-middle">
-                                <img src="assets/img/video_icon.png" alt="Play"
-                                    width="50">
+                                <img src="/static/assets/home/img/video_icon.png" alt="Play" width="50">
                             </a>
                             <div class="insta-footer position-absolute bottom-0 w-100 text-center p-2">
                                 <a href="#" class="view_btn">
-                                    <img src="assets/img/view_btn.png" alt="">
+                                    <img src="/static/assets/home/img/view_btn.png" alt="">
                                 </a>
                             </div>
                         </div>
 
                         <!-- Slide 2 -->
                         <div class="insta-card position-relative rounded overflow-hidden">
-                            <img src="assets/img/social_media_1.jpg"
-                                class="w-100 img-cover" alt="Thumbnail">
+                            <img src="/static/assets/home/img/social_media_1.jpg" class="w-100 img-cover"
+                                alt="Thumbnail">
                             <div class="gradient-overlay"></div>
                             <a href="#" class="play-btn position-absolute top-50 start-50 translate-middle">
-                                <img src="assets/img/video_icon.png" alt="Play"
-                                    width="50">
+                                <img src="/static/assets/home/img/video_icon.png" alt="Play" width="50">
                             </a>
                             <div class="insta-footer position-absolute bottom-0 w-100 text-center p-2">
                                 <a href="#" class="view_btn">
-                                    <img src="assets/img/view_btn.png" alt="">
+                                    <img src="/static/assets/home/img/view_btn.png" alt="">
                                 </a>
                             </div>
                         </div>
                         <div class="insta-card position-relative rounded overflow-hidden">
-                            <img src="assets/img/social_media_1.jpg"
-                                class="w-100 img-cover" alt="Thumbnail">
+                            <img src="/static/assets/home/img/social_media_1.jpg" class="w-100 img-cover"
+                                alt="Thumbnail">
                             <div class="gradient-overlay"></div>
                             <a href="#" class="play-btn position-absolute top-50 start-50 translate-middle">
-                                <img src="assets/img/video_icon.png" alt="Play"
-                                    width="50">
+                                <img src="/static/assets/home/img/video_icon.png" alt="Play" width="50">
                             </a>
                             <div class="insta-footer position-absolute bottom-0 w-100 text-center p-2">
                                 <a href="#" class="view_btn">
-                                    <img src="assets/img/view_btn.png" alt="">
+                                    <img src="/static/assets/home/img/view_btn.png" alt="">
                                 </a>
                             </div>
                         </div>
                         <div class="insta-card position-relative rounded overflow-hidden">
-                            <img src="assets/img/social_media_1.jpg"
-                                class="w-100 img-cover" alt="Thumbnail">
+                            <img src="/static/assets/home/img/social_media_1.jpg" class="w-100 img-cover"
+                                alt="Thumbnail">
                             <div class="gradient-overlay"></div>
                             <a href="#" class="play-btn position-absolute top-50 start-50 translate-middle">
-                                <img src="assets/img/video_icon.png" alt="Play"
-                                    width="50">
+                                <img src="/static/assets/home/img/video_icon.png" alt="Play" width="50">
                             </a>
                             <div class="insta-footer position-absolute bottom-0 w-100 text-center p-2">
                                 <a href="#" class="view_btn">
-                                    <img src="assets/img/view_btn.png" alt="">
+                                    <img src="/static/assets/home/img/view_btn.png" alt="">
                                 </a>
                             </div>
                         </div>
                         <div class="insta-card position-relative rounded overflow-hidden">
-                            <img src="assets/img/social_media_1.jpg"
-                                class="w-100 img-cover" alt="Thumbnail">
+                            <img src="/static/assets/home/img/social_media_1.jpg" class="w-100 img-cover"
+                                alt="Thumbnail">
                             <div class="gradient-overlay"></div>
                             <a href="#" class="play-btn position-absolute top-50 start-50 translate-middle">
-                                <img src="assets/img/video_icon.png" alt="Play"
-                                    width="50">
+                                <img src="/static/assets/home/img/video_icon.png" alt="Play" width="50">
                             </a>
                             <div class="insta-footer position-absolute bottom-0 w-100 text-center p-2">
                                 <a href="#" class="view_btn">
-                                    <img src="assets/img/view_btn.png" alt="">
+                                    <img src="/static/assets/home/img/view_btn.png" alt="">
                                 </a>
                             </div>
                         </div>
                         <div class="insta-card position-relative rounded overflow-hidden">
-                            <img src="assets/img/social_media_1.jpg"
-                                class="w-100 img-cover" alt="Thumbnail">
+                            <img src="/static/assets/home/img/social_media_1.jpg" class="w-100 img-cover"
+                                alt="Thumbnail">
                             <div class="gradient-overlay"></div>
                             <a href="#" class="play-btn position-absolute top-50 start-50 translate-middle">
-                                <img src="assets/img/video_icon.png" alt="Play"
-                                    width="50">
+                                <img src="/static/assets/home/img/video_icon.png" alt="Play" width="50">
                             </a>
                             <div class="insta-footer position-absolute bottom-0 w-100 text-center p-2">
                                 <a href="#" class="view_btn">
-                                    <img src="assets/img/view_btn.png" alt="">
+                                    <img src="/static/assets/home/img/view_btn.png" alt="">
                                 </a>
                             </div>
                         </div>
                         <div class="insta-card position-relative rounded overflow-hidden">
-                            <img src="assets/img/social_media_1.jpg"
-                                class="w-100 img-cover" alt="Thumbnail">
+                            <img src="/static/assets/home/img/social_media_1.jpg" class="w-100 img-cover"
+                                alt="Thumbnail">
                             <div class="gradient-overlay"></div>
                             <a href="#" class="play-btn position-absolute top-50 start-50 translate-middle">
-                                <img src="assets/img/video_icon.png" alt="Play"
-                                    width="50">
+                                <img src="/static/assets/home/img/video_icon.png" alt="Play" width="50">
                             </a>
                             <div class="insta-footer position-absolute bottom-0 w-100 text-center p-2">
                                 <a href="#" class="view_btn">
-                                    <img src="assets/img/view_btn.png" alt="">
+                                    <img src="/static/assets/home/img/view_btn.png" alt="">
                                 </a>
                             </div>
                         </div>
@@ -818,8 +874,8 @@
                         <div class="card p-3 shadow-sm">
                             <div class="d-flex justify-content-between mb-3">
                                 <div class="d-flex flex-column row-gap-2">
-                                    <img src="assets/img/customer_feed_1.png"
-                                        class="customer_img" width="40" height="40" alt="">
+                                    <img src="/static/assets/home/img/customer_feed_1.png" class="customer_img"
+                                        width="40" height="40" alt="">
                                     <h6 class="card_title">Floyd Miles</h6>
                                 </div>
                                 <div class="d-flex gap-1">
@@ -867,8 +923,8 @@
                         <div class="card p-3 shadow-sm">
                             <div class="d-flex justify-content-between mb-3">
                                 <div class="d-flex flex-column row-gap-2">
-                                    <img src="assets/img/customer_feed_2.png"
-                                        class=" customer_img" width="40" height="40" alt="">
+                                    <img src="/static/assets/home/img/customer_feed_2.png" class=" customer_img"
+                                        width="40" height="40" alt="">
                                     <h6 class="card_title">Floyd Miles</h6>
                                 </div>
                                 <div class="d-flex gap-1">
@@ -915,8 +971,8 @@
                         <div class="card p-3 shadow-sm">
                             <div class="d-flex justify-content-between mb-3">
                                 <div class="d-flex flex-column row-gap-2">
-                                    <img src="assets/img/customer_feed_3.png"
-                                        class="customer_img" width="40" height="40" alt="">
+                                    <img src="/static/assets/home/img/customer_feed_3.png" class="customer_img"
+                                        width="40" height="40" alt="">
                                     <h6 class="card_title">Floyd Miles</h6>
                                 </div>
                                 <div class="d-flex gap-1">
@@ -1001,12 +1057,14 @@
                                             </span></div>
                                         <span class="accordion__title-text">
                                             <span>✦</span>
-                                            <span>Who can participate in Sajre Edutech's art competitions?</span>
-                                        </span> 
+                                            <span>1. What is the National Art Summit (NAS)?</span>
+                                        </span>
                                     </div>
                                     <div class="accordion__content">
-                                        Indian citizens aged 9 to 35 can participate.
-                                        We have age-based categories to ensure fair competition for everyone.
+                                        The National Art Summit (NAS) is a nationwide creative competition organized by
+                                        Sajre Edutech, designed to give visibility to emerging and professional artists
+                                        across India. It includes multiple age categories, exciting themes, and
+                                        attractive rewards.
                                     </div>
                                 </div>
                                 <div class="accordion__item">
@@ -1033,11 +1091,12 @@
                                             </span></div>
                                         <span class="accordion__title-text">
                                             <span>✦</span>
-                                            <span>How do I register for a course or competition?</span>
+                                            <span>2.Who can participate in NAS?</span>
                                         </span>
                                     </div>
                                     <div class="accordion__content">
-                                        Здесь контент
+                                        Anyone aged 9 years and above can participate, with categories for Juniors,
+                                        Teens, Youth, and Professional Artists.
                                     </div>
                                 </div>
                                 <div class="accordion__item">
@@ -1064,11 +1123,15 @@
                                             </span></div>
                                         <span class="accordion__title-text">
                                             <span>✦</span>
-                                            <span>Do participants receive certificates?</span>
+                                            <span>3.How many rounds are there in NAS?</span>
                                         </span>
                                     </div>
                                     <div class="accordion__content">
-                                        Здесь контент
+                                        NAS has three rounds:<br>
+                                         Round 1 : Online Submission<br>
+                                         Round 2 : Online Creative Challenge<br>
+                                         Round 3 : Offline Grand Finale<br>
+
                                     </div>
                                 </div>
                                 <div class="accordion__item">
@@ -1095,11 +1158,145 @@
                                             </span></div>
                                         <span class="accordion__title-text">
                                             <span>✦</span>
-                                            <span>Is there any fee to participate in the art competition?</span>
+                                            <span>4.What are the participation fees?</span>
                                         </span>
                                     </div>
                                     <div class="accordion__content">
-                                        Здесь контент
+                                         Junior Artists (9–12 years) – ₹399<br>
+                                         Teen Creators (13–17 years) – ₹499<br>
+                                         Youth Masters (18–22 years) – ₹799<br>
+
+                                    </div>
+                                </div>
+                                <div class="accordion__item">
+                                    <div class="accordion__title">
+                                        <div class="accordion__arrow"><span class="accordion__arrow-item ">
+                                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_60_796)">
+                                                        <path
+                                                            d="M0.167847 14.1052C0.167847 13.1491 0.942925 12.374 1.89903 12.374H26.1356C27.0918 12.374 27.8668 13.1491 27.8668 14.1052C27.8668 15.0613 27.0918 15.8364 26.1356 15.8364H1.89903C0.942926 15.8364 0.167847 15.0613 0.167847 14.1052Z"
+                                                            fill="#2D3D4E" />
+                                                        <path
+                                                            d="M12.2861 1.98705C12.2861 1.03094 13.0612 0.255859 14.0173 0.255859C14.9734 0.255859 15.7485 1.03094 15.7485 1.98705V26.2237C15.7485 27.1798 14.9734 27.9548 14.0173 27.9548C13.0612 27.9548 12.2861 27.1798 12.2861 26.2237V1.98705Z"
+                                                            fill="#2D3D4E" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_60_796">
+                                                            <rect width="27.699" height="27.699" fill="white"
+                                                                transform="translate(0.167847 0.255859)" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+
+                                            </span></div>
+                                        <span class="accordion__title-text">
+                                            <span>✦</span>
+                                            <span>5.Can schools, colleges, and organizations enroll their
+                                                students?</span>
+                                        </span>
+                                    </div>
+                                    <div class="accordion__content">
+                                        Yes! Institutions can register multiple participants and avail special benefits.
+
+                                    </div>
+                                </div>
+                                <div class="accordion__item">
+                                    <div class="accordion__title">
+                                        <div class="accordion__arrow"><span class="accordion__arrow-item ">
+                                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_60_796)">
+                                                        <path
+                                                            d="M0.167847 14.1052C0.167847 13.1491 0.942925 12.374 1.89903 12.374H26.1356C27.0918 12.374 27.8668 13.1491 27.8668 14.1052C27.8668 15.0613 27.0918 15.8364 26.1356 15.8364H1.89903C0.942926 15.8364 0.167847 15.0613 0.167847 14.1052Z"
+                                                            fill="#2D3D4E" />
+                                                        <path
+                                                            d="M12.2861 1.98705C12.2861 1.03094 13.0612 0.255859 14.0173 0.255859C14.9734 0.255859 15.7485 1.03094 15.7485 1.98705V26.2237C15.7485 27.1798 14.9734 27.9548 14.0173 27.9548C13.0612 27.9548 12.2861 27.1798 12.2861 26.2237V1.98705Z"
+                                                            fill="#2D3D4E" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_60_796">
+                                                            <rect width="27.699" height="27.699" fill="white"
+                                                                transform="translate(0.167847 0.255859)" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+
+                                            </span></div>
+                                        <span class="accordion__title-text">
+                                            <span>✦</span>
+                                            <span>6.Is there a deadline for registration?</span>
+                                        </span>
+                                    </div>
+                                    <div class="accordion__content">
+                                        Yes, registrations close before the first round begins. We recommend registering
+                                        early to confirm your spot.
+
+                                    </div>
+                                </div>
+                                <div class="accordion__item">
+                                    <div class="accordion__title">
+                                        <div class="accordion__arrow"><span class="accordion__arrow-item ">
+                                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_60_796)">
+                                                        <path
+                                                            d="M0.167847 14.1052C0.167847 13.1491 0.942925 12.374 1.89903 12.374H26.1356C27.0918 12.374 27.8668 13.1491 27.8668 14.1052C27.8668 15.0613 27.0918 15.8364 26.1356 15.8364H1.89903C0.942926 15.8364 0.167847 15.0613 0.167847 14.1052Z"
+                                                            fill="#2D3D4E" />
+                                                        <path
+                                                            d="M12.2861 1.98705C12.2861 1.03094 13.0612 0.255859 14.0173 0.255859C14.9734 0.255859 15.7485 1.03094 15.7485 1.98705V26.2237C15.7485 27.1798 14.9734 27.9548 14.0173 27.9548C13.0612 27.9548 12.2861 27.1798 12.2861 26.2237V1.98705Z"
+                                                            fill="#2D3D4E" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_60_796">
+                                                            <rect width="27.699" height="27.699" fill="white"
+                                                                transform="translate(0.167847 0.255859)" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+
+                                            </span></div>
+                                        <span class="accordion__title-text">
+                                            <span>✦</span>
+                                            <span>7.Is the event online or offline?</span>
+                                        </span>
+                                    </div>
+                                    <div class="accordion__content">
+                                        Rounds 1 & 2 are online, and Round 3 (Grand Finale) is offline at a designated
+                                        venue.
+
+                                    </div>
+                                </div>
+                                <div class="accordion__item">
+                                    <div class="accordion__title">
+                                        <div class="accordion__arrow"><span class="accordion__arrow-item ">
+                                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_60_796)">
+                                                        <path
+                                                            d="M0.167847 14.1052C0.167847 13.1491 0.942925 12.374 1.89903 12.374H26.1356C27.0918 12.374 27.8668 13.1491 27.8668 14.1052C27.8668 15.0613 27.0918 15.8364 26.1356 15.8364H1.89903C0.942926 15.8364 0.167847 15.0613 0.167847 14.1052Z"
+                                                            fill="#2D3D4E" />
+                                                        <path
+                                                            d="M12.2861 1.98705C12.2861 1.03094 13.0612 0.255859 14.0173 0.255859C14.9734 0.255859 15.7485 1.03094 15.7485 1.98705V26.2237C15.7485 27.1798 14.9734 27.9548 14.0173 27.9548C13.0612 27.9548 12.2861 27.1798 12.2861 26.2237V1.98705Z"
+                                                            fill="#2D3D4E" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_60_796">
+                                                            <rect width="27.699" height="27.699" fill="white"
+                                                                transform="translate(0.167847 0.255859)" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+
+                                            </span></div>
+                                        <span class="accordion__title-text">
+                                            <span>✦</span>
+                                            <span>8.Who can I contact for more details?</span>
+                                        </span>
+                                    </div>
+                                    <div class="accordion__content">
+                                       You can reach us via our official contact page or email us at support@sajreedutech.com.
+
                                     </div>
                                 </div>
                             </div>
@@ -1117,8 +1314,7 @@
                 <div class="row justify-content-between">
                     <div class="col-12 col-md-6">
                         <div class="footer_logo_div m-auto m-md-0">
-                            <img class="footer_logo " src="assets/img/footer_logo.png"
-                                alt="">
+                            <img class="footer_logo " src="/static/assets/home/img/footer_logo.png" alt="">
                         </div>
                         <p class="footer_description mt-3">
                             From upskilling professionals to nurturing fresh talent, we have consistently focused on
@@ -1144,19 +1340,19 @@
                         <h4 class="title">Quick links</h4>
                         <ul class="nav navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="">Home</a>
+                                <a class="nav-link" href="/">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/about_us/">About Us</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Terms And Condition</a>
+                                <a class="nav-link" href="/terms_condition">Terms And Condition</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="">Privacy Policy</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Contact Us</a>
+                                <a class="nav-link" href="/contact_us/">Contact Us</a>
                             </li>
                         </ul>
                     </div>
@@ -1164,16 +1360,16 @@
                         <h4 class="title">Courses</h4>
                         <ul class="nav navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="">Ethical Hacking</a>
+                                <a class="nav-link" href="/comming_soon/">Ethical Hacking</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Web Desiging</a>
+                                <a class="nav-link" href="/comming_soon/">Web Desiging</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Fashion Designing</a>
+                                <a class="nav-link" href="/comming_soon/">Fashion Designing</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Sales & Marketing</a>
+                                <a class="nav-link" href="/comming_soon/">Sales & Marketing</a>
                             </li>
                         </ul>
                     </div>
@@ -1206,8 +1402,7 @@
                         </ul>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 overflow-hidden">
-                        <img class="footer_map_img" src="assets/img/footer_map.png"
-                            alt="">
+                        <img class="footer_map_img" src="/static/assets/home/img/footer_map.png" alt="">
                     </div>
                 </div>
                 <div class="row mt-5 pt-5 footer_botton_row justify-content-between">
@@ -1222,40 +1417,41 @@
         </footer>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-        <script src="assets/js/query.min.js"></script>
+        <script src="/static/assets/home/js/query.min.js"></script>
 
-        <script src="assets/js/slick.min.js"></script>
+        <script src="/static/assets/home/js/slick.min.js"></script>
 
-        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="/static/assets/home/js/bootstrap.min.js"></script>
 
-        <script src="assets/js/aos.js"></script>
+        <script src="/static/assets/home/js/aos.js"></script>
 
         <script>
             $(function () {
                 // --- Configuration ---
                 const slidesData = [
                     {
-                        imageUrl: "assets/img/hm_slider_1.jpg",
+                        imageUrl: "/static/assets/home/img/hm_slider_1.jpg",
                         title: 'Empowering individuals through future-ready learning',
-                        buttonText: 'View Event'
+                        buttonText: 'View Event',
+                        buttonLink: '/art_landing/'
                     },
                     {
-                        imageUrl: "assets/img/hm_slider_2.png",
+                        imageUrl: "/static/assets/home/img/hm_slider_2.png",
                         title: 'Collaborative Tech Workshops',
                         buttonText: 'Join Now'
                     },
                     {
-                        imageUrl: "assets/img/hm_slider_3.jpg",
+                        imageUrl: "/static/assets/home/img/hm_slider_3.jpg",
                         title: 'Networking for Professionals',
                         buttonText: 'Get Tickets'
                     },
                     {
-                        imageUrl: "assets/img/hm_slider_4.png",
+                        imageUrl: "/static/assets/home/img/hm_slider_4.png",
                         title: 'Innovation and Startup Culture',
                         buttonText: 'Learn More'
                     },
                     {
-                        imageUrl: "assets/img/hm_slider_5.jpg",
+                        imageUrl: "/static/assets/home/img/hm_slider_5.jpg",
                         title: 'Global Leadership Summit',
                         buttonText: 'Register'
                     }
@@ -1499,28 +1695,7 @@
 
             });
         </script>
-        <script>
-            // $(document).ready(function() {
-            //     let lastScrollTop = 0;
-            //     let isHidden = false;
-
-            //     $(window).on('scroll', function() {
-            //         let currentScroll = $(this).scrollTop();
-
-            //         if (currentScroll > lastScrollTop) {
-            //             if (currentScroll > 100 && !isHidden) {
-            //                 $('.app_header').addClass('hide-header');
-            //                 isHidden = true;
-            //             }
-            //             if (currentScroll > 400 && isHidden) {
-            //                 $('.app_header').removeClass('hide-header');
-            //                 isHidden = false;
-            //             }
-            //         }
-            //         lastScrollTop = currentScroll;
-            //     });
-            // });
-        </script>
+       
         <script>
             AOS.init();
         </script>

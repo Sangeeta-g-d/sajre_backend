@@ -35,8 +35,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = (
         ('admin', 'Admin'),
         ('driver', 'Driver'),
-        ('employee', 'Employee'),
-        ('customer', 'Customer'),
         ('participant', 'Participant'),
         ('mentor', 'Mentor'),
         ('teacher', 'Teacher'),

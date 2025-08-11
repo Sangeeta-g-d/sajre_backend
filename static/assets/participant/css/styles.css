@@ -207,22 +207,20 @@ body {
     position: relative;
     overflow-y: auto;
 }
-
 .submit-art-btn {
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
-background: linear-gradient(90deg, #2F4052 0%, #678CB3 100%);
+    background: linear-gradient(90deg, #2F4052 0%, #678CB3 100%);
     color: white;
     border: none;
-    /* padding: 0.6rem 1.2rem; */
     border-radius: 6px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
     font-size: 0.9rem;
     z-index: 10;
-        width: 15%;
+    width: 15%;
     height: 25px;
 }
 
@@ -230,6 +228,16 @@ background: linear-gradient(90deg, #2F4052 0%, #678CB3 100%);
     background: #2d3748;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ✅ Disabled state style */
+.disabled-btn {
+    background: #ccc !important;
+    color: #666 !important;
+    cursor: not-allowed !important;
+    pointer-events: none; /* Prevent clicking */
+    box-shadow: none !important;
+    transform: none !important;
 }
 
 /* Competition Banner */

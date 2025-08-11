@@ -7,7 +7,9 @@
         <main class="main-content">
             <h1 class="banner-title">"You're Just 3 Steps Away From Joining India's Biggest Art Competition!"</h1>
             
-            <button class="submit-art-btn">Submit Art</button>
+        <button class="submit-art-btn {% if not can_submit_art %}disabled-btn{% endif %}">
+    Submit Art
+</button>
             
             <!-- Competition Banner -->
           <div class="competition-banner">
@@ -19,6 +21,7 @@
                 <p class="countdown-subtitle">
                     {{ upcoming_round.total_seats }} seats total, 
                     {{ upcoming_round.available_seats }} available
+                    
                 </p>
             </div>
             <div class="countdown-timer">

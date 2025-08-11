@@ -7,7 +7,13 @@
     .header {
         margin-bottom: 30px;
     }
-    
+      .section-title {
+        margin: 20px 0 15px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #eee;
+        color: #333;
+        font-weight: 600;
+    }
     .password-card {
         max-width: 80%;
         margin: 0 auto;
