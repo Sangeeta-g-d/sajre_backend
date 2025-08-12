@@ -1,0 +1,269 @@
+/* Your existing section styles */
+    .tutor_title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2d3748;
+    }
+
+    .tutor_full_background {
+        background-color: #0d6efd;
+        border-radius: 20px;
+        min-height: 400px;
+    }
+
+    .tutor_sub_title {
+        position: relative;
+        z-index: 1000;
+        font-size: 2rem;
+        color: white;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .tutor_full_background p {
+        color: white;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+
+    .become-tutor-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        backdrop-filter: blur(10px);
+
+    }
+
+    .become-tutor-btn:hover {
+        background: white;
+        color: #667eea;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Tutor images styling */
+    .tutor_victor_2,
+    .tutor_man_img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Compact Popup Styles */
+    .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(5px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .popup-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Compact Popup Container */
+    .popup-container {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        max-width: 420px;
+        width: 90%;
+        overflow-y: auto;
+        transform: scale(0.9) translateY(30px);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .popup-overlay.active .popup-container {
+        transform: scale(1) translateY(0);
+    }
+
+    .popup-header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .popup-title {
+        font-size: 1.6rem;
+        color: #2d3748;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: #999;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+
+    .close-btn:hover {
+        color: #333;
+        background: #f5f5f5;
+    }
+
+    /* Compact Form Styles */
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 15px 16px;
+        font-size: 15px;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        background: #f8fafc;
+        color: #2d3748;
+        transition: all 0.3s ease;
+        outline: none;
+        height: 40px;
+        margin: 0;
+    }
+
+    .form-input::placeholder {
+        color: #a0aec0;
+        font-weight: 400;
+    }
+
+    .form-input:focus {
+        border-color: #7B61FF;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .submit-btn {
+        width: 100%;
+        background: linear-gradient(135deg, #2d3748, #4a5568);
+        color: white;
+        padding: 14px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 25px rgba(45, 55, 72, 0.3);
+    }
+
+    .submit-btn::after {
+        content: '🚀';
+        margin-left: 8px;
+    }
+
+    .scroll-nav {
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .scroll-content {
+        display: inline-flex;
+        gap: 10px;
+    }
+
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .tutor_sub_title {
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .popup-container {
+            padding: 10px;
+            max-width: 351px;
+            margin-left: -4px;
+        }
+
+        .popup-title {
+            font-size: 1.4rem;
+        }
+
+        img.tutor_victor_1 {
+            margin-right: -50px;
+            height: 75%;
+            margin-top: -267px;
+        }
+
+        .tutor_victor_2,
+        .tutor_man_img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .become-tutor-btn {
+            position: absolute;
+            z-index: 1000;
+
+        }
+
+        section#hm_crouse_section .slider-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        #prevBtn,
+        #nextBtn {
+            display: none !important;
+        }
+
+        .scroll-nav {
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .scroll-content {
+            display: inline-flex;
+            gap: 10px;
+        }
+
+        section#customer_feedback_section .feedback-slider .card {
+            border-radius: 10px;
+            min-height: 237px;
+            margin: 0 10px;
+            width: 258px;
+
+        }
+    }
+
+    .loading {
+        opacity: 0.7;
+        pointer-events: none;
+    }

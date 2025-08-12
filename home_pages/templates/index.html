@@ -52,6 +52,7 @@
     <link href="/static/assets/home/css/custom.css" rel="stylesheet">
 
     <link href="/static/assets/home/css/media.queries.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/assets/home_part/css/tutor.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
@@ -560,7 +561,7 @@
                 }
             </style>
 
-              <section id="hm_tutor_section" class="py-5">
+           <section id="hm_tutor_section" class="py-5">
                 <div class="container">
                     <div class="pb-4">
                         <h1 class="text-center tutor_title">Become Tutor</h1>
@@ -587,6 +588,40 @@
                     </div>
                 </div>
             </section>
+            <div class="overlay" id="overlay"></div>
+
+            <!-- Replace your existing popup-overlay div with this improved version -->
+            <div class="popup-overlay" id="popupOverlay">
+                <div class="popup-container">
+                    <button class="close-btn" id="closePopupBtn">&times;</button>
+
+                    <div class="popup-header">
+                        <h2 class="popup-title">Let's Connect With Us</h2>
+                    </div>
+
+                    <form id="tutorForm">
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="Name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" class="form-input" placeholder="Email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="tel" class="form-input" placeholder="Phone No" name="phone" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="Skills" name="skills" required>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            Submit
+                        </button>
+                    </form>
+                </div>
+            </div>
             <section id="hm_event_section" class="py-5">
                 <div class="container">
                     <h2 class="text-center section-title mb-5">Events</h2>
@@ -1226,7 +1261,8 @@
                     {
                         imageUrl: "/static/assets/home/img/hm_slider_2.png",
                         title: 'Collaborative Tech Workshops',
-                        buttonText: 'Join Now'
+                        buttonText: 'Join Now',
+                        buttonLink: '/auth/register/'
                     },
                     {
                         imageUrl: "/static/assets/home/img/hm_slider_3.jpg",
@@ -1490,5 +1526,167 @@
         <script>
             AOS.init();
         </script>
-        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Get all elements
+                const tutorBtn = document.getElementById('becomeTutorBtn');
+                const popupOverlay = document.getElementById('popupOverlay');
+                const overlay = document.getElementById('overlay');
+                const closeBtn = document.getElementById('closePopupBtn');
+                const form = document.getElementById('tutorForm');
+
+                // Function to open popup
+                function openPopup() {
+                    document.body.style.overflow = 'hidden';
+                    popupOverlay.classList.add('active');
+                    overlay.style.display = 'block';
+                }
+
+                // Function to close popup
+                function closePopup() {
+                    document.body.style.overflow = 'auto';
+                    popupOverlay.classList.remove('active');
+                    overlay.style.display = 'none';
+                }
+
+                // Event listeners for desktop and mobile
+                if (tutorBtn) {
+                    // Click event for desktop
+                    tutorBtn.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        openPopup();
+                    });
+
+                    // Touch event for mobile
+                    tutorBtn.addEventListener('touchend', function (e) {
+                        e.preventDefault();
+                        openPopup();
+                    });
+                }
+
+                if (closeBtn) {
+                    // Click event for desktop
+                    closeBtn.addEventListener('click', closePopup);
+
+                    // Touch event for mobile
+                    closeBtn.addEventListener('touchend', function (e) {
+                        e.preventDefault();
+                        closePopup();
+                    });
+                }
+
+                // Close when clicking on overlay
+                if (overlay) {
+                    overlay.addEventListener('click', closePopup);
+                }
+
+                // Close with Escape key
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') {
+                        closePopup();
+                    }
+                });
+
+                // Form submission handling
+                if (form) {
+                    form.addEventListener('submit', function (e) {
+                        e.preventDefault();
+
+                        const submitBtn = document.getElementById('submitBtn');
+                        if (!submitBtn) return;
+
+                        // Show loading state
+                        submitBtn.classList.add('loading');
+                        submitBtn.innerHTML = 'Submitting...';
+
+                        // Get form data
+                        const formData = new FormData(form);
+                        const data = Object.fromEntries(formData.entries());
+
+                        // Simulate form submission (replace with actual AJAX call)
+                        setTimeout(() => {
+                            console.log('Form submitted:', data);
+
+
+                            // Reset form and close popup
+                            form.reset();
+                            closePopup();
+
+                            // Reset button state
+                            submitBtn.classList.remove('loading');
+                            submitBtn.innerHTML = 'Submit';
+                        }, 1500);
+                    });
+                }
+            });
+
+            // Fallback for older browsers
+            window.addEventListener('load', function () {
+                const tutorBtn = document.getElementById('becomeTutorBtn');
+                if (tutorBtn && !tutorBtn.hasAttribute('data-initialized')) {
+                    tutorBtn.setAttribute('data-initialized', 'true');
+
+                    tutorBtn.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        document.getElementById('popupOverlay').classList.add('active');
+                        document.getElementById('overlay').style.display = 'block';
+                        document.body.style.overflow = 'hidden';
+                    });
+
+                    tutorBtn.addEventListener('touchend', function (e) {
+                        e.preventDefault();
+                        document.getElementById('popupOverlay').classList.add('active');
+                        document.getElementById('overlay').style.display = 'block';
+                        document.body.style.overflow = 'hidden';
+                    });
+                }
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const tutorForm = document.getElementById('tutorForm');
+                const submitBtn = document.getElementById('submitBtn');
+
+                tutorForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    // Create popup overlay
+                    const popupOverlay = document.createElement('div');
+                    popupOverlay.className = 'popup-overlay active';
+
+                    // Create popup container
+                    const popupContainer = document.createElement('div');
+                    popupContainer.className = 'popup-container';
+
+                    // Create popup content with image
+                    const popupContent = document.createElement('div');
+                    popupContent.className = 'popup-header';
+                    popupContent.innerHTML = `
+            <div style="text-align: center; margin-bottom: 20px;">
+                <img src="/static/assets/home/img/right.jpeg" alt="Thank You" style="width: 80px; height: auto;">
+            </div>
+            <h2 class="popup-title">Thank You!</h2>
+            <p style="color: #4a5568; font-size: 1.1rem; line-height: 1.5;">We Will Contact You Soon.</p>
+        `;
+
+                    // Assemble the popup (without close button)
+                    popupContainer.appendChild(popupContent);
+                    popupOverlay.appendChild(popupContainer);
+
+                    // Add to document
+                    document.body.appendChild(popupOverlay);
+
+                    // Redirect after 3 seconds (3000 milliseconds)
+                    setTimeout(redirectToHome, 3000);
+
+                    // Reset form
+                    tutorForm.reset();
+                });
+
+                function redirectToHome() {
+                    window.location.href = '/';
+                }
+            });
+        </script>
 {% endblock %}
