@@ -10,7 +10,16 @@
             height: 100vh;
             display: flex;
         }
+.error-message {
+    color: red;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    display: none;
+}
 
+.form-control.invalid {
+    border: 1px solid red !important;
+}
         .left-section {
             flex: 1;
             display: flex;

@@ -1,4 +1,4 @@
-{% extends 'mentor_sidebar.html' %}
+{% extends 'vendor_base.html' %}
 {% block content %}
 <link rel="stylesheet" href="/static/assets/mentor/css/edit-profile.css">
 <div class="container-fluid">
@@ -27,12 +27,12 @@
                     <div class="col-md-6 form-group">
                         <label for="full_name">Full Name</label>
                         <input type="text" id="full_name" name="full_name" class="form-control" 
-                               value="{{ user.full_name }}" placeholder="Full Name" required>
+                               value="{{ user.full_name }}" placeholder="Full Name" >
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" class="form-control" 
-                               value="{{ user.email }}" placeholder="Email" required readonly>
+                               value="{{ user.email }}" placeholder="Email"  readonly>
                     </div>
                 </div>
                 
@@ -45,8 +45,8 @@
                     <div class="col-md-6 form-group">
                         <label for="higher_qualification">Highest Qualification</label>
                         <select id="higher_qualification" name="higher_qualification" class="form-control" required>
-                            {% for value, label in mentor_profile.QUALIFICATION_CHOICES %}
-                            <option value="{{ value }}" {% if mentor_profile.higher_qualification == value %}selected{% endif %}>
+                            {% for value, label in vendor_profile.QUALIFICATION_CHOICES %}
+                            <option value="{{ value }}" {% if vendor_profile.higher_qualification == value %}selected{% endif %}>
                                 {{ label }}
                             </option>
                             {% endfor %}
@@ -60,7 +60,7 @@
                     <div class="col-md-12 form-group">
                         <label for="full_address">Full Address</label>
                         <textarea id="full_address" name="full_address" class="form-control" 
-                                  placeholder="Full Address" required>{{ mentor_profile.full_address }}</textarea>
+                                  placeholder="Full Address" required>{{ vendor_profile.full_address }}</textarea>
                     </div>
                 </div>
                 
@@ -68,17 +68,17 @@
                     <div class="col-md-4 form-group">
                         <label for="city">City</label>
                         <input type="text" id="city" name="city" class="form-control" 
-                               value="{{ mentor_profile.city }}" placeholder="City" required>
+                               value="{{ vendor_profile.city }}" placeholder="City" required>
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="district">District</label>
                         <input type="text" id="district" name="district" class="form-control" 
-                               value="{{ mentor_profile.district }}" placeholder="District" required>
+                               value="{{ vendor_profile.district }}" placeholder="District" required>
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="state">State</label>
                         <input type="text" id="state" name="state" class="form-control" 
-                               value="{{ mentor_profile.state }}" placeholder="State" required>
+                               value="{{ vendor_profile.state }}" placeholder="State" required>
                     </div>
                 </div>
                 
@@ -86,12 +86,12 @@
                     <div class="col-md-6 form-group">
                         <label for="pincode">PIN Code</label>
                         <input type="text" id="pincode" name="pincode" class="form-control" 
-                               value="{{ mentor_profile.pincode }}" placeholder="PIN Code" required>
+                               value="{{ vendor_profile.pincode }}" placeholder="PIN Code" required>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="store_or_advisor">Store/Advisor (Optional)</label>
                         <input type="text" id="store_or_advisor" name="store_or_advisor" class="form-control" 
-                               value="{{ mentor_profile.store_or_advisor }}" placeholder="Store/Advisor">
+                               value="{{ vendor_profile.store_or_advisor }}" placeholder="Store/Advisor">
                     </div>
                 </div>
                 
@@ -101,13 +101,13 @@
                     <div class="col-md-6 form-group">
                         <label for="job_title">Job Title</label>
                         <input type="text" id="job_title" name="job_title" class="form-control" 
-                               value="{{ mentor_profile.job_title }}" placeholder="Job Title">
+                               value="{{ vendor_profile.job_title }}" placeholder="Job Title" >
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="total_experience_years">Total Experience (Years)</label>
                         <input type="number" step="0.1" id="total_experience_years" name="total_experience_years" 
-                               class="form-control" value="{{ mentor_profile.total_experience_years }}" 
-                               placeholder="Total Experience">
+                               class="form-control" value="{{ vendor_profile.total_experience_years }}" 
+                               placeholder="Total Experience" >
                     </div>
                 </div>
                 
@@ -115,12 +115,12 @@
                     <div class="col-md-6 form-group">
                         <label for="current_employer">Current Employer</label>
                         <input type="text" id="current_employer" name="current_employer" class="form-control" 
-                               value="{{ mentor_profile.current_employer }}" placeholder="Current Employer">
+                               value="{{ vendor_profile.current_employer }}" placeholder="Current Employer">
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="location">Location</label>
                         <input type="text" id="location" name="location" class="form-control" 
-                               value="{{ mentor_profile.location }}" placeholder="Location">
+                               value="{{ vendor_profile.location }}" placeholder="Location" >
                     </div>
                 </div>
                 
@@ -128,7 +128,7 @@
                     <div class="col-md-12 form-group">
                         <label for="work_history">Work History</label>
                         <textarea id="work_history" name="work_history" class="form-control" 
-                                  placeholder="Describe your work history">{{ mentor_profile.work_history }}</textarea>
+                                  placeholder="Describe your work history">{{ vendor_profile.work_history }}</textarea>
                     </div>
                 </div>
                 
@@ -138,12 +138,12 @@
                     <div class="col-md-6 form-group">
                         <label for="course_level">Course Level</label>
                         <input type="text" id="course_level" name="course_level" class="form-control" 
-                               value="{{ mentor_profile.course_level }}" placeholder="Course Level">
+                               value="{{ vendor_profile.course_level }}" placeholder="Course Level" >
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="course_name">Course Name</label>
                         <input type="text" id="course_name" name="course_name" class="form-control" 
-                               value="{{ mentor_profile.course_name }}" placeholder="Course Name">
+                               value="{{ vendor_profile.course_name }}" placeholder="Course Name" >
                     </div>
                 </div>
                 
@@ -153,15 +153,15 @@
                     <div class="col-md-6 form-group">
                         <label for="passport_photo">Passport Photo</label>
                         <input type="file" id="passport_photo" name="passport_photo" class="form-control">
-                        {% if mentor_profile.passport_photo %}
-                        <small>Current: <a href="{{ mentor_profile.passport_photo.url }}" target="_blank">View Photo</a></small>
+                        {% if vendor_profile.passport_photo %}
+                        <small>Current: <a href="{{ vendor_profile.passport_photo.url }}" target="_blank">View Photo</a></small>
                         {% endif %}
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="id_proof">ID Proof</label>
                         <input type="file" id="id_proof" name="id_proof" class="form-control">
-                        {% if mentor_profile.id_proof %}
-                        <small>Current: <a href="{{ mentor_profile.id_proof.url }}" target="_blank">View ID Proof</a></small>
+                        {% if vendor_profile.id_proof %}
+                        <small>Current: <a href="{{ vendor_profile.id_proof.url }}" target="_blank">View ID Proof</a></small>
                         {% endif %}
                     </div>
                 </div>
@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Redirect after 3 seconds (matches toast duration)
     setTimeout(function () {
-        window.location.href = "/mentor/mentor_dashboard/";
+        window.location.href = "/vendor/vendor_dashboard/";
     }, 3000);
 
 } else {
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cancelBtn = document.querySelector('.btn-cancel');
     if (cancelBtn) {
         cancelBtn.addEventListener('click', function() {
-            window.location.href = "{% url 'mentor_dashboard' %}";
+            window.location.href = "{% url 'vendor_dashboard' %}";
         });
     }
 });

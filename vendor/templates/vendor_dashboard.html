@@ -1,7 +1,6 @@
-{% extends 'mentor_sidebar.html' %}
+{% extends 'vendor_base.html' %}
 {% block content %}
 {% load custom_filters %}
-
 <link rel="stylesheet" href="/static/assets/mentor/css/mentor-dashboard.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -47,6 +46,21 @@
                 <div class="stat-content">
                     <div class="stat-title">Successfully Enrolled</div>
                     <div class="stat-value">{{ enrolled_students_count }}</div>
+                    <div class="stat-details">
+                        <span class="stat-label">Active in competition</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Card 4 -->
+            <div class="stat-card">
+                <div class="stat-icon red">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-title">Referred Mentors</div>
+                    <div class="stat-value">{{ referred_mentors_count }}</div>
                     <div class="stat-details">
                         <span class="stat-label">Active in competition</span>
                     </div>
@@ -216,5 +230,4 @@
     </div>
 </div>
 <script src="/static/assets/mentor/js/mentor-dashboard.js"></script>
-
 {% endblock %}

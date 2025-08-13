@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin_part/',include('admin_part.urls')),
     path('',include('home_pages.urls')),
     path('mentor/',include('mentor.urls')),
+    path('vendor/',include('vendor.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

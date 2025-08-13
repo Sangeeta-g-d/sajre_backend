@@ -156,6 +156,31 @@
     background-color: inherit; /* instead of #f8f9fa */
     padding: 0 5px;
 }
+/* Error text style */
+.error-message {
+    color: red;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    display: none;
+}
+
+/* Show when JS adds .visible */
+.error-message.visible {
+    display: block;
+}
+
+/* Red border for invalid inputs */
+.form-control.invalid,
+.file-input.invalid {
+    border: 1px solid red !important;
+    outline: none;
+}
+
+/* Optional: smooth transition */
+.form-control,
+.file-input {
+    transition: border-color 0.2s ease;
+}
 
 
         .form-control:focus+.form-label,

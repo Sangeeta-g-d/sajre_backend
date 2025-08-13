@@ -9,22 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
         src: "https://lottie.host/0038cad6-6505-43bf-9cbe-9b319593e3dc/i8RiuBfVRQ.lottie",
     });
 
-    // Step navigation
-    const nextButton = document.getElementById('nextButton');
-    const backButton = document.getElementById('backButton');
-
-    if (nextButton && backButton) {
-        nextButton.addEventListener('click', () => {
-            document.getElementById('step1').style.display = 'none';
-            document.getElementById('step2').style.display = 'block';
-        });
-
-        backButton.addEventListener('click', () => {
-            document.getElementById('step2').style.display = 'none';
-            document.getElementById('step1').style.display = 'block';
-        });
-    }
-
     // File upload display
     document.querySelectorAll('.file-input').forEach(input => {
         input.addEventListener('change', function () {
@@ -33,44 +17,113 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Initialize floating labels for all inputs
+    // Floating labels
     function initFloatingLabels() {
         document.querySelectorAll('.form-control').forEach(input => {
-            // Check if the input has a value on load
             if (input.value && input.nextElementSibling?.classList.contains('form-label')) {
                 input.nextElementSibling.classList.add('active');
             }
-            
-            // For select elements
             if (input.tagName === 'SELECT' && input.value) {
                 input.nextElementSibling.classList.add('active');
             }
-
-            input.addEventListener('focus', function () {
-                if (this.nextElementSibling?.classList.contains('form-label')) {
-                    this.nextElementSibling.classList.add('active');
+            input.addEventListener('focus', () => {
+                input.nextElementSibling?.classList.add('active');
+            });
+            input.addEventListener('blur', () => {
+                if (!input.value) {
+                    input.nextElementSibling?.classList.remove('active');
                 }
             });
-            
-            input.addEventListener('blur', function () {
-                if (!this.value && this.nextElementSibling?.classList.contains('form-label')) {
-                    this.nextElementSibling.classList.remove('active');
-                }
-            });
-            
-            // For select elements - handle change event
             if (input.tagName === 'SELECT') {
-                input.addEventListener('change', function() {
-                    if (this.value && this.nextElementSibling?.classList.contains('form-label')) {
-                        this.nextElementSibling.classList.add('active');
-                    } else if (!this.value && this.nextElementSibling?.classList.contains('form-label')) {
-                        this.nextElementSibling.classList.remove('active');
+                input.addEventListener('change', () => {
+                    if (input.value) {
+                        input.nextElementSibling?.classList.add('active');
+                    } else {
+                        input.nextElementSibling?.classList.remove('active');
                     }
                 });
             }
         });
     }
-
-    // Call the initialization function
     initFloatingLabels();
+
+    // Validation setup
+    const form = document.getElementById("mentorRegistrationForm");
+
+    // Add error div to all inputs/selects/textareas
+    form.querySelectorAll("input, select, textarea").forEach(input => {
+        if (!input.parentElement.querySelector(".error-message")) {
+            const errorDiv = document.createElement("div");
+            errorDiv.classList.add("error-message");
+            input.parentElement.appendChild(errorDiv);
+        }
+    });
+
+    function showError(input, message) {
+        let errorDiv = input.parentElement.querySelector(".error-message");
+        if (!errorDiv) {
+            errorDiv = document.createElement("div");
+            errorDiv.classList.add("error-message");
+            input.parentElement.appendChild(errorDiv);
+        }
+        if (message) {
+            errorDiv.textContent = message;
+            errorDiv.classList.add("visible");
+            input.classList.add("invalid");
+        } else {
+            errorDiv.textContent = "";
+            errorDiv.classList.remove("visible");
+            input.classList.remove("invalid");
+        }
+    }
+
+   function validateInput(input) {
+    if (input.hasAttribute("required") && !input.value.trim()) {
+        showError(input, "This field is required");
+        return false;
+    }
+
+    // File input validation
+    if (input.type === "file" && input.hasAttribute("required") && input.files.length === 0) {
+        showError(input, "Please upload a file");
+        return false;
+    }
+
+    // Pincode check
+    if (input.id === "pincode" && input.value.trim() && !/^\d{6}$/.test(input.value.trim())) {
+        showError(input, "Enter a valid 6-digit PIN code");
+        return false;
+    }
+
+    // City, District, and State should not contain numbers
+    if (
+        ["city", "district", "state"].includes(input.id) &&
+        /\d/.test(input.value.trim())
+    ) {
+        showError(input, "Only letters are allowed");
+        return false;
+    }
+
+    showError(input, "");
+    return true;
+}
+
+    // Real-time validation
+    form.querySelectorAll("input, select, textarea").forEach(input => {
+        input.addEventListener("blur", () => validateInput(input));
+        input.addEventListener("input", () => validateInput(input));
+    });
+
+    // On submit
+    form.addEventListener("submit", (e) => {
+        let valid = true;
+        form.querySelectorAll("input, select, textarea").forEach(input => {
+            if (!validateInput(input)) {
+                valid = false;
+            }
+        });
+        if (!valid) {
+            e.preventDefault();
+        }
+    });
 });

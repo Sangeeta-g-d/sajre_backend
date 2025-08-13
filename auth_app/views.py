@@ -102,10 +102,8 @@ def select_category(request):
                 return redirect('/auth/participant_basic_details')
             elif role == 'mentor':
                 return redirect('/auth/mentor_register/')
-            elif role == 'driver':
-                return redirect('/driver_dashboard')
-            elif role == 'employee':
-                return redirect('/employee_home')
+            elif role == 'vendor':
+                return redirect('/auth/mentor_register/')
             elif role == 'admin':
                 return redirect('/admin/dashboard')
             elif role == 'teacher':
@@ -114,8 +112,6 @@ def select_category(request):
                 return redirect('/school_dashboard')
             elif role == 'college':
                 return redirect('/college_dashboard')
-            elif role == 'vendor':
-                return redirect('/vendor_dashboard')
 
             # Default fallback redirect
             return redirect('/dashboard')
@@ -196,8 +192,10 @@ def login_view(request):
             login(request, user)
 
             # Determine redirect URL based on role
-            if user.role in ["mentor", "vendor"]:
+            if user.role == "mentor":
                 redirect_url = "/mentor/mentor_dashboard/"
+            elif user.role == "vendor":
+                redirect_url = "/vendor/vendor_dashboard/"
             elif user.role == "participant":
                 redirect_url = "/participants/dashboard/"
             else:
@@ -242,10 +240,9 @@ def mentor_register(request):
                 if referred_by_user != user:  # Prevent self-referral
                     user.referred_by = referred_by_user
                     user.save()
-                    # You might want to add logic here to award referral points/benefits
+                    # Add logic here to award referral points if needed
             except CustomUser.DoesNotExist:
-                # Invalid referral code - we'll just ignore it
-                pass
+                pass  # Ignore invalid referral code
 
         # Step 1: Qualification Details
         profile.higher_qualification = request.POST.get("higherQualification")
@@ -274,6 +271,10 @@ def mentor_register(request):
         profile.save()
 
         print("✅ Mentor registration submitted successfully")
+
+        # Redirect based on role
+        if getattr(user, "role", "").lower() == "vendor":
+            return redirect("/vendor/vendor_dashboard/")
         return redirect("/mentor/mentor_dashboard/")
 
     return render(request, "mentor_register.html")

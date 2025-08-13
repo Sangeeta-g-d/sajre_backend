@@ -19,7 +19,32 @@
             justify-content: center;
             overflow: hidden;
         }
+/* Error styling */
+.is-invalid {
+    border-color: #dc3545 !important;
+}
 
+.error-message {
+    color: #dc3545;
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+}
+
+/* Disabled button styling */
+.btn-next:disabled, 
+.btn[type="submit"]:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* File upload error styling */
+.file-upload.is-invalid .file-upload-btn {
+    border-color: #dc3545 !important;
+}
+
+.file-upload.is-invalid .file-name {
+    color: #dc3545;
+}
         .animation-container {
             width: 100%;
             height: 100%;
@@ -35,6 +60,23 @@
             max-width: 500px;
             max-height: 500px;
         }
+.error-message {
+    color: red;
+    font-size: 0.85em;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+
+.error-message.visible {
+    opacity: 1;
+    max-height: 50px;
+}
+
+input.invalid, select.invalid {
+    border-color: red !important;
+}
 
         .right-section {
             flex: 1;

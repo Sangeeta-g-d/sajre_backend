@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'participants',
     'auth_app',  # Ensure this is the correct app name for your authentication
     'admin_part',
-    'home_pages','mentor'
+    'home_pages','mentor',
+    'vendor'
 ]
 
 MIDDLEWARE = [
