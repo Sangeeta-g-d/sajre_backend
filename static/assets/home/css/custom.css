@@ -699,7 +699,7 @@ section#hm_crouse_section .course-card p.crouse_back_sub_title{
     border-radius: 4px;
     margin-bottom: 5px;
     font-size: 12px;
-    font-family: "Inter", sans-serif;
+    font-family: "Inter";
     color: #ffffffe5;
     line-height: 100%;
     font-weight: 400;
@@ -796,7 +796,7 @@ section#hm_event_section .event-overlay {
 
 section#hm_event_section .event-author {
     font-size: 18px;
-    font-family: "Inter", sans-serif;
+    font-family: "Inter";
     color: #FFFFFF80;
     font-weight: 600;
     line-height: 100%;
@@ -807,12 +807,12 @@ section#hm_event_section .event-title {
     font-weight: 600;
     margin: 6px 0;
     line-height: 100%;
-    font-family: "Inter", sans-serif;
+    font-family: "Inter";
     color: #FFFFFF;
 }
 
 section#hm_event_section .event-time {
-    font-family: "Inter", sans-serif;
+    font-family: "Inter";
     color: #FFFFFF80;
     font-size: 18.16px;
     font-weight: 400;
@@ -984,7 +984,7 @@ section#social_media_section a.view_btn img {margin: auto;}
 
 /* home faq section css start */
 section#hm_faq_section p.faq_sub_title {
-    font-family: "Inter", sans-serif;
+    font-family: "Inter";
     color: #2D3D4E;
     font-size: 22.68px;
     line-height: 27.01px;
@@ -992,16 +992,16 @@ section#hm_faq_section p.faq_sub_title {
     margin: 0px;
 }
 section#hm_faq_section h2.faq_title {
-    font-family: "Inter", sans-serif;
-    font-size: 52.11px;
+    font-family: "Inter";
+    font-size: 42.11px;
     font-weight: 600;
     line-height: 72.02px;
 }
 section#hm_faq_section p.faq_description {
-    font-family: "Inter", sans-serif;
-    font-size: 28.43px;
+    font-family: "Inter";
+    font-size: 23.43px;
     line-height: 40.51px;
-    font-weight: 400;
+    font-weight: 300;
 }
 section#hm_faq_section .accordion__item {
     margin: 5px auto;
@@ -1017,8 +1017,8 @@ section#hm_faq_section .accordion__item {
     border-radius: 3px;
     transition: background-color 0.2s;
     cursor: pointer;
-    font-family: "Inter", sans-serif;
-    font-size: 29.43px;
+    font-family: "Inter";
+    font-size: 18.43px;
     line-height: 40.51px;
     font-weight: 600;
     color: #2D3D4E;
@@ -1085,7 +1085,7 @@ section#ab_banner_section a.ab_banner_btn {
     background: #FF8000;
     padding: 22px 38px;
     border-radius: 80px;
-    font-family: "Inter", sans-serif;
+    font-family: "Inter";
     font-weight: 700;
     font-size: 31px;
     color: #FFFFFF;
@@ -1358,7 +1358,7 @@ section#about_profiles_section .profile-card {
     background-color: #FFFFFF;
 }
 section#about_profiles_section .profile-card h5.profile_card_title {
-    font-family: "Inter", sans-serif;
+    font-family: "Inter";
     margin-top: 20px;
     font-size: 24.89px;
     color: #133240;
@@ -1369,7 +1369,7 @@ section#about_profiles_section .profile-card p.profile_card_role {
     color: #6B7280;
     font-size: 19.91px;
     font-weight: 500;
-    font-family: "Inter", sans-serif;
+    font-family: "Inter";
     line-height: 150%;
 }
 section#about_profiles_section .profile-card .profile_social_icons a {
