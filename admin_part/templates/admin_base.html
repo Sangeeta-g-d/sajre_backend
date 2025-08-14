@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/assets/mentor/css/sidebar.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    
+</head>
+<body>
+     <nav class="navbar navbar-expand-lg navbar-dark text-black fixed-top">
+        <div class="container-fluid">
+           
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="/static/assets/mentor/img/image 1 (1).svg" alt="Logo">
+            </a>
+             <button class="sidebar-toggle d-lg-none">
+                <i class="bi bi-list"></i>
+            </button>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About Event</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Organiser</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Art Gallery</a>
+                    </li>
+                </ul>
+                <div class="profile-info ms-auto d-none d-lg-flex">
+                    {% if mentor_profile.passport_photo %}
+                    <img src="{{ mentor_profile.passport_photo.url }}" alt="Profile">
+                      {% else %}
+        <img src="/static/assets/participant/img/profile.png" alt="Default Profile" width="40" height="40" style="border-radius:50%;">
+    {% endif %}
+                    <span class="fw-semibold text-black">Hi, {{ request.user.email  }}</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <div class="profile_img">
+                 {% if mentor_profile.passport_photo %}
+        <img src="{{ mentor_profile.passport_photo.url }}" alt="Profile" class="profile-img mb-2" style="width:80px;height:80px;border-radius:50%;">
+    {% else %}
+        <img src="/static/assets/participant/img/profile.png" alt="Default Profile" class="profile-img mb-2" style="width:80px;height:80px;border-radius:50%;">
+    {% endif %}
+                <h6 class="mb-0 text-black">Admin</h6>
+                <small class="text-secondary mb-4">{{ request.user.email }}</small>
+               <a class="btn reference_frd border text-white d-flex align-items-center justify-content-center" id="referralLink">
+    <i class="bi bi-link-45deg me-2"></i>
+    <span id="referralCode">{{ request.user.referral_code }}</span>
+    <i class="bi bi-clipboard ms-2 copy-icon"></i>
+</a>
+            </div>
+            
+            <div class="sidebar-menu">
+                <ul class="nav flex-column">
+                    <!-- Progress Bar Section -->
+                     <li class="nav-item mb-3">
+                        <a class="nav-link d-flex align-items-center" href="{% url 'mentor_dashboard' %}">
+                            <i class="bi bi-bar-chart-fill me-2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mb-3">
+                        <a class="nav-link d-flex align-items-center" href="sidebar.html">
+                            <i class="bi bi-bar-chart-fill me-2"></i>
+                            <span>Event Progress</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Settings Dropdown -->
+                    <li class="nav-item mb-2">
+                        <a class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#settingsDropdown" role="button" aria-expanded="false" aria-controls="settingsDropdown">
+                            <i class="bi bi-gear-fill me-2"></i>
+                            <span>Settings</span>
+                            <i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <div class="collapse ps-4" id="settingsDropdown">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'edit_profile' %}"><i class="bi bi-pencil-square me-2"></i>Edit Profile</a>
+                                </li>
+                              
+                                <li class="nav-item">
+                                    <a class="nav-link" href="terms&condition.php"><i class="bi bi-file-earmark-text me-2"></i>Terms & Conditions</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="bi bi-headset me-2"></i>Content Support</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="bi bi-ticket-detailed me-2"></i>Raise a Ticket</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="bi bi-question-circle me-2"></i>FAQs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/mentor/mentor_change_password/"><i class="bi bi-key me-2"></i>Change Password</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-danger" href="/auth/logout/"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {% block content %}
+
+    {% endblock %}
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/assets/mentor/js/sidebar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+document.getElementById('referralLink').addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    // Get the referral code
+    const referralCode = document.getElementById('referralCode').textContent;
+    
+    // Copy to clipboard
+    navigator.clipboard.writeText(referralCode).then(() => {
+        // Show success notification
+        Toastify({
+            text: "Referral code copied to clipboard!",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            stopOnFocus: true,
+        }).showToast();
+    }).catch(err => {
+        // Show error notification if copy fails
+        Toastify({
+            text: "Failed to copy referral code",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+            stopOnFocus: true,
+        }).showToast();
+        console.error('Failed to copy text: ', err);
+    });
+});
+</script>
+</body>
+</html>
