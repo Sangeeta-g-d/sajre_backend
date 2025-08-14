@@ -104,17 +104,13 @@ def select_category(request):
                 return redirect('/auth/mentor_register/')
             elif role == 'vendor':
                 return redirect('/auth/mentor_register/')
-            elif role == 'admin':
-                return redirect('/admin/dashboard')
-            elif role == 'teacher':
-                return redirect('/teacher_home')
             elif role == 'school':
-                return redirect('/school_dashboard')
+                return redirect('/working_on/')
             elif role == 'college':
-                return redirect('/college_dashboard')
+                return redirect('/working_on/')
 
             # Default fallback redirect
-            return redirect('/dashboard')
+            return redirect('/working_on/')
 
     return render(request, "selectcategory.html")
 
@@ -201,7 +197,7 @@ def login_view(request):
             elif user.is_superuser:
                 redirect_url = "/admin_part/admin_dashboard/"
             else:
-                redirect_url = "/dashboard/"  # fallback for other roles
+                redirect_url = "/working_on/"  # fallback for other roles
 
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({

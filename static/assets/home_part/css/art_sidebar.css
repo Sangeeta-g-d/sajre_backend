@@ -2,6 +2,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         background-attachment: fixed;
+        overflow-x: none;
     }
    
     .navbar {
@@ -32,6 +33,10 @@
         text-align: center;
     }
 
+    .nav-link:hover {
+        color: #3c355b;
+        font-weight: 700;
+    }
 
     .reference_frd {
         background-color: #000000;
@@ -39,7 +44,7 @@
         border-radius: 40px;
         color: white;
         text-decoration: none;
-        padding: 8px 20px;
+        padding: 12px 20px;
         transition: all 0.3s;
         white-space: nowrap;
     }
@@ -59,11 +64,6 @@
     .navbar-res {
         width: 100%;
     }
-
-       .nav-link:focus, .nav-link:hover {
-    color: rgb(64, 23, 103);
-    font-weight: 700;
-}
 
     /* Desktop styles */
     @media (min-width: 992px) {
@@ -98,6 +98,6 @@
         }
 
         .nav-item {
-            padding: 0 10px;
+            padding: 0 16px;
         }
     }

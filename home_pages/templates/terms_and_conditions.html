@@ -1,24 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-    <style>
+   <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --medium-gray: #ddd;
+            --dark-gray: #777;
+            text-align: justify;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #f9f9f9;
-            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-        }
-
-        header {
-            color: red;
+            color: var(--text-color);
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 28px;
+            background-color: #f9f9f9;
+            margin-top: 5%;
         }
 
         main {
@@ -27,146 +29,836 @@
             background: white;
             padding: 25px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        header {
+            color: #365f91;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.2em;
         }
 
         h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--medium-gray);
+            padding-bottom: 5px;
             margin-top: 30px;
         }
 
-        p {
-            margin-bottom: 15px;
-            text-align: justify;
+
+
+        h4 {
+            color: #365f91;
+            margin-top: 15px;
         }
 
-        ul {
-            margin: 15px 0;
-            padding-left: 20px;
+        .version-info {
+            background-color: var(--light-gray);
+            padding: 15px;
+            border-left: 4px solid var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .toc {
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+
+        .toc ol {
+            columns: 1;
+            column-gap: 40px;
+        }
+
+        .toc li {}
+
+        .section {
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+
+        .highlight {
+            background-color: #fffde7;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid var(--medium-gray);
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--light-gray);
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
 
         footer {
-            background: #1e2a38;
-            color: white;
+            margin-top: 50px;
+            padding: 20px;
             text-align: center;
-            padding: 15px;
+            color: var(--dark-gray);
+            font-size: 0.9em;
+            border-top: 1px solid var(--medium-gray);
+        }
+
+        .contact-box {
+            background-color: var(--light-gray);
+            padding: 20px;
+            border-radius: 5px;
             margin-top: 30px;
-            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .toc ol {
+                columns: 1;
+            }
+
+            body {
+                padding: 10px;
+            }
+
+            header {
+                padding: 20px;
+            }
+        }
+
+        .introduction {
+            color: #4f81bd;
         }
     </style>
 
 <main>
-    <header class=" ">
-    <h2>Terms And Conditions</h2>
-    </header>
-    <p>Please read these Terms and Conditions ("Terms") carefully before utilizing the online educational services provided by Sajre Edutech Pvt Ltd ("us", "we", or "our") through its website and associated online platforms (collectively, the "Service").</p>
-    
-    <p>Your access to and use of the Service is expressly conditioned upon your acceptance of and compliance with these Terms. These Terms are applicable to all individuals who access or use the Service, including, but not limited to, students, instructors, visitors, and registered users.
-</p>
+        <h4>Sajre Edutech Private Limited</h4>
+        <h4>Terms and Conditions Document</h4>
 
 
-      <p>By accessing or using the Service, you signify your unequivocal agreement to be bound by these Terms. Should you disagree with any portion of these Terms, you are not authorized to access or use the Service.
-</p>
+        <div class="version-info">
+            <p style="line-height:0.5;"><strong>Version:</strong> 1.0</p>
+            <p style="line-height:0.5;"> <strong>Effective Date:</strong> 1 August 2025</p>
+            <p style="line-height:0.5;"><strong>Prepared by:</strong> Legal Department, Sajre Edutech Private Limited</p>
+        </div>
 
-    <h2>1. Accounts</h2>
-    <p>
-        Upon creation of an account with Sajre Edutech Pvt Ltd, you represent and warrant that you are at least eighteen (18) years of age, and that all information provided by you is accurate, complete, and current at all times. In the event that you are under eighteen (18) years of age, you affirm that you have obtained the requisite consent from your parent or legal guardian for your use of the Service. The provision of inaccurate, incomplete, or outdated information may result in the immediate termination of your account and access to the Service.
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+                <li>Introduction</li>
+                <li>Eligibility</li>
+                <li>Use of the Website</li>
+                <li>Intellectual Property</li>
+                <li>User Accounts and Access</li>
+                <li>Payments and Subscriptions</li>
+                <li>Privacy</li>
+                <li>Third-Party Links</li>
+                <li>Termination</li>
+                <li>Limitation of Liability</li>
+                <li>Indemnification</li>
+                <li>Governing Law</li>
+                <li>Changes to the Terms</li>
+                <li>Contact</li>
+                <li>Corporate Terms for B2B Clients and Institutional Partners</li>
+                <li>Appendix A: Refund Policy</li>
+                <li>Appendix B: Data Protection and Privacy Framework</li>
+                <li>Appendix C: Acceptable Use Policy</li>
+                <li>Appendix D: Payment Terms and Billing Cycles</li>
+                <li>Appendix E: Definitions and Interpretations</li>
+                <li>Appendix F: User Code of Conduct</li>
+                <li>Appendix G: Grievance Redressal Mechanism</li>
+                <li>Document Version History</li>
+            </ol>
 
-    </p>
+            <h3>
+                [Document body remains unchanged from the previous version – starting from “1.
+                Introduction” through “Appendix G”]
 
-    <p>
-        You bear sole responsibility for safeguarding the confidentiality of your account and password, including, without limitation, restricting access to your computing device and/or account. You agree to assume full responsibility for all activities and actions occurring under your account and/or password, irrespective of whether such password is associated with our Service or a third-party service. You are obligated to notify us without delay upon becoming aware of any breach of security or unauthorized use of your account.
+            </h3>
 
-    </p>
+            <h3 class="introduction">
+                Document Version History
+            </h3>
+            <table>
+                <tr>
+                    <th>Version </th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Author</th>
+                </tr>
+                <tr>
+                    <td>1.0</td>
+                    <td>[01st August 2025]</td>
+                    <td>Initial Draft and Publication</td>
+                    <td>Legal Team – SEPL</td>
+                </tr>
+            </table>
 
-    <p>
-        You are prohibited from using as a username the name of another individual or entity, a name that is not lawfully available for use, a name or trademark subject to the proprietary rights of another person or entity without appropriate authorization, or a name that is otherwise offensive, vulgar, or obscene.
-    </p>
+        </div>
 
-    <h2>2. Intellectual Property Rights</h2>
-    <p>
-        The Service, encompassing its original content, including but not limited to course materials, digital resources, video lectures, assessments, software, design, text, graphics, and functionality (excluding user-provided content), shall remain the exclusive property of Sajre Edutech Pvt Ltd and its licensors. The Service and its content are protected by copyright, trademark, and other intellectual property laws of both the Republic of India and international jurisdictions. Our trademarks and trade dress may not be utilized in connection with any product or service without the express prior written consent of Sajre Edutech Pvt Ltd.
 
-    </p>
+        <div class="section">
+            <h2 class="introduction">1. Introduction</h2>
+            <p>Welcome to <strong>Sajre Edutech Private Limited ("Sajre Edutech", "Company", "we", "us", or "our")</strong>. These Terms and Conditions <strong>("Terms")</strong> constitute a legally binding agreement between you, the user <strong> ("User", "you", or "your")</strong>, and Sajre Edutech regarding your access to and use of our website, digital platforms, mobile applications, software, tools, resources, and related services (collectively, the "Services") that we provide through our primary domain at <a href="https://www.sajreedutech.com">https://www.sajreedutech.com</a> (the <strong>"Website"</strong> ).</p>
+            <p>These Terms govern all aspects of your interaction with the Website, whether as a
+                registered user, a visitor, or someone accessing free or paid features. By accessing or
+                using any part of our Services, you confirm that you have read, understood, and agreed to
+                be bound by these Terms, including our <strong> Privacy Policy, Cookie Policy, </strong> and any other
+                applicable policies or notices that we may make available from time to time. If you do
+                not agree with these Terms in full or in part, you must immediately stop using the
+                Website and Services.
+            </p>
+            <h3 class="introduction">1.1 Purpose of These Terms</h3>
+            <p>The purpose of these Terms is to define and outline the rights, responsibilities, limitations,
+                and obligations of both the User and the Company in relation to the use of Sajre
+                Edutech’s Services. These Terms ensure that all users have a clear understanding of how
+                the Services work, what is expected from users, and what users can expect from us. They
+                also contain important information regarding dispute resolution, limitations of liability,</p>
 
-    <p>
-        Users are granted a limited, non-exclusive, non-transferable license to access and use the Service and its content for personal, non-commercial educational purposes only, in accordance with these Terms. Any unauthorized reproduction, redistribution, transmission, sale, broadcast, or creation of derivative works based on the Service's content is strictly prohibited.
-    </p>
-    
+            <h3 class="introduction">1.2 Scope of Services</h3>
+            <p>Sajre Edutech Private Limited is an edutech platform that may provide a wide range of
+                online learning, training, educational content, certification programs, academic support,
+                technological solutions, mobile applications, and professional development services. The
+                Services may include, but are not limited to:
+            </p>
+            <ul>
+                <li>Interactive digital learning platforms</li>
+                <li>E-learning courses and recorded modules</li>
+                <li>Instructor-led live classes and webinars</li>
+                <li>Student management systems and user dashboards</li>
+                <li>Study materials, test series, assignments, and feedback mechanisms</li>
+                <li>Communication tools and discussion forums</li>
+                <li>Premium subscription plans and paid content</li>
+                <li>Integration with third-party learning tools and applications</li>
+                <li>Access via desktop or mobile applications</li>
+            </ul>
 
-    <h2>3. Links to Third-Party Websites</h2>
-    <p>
-        Our Service may incorporate links to third-party websites or services that are not owned or controlled by Sajre Edutech Pvt Ltd. These links are provided for your convenience and information.
+            <h3 class="introduction">1.3 Binding Agreement</h3>
+            <p>These Terms are enforceable under applicable laws and are deemed to be accepted by you through your use of the Services. This includes, without limitation:</p>
+            <ul>
+                <li>Visiting the Website</li>
+                <li>Creating or logging into a user account</li>
+                <li>Subscribing to our Services</li>
+                <li>Participating in any learning programs</li>
+                <li>Accessing content, resources, or downloadable materials</li>
+                <li>Engaging in discussions or forums provided by the Company</li>
+            </ul>
+            <p>In addition, you may be subject to additional terms and conditions that apply to certain
+                specific Services, promotions, features, or partnerships, which will be disclosed to you at
+                the time of use. Those additional terms shall form part of your agreement with us and
+                shall be read in conjunction with these Terms</p>
+            <h3 class="introduction">1.4 Acceptance and Updates</h3>
+            <p>By accessing, browsing, or using the Services in any manner, you agree that:</p>
+            <ul>
+                <li>You have read and understood these Terms</li>
+                <li>You have the legal capacity to enter into a binding agreement</li>
+                <li>You accept and agree to abide by all terms and conditions contained herein</li>
+            </ul>
+            <p>Sajre Edutech reserves the right to amend, modify, add, or remove portions of these
+                Terms at any time, at its sole discretion. Any changes will be posted on the Website with
+                a revised “Last Updated” date. You are advised to review the Terms periodically.
+                Continued use of the Services after such changes constitutes your acceptance of the
+                revised Terms.
+            </p>
+            <h3 class="introduction">1.5 Territorial Scope and Jurisdiction</h3>
+            <p>Unless otherwise specified, the Services are intended to be accessed and used by individuals residing in <strong> India</strong>. We do not represent that the content available on or through the Website is appropriate or available for use in other jurisdictions.Users who
+                access the Website from outside India do so at their own risk and are responsible for
+                compliance with local laws. </p>
+            <p>These Terms shall be governed by and construed in accordance with the laws of the
+                Republic of India, and any disputes arising out of or in connection with these Terms shall
+                be subject to the exclusive jurisdiction of the competent courts located in <strong> [insert
+                    preferred jurisdiction, e.g., New Delhi or Mumbai],</strong> India.</p>
+        </div>
 
-    </p>
+        <div class="section">
+            <h2 class="introduction">2. Eligibility</h2>
+            <h3 class="introduction">2.1 Minimum Age Requirement</h3>
+            <p>To access or use the Website and the Services provided by <strong> Sajre Edutech Private
+                    Limited</strong> (“Company,” “we,” “us,” or “our”), you must be at least <strong> eighteen (18) years of
+                    age </strong>or the <strong> legal age of majority </strong>in your country, state, or province of residence,
+                whichever is higher. By accessing, using, or registering with our Website or any of our
+                Services, you represent and warrant that you meet this age requirement.</p>
 
-    <p>
-        Sajre Edutech Pvt Ltd exercises no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third-party websites or services. We do not warrant the offerings of any such entities, individuals, or their respective websites.
-    </p>
-    <p>
-        You acknowledge and agree that Sajre Edutech Pvt Ltd shall not be held responsible or liable, directly or indirectly, for any damage or loss alleged to be caused by or in connection with the use of or reliance on any such content, goods, or services available on or through any third-party websites or services.
-        We strongly recommend that you review the terms and conditions and privacy policies of any third-party websites or services that you access.
-    </p>
+            <p>If you are under the minimum required age, you may not access or use the Website unless
+                your use is authorized and supervised by a parent or legal guardian who accepts these
+                Terms on your behalf. If we become aware that you are under the minimum required age
+                and are not under appropriate supervision, we reserve the right to terminate your account
+                and deny you further access to the Services without notice.
+            </p>
 
-    <h2>4. Termination of Access</h2>
-   <p>
-    We reserve the right, at our sole discretion, to terminate or suspend your account and deny access to the Service immediately, without prior notice or incurring liability, for any reason whatsoever, including, but not limited to, a breach of these Terms, misuse of the Service, or any activity deemed detrimental to the integrity or operation of the online platform.
-   </p>
+            <h3 class="introduction">2.2 Legal Capacity</h3>
+            <p>By using our Website, you represent and warrant that you:</p>
+            <ul>
+                <li>Are legally competent and have full legal capacity to enter into a binding contract with Sajre Edutech Private Limited under applicable laws and regulations</li>
+                <li>Are not prohibited or restricted by any legal authority, court order, or law from accessing or using the Services</li>
+                <li>Will use the Services solely for lawful purposes and in compliance with all applicable laws and regulations</li>
+            </ul>
 
-   <p>
-    Should you desire to terminate your account, you may simply cease using the Service and discontinue your subscription (if applicable).
+            <h3 class="introduction">2.3 Use by Minors</h3>
+            <p>Sajre Edutech may offer certain educational or informational content that is suitable for users under the age of 18 ("Minors"), provided that:</p>
+            <ul>
+                <li>A parent or legal guardian has provided express consent and agrees to supervise the use of the Website and Services</li>
+                <li>The parent or legal guardian accepts these Terms on behalf of the Minor</li>
+                <li>The Minor uses the Services only for personal, non-commercial, educational purposes</li>
+                <li>The parent or guardian remains responsible for all activities performed by the Minor</li>
+                <li>We reserve the right to require verification of the parent’s or guardian’s consent
+                    and supervision at any time, and to suspend or terminate access if we determine
+                    that such consent or supervision is lacking or inadequate.</li>
+            </ul>
 
-   </p>
+            <h3 class="introduction">2.4 Compliance with Local Laws</h3>
+            <p>Access to and use of the Website and Services may be subject to specific legal
+                restrictions in certain jurisdictions. It is your sole responsibility to ensure that your use of
+                the Website is compliant with all applicable laws and regulations in your country, state,
+                or locality. Sajre Edutech makes no representation that the Services are appropriate or
+                available for use in all locations.</p>
 
-   <p>
-    All provisions of these Terms which, by their inherent nature, should survive termination shall indeed survive termination, including, without limitation, provisions pertaining to ownership, warranty disclaimers, indemnity, and limitations of liability.
+            <p>We may, at any time and at our sole discretion, restrict access to users in specific
+                countries or regions in order to comply with international regulations, data protection
+                laws, export control laws, trade sanctions, or any other applicable legal requirement.</p>
 
-   </p>
+            <h3 class="introduction">2.5 Institutional and Corporate Users</h3>
+            <p>If you are using the Services as a representative of an educational institution, organization,
+                school, or business, you affirm that:
+            </p>
 
-    <h2>5. Indemnification</h2>
-    <p>
-        You agree to defend, indemnify, and hold harmless Sajre Edutech Pvt Ltd, its licensees, and its licensors, as well as their respective employees, contractors, agents, officers, and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including, but not limited to, legal fees), arising from or in connection with (a) your use of and access to the Service, (b) any content you submit, post, transmit, or make available through the Service, or (c) your breach of these Terms.
-    </p>
+            <ul>
+                <li>You are authorized by your institution or organization to access and use the Services;</li>
+                <li>You have obtained all necessary permissions, licenses, and approvals internally;</li>
+                <li>You will ensure that all authorized users within your institution or organization comply with these Terms;</li>
+                <li>You accept responsibility on behalf of the organization for all activity conducted through your organizational access.</li>
+                <li>We may require formal documentation of authorization at our discretion and may suspend access to the Services if such documentation is not provided or verified.</li>
 
-    <h2>6.Limitation of Liability</h2>
-    <p>
-        In no event shall Sajre Edutech Pvt Ltd, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including, without limitation, damages for loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of, or inability to access or use, the Service; (ii) any conduct or content of any third party on the Service; (iii) any content obtained from the Service; (iv) unauthorized access, use, or alteration of your transmissions or content; or (v) any issues arising from internet connectivity, device compatibility, or other technical factors beyond our reasonable control, irrespective of whether such damages are based on warranty, contract, tort (including negligence), or any other legal theory, and even if we have been advised of the possibility of such damage, and even if a remedy set forth herein is found to have failed of its essential purpose.
+            </ul>
 
-    </p>
-    <h2>7. Disclaimer of Warranties</h2>
-    <p>Your utilization of the Service is undertaken at your sole risk. The Service is provided on an "AS IS" and "AS AVAILABLE" basis. The Service is provided without warranties of any kind, whether express or implied, including, but not limited to, implied warranties of merchantability, fitness for a particular purpose, non-infringement, or course of performance.
-</p>
-<p>
-    Sajre Edutech Pvt Ltd, its subsidiaries, affiliates, and its licensors do not warrant that (a) the Service will function without interruption, securely, or be available at any particular time or location; (b) any errors or defects will be corrected; (c) the Service is free of viruses or other harmful components; (d) the results of using the Service will satisfy your requirements; or (e) that your access to the Service will be uninterrupted or error-free due to factors such as internet connectivity or device limitations.
-</p>
+            <h3 class="introduction">2.6 Disqualification</h3>
+            <p>We reserve the right to deny access to any person or entity at any time and for any reason, including but not limited to:</p>
+            <ul>
+                <li>Falsified identity or age;</li>
+                <li>Failure to meet eligibility criteria;</li>
+                <li>Prior violations of our Terms;</li>
+                <li>Legal prohibitions;</li>
+                <li>Risk or suspicion of unlawful behavior.</li>
+                <li>Use of the Services is a privilege and not a right. Our determination of your eligibility is final and binding.</li>
+            </ul>
 
-    <h2>8. Governing Law</h2>
-    <p>
-        These Terms shall be governed by and construed in accordance with the laws of the Republic of India, without regard to its conflict of law provisions.
-Our failure to enforce any right or provision of these Terms will not be deemed a waiver of those rights. Should any provision of these Terms be deemed invalid or unenforceable by a court of competent jurisdiction, the remaining provisions of these Terms shall remain in full force and effect. These Terms constitute the entire agreement between us regarding our Service, superseding and replacing any prior agreements we may have had between us concerning the Service.
 
-    </p>
+        </div>
 
-       <h2>9. Amendments to Terms</h2>
+        <!-- Continue with other sections following the same pattern -->
 
-       <p>
-        We reserve the right, at our sole discretion, to modify or replace these Terms at any time. In the event of a material revision, we will endeavor to provide at least thirty (30) days' notice prior to the implementation of any new terms. The determination of what constitutes a material change shall rest solely with our discretion.
+        <div class="section">
+            <h2 class="introduction">3. Use of the Website</h2>
+            <h3>3.1 Permitted Use</h3>
+            <p>The Website and Services provided by Sajre Edutech Private Limited are intended solely
+                for lawful, personal, non-commercial, and educational purposes, unless expressly
+                authorized otherwise in writing by the Company. By accessing or using the Website, you
+                agree to use it only in accordance with these Terms, applicable laws, and in a manner that
+                does not infringe on the rights of others or restrict or inhibit anyone else’s use and
+                enjoyment of the Website.</p>
+            <p>You may use the Website to:</p>
+            <ul>
 
-       </p>
+                <li>Access learning materials, videos, documents, assessments, and study tools;</li>
+                <li>Participate in online classes, courses, or discussion forums;</li>
+                <li>Manage your account, subscriptions, or certifications;</li>
+                <li>Contact our support or customer service team;
+                <li>Submit assignments, feedback, or user-generated content where applicable.</li>
+                </li>
+            </ul>
 
-       <p>
-        By continuing to access or use our Service subsequent to the effective date of any revisions, you agree to be bound by the revised terms. If you do not agree to the new terms, you are no longer authorized to use the Service.
-       </p>
+            <h3 class="introduction">3.2 Prohibited Use</h3>
+            <ul>
+                <li>You agree not to use the Website or Services:</li>
+                <li>For any unlawful purpose or to promote any illegal activities</li>
+                <li>To harass, harm, exploit, or defame others</li>
+                <li>To violate any applicable local, national, or international laws or regulations</li>
+                <li>To attempt to gain unauthorized access to any part of the Website, user accounts, or servers;</li>
+                <li>To upload or transmit viruses, malware, ransomware, or any harmful code;</li>
+                <li>To reverse engineer, decompile, disassemble, or modify any part of the Website or platform;</li>
+                <li>To interfere with or disrupt the integrity, performance, or availability of the Website;</li>
+                <li>To harvest or scrape data, including personal information, from the Website;</li>
+                <li>To misrepresent your identity or impersonate any other person or entity;</li>
+                <li>To copy, distribute, or share any paid or restricted content without proper authorization.</li>
+            </ul>
+            <p>We reserve the right to monitor user activity and to suspend or terminate access to users who engage in any prohibited conduct.</p>
+            <h3 class="introduction">3.3 Limited License</h3>
+            <p>Subject to your compliance with these Terms, Sajre Edutech grants you a limited, nonexclusive, non-transferable, revocable license to access and use the Website and Services
+                for your personal, non-commercial, educational use only. This license does not include
+                any resale or commercial use of the Website or its contents, collection or use of course
+                listings or descriptions, or any derivative use of the Website or its content.</p>
+            <p>All rights not expressly granted herein are reserved by Sajre Edutech and its licensors.</p>
 
-       <h2>10.Contact Information</h2>
 
-       <p>For any inquiries pertaining to these Terms, please contact us:</p>
-       <ul>
-        <li>By email:</li>
-        <li>By visiting this page on our website:</li>
-        <li>By phone number:</li>
-       </ul>
+            <h3 class="introduction">3.4 Availability and Access</h3>
 
-</main>
+            <p>We aim to ensure continuous availability of the Website and Services but do not
+                guarantee uninterrupted access. From time to time, the Website may be temporarily
+                unavailable due to:</p>
+
+            <ul>
+                <li>Maintenance or system upgrades;</li>
+                <li>Technical issues beyond our control;</li>
+                <li>Scheduled downtime;</li>
+                <li>Changes in regulatory or business policies;</li>
+                <li>Force majeure or emergency events.</li>
+            </ul>
+            <p>We shall not be liable for any loss or inconvenience caused by the unavailability of the
+                Website or Services.</p>
+
+            <h3 class="introduction">3.5 Third-Party Content and Services</h3>
+
+            <p>The Website may contain links to or integration with third-party websites, tools, services,
+                or content (“Third-Party Services”). Your use of such Third-Party Services is subject to
+                the separate terms and conditions of the respective third-party providers. Sajre Edutech
+                does not endorse, control, or assume responsibility for any Third-Party Services and shall
+                not be liable for any damages or losses arising from their use.</p>
+
+            <p>It is your responsibility to review and comply with the terms and privacy policies of any
+                third parties whose services you access through the Website.</p>
+
+
+            <h3 class="introduction">3.6 Platform Modifications</h3>
+            <p>Sajre Edutech reserves the right to:</p>
+            <ul>
+                <li>Modify or discontinue the Website or any part thereof at any time;</li>
+                <li>Add, remove, or change features, tools, content, or services;</li>
+                <li>Introduce beta or experimental functionality for limited users;</li>
+                <li>Restrict or limit functionality for maintenance or upgrades;</li>
+                <li>Update user interfaces or technical frameworks as needed.</li>
+
+            </ul>
+            <p>
+                Such changes may occur without prior notice and do not constitute grounds for refunds or
+                legal claims, unless otherwise stated in a service-level agreement.
+            </p>
+
+            <h3 class="introduction">3.7 User Responsibility</h3>
+            <p>You are solely responsible for:</p>
+            <ul>
+                <li>Maintaining the confidentiality of your account credentials;</li>
+                <li>Ensuring that your use of the Website complies with these Terms;</li>
+                <li>Keeping your device, software, and browser up to date and secure;</li>
+                <li>Backing up any data or materials submitted to the Website, where applicable;</li>
+                <li>Ensuring your network access does not compromise platform functionality.</li>
+
+            </ul>
+
+            <p>We shall not be liable for loss of data, unauthorized access, or breaches resulting from
+                your negligence or failure to follow recommended security practices.
+            </p>
+
+            <p>Users agree to use the Website for lawful purposes only and must not:</p>
+
+            <ul>
+                <li>Attempt to gain unauthorized access to our systems</li>
+                <li>Interfere with the Website’s operation or security</li>
+                <li>Use content or information on the Website for commercial purposes without permission</li>
+                <li>We reserve the right to restrict or terminate your access if you misuse the Website.</li>
+            </ul>
+
+        </div>
+
+        <div class="section">
+            <h2 class="introduction">4. Intellectual Property</h2>
+            <p>All content and materials available on this Website, including but not limited to text, graphics, logos, icons, images, audio clips, video content, data compilations, digital downloads, software, user interfaces, and all educational or training materials (collectively, the "Content"), are the exclusive property of Sajre Edutech Private Limited ("Sajre Edutech") or its licensors, partners, or content providers. . This Content is
+                protected by applicable intellectual property laws, including but not limited to the
+                Copyright Act, the Trademarks Act, and relevant international treaties.</p>
+
+            <p>Sajre Edutech retains all intellectual property rights in and to the Website and its Content,
+                including all enhancements, modifications, or derivative works thereof. Unauthorized use
+                of any Content for commercial purposes or public display is strictly prohibited.</p>
+
+            <h2"><strong> 4.1 Restrictions on Use</strong></h2>
+                <p>Unless expressly permitted in writing by Sajre Edutech, you shall not:</p>
+                <ul>
+                    <li>Copy, reproduce, republish, upload, post, transmit, or distribute any Content in any form or by any means;</li>
+                    <li>Modify, alter, adapt, translate, or create derivative works based on any Content; </li>
+                    <li>Sell, license, sublicense, rent, lease, or otherwise use the Content for any commercial or public purpose;</li>
+                    <li>Frame or mirror any part of the Website without Sajre Edutech’s express prior written consent;</li>
+                    <li>Remove, obscure, or alter any copyright, trademark, or other proprietary rights notices contained in or on the Content.</li>
+
+                </ul>
+
+                <h2"><strong>4.2 Trademarks</strong></h2>
+                    <p>All trademarks, service marks, trade names, logos, and trade dress displayed on this
+                        Website are the registered or unregistered trademarks of Sajre Edutech or its affiliates.
+                        Nothing in these Terms grants you any license or right to use any trademarks displayed
+                        on the Website without the prior written consent of Sajre Edutech</p>
+
+                    <h2"><strong>4.3 Third-Party Content</strong></h2>
+                        <p>Some materials on this Website may be licensed from third parties. The same restrictions
+                            apply to such content, and ownership remains with the respective licensors. Use of thirdparty intellectual property is also governed by applicable license agreements.
+                        </p>
+
+                        <h2"><strong>4.4 Legal Remedies</strong></h2>
+                            <p>Some materials on this Website may be licensed from third parties. The same restrictions
+                                apply to such content, and ownership remains with the respective licensors. UsAny unauthorized use of the Website or its Content may result in civil and/or criminal
+                                liability. Sajre Edutech reserves the right to pursue all available legal remedies to protect
+                                its intellectual property rights, including seeking injunctive relief, damages, and the
+                                recovery of legal costs.
+                            </p>
+
+                            <h2"><strong>4.5 Reporting Violations</strong></h2>
+                                <p>If you believe that your intellectual property rights have been violated on this Website, please notify us at:
+                                </p>
+                                <strong> Email:</strong> legal@sajreedutech.com
+        </div>
+        <div class="section">
+            <h2 class="introduction">5. User Accounts and Access</h2>
+            <p>In order to access and use certain features, services, or content provided by Sajre
+                Edutech Private Limited (“Sajre Edutech”), including but not limited to enrolling in
+                courses, accessing personalized dashboards, submitting assignments, participating in
+                forums, or receiving certifications, you may be required to register for a user account on
+                the Website. By creating an account, you agree to comply with the following terms:
+            </p>
+
+            <h3><strong>5.1 Eligibility</strong></h3>
+
+            <p>To register for and maintain a user account, you must be at least 18 years of age or the
+                age of legal majority in your jurisdiction. If you are under the age of 18, you may only
+                use the Website under the supervision of a parent or legal guardian who agrees to be
+                bound by these Terms. Sajre Edutech reserves the right to refuse registration or access to
+                any user who does not meet the eligibility criteria or who has previously been suspended
+                or removed from the platform.</p>
+
+            <h3><strong>5.2 Account Registration</strong></h3>
+
+            <p>When creating an account, you agree to:</p>
+
+            <ul>
+                <li>Provide accurate, complete, and up-to-date information as requested in the registration form;</li>
+                <li>Maintain and promptly update your information to keep it current and accurate;</li>
+                <li>Not impersonate any person or entity, or misrepresent your affiliation with any person or organization.</li>
+
+            </ul>
+
+            <p>Sajre Edutech may, at its sole discretion, refuse to allow the use of any username or
+                account details that it deems inappropriate, offensive, or in violation of any intellectual
+                property rights or applicable laws.</p>
+
+            <h3><strong>5.3 Account Security</strong></h3>
+
+            <p>You are solely responsible for maintaining the confidentiality of your account credentials,
+                including your username, password, and any other login or authentication information
+                associated with your account. You agree:
+            </p>
+
+            <ul>
+                <li>Not to share your login credentials with any third party;</li>
+                <li>Not to allow any unauthorized person to access your account;</li>
+                <li>To take full responsibility for all activities that occur under your account, whether authorized or not;</li>
+                <li>To log out from your account at the end of each session to prevent unauthorized access.</li>
+            </ul>
+
+            <p>Sajre Edutech is not liable for any loss or damage arising from your failure to safeguard
+                your account information or from unauthorized use of your account.</p>
+
+
+            <h3><strong>5.4 Notification of Breach</strong></h3>
+            <p>If you become aware of any unauthorized access, use, or disclosure of your account or
+                login credentials, you must immediately notify Sajre Edutech at </p>
+
+            <p><strong>support@sajreedutech.com.</strong> You may be held responsible for any losses incurred by
+                Sajre Edutech or any third party due to such unauthorized use if it is determined that you
+                failed to maintain proper security.</p>
+
+            <h3><strong>5.5 Use of Account</strong></h3>
+            <p>Your account is for personal, non-commercial use only, unless otherwise explicitly
+                agreed upon in writing by Sajre Edutech. You may not:</p>
+            <ul>
+                <li>Create multiple accounts without prior authorization;</li>
+                <li>Use automated means (e.g., bots or scripts) to create or access accounts;</li>
+                <li>Assign, sell, rent, or transfer your account to another person or entity;</li>
+                <li>Access or attempt to access another user’s account without authorization.</li>
+
+            </ul>
+
+            <p>Any violation of these provisions may result in immediate suspension or termination of
+                your account and access to the Website.</p>
+
+            <h3><strong>5.6 Account Monitoring and Management</strong></h3>
+
+            <p>Sajre Edutech reserves the right, but not the obligation, to monitor user activity and
+                investigate any actual or suspected violations of these Terms. It may take appropriate
+                action, including but not limited to:</p>
+
+            <ul>
+                <li>Issuing warnings or notices;</li>
+                <li>Suspending or disabling access to your account;</li>
+                <li>Terminating your account permanently;</li>
+                <li>Reporting activities to appropriate legal authorities where necessary.</li>
+            </ul>
+
+            <h3><strong>5.6 Account Monitoring and Management</strong></h3>
+            <p>You may request to delete or deactivate your account at any time by contacting
+                <strong>support@sajreedutech.com. </strong>Upon termination, you may lose access to all data, content,
+                course progress, certificates, and other information associated with your account.
+                Sajre Edutech also reserves the right to terminate or suspend your account, without notice,
+            </p>
+
+            <p>if:
+
+            <ul>
+                <li>You breach these Terms or any other policies;</li>
+                <li>Your conduct poses a legal or reputational risk to Sajre Edutech or its users;</li>
+                <li>Required by law, court order, or legal authority.</li>
+
+            </ul>
+            <p>All provisions of these Terms that by their nature should survive termination will remain
+                in effect, including but not limited to intellectual property rights, disclaimers, indemnity,
+                and limitations of liability</p>
+            </p>
+
+
+
+
+        </div>
+
+        <div class="section">
+            <h2 class="introduction">6. Payments and Subscriptions</h2>
+
+            <p>By accessing or purchasing any paid service, course, subscription, or digital product
+                through the Website operated by <strong> Sajre Edutech Private Limited </strong>(“Sajre Edutech”), you
+                agree to the payment terms set forth in this section, in addition to any specific terms
+                presented during the checkout process. This clause outlines your obligations regarding
+                fees, recurring billing, payment methods, taxes, refunds, and related policies.</p>
+
+            <h3><strong>6.1 General Payment Terms</strong></h3>
+
+            <p>You agree to pay all applicable fees as described at the time of purchase, including any
+                taxes or additional charges. Your use of paid content or services is subject to your
+                payment of all applicable amounts, including one-time fees, subscription charges,
+                enrollment costs, or other pricing models as may be listed on the Website from time to
+                time.</p>
+
+            <p>All transactions are final unless otherwise specified in Sajre Edutech’s Refund and
+                Cancellation Policy (see <strong>Appendix A).</strong></p>
+
+
+            <h3><strong> 6.2 Accepted Payment Methods</strong></h3>
+
+            <p>Payments can be made using a variety of methods accepted by Sajre Edutech, including but not limited to:
+            <ul>
+                <li>Credit Cards (Visa, MasterCard, RuPay, American Express)</li>
+                <li>Debit Cards</li>
+                <li>Unified Payments Interface (UPI)</li>
+                <li>Net Banking</li>
+                <li>Digital Wallets (Paytm, PhonePe, Google Pay, etc.)</li>
+                <li>International Gateways (Stripe, PayPal) for users outside India</li>
+            </ul>
+            </p>
+            <p>
+                You authorize Sajre Edutech or its third-party payment processors to charge your
+                designated payment method for all charges incurred. All payment information provided
+                must be valid, accurate, and up to date. You agree to promptly update your payment
+                method in case of changes (e.g., card expiration or cancellation).
+            </p>
+
+            <h3><strong> 6.3 Third-Party Payment Gateways</strong></h3>
+
+            <p>Sajre Edutech uses secure third-party payment gateways and service providers to process
+                transactions. By making a purchase, you agree to be bound by the terms, conditions, and
+                privacy policies of these third-party providers.</p>
+
+            <p>Sajre Edutech is not liable for:
+            <ul>
+                <li>Payment failures caused by your bank, payment service provider, or payment gateway;</li>
+                <li>Security breaches, errors, or fraud resulting from third-party handling of your payment information;</li>
+                <li>Any delays in payment confirmation due to issues outside our control.</li>
+            </ul>
+            </p>
+
+            <h3><strong>6.4 Subscriptions and Recurring Billing</strong></h3>
+            <p>Some services offered by Sajre Edutech, including but not limited to course bundles,
+                learning plans, or mentorship programs, may be billed on a recurring subscription basis.</p>
+            <p>By enrolling in a subscription:
+            <ul>
+                <li>You authorize Sajre Edutech to charge your payment method automatically at the
+                    start of each billing cycle (monthly, quarterly, annually, or as otherwise specified).</li>
+                <li>You acknowledge that subscription services will continue until cancelled by you.</li>
+                <li>You may cancel your subscription at any time by visiting your account settings or
+                    emailing <strong> support@sajreedutech.com</strong> at least 48 hours before the renewal date.</li>
+                <li>Cancellation will be effective at the end of the current billing period, and you will
+                    retain access until then.</li>
+                <li>You will not be entitled to a refund for the remaining period of a subscription
+                    unless stated in our Refund Policy</li>
+            </ul>
+            </p>
+
+
+            <h3><strong>6.5 Free Trials</strong></h3>
+            <p>Sajre Edutech may offer free trials for certain subscription services. Unless explicitly
+                stated otherwise:
+            <ul>
+                <li>The trial period will automatically convert into a paid subscription at the end of
+                    the free period.</li>
+                <li>You will be notified of the applicable charges prior to the end of the trial.</li>
+                <li>You must cancel the subscription before the trial ends to avoid being billed.</li>
+
+            </ul>
+            </p>
+            <p>Eligibility for free trials is determined solely by Sajre Edutech. We reserve the right to
+                revoke access and charge standard fees if we determine that you have abused the trial
+                offer (e.g., by creating multiple accounts).
+            </p>
+
+            <h3><strong>6.6 Refunds and Cancellations</strong></h3>
+            <p>Refunds are issued solely in accordance with Sajre Edutech’s Refund and Cancellation
+                Policy (Appendix A). By purchasing any product or service, you acknowledge that:
+
+            <ul>
+                <li>Refund requests must be made within the timeframe stated in the policy;</li>
+                <li>Refunds may not be available for digital downloads, completed certifications, or
+                    partial use of services;</li>
+                <li>Any approved refunds will be issued to the original payment method and may
+                    take 7–14 business days to process, depending on your financial institution;</li>
+                <li>Certain purchases may be non-refundable, including promotional or discounted
+                    offers, unless otherwise specified.</li>
+            </ul>
+            </p>
+            <p>Sajre Edutech reserves the right to deny refund requests that do not meet the conditions
+                set forth in the Refund and Cancellation Policy.</p>
+
+            <h3><strong>6.7 Taxes</strong></h3>
+            <p>Prices displayed on the Website may be exclusive or inclusive of applicable taxes,
+                including Goods and Services Tax (GST) and other local levies. Where required, Sajre
+                Edutech will charge and collect applicable taxes at the time of transaction.
+            </p>
+
+            <p>You are responsible for any taxes, duties, or government levies that may be imposed on
+                your use of the services in your jurisdiction. Sajre Edutech shall not be responsible for
+                any additional charges levied by your bank, payment provider, or local tax authorities.
+            </p>
+
+            <h3><strong>6.8 Invoicing</strong></h3>
+            <p>Upon completion of a successful payment, a digital receipt or invoice will be issued to
+                your registered email address. For users requiring GST-compliant invoices or tax
+                documentation, please ensure your billing details are entered correctly during checkout.
+            </p>
+
+            <h3><strong>6.9 Discounts, Coupons, and Promotional Offers</strong></h3>
+
+            <p>Sajre Edutech may occasionally offer limited-time discounts, coupon codes, referral
+                bonuses, or promotional pricing. These offers:
+            <ul>
+                <li>Are subject to specific terms and expiry dates;</li>
+                <li>Cannot be combined unless otherwise explicitly permitted;</li>
+                <li>Are not applicable retroactively to prior purchases;</li>
+                <li>May be withdrawn or modified at Sajre Edutech’s discretion without notice.</li>
+
+            </ul>
+            </p>
+
+            <p>If a discount is applied incorrectly, Sajre Edutech reserves the right to reverse the
+                discounted amount or cancel the order.
+            </p>
+
+
+            <h3><strong>6.10 Failed Payments and Account Suspension</strong></h3>
+            <p>
+                In cases where a payment fails, is declined, or is disputed:
+            <ul>
+                <li>You agree to update your payment information immediately;</li>
+                <li>Sajre Edutech may suspend your access to paid content or services until the balance is cleared;</li>
+                <li>Repeated failures or chargebacks may result in permanent account suspension or legal action to recover dues;</li>
+                <li>You agree to be responsible for any additional collection costs, interest, or legal fees incurred as a result of non-payment.</li>
+
+            </ul>
+            </p>
+
+
+            <h3><strong>6.11 Payment Disputes</strong></h3>
+            <p>
+                If you believe you have been billed incorrectly, please notify us immediately by emailing
+                <strong>billing@sajreedutech.com. </strong>Disputes must be raised within <strong> seven (7) days </strong>of the
+                transaction date. Sajre Edutech will investigate and, if appropriate, issue a correction or
+                refund
+            </p>
+            <p>You agree not to initiate chargebacks or payment reversals without first contacting Sajre
+                Edutech to resolve the issue. Unwarranted chargebacks may result in suspension of your
+                account and denial of future services.
+            </p>
+
+
+        </div>
+
+        <div class="section">
+            <h2 class="introduction">7. Privacy</h2>
+            <p>
+                Your access to and use of the Website and related services is subject to the Sajre
+                Edutech Private Limited (“Sajre Edutech”) Privacy Policy, which forms an integral
+                part of these Terms and Conditions. By using the Website, creating an account, enrolling
+                in a course, or otherwise interacting with Sajre Edutech, you acknowledge that you have
+                read, understood, and agreed to the practices described in our Privacy Policy.
+            </p>
+
+            <h3><strong>7.1 Collection of Personal Information</strong></h3>
+            <p>
+                When you access or use the Website, we may collect personal information from you,
+                including but not limited to:
+            <ul>
+                <li>Full name, email address, phone number, and postal address;</li>
+                <li>Educational background and preferences;</li>
+                <li>Payment and billing information (processed securely via third-party gateways);</li>
+                <li>Usage data, including IP address, browser type, device information, pages visited,
+                    time spent, and other analytics;</li>
+                <li>Course progress, assessments, and certifications;</li>
+                <li>Any communications or correspondence between you and Sajre Edutech.</li>
+
+            </ul>
+            </p>
+
+            <p>This data may be collected during account registration, course enrollment, support
+                requests, surveys, or general use of the Website.
+            </p>
+
+            <h3><strong>7.2 Use of Collected Data</strong></h3>
+            <p>
+                Sajre Edutech uses your personal information solely for the purposes of:
+            <ul>
+                <li>Providing and improving educational services and content;</li>
+                <li>Processing transactions and managing subscriptions;</li>
+                <li>Issuing certificates and tracking course progress;</li>
+                <li>Communicating with you via email, SMS, or other channels about updates,promotions, or support;</li>
+                <li>Complying with legal obligations and internal policies;</li>
+                <li>Conducting analytics and research to improve the user experience.</li>
+            </ul>
+            </p>
+
+            <p>
+                We do not sell or rent your personal data to third parties. Limited information may be
+                shared with trusted service providers under strict confidentiality agreements solely for
+                operational purposes (e.g., payment processors, cloud storage providers, customer
+                support tools).
+
+            </p>
+
+
+        </div>
+
+
+    </main>
 
 
 {% endblock %}
