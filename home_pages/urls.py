@@ -11,5 +11,6 @@ urlpatterns = [
     path('comming_soon/',views.comming_soon,name="comming_soon"),
     path('',views.index,name="index"),
     path('terms_and_conditions/',views.terms_and_conditions,name="terms_and_conditions"),
-    path('privacy_policy/',views.privacy_policy,name="privacy_policy")
+    path('privacy_policy/',views.privacy_policy,name="privacy_policy"),
+     path('working_on/',views.working_on,name="working_on")
 ]

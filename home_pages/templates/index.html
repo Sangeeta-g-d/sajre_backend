@@ -45,8 +45,6 @@
     <link rel="stylesheet" type="text/css" href="/static/assets/home/css/slick.css" />
 
 
-    <link rel="stylesheet" href="/static/assets/home/css/bootstrap.min.css">
-
     <link href="/static/assets/home/css/aos.css" rel="stylesheet">
 
     <link href="/static/assets/home/css/custom.css" rel="stylesheet">
@@ -58,6 +56,175 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+ <style>
+    /* Replace the existing modal-card styles with these */
+  .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        
+        .modal-card {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 800px;
+            z-index: 1000;
+            padding: 0;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        
+        .modal-container {
+            display: flex;
+            height: 100%;
+        }
+        
+        .modal-navigation {
+            width: 30%;
+            background-color: #f9f9f9;
+            padding: 30px 20px;
+            border-right: 1px solid #eee;
+        }
+        
+        .modal-content {
+            width: 70%;
+            padding: 10px;
+            justify-content: center;
+        }
+        
+        .nav-item {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 500;
+            color: #555;
+            transition: all 0.3s ease;
+             font-family: Poppins;
+        }
+        
+        .nav-item.active {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            font-weight: 600;
+        }
+        
+        .event-card {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .event-image {
+            width: 194px;
+            height: 130px;
+            background-color: #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .event-details {
+            flex: 1;
+        }
+        
+        .event-title {
+                margin-bottom: 8px;
+                color: #333;
+                font-family: ABeeZee;
+                font-style: italic;
+                font-weight: 700;
+        }
+        
+        .event-description {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #666;
+             font-family: ABeeZee;
+            margin-bottom: 15px;
+        }
+        
+        .event-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .event-button:hover {
+            background-color: #3d8b40;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 0px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #777;
+            z-index: 10;
+        }
+        
+        .close-btn:hover {
+            color: #333;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .modal-container {
+                flex-direction: column;
+            }
+            
+            .modal-navigation {
+                width: 100%;
+                padding: 20px;
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .modal-content {
+                width: 100%;
+                padding: 20px;
+            }
+            
+            .event-card {
+                flex-direction: column;
+            }
+            
+            .event-image {
+                width: 100%;
+                height: 150px;
+            }
+        }
+
+    /* Keep your existing overlay and close button styles */
+</style>
+ 
       <div class="modal-card" id="modalCard">
         <button class="close-btn" id="closeCardBtn">×</button>
         <div class="modal-container">
@@ -126,48 +293,7 @@
 </script>
 
   <!-- Offcanvas Menu for Mobile -->
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
-            aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Navbar</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                    aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-
-
-
-        <div class="home_root">
+     <div class="home_root">
             <section id="hm_banner_slider_section">
                 <div class="hm_slider_content">
                     <!-- The slides will be dynamically generated here -->
@@ -574,7 +700,7 @@
                                     <p>
                                         Help students grow by teaching subjects you love — anytime, anywhere.
                                     </p>
-                                    <button class="become-tutor-btn" id="becomeTutorBtn">Become Tutor</button>
+                                    <button class="become-tutor-btn" id="becomeTutorBtn">Enroll</button>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6 text-end pe-5 position-relative">
@@ -772,7 +898,7 @@
                     <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 py-4">
                         <div>
                             <h4 class="feedback_title">Our Customer Feedback</h4>
-                            <p class="feedback_des mb-0">Don’t take our word for it. Trust our customers</p>
+                            <p class="feedback_des mb-0">"Trusted by learners. Loved by creators. Hear their stories."</p>
                         </div>
 
                         <div class="d-flex align-items-center gap-2">
@@ -1241,7 +1367,6 @@
         </div>
          <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-        <script src="/static/assets/home/js/query.min.js"></script>
 
         <script src="/static/assets/home/js/slick.min.js"></script>
 
@@ -1254,29 +1379,34 @@
       const slidesData = [
                     {
                         imageUrl: "/static/assets/home/img/hm_slider_1.jpg",
-                        title: 'Empowering individuals through future-ready learning',
-                        buttonText: 'View Event',
+                        title: '"Empowering you to create, lead, and thrive in the world of tomorrow."',
+                        p :'',
+                        buttonText: 'Discover',
                         buttonLink: '/art_landing/'
                     },
                     {
                         imageUrl: "/static/assets/home/img/hm_slider_2.png",
-                        title: 'Collaborative Tech Workshops',
-                        buttonText: 'Join Now',
+                        title: '"Turn Your Creativity Into Recognition. Step Into the National Art Summit Now!"',
+                        p :'',
+                        buttonText: 'register',
                         buttonLink: '/auth/register/'
                     },
                     {
-                        imageUrl: "/static/assets/home/img/hm_slider_3.jpg",
-                        title: 'Networking for Professionals',
+                        imageUrl: "/static/assets/home/img/hm_slider_3.jpg ",
+                        title: "Join India's Creative Movement",
+                        p : '"Connect with young artists and mentors nationwide"',
                         buttonText: 'Get Tickets'
                     },
                     {
                         imageUrl: "/static/assets/home/img/hm_slider_4.png",
-                        title: 'Innovation and Startup Culture',
+                        title: 'Where Passion Meets Recognition',
+                        p :'"Turn your hours of practice into a masterpiece celebrated nationwide."',
                         buttonText: 'Learn More'
                     },
                     {
                         imageUrl: "/static/assets/home/img/hm_slider_5.jpg",
-                        title: 'Global Leadership Summit',
+                        title: '"Your Art, Your Story Indias Stage"',
+                        p :'',
                         buttonText: 'Register',
                         buttonLink: '/auth/register/'
                     }
@@ -1302,6 +1432,7 @@
                 .addClass('slide-content')
                 .html(`
                     <h2 class="hm_slider_title">${data.title}</h2>
+                    <p class="hm_slider_p">${data.p}</p>
                     ${data.buttonText ? `
                         <button class="hm_slider_btn">
                             <a class="text-black text-decoration-none" href="${data.buttonLink || '#'}">
@@ -1445,7 +1576,7 @@
                 });
             });
         </script>
-        <script>
+       <script>
             $(document).ready(function () {
                 $('.instagram-slider').slick({
                     slidesToShow: 4,
@@ -1460,11 +1591,13 @@
                             slidesToShow: 3
                         }
                     },
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            slidesToShow: 2
-                        }
+                     {
+                breakpoint: 768,
+                settings: {
+                    arrows: false,
+                    dots: false,
+                    slidesToShow: 2
+                }
                     },
                     {
                         breakpoint: 576,
@@ -1493,7 +1626,7 @@
                         {
                             breakpoint: 768,
                             settings: {
-                                slidesToShow: 1
+                                slidesToShow: 1.05
                             }
                         }
                     ]
