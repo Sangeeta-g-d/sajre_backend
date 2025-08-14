@@ -39,13 +39,7 @@
             });
 
             // Action button functionality
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('view-btn') || e.target.closest('.view-btn')) {
-                    const row = e.target.closest('tr');
-                    const studentName = row.querySelector('.student-name').textContent;
-                    alert(`Viewing details for ${studentName}`);
-                }
-
+       
                 if (e.target.classList.contains('reminder-btn') || e.target.closest('.reminder-btn')) {
                     const row = e.target.closest('tr');
                     const studentName = row.querySelector('.student-name').textContent;

@@ -8,29 +8,30 @@ from django.contrib.auth import update_session_auth_hash
 # Create your views here.
 
 
+@login_required
 def vendor_dashboard(request):
+    # Count mentors referred by this vendor (specific to vendor dashboard)
     referred_mentors_count = CustomUser.objects.filter(
         referred_by=request.user,
         role="mentor"
     ).count()
 
-    # Default value to avoid UnboundLocalError
+    # Count students referred by this vendor
     referred_students_count = CustomUser.objects.filter(
         referred_by=request.user,
         role="participant"
     ).count()
 
-    # If 5+ mentors referred, mark this user as active vendor
-    if referred_mentors_count >= 5 and request.user.role == "mentor":
-        request.user.active_vendor = True
-        request.user.save(update_fields=["active_vendor"])
-
+    # Count enrolled students
     enrolled_students_count = Participant.objects.filter(
         user__referred_by=request.user,
         has_paid=True
     ).count()
 
+    # Get all categories
     categories = CompetitionCategory.objects.all()
+    
+    # Get category-wise data for pie charts
     category_data = []
     for category in categories:
         total = CustomUser.objects.filter(
@@ -38,33 +39,55 @@ def vendor_dashboard(request):
             role="participant",
             participant__category=category
         ).count()
-
+        
         enrolled = Participant.objects.filter(
             user__referred_by=request.user,
             category=category,
             has_paid=True
         ).count()
-
+        
         category_data.append({
             'name': category.name,
             'total': total,
             'enrolled': enrolled,
-            'not_enrolled': max(total - enrolled, 0)
+            'not_enrolled': total - enrolled if total > enrolled else 0
         })
 
-    participants_list = CustomUser.objects.filter(
+    # Fetch participants with their matching category
+    participants = []
+    for user in CustomUser.objects.filter(
         referred_by=request.user,
-        role="participant"
-    ).select_related("participant", "participant__category")
+        role="participant"  
+    ).select_related("participant", "participant__category", "participant_profile"):
+        
+        # Find matching category based on age
+        matching_category = None
+        if hasattr(user, 'participant_profile') and user.participant_profile.age:
+            age = user.participant_profile.age
+            for category in categories:
+                if (age >= category.age_min and 
+                    (category.age_max is None or age <= category.age_max)):
+                    matching_category = category
+                    break
+        
+        participants.append({
+            'user': user,
+            'matching_category': matching_category
+        })
 
-    context = {
-        'referred_mentors_count': referred_mentors_count,
+    # Vendor-specific logic (if 5+ mentors referred, mark as active vendor)
+    if referred_mentors_count >= 5 and request.user.role == "vendor":
+        request.user.active_vendor = True
+        request.user.save(update_fields=["active_vendor"])
+
+    return render(request, 'vendor_dashboard.html', {
+        'referred_mentors_count': referred_mentors_count,  # Vendor-specific metric
         'referred_students_count': referred_students_count,
         'enrolled_students_count': enrolled_students_count,
         'category_data': category_data,
-        'participants_list': participants_list,
-    }
-    return render(request, 'vendor_dashboard.html', context)
+        'participants': participants,  # Changed from participants_list to match mentor dashboard
+        'categories': categories,
+    })
 
 
 @login_required
@@ -160,3 +183,10 @@ def vendor_change_password(request):
         return redirect("/vendor/vendor_change_password")
 
     return render(request, "vendor_change_password.html")
+
+
+def v_terms(request):
+    return render(request,'v_terms.html')
+
+def v_working_on(request):
+    return render(request,'v_working_on.html')

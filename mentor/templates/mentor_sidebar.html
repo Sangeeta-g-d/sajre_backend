@@ -27,16 +27,16 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About Event</a>
+                        <a class="nav-link" href="/about_events/">About Event</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Organiser</a>
+                        <a class="nav-link" href="/">Organiser</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact Us</a>
+                        <a class="nav-link" href="/art_contact/">Contact Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Art Gallery</a>
+                        <a class="nav-link" href="/art_gallery/">Art Gallery</a>
                     </li>
                 </ul>
                 <div class="profile-info ms-auto d-none d-lg-flex">
@@ -81,13 +81,7 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item mb-3">
-                        <a class="nav-link d-flex align-items-center" href="sidebar.html">
-                            <i class="bi bi-bar-chart-fill me-2"></i>
-                            <span>Event Progress</span>
-                        </a>
-                    </li>
-                    
+                   
                     <!-- Settings Dropdown -->
                     <li class="nav-item mb-2">
                         <a class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#settingsDropdown" role="button" aria-expanded="false" aria-controls="settingsDropdown">
@@ -102,14 +96,14 @@
                                 </li>
                               
                                 <li class="nav-item">
-                                    <a class="nav-link" href="terms&condition.php"><i class="bi bi-file-earmark-text me-2"></i>Terms & Conditions</a>
+                                    <a class="nav-link" href="{% url 'm_terms' %}"><i class="bi bi-file-earmark-text me-2"></i>Terms & Conditions</a>
                                 </li>
                               
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#"><i class="bi bi-ticket-detailed me-2"></i>Raise a Ticket</a>
+                                    <a class="nav-link" href="{% url 'm_working_on' %}"><i class="bi bi-ticket-detailed me-2"></i>Raise a Ticket</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#"><i class="bi bi-question-circle me-2"></i>FAQs</a>
+                                    <a class="nav-link" href="{% url 'm_working_on' %}"><i class="bi bi-question-circle me-2"></i>FAQs</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/mentor/mentor_change_password/"><i class="bi bi-key me-2"></i>Change Password</a>
