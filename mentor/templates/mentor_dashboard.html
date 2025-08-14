@@ -122,69 +122,70 @@
             </button>
         </div>
 <div class="table-container">
-            <table class="students-table">
-                <thead>
-                    <tr>
-                        <th><input type="checkbox" id="selectAll"></th>
-                        <th>Student Name</th>
-                        <th>Age Group</th>
-                        <th>Category</th>
-                        <th>Status</th>
-                        <th>Registration Date</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="studentsTableBody">
-    {% for user in participants_list %}
-<tr>
-    <td><input type="checkbox" class="row-checkbox"></td>
-    <td>
-        <div class="student-info">
-            <img src="{{ user.participant_profile.photo.url|default:'https://via.placeholder.com/40' }}" 
-                 alt="{{ user.full_name }}" class="student-avatar">
-            <div>
-                <div class="student-name">{{ user.full_name }}</div>
-                <div class="student-email">{{ user.email }}</div>
-            </div>
-        </div>
-    </td>
-    <td>
-        {% if user.participant and user.participant.category.age_min and user.participant.category.age_max %}
-            {{ user.participant.category.age_min }}-{{ user.participant.category.age_max }}
-        {% else %}
-            N/A
-        {% endif %}
-    </td>
-    <td>
-        {% if user.participant and user.participant.category %}
-            <span class="category">{{ user.participant.category.name }}</span>
-        {% else %}
-            <span class="category">N/A</span>
-        {% endif %}
-    </td>
-    <td>
-        {% if user.participant and user.participant.has_paid %}
-            <span class="status enrolled">Enrolled</span>
-        {% else %}
-            <span class="status not-enrolled">Not Enrolled</span>
-        {% endif %}
-    </td>
-    <td>{{ user.date_joined|date:"d M, Y" }}</td>
-    <td>
-        <button class="action-btn view-btn">
-            <i class="fas fa-eye"></i> View
-        </button>
-    </td>
-</tr>
-{% empty %}
-<tr>
-    <td colspan="7">No participants found.</td>
-</tr>
-{% endfor %}
-
-</tbody>
-
-            </table>
+    <table class="students-table">
+    <thead>
+        <tr>
+            <th><input type="checkbox" id="selectAll"></th>
+            <th>Student Name</th>
+            <th>Age Group</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Registration Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="studentsTableBody">
+        {% for participant in participants %}
+        <tr>
+            <td><input type="checkbox" class="row-checkbox"></td>
+            <td>
+                <div class="student-info">
+                    <img src="{{ participant.user.participant_profile.photo.url|default:'https://via.placeholder.com/40' }}" 
+                         alt="{{ participant.user.full_name }}" class="student-avatar">
+                    <div>
+                        <div class="student-name">{{ participant.user.full_name }}</div>
+                        <div class="student-email">{{ participant.user.email }}</div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                {% if participant.matching_category %}
+                    {{ participant.matching_category.age_min }}-
+                    {{ participant.matching_category.age_max|default:"+" }}
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+            <td>
+                {% if participant.user.participant and participant.user.participant.category %}
+                    <span class="category">{{ participant.user.participant.category.name }}</span>
+                {% elif participant.matching_category %}
+                    <span class="category">{{ participant.matching_category.name }}</span>
+                {% else %}
+                    <span class="category">N/A</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if participant.user.participant and participant.user.participant.has_paid %}
+                    <span class="status enrolled">Enrolled</span>
+                {% else %}
+                    <span class="status not-enrolled">Not Enrolled</span>
+                {% endif %}
+            </td>
+            <td>{{ participant.user.date_joined|date:"d M, Y" }}</td>
+            <td>
+                <button class="action-btn view-btn">
+                    <i class="fas fa-eye"></i> View
+                </button>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">No participants found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
         </div>
         <!-- Chart.js CDN -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

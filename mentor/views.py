@@ -10,26 +10,25 @@ from django.http import JsonResponse
 import json
 
 # Create your views here.
-
 @login_required
 def mentor_dashboard(request):
-
-    # Count students (participants) referred by this user
+    # Count students referred by this user
     referred_students_count = CustomUser.objects.filter(
         referred_by=request.user,
         role="participant"
     ).count()
 
-    # Count enrolled students (participants who have paid)
+    # Count enrolled students
     enrolled_students_count = Participant.objects.filter(
         user__referred_by=request.user,
         has_paid=True
     ).count()
 
-    # Get category-wise data for pie charts
+    # Get all categories
     categories = CompetitionCategory.objects.all()
-    category_data = []
     
+    # Get category-wise data for pie charts
+    category_data = []
     for category in categories:
         total = CustomUser.objects.filter(
             referred_by=request.user,
@@ -50,19 +49,35 @@ def mentor_dashboard(request):
             'not_enrolled': total - enrolled if total > enrolled else 0
         })
 
-    # ✅ Fetch participants registered via this mentor’s referral code
-    participants_list = CustomUser.objects.filter(
-    referred_by=request.user,
-    role="participant"  
-    ).select_related("participant", "participant__category")
+    # Fetch participants with their matching category
+    participants = []
+    for user in CustomUser.objects.filter(
+        referred_by=request.user,
+        role="participant"  
+    ).select_related("participant", "participant__category", "participant_profile"):
+        
+        # Find matching category based on age
+        matching_category = None
+        if hasattr(user, 'participant_profile') and user.participant_profile.age:
+            age = user.participant_profile.age
+            for category in categories:
+                if (age >= category.age_min and 
+                    (category.age_max is None or age <= category.age_max)):
+                    matching_category = category
+                    break
+        
+        participants.append({
+            'user': user,
+            'matching_category': matching_category
+        })
 
     return render(request, 'mentor_dashboard.html', {
         'referred_students_count': referred_students_count,
         'enrolled_students_count': enrolled_students_count,
         'category_data': category_data,
-        'participants_list': participants_list,  # <-- Pass to template
+        'participants': participants,
+        'categories': categories,
     })
-
 
 @login_required
 def edit_profile(request):
