@@ -194,6 +194,8 @@ def login_view(request):
                 redirect_url = "/vendor/vendor_dashboard/"
             elif user.role == "participant":
                 redirect_url = "/participants/dashboard/"
+            elif user.is_superuser:
+                redirect_url = "/admin_part/admin_dashboard/"
             else:
                 redirect_url = "/working_on/"  # fallback for other roles
 

@@ -87,6 +87,11 @@ RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET')
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
+# Allow bigger uploads (e.g., 20MB)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024  # 20 MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024  # 20 MB
+
 from decouple import config
 
 DATABASES = {
