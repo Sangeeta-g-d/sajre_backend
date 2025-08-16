@@ -1,6 +1,6 @@
 @media only screen and (max-width: 600px){
     section#hm_banner_slider_section .slide-content{
-            padding: 2rem 1rem; 
+            padding: 2rem 0rem; 
     }
     section#hm_banner_slider_section h2.hm_slider_title{
             font-size: 20.95px;
