@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import login
 from datetime import datetime
 from django.http import JsonResponse
+from .utils.exotel import send_otp_sms
 
 def generate_otp():
     return str(random.randint(100000, 999999))  # 6-digit OTP
@@ -14,24 +15,25 @@ def register(request):
     if request.method == 'POST':
         full_name = request.POST.get('full_name')
         email = request.POST.get('email')
-        phone_number = request.POST.get('phone')
-        password = request.POST.get('password')  
+        phone_number = request.POST.get('phone').strip()
+        password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
+
+        # ✅ Validate phone number (must be 10 digits only)
+        if not (phone_number.isdigit() and len(phone_number) == 10):
+            return render(request, 'registration.html', {'error': 'Phone number must be exactly 10 digits.'})
 
         # Check if email already exists
         if CustomUser.objects.filter(email=email).exists():
-            context = {'error': 'Email already registered.'}
-            return render(request, 'registration.html', context)
+            return render(request, 'registration.html', {'error': 'Email already registered.'})
 
         # Check if phone number already exists
         if CustomUser.objects.filter(phone_number=phone_number).exists():
-            context = {'error': 'Phone already registered.'}
-            return render(request, 'registration.html', context)
+            return render(request, 'registration.html', {'error': 'Phone already registered.'})
 
         # Check password match
         if password != confirm_password:
-            context = {'error': 'Passwords do not match'}
-            return render(request, 'registration.html', context)
+            return render(request, 'registration.html', {'error': 'Passwords do not match.'})
 
         # Create user (inactive until OTP verified)
         user = CustomUser.objects.create_user(
@@ -46,13 +48,14 @@ def register(request):
         otp_code = generate_otp()
         UserOTP.objects.create(user=user, otp_code=otp_code)
 
-        # TODO: Send OTP via SMS/Email
-        print(f"OTP for {email}: {otp_code}")
+        # ✅ Send OTP (phone_number is already 10 digits as entered)
+        send_otp_sms(phone_number, otp_code)
 
-        # Redirect to OTP verification page
         return redirect('verify_otp', user_id=user.id)
 
     return render(request, 'registration.html')
+
+
 
 def verify_otp(request, user_id):
     user = CustomUser.objects.get(id=user_id)

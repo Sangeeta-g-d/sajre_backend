@@ -7,11 +7,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse
+from auth_app.models import MentorProfile
 import json
 from django.views.decorators.http import require_POST
 
 # Create your views here.
-@login_required
+@login_required(login_url='/auth/login/')
 def mentor_dashboard(request):
     # Count students referred by this user
     referred_students_count = CustomUser.objects.filter(
@@ -80,10 +81,63 @@ def mentor_dashboard(request):
         'categories': categories,
     })
 
-@login_required
+
+
+@login_required(login_url='/auth/login/')
+def create_mentor_profile(request):
+    """
+    First time profile creation view for vendor.
+    """
+    user = request.user
+
+    if request.method == "POST":
+        try:
+            vendor_profile = MentorProfile.objects.create(
+                user=user,
+                higher_qualification=request.POST.get("higher_qualification"),
+                full_address=request.POST.get("full_address"),
+                city=request.POST.get("city"),
+                district=request.POST.get("district"),
+                state=request.POST.get("state"),
+                pincode=request.POST.get("pincode"),
+                store_or_advisor=request.POST.get("store_or_advisor"),
+                job_title=request.POST.get("job_title"),
+                total_experience_years=request.POST.get("total_experience_years"),
+                current_employer=request.POST.get("current_employer"),
+                location=request.POST.get("location"),
+                work_history=request.POST.get("work_history"),
+                course_level=request.POST.get("course_level"),
+                course_name=request.POST.get("course_name"),
+                passport_photo=request.FILES.get("passport_photo"),
+                id_proof=request.FILES.get("id_proof")
+            )
+
+            return JsonResponse({
+                "status": "success",
+                "message": "Profile created successfully!"
+            })
+        except Exception as e:
+            return JsonResponse({
+                "status": "error",
+                "message": f"Error creating profile: {str(e)}"
+            }, status=400)
+
+    # Empty context for first time
+    context = {
+        "user": user,
+        "vendor_profile": None  # Pass None so template renders empty fields
+    }
+    return render(request, "create_mentor_profile.html", context)
+
+
+@login_required(login_url='/auth/login/')
 def edit_profile(request):
     user = request.user
-    mentor_profile = user.mentor_profile
+    try:
+        mentor_profile = user.mentor_profile
+    except MentorProfile.DoesNotExist:
+        # Redirect to the page where user can create the profile
+        return redirect('create_mentor_profile')
     
     if request.method == 'POST':
         try:
@@ -137,7 +191,7 @@ def edit_profile(request):
     return render(request, 'edit_profile.html', context)
 
 
-@login_required
+@login_required(login_url='/auth/login/')
 def mentor_change_password(request):
     if request.method == "POST":
         new_password = request.POST.get("new-password")
@@ -179,7 +233,7 @@ def m_terms(request):
     return render(request, 'm_terms.html')
 
 @require_POST
-@login_required
+@login_required(login_url='/auth/login/')
 def update_terms_status(request):
     if request.method == 'POST':
         try:
@@ -191,7 +245,7 @@ def update_terms_status(request):
             return JsonResponse({'success': False, 'error': str(e)})
     return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
-
+@login_required(login_url='/auth/login/')
 def m_working_on(request):
     return render(request,'m_working_on.html')
 
@@ -200,7 +254,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 
 @require_GET
-@login_required
+@login_required(login_url='/auth/login/')
 def get_participant_details(request, user_id):
     try:
         user = CustomUser.objects.get(id=user_id, referred_by=request.user)

@@ -39,14 +39,25 @@
                         <a class="nav-link" href="/art_gallery/">Art Gallery</a>
                     </li>
                 </ul>
-                <div class="profile-info ms-auto d-none d-lg-flex">
-                    {% if mentor_profile.passport_photo %}
-                    <img src="{{ mentor_profile.passport_photo.url }}" alt="Profile">
-                      {% else %}
+            <div class="profile-info ms-auto d-none d-lg-flex">
+    {% if mentor_profile %}
+        {% if mentor_profile.passport_photo %}
+            <img src="{{ mentor_profile.passport_photo.url }}" alt="Profile">
+        {% else %}
+            <img src="/static/assets/participant/img/profile.png" alt="Default Profile" width="40" height="40" style="border-radius:50%;">
+        {% endif %}
+        <span class="fw-semibold text-black">
+            Hi, {{ mentor_profile.user.get_full_name|default:mentor_profile.user.full_name }}
+        </span>
+    {% else %}
+        <!-- Fallback when mentor_profile is not created  -->
         <img src="/static/assets/participant/img/profile.png" alt="Default Profile" width="40" height="40" style="border-radius:50%;">
+        <span class="fw-semibold text-black">
+            Hi, {{ request.user.get_full_name|default:request.user.full_name }}
+        </span>
     {% endif %}
-                    <span class="fw-semibold text-black">Hi, {{ mentor_profile.user.get_full_name|default:mentor_profile.user.full_name  }}</span>
-                </div>
+</div>
+
             </div>
         </div>
     </nav>
@@ -57,20 +68,26 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-content">
-            <div class="profile_img">
-                 {% if mentor_profile.passport_photo %}
+          <div class="profile_img">
+    {% if mentor_profile and mentor_profile.passport_photo %}
         <img src="{{ mentor_profile.passport_photo.url }}" alt="Profile" class="profile-img mb-2" style="width:80px;height:80px;border-radius:50%;">
+        <h6 class="mb-0 text-black">{{ mentor_profile.user.get_full_name }}</h6>
+        <small class="text-secondary mb-4">{{ mentor_profile.user.email }}</small>
     {% else %}
         <img src="/static/assets/participant/img/profile.png" alt="Default Profile" class="profile-img mb-2" style="width:80px;height:80px;border-radius:50%;">
+        <h6 class="mb-0 text-black">{{ request.user.get_full_name }}</h6>
+        <small class="text-secondary mb-4">{{ request.user.email }}</small>
     {% endif %}
-                <h6 class="mb-0 text-black">{{ mentor_profile.user.get_full_name|default:mentor_profile.user.full_name }}</h6>
-                <small class="text-secondary mb-4">{{ mentor_profile.user.email }}</small>
-               <a class="btn reference_frd border text-white d-flex align-items-center justify-content-center" id="referralLink">
-    <i class="bi bi-link-45deg me-2"></i>
-    <span id="referralCode">{{ request.user.referral_code }}</span>
-    <i class="bi bi-clipboard ms-2 copy-icon"></i>
-</a>
-            </div>
+
+    <!-- Referral Code (this section is shown in both cases above) -->
+    <a class="btn reference_frd border text-white d-flex align-items-center justify-content-center" id="referralLink">
+        <i class="bi bi-link-45deg me-2"></i>
+        <span id="referralCode">{{ request.user.referral_code }}</span>
+        <i class="bi bi-clipboard ms-2 copy-icon"></i>
+    </a>
+</div>
+
+
             
             <div class="sidebar-menu">
                 <ul class="nav flex-column">
