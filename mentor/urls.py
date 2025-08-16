@@ -9,4 +9,5 @@ urlpatterns = [
     path('update-terms-status/', views.update_terms_status, name='update_terms_status'),
     path('m_working_on/',views.m_working_on,name="m_working_on"),
     path('get-participant-details/<int:user_id>/', views.get_participant_details, name='get_participant_details'),
+    path('create_mentor_profile/',views.create_mentor_profile,name="create_mentor_profile")
 ]

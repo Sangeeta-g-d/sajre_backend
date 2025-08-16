@@ -4,11 +4,11 @@ from admin_part.models import Participant,CompetitionCategory
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.contrib.auth import update_session_auth_hash
-
+from auth_app.models import MentorProfile
 # Create your views here.
 
 
-@login_required
+@login_required(login_url='/auth/login/')
 def vendor_dashboard(request):
     # Count mentors referred by this vendor (specific to vendor dashboard)
     referred_mentors_count = CustomUser.objects.filter(
@@ -89,19 +89,26 @@ def vendor_dashboard(request):
         'categories': categories,
     })
 
-
-@login_required
+@login_required(login_url='/auth/login/')
 def edit_vendor_profile(request):
+    """
+    Edit Vendor Profile view. If profile does not exist -> redirect to create page.
+    """
     user = request.user
-    vendor_profile = user.mentor_profile
-    
+
+    try:
+        vendor_profile = user.mentor_profile
+    except MentorProfile.DoesNotExist:
+        # Redirect to the page where user can create the profile
+        return redirect('create_vendor_profile')
+
     if request.method == 'POST':
         try:
             # Update User fields
             user.full_name = request.POST.get('full_name', user.full_name)
             user.phone_number = request.POST.get('phone_number', user.phone_number)
             user.save()
-            
+
             # Update MentorProfile fields
             vendor_profile.higher_qualification = request.POST.get('higher_qualification')
             vendor_profile.full_address = request.POST.get('full_address')
@@ -117,37 +124,79 @@ def edit_vendor_profile(request):
             vendor_profile.work_history = request.POST.get('work_history')
             vendor_profile.course_level = request.POST.get('course_level')
             vendor_profile.course_name = request.POST.get('course_name')
-            
-            # Handle file uploads
+
             if 'passport_photo' in request.FILES:
                 vendor_profile.passport_photo = request.FILES['passport_photo']
             if 'id_proof' in request.FILES:
                 vendor_profile.id_proof = request.FILES['id_proof']
-            
+
             vendor_profile.save()
-            
-            # Return success response for Toastify
+
             return JsonResponse({
-                'status': 'success',
-                'message': 'Profile updated successfully!'
+                "status": "success",
+                "message": "Profile updated successfully!"
             })
-            
         except Exception as e:
-            # Return error response for Toastify
             return JsonResponse({
-                'status': 'error',
-                'message': f'Error updating profile: {str(e)}'
+                "status": "error",
+                "message": f"Error updating profile: {str(e)}"
             }, status=400)
-    
-    # For GET requests, render the form with current data
+
     context = {
-        'user': user,
-        'vendor_profile': vendor_profile
+        "user": user,
+        "vendor_profile": vendor_profile,
     }
-    return render(request, 'edit_vendor_profile.html', context)
+    return render(request, "edit_vendor_profile.html", context)
 
 
-@login_required
+@login_required(login_url='/auth/login/')
+def create_vendor_profile(request):
+    """
+    First time profile creation view for vendor.
+    """
+    user = request.user
+
+    if request.method == "POST":
+        try:
+            vendor_profile = MentorProfile.objects.create(
+                user=user,
+                higher_qualification=request.POST.get("higher_qualification"),
+                full_address=request.POST.get("full_address"),
+                city=request.POST.get("city"),
+                district=request.POST.get("district"),
+                state=request.POST.get("state"),
+                pincode=request.POST.get("pincode"),
+                store_or_advisor=request.POST.get("store_or_advisor"),
+                job_title=request.POST.get("job_title"),
+                total_experience_years=request.POST.get("total_experience_years"),
+                current_employer=request.POST.get("current_employer"),
+                location=request.POST.get("location"),
+                work_history=request.POST.get("work_history"),
+                course_level=request.POST.get("course_level"),
+                course_name=request.POST.get("course_name"),
+                passport_photo=request.FILES.get("passport_photo"),
+                id_proof=request.FILES.get("id_proof")
+            )
+
+            return JsonResponse({
+                "status": "success",
+                "message": "Profile created successfully!"
+            })
+        except Exception as e:
+            return JsonResponse({
+                "status": "error",
+                "message": f"Error creating profile: {str(e)}"
+            }, status=400)
+
+    # Empty context for first time
+    context = {
+        "user": user,
+        "vendor_profile": None  # Pass None so template renders empty fields
+    }
+    return render(request, "create_vendor_profile.html", context)
+
+
+@login_required(login_url='/auth/login/')
 def vendor_change_password(request):
     if request.method == "POST":
         new_password = request.POST.get("new-password")
@@ -184,9 +233,10 @@ def vendor_change_password(request):
 
     return render(request, "vendor_change_password.html")
 
-
+@login_required(login_url='/auth/login/')
 def v_terms(request):
     return render(request,'v_terms.html')
 
+@login_required(login_url='/auth/login/')
 def v_working_on(request):
     return render(request,'v_working_on.html')

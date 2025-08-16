@@ -17,7 +17,7 @@ import razorpay
 from django.conf import settings
 # Create your views here.
 
-@login_required
+@login_required(login_url='/auth/login/')
 def dashboard(request):
     try:
         profile = ParticipantProfile.objects.get(user=request.user)
@@ -62,7 +62,7 @@ def dashboard(request):
     })
 
 
-@login_required
+@login_required(login_url='/auth/login/')
 def terms(request):
     profile = ParticipantProfile.objects.get(user=request.user)
     
@@ -101,6 +101,7 @@ def terms(request):
         "total": total,
         "RAZORPAY_KEY_ID": settings.RAZORPAY_KEY_ID,   # ✅ important
     })
+
 
 @csrf_exempt
 def payment_success(request):
@@ -191,7 +192,7 @@ def update_terms_status(request):
     return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)
 
 
-@login_required
+@login_required(login_url='/auth/login/')
 def create_razorpay_order(request):
     if request.method == "POST":
         amount = request.POST.get("amount")   # comes from frontend (₹ in paisa)
@@ -210,7 +211,7 @@ def create_razorpay_order(request):
     return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)
 
 
-@login_required
+@login_required(login_url='/auth/login/')
 def profile(request):
     try:
         profile = ParticipantProfile.objects.get(user=request.user)
@@ -257,7 +258,7 @@ def profile(request):
         return JsonResponse(context)
     return render(request, 'profile.html', context)
 
-@login_required
+@login_required(login_url='/auth/login/')
 def update_profile_photo(request):
     if request.method == "POST":
         try:
@@ -273,7 +274,7 @@ def update_profile_photo(request):
     return redirect("profile")
 
 
-@login_required
+@login_required(login_url='/auth/login/')
 def change_password(request):
     if request.method == "POST":
         new_password = request.POST.get("new-password")

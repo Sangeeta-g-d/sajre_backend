@@ -106,6 +106,13 @@ DATABASES = {
 }
 
 
+
+EXOTEL_SID = os.getenv("EXOTEL_SID")
+EXOTEL_API_TOKEN = os.getenv("EXOTEL_API_TOKEN")
+EXOTEL_API_KEY = os.getenv("EXOTEL_API_KEY")
+EXOTEL_SENDER_ID = os.getenv("EXOTEL_SENDER_ID")
+EXOTEL_DLT_ENTITY_ID = os.getenv("EXOTEL_DLT_ENTITY_ID")
+EXOTEL_DLT_TEMPLATE_ID = os.getenv("EXOTEL_DLT_TEMPLATE_ID")
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
