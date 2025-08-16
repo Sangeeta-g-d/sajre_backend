@@ -1314,6 +1314,13 @@ footer#footer  .row.footer_botton_row p {
 
 @media (max-width: 768px) {
     /* Customer feedback mobile adjustments */
+    section#hm_banner_slider_section .hm_slider_content{
+        max-width: 100%;
+    }
+
+    section#hm_banner_slider_section button.hm_slider_btn{
+        width: 210px;
+    }
     section#customer_feedback_section .feedback-slider {
         display: flex;
         overflow-x: auto;
