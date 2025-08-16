@@ -8,6 +8,7 @@ new DotLottie({
     src: "https://lottie.host/1197e7ab-7b58-48f7-86e9-6706d1dc8756/ly3NSmJS9W.lottie",
 });
 
+
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form");
 

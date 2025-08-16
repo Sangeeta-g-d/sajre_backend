@@ -8,28 +8,28 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 import json
+from django.views.decorators.http import require_POST
 
 # Create your views here.
-
 @login_required
 def mentor_dashboard(request):
-
-    # Count students (participants) referred by this user
+    # Count students referred by this user
     referred_students_count = CustomUser.objects.filter(
         referred_by=request.user,
         role="participant"
     ).count()
 
-    # Count enrolled students (participants who have paid)
+    # Count enrolled students
     enrolled_students_count = Participant.objects.filter(
         user__referred_by=request.user,
         has_paid=True
     ).count()
 
-    # Get category-wise data for pie charts
+    # Get all categories
     categories = CompetitionCategory.objects.all()
-    category_data = []
     
+    # Get category-wise data for pie charts
+    category_data = []
     for category in categories:
         total = CustomUser.objects.filter(
             referred_by=request.user,
@@ -50,19 +50,35 @@ def mentor_dashboard(request):
             'not_enrolled': total - enrolled if total > enrolled else 0
         })
 
-    # ✅ Fetch participants registered via this mentor’s referral code
-    participants_list = CustomUser.objects.filter(
-    referred_by=request.user,
-    role="participant"  
-    ).select_related("participant", "participant__category")
+    # Fetch participants with their matching category
+    participants = []
+    for user in CustomUser.objects.filter(
+        referred_by=request.user,
+        role="participant"  
+    ).select_related("participant", "participant__category", "participant_profile"):
+        
+        # Find matching category based on age
+        matching_category = None
+        if hasattr(user, 'participant_profile') and user.participant_profile.age:
+            age = user.participant_profile.age
+            for category in categories:
+                if (age >= category.age_min and 
+                    (category.age_max is None or age <= category.age_max)):
+                    matching_category = category
+                    break
+        
+        participants.append({
+            'user': user,
+            'matching_category': matching_category
+        })
 
     return render(request, 'mentor_dashboard.html', {
         'referred_students_count': referred_students_count,
         'enrolled_students_count': enrolled_students_count,
         'category_data': category_data,
-        'participants_list': participants_list,  # <-- Pass to template
+        'participants': participants,
+        'categories': categories,
     })
-
 
 @login_required
 def edit_profile(request):
@@ -157,3 +173,65 @@ def mentor_change_password(request):
         return redirect("/mentor/mentor_change_password")
 
     return render(request, "mentor_change_password.html")
+
+@login_required(login_url='/auth/login/')
+def m_terms(request):
+    return render(request, 'm_terms.html')
+
+@require_POST
+@login_required
+def update_terms_status(request):
+    if request.method == 'POST':
+        try:
+            user = request.user
+            user.accepted_terms = True
+            user.save()
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    return JsonResponse({'success': False, 'error': 'Invalid request method'})
+
+
+def m_working_on(request):
+    return render(request,'m_working_on.html')
+
+
+from django.http import JsonResponse
+from django.views.decorators.http import require_GET
+
+@require_GET
+@login_required
+def get_participant_details(request, user_id):
+    try:
+        user = CustomUser.objects.get(id=user_id, referred_by=request.user)
+        profile = user.participant_profile
+        
+        data = {
+            'full_name': user.full_name,
+            'email': user.email,
+            'phone_number': user.phone_number,
+            'photo': profile.photo.url if profile.photo else None,
+            'age': profile.age,
+            'dob': profile.dob.strftime('%d %b, %Y') if profile.dob else None,
+            'father_name': profile.father_name,
+            'mother_name': profile.mother_name,
+            'full_address': profile.full_address,
+            'city': profile.city,
+            'state': profile.state,
+            'pincode': profile.pincode,
+            'school_name': profile.school_name,
+            'university_name': profile.university_name,
+            'grade': profile.grade,
+            'stream': profile.stream,
+            'school_board': profile.school_board,
+            'university': profile.university,
+            'category': user.participant.category.name if hasattr(user, 'participant') and user.participant.category else None,
+            'has_paid': user.participant.has_paid if hasattr(user, 'participant') else False,
+            'registration_date': user.date_joined.strftime('%d %b, %Y'),
+            'referral_code': user.referral_code,
+        }
+        
+        return JsonResponse(data)
+    
+    except CustomUser.DoesNotExist:
+        return JsonResponse({'error': 'Participant not found'}, status=404)
