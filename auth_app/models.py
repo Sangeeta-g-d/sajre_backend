@@ -84,7 +84,7 @@ class UserOTP(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def is_expired(self):
-        return timezone.now() > self.created_at + timedelta(minutes=5)  # OTP valid 5 mins
+        return timezone.now() > self.created_at + timedelta(minutes=2)  # OTP valid 5 mins
     
 class ParticipantProfile(models.Model):
     user = models.OneToOneField(

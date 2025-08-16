@@ -55,42 +55,92 @@ def register(request):
 
     return render(request, 'registration.html')
 
+def resend_otp(request, user_id):
+    """
+    Re-sends a new OTP and returns JSON
+    """
+    if request.method == "POST":
+        try:
+            user = CustomUser.objects.get(id=user_id)
+        except CustomUser.DoesNotExist:
+            return JsonResponse({"status": False, "message": "User not found."})
 
+        # generate and save new otp
+        otp_code = generate_otp()
+        otp_obj, _ = UserOTP.objects.update_or_create(
+            user=user, 
+            defaults={'otp_code': otp_code, 'created_at': timezone.now()}
+        )
+
+        # send sms
+        send_otp_sms(user.phone_number, otp_code)
+
+        # calculate new remaining seconds (120 from now)
+        expiry_time = otp_obj.created_at + timedelta(minutes=2)
+        remaining_seconds = int((expiry_time - timezone.now()).total_seconds())
+
+        return JsonResponse({
+            "status": True,
+            "message": "New OTP has been sent to your phone number.",
+            "remaining_seconds": remaining_seconds
+        })
+
+    return JsonResponse({"status": False, "message": "Invalid request method."})
 
 def verify_otp(request, user_id):
     user = CustomUser.objects.get(id=user_id)
+    
+    # get latest OTP for remaining_seconds countdown
+    otp_obj = UserOTP.objects.filter(user=user).order_by('-created_at').first()
+    remaining_seconds = 0
+    if otp_obj:
+        expiry_time = otp_obj.created_at + timedelta(minutes=2)
+        now = timezone.now()
+        remaining = (expiry_time - now).total_seconds()
+        remaining_seconds = int(remaining) if remaining > 0 else 0
+
     if request.method == 'POST':
         otp_code = request.POST.get('otp_code')
-        print(otp_code)
 
         # ✅ Master OTP bypass
         if otp_code == "123456":
             user.is_active = True
             user.save()
-            UserOTP.objects.filter(user=user).delete()  # clean up OTPs
-            login(request, user)   # 🔑 login user directly
-            return redirect('select_category')  # redirect wherever you want after login
+            UserOTP.objects.filter(user=user).delete()
+            login(request, user)
+            return redirect('select_category')
 
         try:
             user_otp = UserOTP.objects.get(user=user, otp_code=otp_code)
+
+            # Check if the OTP is expired
             if not user_otp.is_expired():
                 user.is_active = True
                 user.save()
                 user_otp.delete()
-                login(request, user)   # 🔑 login user directly
+                login(request, user)
                 return redirect('select_category')
             else:
+                # If expired → return to template with error string
                 return render(request, 'verify_otp.html', {
                     'error': 'OTP expired',
-                    'user_id': user_id
+                    'user_id': user_id,
+                    'remaining_seconds': 0
                 })
+
         except UserOTP.DoesNotExist:
+            # If OTP is invalid → return with error string
             return render(request, 'verify_otp.html', {
                 'error': 'Invalid OTP',
-                'user_id': user_id
+                'user_id': user_id,
+                'remaining_seconds': remaining_seconds
             })
 
-    return render(request, 'verify_otp.html', {'user_id': user_id})
+    # GET request → show the page with countdown (if any)
+    return render(request, 'verify_otp.html', {
+        'user_id': user_id,
+        'remaining_seconds': remaining_seconds
+    })
 
 @login_required
 def select_category(request):
