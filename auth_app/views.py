@@ -6,7 +6,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import login
 from datetime import datetime
 from django.http import JsonResponse
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
 from .utils.exotel import send_otp_sms
+from django.views import View
 
 def generate_otp():
     return str(random.randint(100000, 999999))  # 6-digit OTP
@@ -329,3 +332,10 @@ def mentor_register(request):
         return redirect("/mentor/mentor_dashboard/")
 
     return render(request, "mentor_register.html")
+
+
+
+def forgot_password(request):
+    return render(request,'forgot_password.html')
+
+
