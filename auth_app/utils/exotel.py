@@ -15,7 +15,7 @@ def send_otp_sms(phone_no: str, otp: str) -> bool:
     payload = {
         "From": settings.EXOTEL_SENDER_ID,
         "To": phone_no,
-        "Body": f"Your OTP for login is {otp} and it is valid for 20 minutes Do not share OTP with anyone  sajre edutech pvt ltd -SAJRE EDUTECH PVT LTD",
+        "Body": f"Your OTP for login is {otp} and it is valid for 2 minutes Do not share OTP with anyone  sajre edutech pvt ltd -SAJRE EDUTECH PVT LTD",
         "DltEntityId": settings.EXOTEL_DLT_ENTITY_ID,
         "DltTemplateId": settings.EXOTEL_DLT_TEMPLATE_ID,
     }

@@ -26,7 +26,21 @@ document.addEventListener("DOMContentLoaded", function () {
     // Personal details
     fatherName: value => /^[A-Za-z\s]+$/.test(value) || "Father's name should contain only letters",
     motherName: value => /^[A-Za-z\s]+$/.test(value) || "Mother's name should contain only letters",
-    dob: value => value.trim() !== "" || "Date of Birth is required",
+    dob: value => {
+        if (!value.trim()) return "Date of Birth is required";
+        
+        const dob = new Date(value);
+        const today = new Date();
+        let age = today.getFullYear() - dob.getFullYear();
+        const monthDiff = today.getMonth() - dob.getMonth();
+        
+        // Adjust age if birthday hasn't occurred yet this year
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+            age--;
+        }
+        
+        return age >= 9 || "You must be at least 9 years old to register";
+    },
     fullAddress: value => value.trim().length >= 5 || "Address should be at least 5 characters",
     streetAddress: value => value.trim().length >= 3 || "Street address should be at least 3 characters",
     city: value => /^[A-Za-z\s]+$/.test(value) || "City should contain only letters",

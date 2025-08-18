@@ -62,7 +62,7 @@
                         <div class="mb-3">
                             <label for="dob" class="form-label">Date Of Birth</label>
                             <input type="date" class="form-control" id="dob" name="dob"
-                                   value="{% if profile.dob %}{{ profile.dob|date:'Y-m-d' }}{% endif %}">
+                                   value="{% if profile.dob %}{{ profile.dob|date:'Y-m-d' }}{% endif %}" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">Address</label>
