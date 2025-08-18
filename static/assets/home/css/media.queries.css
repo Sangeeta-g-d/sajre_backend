@@ -56,6 +56,8 @@
     }
     section#hm_tutor_section .tutor_full_background p{
         font-size: 10px;
+         position: relative;
+        z-index: 1;
     }
     section#hm_tutor_section .tutor_full_background button {
         padding: 7px 10px;

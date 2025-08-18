@@ -919,7 +919,7 @@ section#ab_banner_section a.ab_banner_btn {
     color: #FFFFFF;
 }
 section#ab_banner_section .ab_banner_spacer{
-    height: 400px;
+    /* height: 400px; */
 }
 
 /* about us section css start form here */

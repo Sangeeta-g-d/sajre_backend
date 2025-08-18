@@ -652,7 +652,9 @@ body {
         flex-direction: column;
     }
     
-    .sidebar {
+        .sidebar {
+            width: 100%;
+        height: auto;
         order: 2;
     }
     
