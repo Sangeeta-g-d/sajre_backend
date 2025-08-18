@@ -6,7 +6,6 @@
     }
 
     .tutor_full_background {
-        background-color: #0d6efd;
         border-radius: 20px;
         min-height: 400px;
     }
@@ -218,13 +217,14 @@
         img.tutor_victor_1 {
             margin-right: -50px;
             height: 75%;
-            margin-top: -267px;
+            margin-top: -327px;
         }
 
         .tutor_victor_2,
         .tutor_man_img {
             max-width: 100%;
             height: auto;
+            right: 100px;
         }
 
         .become-tutor-btn {

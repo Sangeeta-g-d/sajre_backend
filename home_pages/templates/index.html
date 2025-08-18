@@ -72,7 +72,7 @@
         .modal-card {
             display: none;
             position: fixed;
-            top: 50%;
+            top: 35%;
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: white;
@@ -252,44 +252,44 @@
         </div>
     </div>
     <script>
-    // Update your existing JavaScript with this
-    const openCardBtn = document.getElementById('openCardBtn');
-    const closeCardBtn = document.getElementById('closeCardBtn');
-    const modalCard = document.getElementById('modalCard');
-    const overlay = document.getElementById('overlay');
-    const tabs = document.querySelectorAll('.modal-tab');
+   const openCardBtn = document.getElementById('openCardBtn');
+const closeCardBtn = document.getElementById('closeCardBtn');
+const modalCard = document.getElementById('modalCard');
+const overlay = document.getElementById('overlay');
 
-    // Open modal
-    openCardBtn.addEventListener('click', () => {
-        modalCard.style.display = 'block';
-        overlay.style.display = 'block';
-    });
+// Show modal on hover
+openCardBtn.addEventListener('mouseenter', () => {
+    modalCard.style.display = 'block';
+    overlay.style.display = 'block';
+});
 
-    // Close modal via close button
-    closeCardBtn.addEventListener('click', () => {
-        modalCard.style.display = 'none';
-        overlay.style.display = 'none';
-    });
+// Hide modal when mouse leaves BOTH li + modal
+openCardBtn.addEventListener('mouseleave', () => {
+    setTimeout(() => {
+        if (!modalCard.matches(':hover')) {
+            modalCard.style.display = 'none';
+            overlay.style.display = 'none';
+        }
+    }, 200); // small delay so user can move into modal
+});
 
-    // Close modal via overlay click
-    overlay.addEventListener('click', () => {
-        modalCard.style.display = 'none';
-        overlay.style.display = 'none';
-    });
+modalCard.addEventListener('mouseleave', () => {
+    modalCard.style.display = 'none';
+    overlay.style.display = 'none';
+});
 
-    // Tab switching functionality
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            // Remove active class from all tabs
-            tabs.forEach(t => t.classList.remove('active'));
-            
-            // Add active class to clicked tab
-            tab.classList.add('active');
-            
-            // Here you would typically load different content based on the tab
-            // For now we'll just keep the same content
-        });
-    });
+// Close button
+closeCardBtn.addEventListener('click', () => {
+    modalCard.style.display = 'none';
+    overlay.style.display = 'none';
+});
+
+// Overlay click
+overlay.addEventListener('click', () => {
+    modalCard.style.display = 'none';
+    overlay.style.display = 'none';
+});
+
 </script>
 
   <!-- Offcanvas Menu for Mobile -->
@@ -724,7 +724,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="dots">⋯</div>
                                     </div>
                                 </div>
                             </div>
@@ -841,7 +840,7 @@
             </section> -->
 
 
-            <!-- <section id="customer_feedback_section" class="feedback-section py-5">
+             <!-- <section id="customer_feedback_section" class="feedback-section py-5">
                 <div class="container">
                   
                     <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 py-4">
@@ -1133,9 +1132,11 @@
                                     </div>
                                     <div class="accordion__content">
                                         NAS has three rounds:<br>
-                                         Round 1 : Online Submission<br>
-                                         Round 2 : Online Creative Challenge<br>
-                                         Round 3 : Offline Grand Finale<br>
+                                        <ul>
+                                            <li> Round 1 : Online Submission</li>
+                                            <li>Round 2 : Online Creative Challenge</li>
+                                            <li>Round 3 : Offline Grand Finale</li>
+                                        </ul>
 
                                     </div>
                                 </div>
@@ -1167,9 +1168,12 @@
                                         </span>
                                     </div>
                                     <div class="accordion__content">
-                                         Junior Artists (9–12 years) – ₹399<br>
-                                         Teen Creators (13–17 years) – ₹499<br>
-                                         Youth Masters (18–22 years) – ₹799<br>
+                                        <ul>
+                                            <li>Junior Artists (9–12 years) – ₹399</li>
+                                            <li>Teen Creators (13–17 years) – ₹499</li>
+                                            <li>Youth Masters (18–22 years) – ₹799</li>
+                                        </ul>
+                              
 
                                     </div>
                                 </div>
@@ -1344,7 +1348,7 @@
                         imageUrl: "/static/assets/home/img/hm_slider_3.jpg ",
                         title: "Join India's Creative Movement",
                         p : '"Connect with young artists and mentors nationwide"',
-                        buttonText: 'Register Today'
+                        buttonText: 'Join Now'
                     },
                     {
                         imageUrl: "/static/assets/home/img/hm_slider_4.png",
@@ -1473,12 +1477,12 @@
                     autoplay: true,
                     autoplaySpeed: 3000,
                     prevArrow: `<button type="button" class="slick-prev custom-prev">
-                    <svg width="23" height="60" viewBox="0 0 23 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="23" height="50" viewBox="0 0 23 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0.895004 30L16.7207 0.107056L22.6127 3.22632L8.43834 30L22.6127 56.7737L16.7207 59.893L0.895004 30Z" fill="white"/>
                     </svg>
                 </button>`,
                     nextArrow: `<button type="button" class="slick-next custom-next">
-                    <svg width="23" height="60" viewBox="0 0 23 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="23" height="50" viewBox="0 0 23 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M22.105 30L6.2793 59.8929L0.387299 56.7737L14.5617 30L0.387299 3.22632L6.2793 0.107056L22.105 30Z" fill="white"/>
                     </svg>
                 </button>`,
@@ -1512,13 +1516,13 @@
                         {
                             breakpoint: 992, // For tablets
                             settings: {
-                                slidesToShow: 2,
+                                slidesToShow: 1.05,
                             }
                         },
                         {
                             breakpoint: 600, // For mobile phones
                             settings: {
-                                slidesToShow: 1,
+                                slidesToShow: 1.05,
                             }
                         }
                     ]

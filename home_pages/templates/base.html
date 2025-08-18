@@ -188,5 +188,19 @@
         </div>
     </div>
 </footer>
+
+<script>
+    document.addEventListener('click', function (event) {
+    const navbar = document.querySelector('.navbar-collapse');
+    const toggler = document.querySelector('.navbar-toggler');
+
+    // If click is outside the navbar & toggler when menu is open, close it
+    if (navbar.classList.contains('show') && 
+        !navbar.contains(event.target) && 
+        !toggler.contains(event.target)) {
+        new bootstrap.Collapse(navbar).hide();
+    }
+});
+</script>
 </body>
 </html>
