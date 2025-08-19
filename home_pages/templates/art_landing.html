@@ -802,32 +802,87 @@ it gives you a real reason to compete, create, and conquer.
 </div>
 
 <div class="countdown-container">
-        <h2>Countdown to Your Canvas Moment</h2>
-        <div class="seats-info">12 Seats Left Only 5 Seat Available</div>
-        
-        <div class="timer">
-            <div class="timer-segment">
-                <div class="timer-value" id="days">01</div>
-                <div class="timer-label">Days</div>
-            </div>
-            <div class="timer-segment">
-                <div class="timer-value" id="hours">12</div>
-                <div class="timer-label">Hours</div>
-            </div>
-            <div class="timer-segment">
-                <div class="timer-value" id="minutes">25</div>
-                <div class="timer-label">Minutes</div>
-            </div>
-            <div class="timer-segment">
-                <div class="timer-value" id="seconds">06</div>
-                <div class="timer-label">Seconds</div>
-            </div>
+    <h2>Countdown to Your Canvas Moment</h2>
+
+    <div class="seats-info">Last date to register</div>
+
+    <div class="timer">
+        <div class="timer-segment">
+            <div class="timer-value" id="days">00</div>
+            <div class="timer-label">Days</div>
         </div>
-        
-        <div class="divider"></div>
-        
-        <button class="participate-btn">Participate Now</button>
+        <div class="timer-segment">
+            <div class="timer-value" id="hours">00</div>
+            <div class="timer-label">Hours</div>
+        </div>
+        <div class="timer-segment">
+            <div class="timer-value" id="minutes">00</div>
+            <div class="timer-label">Minutes</div>
+        </div>
+        <div class="timer-segment">
+            <div class="timer-value" id="seconds">00</div>
+            <div class="timer-label">Seconds</div>
+        </div>
     </div>
+
+    <div class="divider"></div>
+
+{% if user.is_authenticated %}
+    {% if already_participated %}
+        <div class="alert alert-success text-center">
+            You have already enrolled.
+        </div>
+    {% else %}
+        <a href="/participants/terms/" style="text-decoration: none;" class="participate-btn">Enroll Now</a>
+    {% endif %}
+{% else %}
+    <!-- not logged in -->
+    <a href="/auth/login/" class="participate-btn" style="text-decoration: none;">
+        Participate Now
+    </a>
+{% endif %}
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Only start countdown if we received timestamp from Django
+    const countdownTs = {{ countdown_ts|default:'0' }};
+    if (countdownTs > 0) {
+        const daysEl    = document.getElementById("days");
+        const hoursEl   = document.getElementById("hours");
+        const minutesEl = document.getElementById("minutes");
+        const secondsEl = document.getElementById("seconds");
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownTs - now;
+
+            if (distance <= 0) {
+                daysEl.textContent    = "00";
+                hoursEl.textContent   = "00";
+                minutesEl.textContent = "00";
+                secondsEl.textContent = "00";
+                clearInterval(interval);
+                return;
+            }
+
+            const days    = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            daysEl.textContent    = String(days).padStart(2, "0");
+            hoursEl.textContent   = String(hours).padStart(2, "0");
+            minutesEl.textContent = String(minutes).padStart(2, "0");
+            secondsEl.textContent = String(seconds).padStart(2, "0");
+        }
+
+        updateCountdown();
+        const interval = setInterval(updateCountdown, 1000);
+    }
+});
+</script>
+
 
 <div class="container mb-5">
     <div class="header mt-5">

@@ -31,7 +31,11 @@ class Round(models.Model):
     number = models.IntegerField()  # 1,2,3
     mode = models.CharField(max_length=20, choices=[("online", "Online"), ("offline", "Offline")])
     description = models.TextField(blank=True, null=True)
-
+    last_registration_date = models.DateField(
+        null=True,
+        blank=True,
+        help_text="Last date for registration for this round"
+    )
     def __str__(self):
         return f"Level {self.level.number} - Round {self.number} ({self.mode})"
 
