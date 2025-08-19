@@ -72,9 +72,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     def save(self, *args, **kwargs):
-        if not self.referral_code:
-            # Generate a unique referral code (first 8 chars of UUID)
-            self.referral_code = uuid.uuid4().hex[:8].upper()
         super().save(*args, **kwargs)
 
 
