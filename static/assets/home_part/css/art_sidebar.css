@@ -25,9 +25,13 @@
         width: auto;
         transition: all 0.3s;
     }
+  
+        
+       
 
     .nav-item,
     .nav-link {
+        padding: 12px 15px;
         color: black;
         font-weight: 600;
         text-align: center;

@@ -60,7 +60,7 @@
         .modal-card {
             display: none;
             position: fixed;
-            top: 50%;
+            top: 35%;
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: white;
@@ -229,7 +229,7 @@
                     <div class="event-details">
                         <div class="event-title">National Art Summit (NAS) competition</div>
                         <div class="event-description">
-                            The Saije Edutech Art Competition is a premier national-level platform committed to discovering, recognizing, and nurturing artistic talent across India.
+                           Step into the world of creativity at the National Art Summit (NAS) – a platform where imagination meets recognition. Artists from across the nation compete live, showcasing their talent on stage in front of a jury and audience.
                         </div>
                         <!-- <button class="event-button">View Event</button> -->
                     </div>
@@ -240,43 +240,44 @@
     </div>
     <script>
     // Update your existing JavaScript with this
-    const openCardBtn = document.getElementById('openCardBtn');
-    const closeCardBtn = document.getElementById('closeCardBtn');
-    const modalCard = document.getElementById('modalCard');
-    const overlay = document.getElementById('overlay');
-    const tabs = document.querySelectorAll('.modal-tab');
+     const openCardBtn = document.getElementById('openCardBtn');
+const closeCardBtn = document.getElementById('closeCardBtn');
+const modalCard = document.getElementById('modalCard');
+const overlay = document.getElementById('overlay');
 
-    // Open modal
-    openCardBtn.addEventListener('click', () => {
-        modalCard.style.display = 'block';
-        overlay.style.display = 'block';
-    });
+// Show modal on hover
+openCardBtn.addEventListener('mouseenter', () => {
+    modalCard.style.display = 'block';
+    overlay.style.display = 'block';
+});
 
-    // Close modal via close button
-    closeCardBtn.addEventListener('click', () => {
-        modalCard.style.display = 'none';
-        overlay.style.display = 'none';
-    });
+// Hide modal when mouse leaves BOTH li + modal
+openCardBtn.addEventListener('mouseleave', () => {
+    setTimeout(() => {
+        if (!modalCard.matches(':hover')) {
+            modalCard.style.display = 'none';
+            overlay.style.display = 'none';
+        }
+    }, 200); // small delay so user can move into modal
+});
 
-    // Close modal via overlay click
-    overlay.addEventListener('click', () => {
-        modalCard.style.display = 'none';
-        overlay.style.display = 'none';
-    });
+modalCard.addEventListener('mouseleave', () => {
+    modalCard.style.display = 'none';
+    overlay.style.display = 'none';
+});
 
-    // Tab switching functionality
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            // Remove active class from all tabs
-            tabs.forEach(t => t.classList.remove('active'));
-            
-            // Add active class to clicked tab
-            tab.classList.add('active');
-            
-            // Here you would typically load different content based on the tab
-            // For now we'll just keep the same content
-        });
-    });
+// Close button
+closeCardBtn.addEventListener('click', () => {
+    modalCard.style.display = 'none';
+    overlay.style.display = 'none';
+});
+
+// Overlay click
+overlay.addEventListener('click', () => {
+    modalCard.style.display = 'none';
+    overlay.style.display = 'none';
+});
+
 </script>
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
     <div class="offcanvas-header">

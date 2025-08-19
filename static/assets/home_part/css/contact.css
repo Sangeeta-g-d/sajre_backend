@@ -277,8 +277,8 @@
 
 @media (max-width: 768px) {
     .navbar-expand-lg .navbar-nav {
-                flex-direction: row;
-                gap:40px;
+                flex-direction: column;
+                gap:10px;
             }
             
     .timeline-container {
