@@ -1,4 +1,9 @@
 from django.shortcuts import render
+from admin_part.models import RoundSchedule, CompetitionCategory, Level, Round,Participant
+from auth_app.models import ParticipantProfile
+from django.utils import timezone
+from django.db.models import Q 
+from datetime import datetime
 
 # Create your views here.
 
@@ -6,10 +11,66 @@ from django.shortcuts import render
 def about_events(request):
     return render(request,'about_events.html')
 
-
 def art_landing(request):
-    return render(request,'art_landing.html')
+    countdown_ts = None
+    already_participated = False
 
+    if request.user.is_authenticated:
+        # Get age from ParticipantProfile
+        try:
+            profile = ParticipantProfile.objects.get(user=request.user)
+            age = profile.age
+        except ParticipantProfile.DoesNotExist:
+            age = None
+
+        if age is not None:
+            # Find category for age
+            category = CompetitionCategory.objects.filter(
+                age_min__lte=age
+            ).filter(
+                Q(age_max__gte=age) | Q(age_max__isnull=True)
+            ).first()
+
+            if category:
+                level = Level.objects.filter(category=category, number=category.level_start).first()
+                round_obj = Round.objects.filter(level=level).order_by("number").first()
+
+                # Get the next schedule for that round (today or future)
+                schedule = RoundSchedule.objects.filter(
+                    round=round_obj,
+                    date__gte=timezone.localdate()
+                ).order_by("date", "start_time").first()
+
+                if schedule:
+                    dt = timezone.make_aware(
+                        datetime.combine(schedule.date, schedule.start_time)
+                    )
+                    countdown_ts = int(dt.timestamp() * 1000)
+
+                # Check if the user has already participated/paid
+                try:
+                    participant = Participant.objects.get(user=request.user, level=level, current_round=round_obj)
+                    already_participated = participant.has_paid
+                except Participant.DoesNotExist:
+                    already_participated = False
+
+    # 👉 If not authenticated OR no match found above → use first available schedule overall
+    if countdown_ts is None:
+        level1 = Level.objects.filter(number=1).order_by("category__id").first()
+        if level1:
+            round1 = Round.objects.filter(level=level1, number=1).first()
+            if round1 and round1.last_registration_date:
+                # build datetime from the last_registration_date at 23:59:59
+                dt = timezone.make_aware(
+                    datetime.combine(round1.last_registration_date, datetime.max.time())
+                )
+                countdown_ts = int(dt.timestamp() * 1000)
+
+    context = {
+        "countdown_ts": countdown_ts,
+        "already_participated": already_participated
+    }
+    return render(request, "art_landing.html", context)
 
 def art_gallery(request):
     return render(request,'art_gallery.html')
