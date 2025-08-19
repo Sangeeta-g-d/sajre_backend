@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from auth_app.models import CustomUser
 from admin_part.models import Participant,CompetitionCategory
 from django.contrib.auth.decorators import login_required
@@ -253,3 +253,7 @@ def mentor_list(request):
         "mentors": mentors
     }
     return render(request, "mentor_list.html", context)
+
+def mentor_details(request, mentor_id):
+    mentor = get_object_or_404(MentorProfile, id=mentor_id)
+    return render(request, 'mentor_details.html', {'mentor': mentor})
