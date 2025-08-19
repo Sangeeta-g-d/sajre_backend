@@ -1,5 +1,5 @@
 body {
-            background-image: url(../img/back.jpeg);
+            background-image: url(back.jpeg);
             background-repeat: no-repeat;
             background-size: cover;
             background-attachment: fixed;
@@ -139,19 +139,19 @@ body {
             background: linear-gradient(88deg, #2F4052, #678CB3);
             border: none;
             border-radius: 5px;
-            /* padding: 8px 15px; */
+            padding: 8px 15px;
             color: white;
             text-decoration: none;
             display: inline-block;
             margin: 10px 0;
             transition: all 0.3s;
-            width: 85%;
-            font-size: 11px;
-            margin-left: 15px;
+            width: 100%;
+            font-size: 13px;
         }
         .reference_frd:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            color: white;
         }
         .stars-container {
             display: flex;

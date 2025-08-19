@@ -1,4 +1,5 @@
 @media only screen and (max-width: 600px){
+    
     section#hm_banner_slider_section .slide-content{
             padding: 2rem 0rem; 
     }
@@ -7,12 +8,13 @@
             line-height: 27px;
     }
     section#hm_banner_slider_section button.hm_slider_btn{
-            height: 55px;
+            height: 35px;
             font-size: 18px;
     }
     /* home view event css start */
     section#view_event_section h6.hm_view_event_title{
         font-size: 19.96px;
+        margin-top: -45%;
     }
     section#view_event_section p.hm_view_event_des {
         font-size: 7.98px;
@@ -54,6 +56,8 @@
     }
     section#hm_tutor_section .tutor_full_background p{
         font-size: 10px;
+         position: relative;
+        z-index: 1;
     }
     section#hm_tutor_section .tutor_full_background button {
         padding: 7px 10px;
@@ -63,7 +67,7 @@
         font-size: 39px;
     }
     img.tutor_man_img{
-        left: 0px;
+        left: 60px;
     }
      /* home tutor section css end  */
     /* home event section css start form here */
@@ -542,7 +546,7 @@
             line-height: 27px;
     }
     section#hm_banner_slider_section button.hm_slider_btn{
-            height: 55px;
+            height: 35px;
             font-size: 18px;
     }
     /* home view event css start */

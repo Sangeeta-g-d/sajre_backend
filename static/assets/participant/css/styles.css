@@ -652,8 +652,8 @@ body {
         flex-direction: column;
     }
     
-    .sidebar {
-        width: 100%;
+        .sidebar {
+            width: 100%;
         height: auto;
         order: 2;
     }
