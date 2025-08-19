@@ -14,57 +14,83 @@
         </div>
 
         <div class="content">
-            <h3>1. Eligibility Criteria</h3>
-            <p>This competition is open to all Indian citizens between the ages of 6 and 21, divided into specific age
-                categories. Participants must provide accurate personal details during registration. Entries submitted
-                must be the original creation of the participant. Submissions on behalf of someone else will not be accepted.</p>
+            <h3>🎨 Sajre National Art Summit</h3>
+            <h4>Mandatory Guidelines for Uploading Drawing & Painting Artwork Images</h4>
+            <p>All participants are required to strictly comply with the following rules while uploading their artwork. Any violation will lead to immediate rejection and possible disqualification from the Summit.</p>
 
-            <h3>2. Age Categories</h3>
-            <p>Participants will be grouped into the following categories:</p>
+            <h3>📁 File Size & Format</h3>
             <ul>
-                <li>Junior (6—10 years)</li>
-                <li>Teen (11—16 years)</li>
-                <li>Youth (17—21 years)</li>
+                <li>Artwork image must be greater than 100 KB and less than 5 MB.</li>
+                <li>Accepted formats: JPEG, JPG, PNG only.</li>
+                <li>Files outside these limits will be automatically rejected.</li>
             </ul>
-            <p>Age will be verified through supporting documents, such as school certificates or government-issued ID, if required.</p>
 
-            <h3>3. Enrollment and Fee Structure</h3>
-            <p>Participants must enroll through the official platform by completing the registration form and paying
-                the required fee. The fee varies by category and includes transaction charges and taxes (3%
-                transaction + 10% platform + 18% GST). Once paid, the fee is non-refundable under any circumstances.
-                Enrollment gives access to all competition levels and official announcements.</p>
+            <h3>🖼️ Image Quality – Compulsory Standards</h3>
+            <ul>
+                <li>The image must be clear, sharp, upright, and well-lit.</li>
+                <li>Blurry, tilted, pixelated, shadowed, or low-quality photos will not be accepted.</li>
+                <li>If photographing the artwork:
+                    <ul>
+                        <li>The artwork must be placed against a plain/neutral background only.</li>
+                        <li>The photo must be taken straight, not at an angle.</li>
+                        <li>Ensure no shadows, glares, or reflections are visible.</li>
+                    </ul>
+                </li>
+                <li>Strictly prohibited: watermarks, text, borders, frames, filters, or digital alterations.</li>
+            </ul>
 
-            <h3>4. Artwork Submission Guidelines</h3>
-            <p>All content on this website is the property of the site owner or its licensors. You may not reproduce, distribute, or create derivative works without permission.</p>
+            <h3>✅ Originality – Zero Tolerance Policy</h3>
+            <ul>
+                <li>Only original drawings and paintings created solely by the participant are allowed.</li>
+                <li>Copied, traced, AI-generated, or plagiarized artwork will result in immediate disqualification and permanent removal from the competition.</li>
+                <li>By submitting, participants legally declare that the artwork is their own creation and free from third-party rights.</li>
+            </ul>
 
-            <h3>5. Limitation of Liability</h3>
-            <p>We will not be liable for any loss or damage arising from your use of this website.</p>
+            <h3>📌 Submission Rules – Mandatory Compliance</h3>
+            <ul>
+                <li>File name must strictly follow this format:<br>
+                    <strong>RegistrationNumber_ArtworkTitle.jpg</strong><br>
+                    (Example: REG1025_TheGoldenSky.jpg)</li>
+                <li>Files without proper naming will be rejected without review.</li>
+                <li>Only the number of entries allowed as per Summit rules may be uploaded.</li>
+            </ul>
 
-            <h3>6. Governing Law</h3>
-            <p>These terms are governed by the laws of India. Any disputes will be subject to the exclusive jurisdiction of the courts in India.</p>
+            <h3>🚫 Grounds for Immediate Rejection</h3>
+            <p>An entry will be rejected if:</p>
+            <ul>
+                <li>File size or format requirements are not met.</li>
+                <li>The image is unclear, altered, or poorly photographed.</li>
+                <li>File naming rule is not followed.</li>
+                <li>The artwork contains text, logos, or any watermark.</li>
+                <li>The artwork is not original or shows evidence of plagiarism/AI generation.</li>
+            </ul>
+
+            <div class="alert alert-warning mt-4">
+                <strong>⚠️ Important Notice:</strong> The organizers of the Sajre National Art Summit reserve the absolute right to reject or disqualify any entry at any stage that fails to meet these requirements. Decisions taken by the organizers will be final and binding, with no appeals or resubmissions allowed.
+            </div>
         </div>
 
-        <div class="agree-conditions" {% if request.user.accepted_terms %} style="display:none;" {% endif %}>
-            <input 
-                class="form-check-input agreeCheckbox rounded-circle" 
-                type="checkbox" 
-                id="agreeCheckbox"
-                {% if request.user.accepted_terms %} checked {% endif %}
-                required>
+         {% if not request.user.accepted_terms %}
+        <div class="agree-conditions">
+            <input class="form-check-input agreeCheckbox rounded-circle" 
+                   type="checkbox" 
+                   id="agreeCheckbox"
+                   required>
             <label class="form-check-label" for="agreeCheckbox">
                 I agree with NAS Rules
             </label>
         </div>
+        {% endif %}
 
-        <div class="form-check mt-4 d-flex justify-content-center">
-            <button id="agreeBtn" 
-                    class="btn reference_frd" 
-                    style="width:150px;"
-                    data-terms-accepted="{% if request.user.accepted_terms %}true{% else %}false{% endif %}"
-                    data-terms-url="{% url 'update_terms_status' %}"
-                    data-csrf-token="{{ csrf_token }}">
-                {% if request.user.accepted_terms %} Proceed {% else %} Agree {% endif %}
-            </button>
+         <div class="form-check mt-4 d-flex justify-content-center">
+        <button id="agreeBtn"
+        class="btn reference_frd"
+        style="width:150px;"
+        data-csrf-token="{{ csrf_token }}"
+        data-terms-url="{% url 'terms' %}"
+        data-terms-accepted="{{ request.user.accepted_terms|yesno:'true,false' }}">
+    {% if request.user.accepted_terms %}Proceed{% else %}Agree{% endif %}
+</button>
         </div>
     </div>
 </div>
