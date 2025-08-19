@@ -151,6 +151,21 @@ def select_category(request):
         role = request.POST.get("role")
         if role:
             request.user.role = role
+
+            # 👉 Generate referral code with a prefix based on role
+            if role == 'mentor':
+                prefix = 'M'
+            elif role == 'vendor':
+                prefix = 'V'
+            elif role == 'participant':
+                prefix = 'P'
+            else:
+                prefix = ''   # default / fallback
+
+            # generate 7 random characters (to keep total length at 8)
+            random_part = uuid.uuid4().hex[:7].upper()
+            request.user.referral_code = prefix + random_part
+
             request.user.save()
 
             # Role-based redirect
@@ -165,10 +180,10 @@ def select_category(request):
             elif role == 'college':
                 return redirect('/working_on/')
 
-            # Default fallback redirect
             return redirect('/working_on/')
 
     return render(request, "selectcategory.html")
+
 
 
 @login_required

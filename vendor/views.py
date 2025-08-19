@@ -240,3 +240,16 @@ def v_terms(request):
 @login_required(login_url='/auth/login/')
 def v_working_on(request):
     return render(request,'v_working_on.html')
+
+@login_required(login_url="/auth/login/")
+def mentor_list(request):
+    # mentors referred by this vendor
+    mentors = CustomUser.objects.filter(
+        role="mentor",
+        referred_by=request.user
+    ).select_related("mentor_profile")
+
+    context = {
+        "mentors": mentors
+    }
+    return render(request, "mentor_list.html", context)
