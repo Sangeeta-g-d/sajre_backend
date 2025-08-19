@@ -22,11 +22,12 @@ def dashboard(request):
     try:
         profile = ParticipantProfile.objects.get(user=request.user)
     except ParticipantProfile.DoesNotExist:
-        return render(request, 'dashboard.html')
+        # Redirect to participant basic details page if profile doesn't exist
+        return redirect('/auth/participant_basic_details/')
 
     upcoming_round = None
     is_enrolled = False
-    can_submit_art = False  # ✅ New flag
+    can_submit_art = False
 
     if profile.age:
         category = CompetitionCategory.objects.filter(
@@ -53,19 +54,51 @@ def dashboard(request):
             # ✅ Check if submit is allowed
             if upcoming_round and is_enrolled and upcoming_round.date == today:
                 can_submit_art = True
-    print(can_submit_art)
 
     return render(request, 'dashboard.html', {
+        "profile": profile,   # pass profile for template
+        "age": profile.age,
+        "category": category.name if category else None,
         "upcoming_round": upcoming_round,
         "is_enrolled": is_enrolled,
-        "can_submit_art": can_submit_art  # ✅ Pass to template
+        "can_submit_art": can_submit_art
     })
-
 
 @login_required(login_url='/auth/login/')
 def terms(request):
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        try:
+            data = json.loads(request.body)
+            accepted_terms = data.get('accepted_terms')
+            
+            if accepted_terms is None:
+                return JsonResponse({
+                    "status": "error",
+                    "message": "accepted_terms field is required"
+                }, status=400)
+                
+            request.user.accepted_terms = bool(accepted_terms)
+            request.user.save()
+            
+            return JsonResponse({
+                "status": "success",
+                "message": "Terms status updated successfully",
+                "accepted_terms": request.user.accepted_terms
+            })
+            
+        except json.JSONDecodeError:
+            return JsonResponse({
+                "status": "error",
+                "message": "Invalid JSON data"
+            }, status=400)
+        except Exception as e:
+            return JsonResponse({
+                "status": "error",
+                "message": str(e)
+            }, status=500)
+
+    # GET request handling
     profile = ParticipantProfile.objects.get(user=request.user)
-    
     category = CompetitionCategory.objects.filter(
         age_min__lte=profile.age
     ).filter(
@@ -81,17 +114,16 @@ def terms(request):
     level = None
     current_round = None
     if category:
-        # default level = category.level_start
         level = Level.objects.filter(category=category, number=category.level_start).first()
-        
-        # pick first round in that level
         current_round = Round.objects.filter(level=level).order_by("number").first()
+        
     request.session["participant_data"] = {
         "age": profile.age,
         "category_id": category.id if category else None,
         "level_id": level.id if level else None,
         "round_id": current_round.id if current_round else None,
     }
+    
     return render(request, "terms.html", {
         "category": category,
         "base_fee": base_fee,
@@ -99,7 +131,7 @@ def terms(request):
         "platform_fee": platform_fee,
         "gst": gst,
         "total": total,
-        "RAZORPAY_KEY_ID": settings.RAZORPAY_KEY_ID,   # ✅ important
+        "RAZORPAY_KEY_ID": settings.RAZORPAY_KEY_ID,
     })
 
 
@@ -174,22 +206,48 @@ def payment_failed(request):
     })
 
 
-
 @csrf_exempt
+@login_required
 def update_terms_status(request):
-    if request.method == "POST":
+    if request.method != "POST":
+        return JsonResponse({
+            "status": "error",
+            "message": "Only POST requests are allowed"
+        }, status=405)
+
+    try:
+        # Parse JSON data
         try:
-            data = json.loads(request.body.decode("utf-8"))
-            accepted = data.get("accepted_terms", False)
+            data = json.loads(request.body.decode('utf-8'))
+        except json.JSONDecodeError as e:
+            return JsonResponse({
+                "status": "error",
+                "message": "Invalid JSON data"
+            }, status=400)
 
-            request.user.accepted_terms = bool(accepted)
-            request.user.save()
+        # Validate accepted_terms
+        accepted_terms = data.get('accepted_terms')
+        if accepted_terms is None:
+            return JsonResponse({
+                "status": "error",
+                "message": "accepted_terms field is required"
+            }, status=400)
 
-            return JsonResponse({"status": "success", "accepted_terms": request.user.accepted_terms})
-        except Exception as e:
-            return JsonResponse({"status": "error", "message": str(e)}, status=400)
+        # Update user's terms status
+        request.user.accepted_terms = bool(accepted_terms)
+        request.user.save()
 
-    return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)
+        return JsonResponse({
+            "status": "success",
+            "message": "Terms status updated successfully",
+            "accepted_terms": request.user.accepted_terms
+        })
+
+    except Exception as e:
+        return JsonResponse({
+            "status": "error",
+            "message": str(e)
+        }, status=500)
 
 
 @login_required(login_url='/auth/login/')
@@ -310,3 +368,6 @@ def change_password(request):
         return redirect("dashboard")
 
     return render(request, "change_password.html")
+
+def p_working_on(request):
+    return render(request,'p_working_on.html')

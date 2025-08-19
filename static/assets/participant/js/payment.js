@@ -1,20 +1,37 @@
-// payment.js
 document.addEventListener("DOMContentLoaded", function() {
     // Terms agreement and modal handling
     let agreeBtn = document.getElementById("agreeBtn");
     let checkbox = document.getElementById("agreeCheckbox");
 
+    function showToast(message, type="success") {
+        let bgColor = type === "success"
+            ? "linear-gradient(to right, #00b09b, #96c93d)"
+            : "linear-gradient(to right, #ff5f6d, #ffc371)";
+
+        Toastify({
+            text: message,
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: bgColor,
+            stopOnFocus: true,
+        }).showToast();
+    }
+
     if (agreeBtn) {
         agreeBtn.addEventListener("click", function(e) {
             e.preventDefault();
 
-            if (agreeBtn.dataset.termsAccepted === "true") {
+            const hasAccepted = agreeBtn.dataset.termsAccepted === "true";
+
+            if (hasAccepted) {
                 // Already accepted → just show modal
                 var feesModal = new bootstrap.Modal(document.getElementById("feesModal"));
                 feesModal.show();
             } else {
                 if (!checkbox.checked) {
-                    alert("You must agree to continue.");
+                    showToast("You must agree to continue.", "error");
                     return;
                 }
 
@@ -23,17 +40,24 @@ document.addEventListener("DOMContentLoaded", function() {
                     method: "POST",
                     headers: {
                         "X-CSRFToken": agreeBtn.dataset.csrfToken,
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "X-Requested-With": "XMLHttpRequest"    // ✅ required by Django view
                     },
                     body: JSON.stringify({ accepted_terms: true })
-                }).then(res => res.json())
+                })
+                .then(res => res.json())
                 .then(data => {
                     if (data.status === "success") {
+                        showToast("Terms accepted successfully!", "success");
+                        // Show fees modal
                         var feesModal = new bootstrap.Modal(document.getElementById("feesModal"));
                         feesModal.show();
                     } else {
-                        alert("Error: " + data.message);
+                        showToast("Error: " + data.message, "error");
                     }
+                })
+                .catch(err => {
+                    showToast("Error: " + err, "error");
                 });
             }
         });
@@ -47,7 +71,6 @@ document.addEventListener("DOMContentLoaded", function() {
             let totalAmount = payBtn.dataset.totalAmount;
             let amountInPaisa = Math.round(parseFloat(totalAmount) * 100);
 
-            // Create order from backend
             fetch(payBtn.dataset.createOrderUrl, {
                 method: "POST",
                 headers: {
@@ -67,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function() {
                         "description": "Competition Fee Payment",
                         "order_id": data.order.id,
                         "handler": function(response) {
-                            // Handle successful payment
                             window.location.href = payBtn.dataset.successUrl + "?payment_id=" + response.razorpay_payment_id;
                         },
                         "prefill": {
@@ -75,16 +97,16 @@ document.addEventListener("DOMContentLoaded", function() {
                             "email": payBtn.dataset.userEmail,
                             "contact": payBtn.dataset.userPhone
                         },
-                        "theme": {
-                            "color": "#667eea"
-                        }
+                        "theme": { "color": "#667eea" }
                     };
 
                     var rzp1 = new Razorpay(options);
                     rzp1.open();
                 } else {
-                    alert("Error creating order: " + data.message);
+                    showToast("Error creating order: " + data.message, "error");
                 }
+            }).catch(err => {
+                showToast("Error: " + err, "error");
             });
         });
     }
