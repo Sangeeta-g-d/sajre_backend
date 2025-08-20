@@ -19,12 +19,14 @@ def mentor_dashboard(request):
         referred_by=request.user,
         role="participant"
     ).count()
+    print("Total referred students:", referred_students_count)
 
     # Count enrolled students
     enrolled_students_count = Participant.objects.filter(
         user__referred_by=request.user,
         has_paid=True
     ).count()
+    print("Enrolled referred students:", enrolled_students_count)
 
     # Get all categories
     categories = CompetitionCategory.objects.all()
@@ -32,30 +34,35 @@ def mentor_dashboard(request):
     # Get category-wise data for pie charts
     category_data = []
     for category in categories:
-        total = CustomUser.objects.filter(
-            referred_by=request.user,
-            role="participant",
-            participant__category=category
-        ).count()
-        
-        enrolled = Participant.objects.filter(
-            user__referred_by=request.user,
-            category=category,
-            has_paid=True
-        ).count()
-        
+        total = 0
+        enrolled = 0
+    
+        # loop through all referred users and use the same matching logic
+        for user in CustomUser.objects.filter(referred_by=request.user, role="participant"):
+            # check matching category
+            matched = None
+            if hasattr(user, "participant_profile") and user.participant_profile.age:
+                age = user.participant_profile.age
+                if age >= category.age_min and (category.age_max is None or age <= category.age_max):
+                    matched = True
+    
+            if matched:
+                total += 1
+                # if matched and paid → enrolled++
+                if hasattr(user, "participant") and user.participant.has_paid:
+                    enrolled += 1
+    
         category_data.append({
-            'name': category.name,
-            'total': total,
-            'enrolled': enrolled,
-            'not_enrolled': total - enrolled if total > enrolled else 0
+            "name": category.name,
+            "total": total,
+            "enrolled": enrolled,
+            "not_enrolled": total - enrolled
         })
-
-    # Fetch participants with their matching category
+        # Fetch participants with their matching category
     participants = []
     for user in CustomUser.objects.filter(
         referred_by=request.user,
-        role="participant"  
+        role="participant"
     ).select_related("participant", "participant__category", "participant_profile"):
         
         # Find matching category based on age
@@ -64,10 +71,12 @@ def mentor_dashboard(request):
             age = user.participant_profile.age
             for category in categories:
                 if (age >= category.age_min and 
-                    (category.age_max is None or age <= category.age_max)):
+                        (category.age_max is None or age <= category.age_max)):
                     matching_category = category
                     break
-        
+
+        print(f"User: {user.full_name} → Matching Category: {matching_category}")
+
         participants.append({
             'user': user,
             'matching_category': matching_category
