@@ -149,7 +149,7 @@ document.getElementById("signupForm").addEventListener("submit", function (e) {
     if (validateForm()) {
         // Prevent double click on success
         if (localStorage.getItem("register_submitted") === "true") {
-            showToast("Request already submitted. Please wait...", "info");
+            showToast("Add a valid phone number, Refresh to try again", "info");
         } else {
             localStorage.setItem("register_submitted", "true");
             // If all checks pass, submit the form programmatically
