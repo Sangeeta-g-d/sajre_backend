@@ -5,15 +5,19 @@ import random
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import login
 from datetime import datetime
+from django.db import transaction
 from django.http import JsonResponse
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from .utils.exotel import send_otp_sms
 from django.views import View
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.http import require_POST
 
 def generate_otp():
     return str(random.randint(100000, 999999))  # 6-digit OTP
 
+@csrf_protect
 def register(request):
     if request.method == 'POST':
         full_name = request.POST.get('full_name')
@@ -32,31 +36,49 @@ def register(request):
 
         # Check if phone number already exists
         if CustomUser.objects.filter(phone_number=phone_number).exists():
-            return render(request, 'registration.html', {'error': 'Phone already registered.'})
+            return render(request, 'registration.html', {'error': 'Phone number already registered.'})
 
         # Check password match
         if password != confirm_password:
             return render(request, 'registration.html', {'error': 'Passwords do not match.'})
 
-        # Create user (inactive until OTP verified)
-        user = CustomUser.objects.create_user(
-            email=email,
-            password=password,
-            full_name=full_name,
-            phone_number=phone_number,
-            is_active=False
-        )
+        try:
+            with transaction.atomic():   # ✅ Wrap in transaction
+                # Create user (inactive until OTP verified)
+                user = CustomUser.objects.create_user(
+                    email=email,
+                    password=password,
+                    full_name=full_name,
+                    phone_number=phone_number,
+                    is_active=False
+                )
 
-        # Generate OTP
-        otp_code = generate_otp()
-        UserOTP.objects.create(user=user, otp_code=otp_code)
+                # Generate OTP
+                otp_code = generate_otp()
+                UserOTP.objects.create(user=user, otp_code=otp_code)
 
-        # ✅ Send OTP (phone_number is already 10 digits as entered)
-        send_otp_sms(phone_number, otp_code)
+                # ✅ Send OTP (phone_number is already 10 digits)
+                send_otp_sms(phone_number, otp_code)
 
-        return redirect('verify_otp', user_id=user.id)
+            # ✅ If everything succeeds, commit & redirect
+            return redirect('verify_otp', user_id=user.id)
+
+        except Exception as e:
+            # Rollback happens automatically if exception raised
+            print("Registration failed:", e)
+            return render(request, 'registration.html', {
+                'error': 'Something went wrong. Please try again.'
+            })
 
     return render(request, 'registration.html')
+
+
+def csrf_failure(request, reason=""):
+    # Instead of showing the default 403 page,
+    # just redirect back to signup page with a toast message
+    return render(request, 'registration.html', {
+        'error': "Session expired. Please try signing up again."
+    })
 
 def resend_otp(request, user_id):
     """
@@ -254,12 +276,14 @@ def login_view(request):
         email = request.POST.get("email")
         password = request.POST.get("password")
         user = authenticate(request, username=email, password=password)
+
         if user is not None:
-            print(user.role)
             login(request, user)
 
-            # Determine redirect URL based on role
-            if user.role == "mentor":
+            # If role is not assigned (default 'customer' or None), redirect to select_category
+            if not user.role or user.role == "customer":
+                redirect_url = "/auth/select_category/"
+            elif user.role == "mentor":
                 redirect_url = "/mentor/mentor_dashboard/"
             elif user.role == "vendor":
                 redirect_url = "/vendor/vendor_dashboard/"
@@ -270,6 +294,7 @@ def login_view(request):
             else:
                 redirect_url = "/working_on/"  # fallback for other roles
 
+            # Handle AJAX login
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
                     'success': True,
@@ -280,6 +305,7 @@ def login_view(request):
             return redirect(redirect_url)
 
         else:
+            # Invalid credentials
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
                     'success': False,
@@ -288,6 +314,7 @@ def login_view(request):
             return render(request, "login.html", {'error': 'Invalid email or password'})
 
     return render(request, "login.html")
+
 
 
 def logout_view(request):

@@ -8,23 +8,11 @@ new DotLottie({
     src: "https://lottie.host/2674716f-689a-4059-a659-550cb4c4af96/Jp2HbWRbOe.lottie",
 });
 
-// Floating label behavior
-document.querySelectorAll('.form-control').forEach(input => {
-    input.addEventListener('focus', function () {
-        this.parentElement.querySelector('.form-label').classList.add('active');
-    });
-    input.addEventListener('blur', function () {
-        if (!this.value) {
-            this.parentElement.querySelector('.form-label').classList.remove('active');
-        }
-    });
-});
-
-// Toastify notification
+// Toastify notification function
 function showToast(message, type = "error") {
     const colors = {
-        error: "#f44336",
-        success: "#4caf50",
+        error: "linear-gradient(to right, #ff5f6d, #ffc371)",
+        success: "linear-gradient(to right, #00b09b, #96c93d)",
         info: "#2196f3",
         warning: "#ff9800"
     };
@@ -39,7 +27,19 @@ function showToast(message, type = "error") {
         stopOnFocus: true
     }).showToast();
 }
-window.showToast = showToast;
+window.showToast = showToast; // Make it globally accessible
+
+// Floating label behavior
+document.querySelectorAll('.form-control').forEach(input => {
+    input.addEventListener('focus', function () {
+        this.parentElement.querySelector('.form-label').classList.add('active');
+    });
+    input.addEventListener('blur', function () {
+        if (!this.value) {
+            this.parentElement.querySelector('.form-label').classList.remove('active');
+        }
+    });
+});
 
 // Real-time input restrictions
 document.getElementById("fullName")?.addEventListener("input", function () {
@@ -51,16 +51,71 @@ document.getElementById("phone")?.addEventListener("input", function () {
     if (this.value.length > 10) this.value = this.value.slice(0, 10); // max 10 digits
 });
 
-// Form validation
+// Function to validate password requirements
+function validatePassword(password) {
+    const errors = [];
+    if (password.length < 8) errors.push("8 chars");
+    if (!/[0-9]/.test(password)) errors.push("one number");
+    if (!/[A-Z]/.test(password)) errors.push("one uppercase");
+    if (!/[a-z]/.test(password)) errors.push("one lowercase");
+    return errors;
+}
+
+// Real-time password validation
+document.getElementById("password")?.addEventListener("input", function () {
+    const password = this.value;
+    const errorElement = document.getElementById("password-error");
+    const errors = validatePassword(password);
+
+    if (password.length === 0) {
+        errorElement.style.display = "none";
+        errorElement.textContent = "";
+    } else if (errors.length > 0) {
+        errorElement.textContent =  "Atleast : " + errors.join(", ");
+        errorElement.style.display = "block";
+    } else {
+        errorElement.style.display = "none";
+        errorElement.textContent = "";
+    }
+});
+
+// Confirm password validation
+document.getElementById("confirmPassword")?.addEventListener("input", function () {
+    const password = document.getElementById("password")?.value;
+    const confirmPassword = this.value;
+    const errorElement = document.getElementById("confirm-password-error");
+    
+    if (confirmPassword.length === 0) {
+        errorElement.style.display = "none";
+        errorElement.textContent = "";
+    } else if (password !== confirmPassword) {
+        errorElement.textContent = "Passwords do not match";
+        errorElement.style.display = "block";
+    } else {
+        errorElement.style.display = "none";
+        errorElement.textContent = "";
+    }
+});
+
+// Enhanced form validation
 function validateForm() {
     const fullName = document.getElementById("fullName")?.value.trim();
+    const email = document.getElementById("email")?.value.trim();
     const phone = document.getElementById("phone")?.value.trim();
     const password = document.getElementById("password")?.value;
     const confirmPassword = document.getElementById("confirmPassword")?.value;
 
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
     // Full name check
-    if (!/^[A-Za-z\s]+$/.test(fullName)) {
-        showToast("Full Name should only contain letters and spaces.", "error");
+    if (!/^[A-Za-z\s\-'.]+$/.test(fullName)) {
+        showToast("Name should only contain letters, spaces, hyphens, apostrophes, and periods.", "error");
+        return false;
+    }
+    
+    // Email check
+    if (!emailRegex.test(email)) {
+        showToast("Please enter a valid email address.", "error");
         return false;
     }
 
@@ -70,16 +125,56 @@ function validateForm() {
         return false;
     }
 
+    // Password requirements check
+    const passwordErrors = validatePassword(password);
+    if (passwordErrors.length > 0) {
+        showToast(`Password must contain: ${passwordErrors.join(", ")}.`, "error");
+        return false;
+    }
+
     // Password match check
     if (password !== confirmPassword) {
         showToast("Passwords do not match.", "error");
         return false;
     }
 
-    return true; // All good
+    return true; // All validations passed
 }
 
-// Attach validation on submit
-document.querySelector("form").addEventListener("submit", function (e) {
-    if (!validateForm()) e.preventDefault();
+// Form submit handler
+document.getElementById("signupForm").addEventListener("submit", function (e) {
+    // Prevent default submission to run custom validation first
+    e.preventDefault();
+
+    if (validateForm()) {
+        // Prevent double click on success
+        if (localStorage.getItem("register_submitted") === "true") {
+            showToast("Request already submitted. Please wait...", "info");
+        } else {
+            localStorage.setItem("register_submitted", "true");
+            // If all checks pass, submit the form programmatically
+            this.submit();
+        }
+    }
 });
+
+// Reset local storage on page refresh
+if (performance.navigation.type === 1) {
+    localStorage.removeItem("register_submitted");
+}
+
+// Function to toggle password visibility
+function togglePasswordVisibility(inputId, btn) {
+    const input = document.getElementById(inputId);
+    const eyeIcon = btn.querySelector('.password-eye i');
+    if (input.type === "password") {
+        input.type = "text";
+        eyeIcon.classList.remove('bi-eye');
+        eyeIcon.classList.add('bi-eye-slash');
+    } else {
+        input.type = "password";
+        eyeIcon.classList.remove('bi-eye-slash');
+        eyeIcon.classList.add('bi-eye');
+    }
+}
+window.togglePasswordVisibility = togglePasswordVisibility;
