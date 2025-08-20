@@ -4,7 +4,7 @@
 
 <link rel="stylesheet" href="/static/assets/mentor/css/mentor-dashboard.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <div class="main-content">
     <!-- Updated Header Section with Export Button -->
     <div class="content-header">
@@ -12,10 +12,17 @@
             <h1>Students Registered via Your Referral Link</h1>
             <p style="margin-left: 20px;">Track and manage all students who joined through your mentorship program</p>
         </div>
-        <button class="export-btn">
-            <i class="fas fa-download"></i>
-            Export CSV
-        </button>
+        <div class="d-flex " style="position: relative;gap: 20px;">
+            <button class="export-btn">
+                <i class="fas fa-download"></i>Export CSV
+            </button>
+
+             <button class="export-btn d-block d-lg-none" id="copyReferralBtn">
+                <i class="bi bi-link-45deg me-2"></i>
+                <span id="referralCode">{{ request.user.referral_code }}</span>
+                <i class="bi bi-clipboard ms-2 copy-icon"></i>
+            </button>
+        </div> 
     </div>
 
     <!-- Stats and Actions Container -->
@@ -214,9 +221,82 @@
                 options: chartOptions
     });
             {% endfor %}
+
+
         </script>
 
+       
+ <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the copy button
+        const copyButton = document.getElementById('copyReferralBtn');
+        
+        if (copyButton) {
+            copyButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Get the referral code text
+                const referralCodeElement = document.getElementById('referralCode');
+                const referralCode = referralCodeElement ? referralCodeElement.textContent : '';
+                
+                if (!referralCode) {
+                    // Show error if no referral code found
+                    Toastify({
+                        text: "No referral code found!",
+                        duration: 3000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                        stopOnFocus: true,
+                    }).showToast();
+                    return;
+                }
+                
+                // Copy to clipboard
+                navigator.clipboard.writeText(referralCode).then(() => {
+                    // Show success notification
+                    Toastify({
+                        text: "Referral code copied to clipboard!",
+                        duration: 3000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                        stopOnFocus: true,
+                    }).showToast();
+                    
+                    // Optional: Change button text temporarily to indicate success
+                    const originalHtml = copyButton.innerHTML;
+                    copyButton.innerHTML = '<i class="bi bi-check-circle me-2"></i>Copied!';
+                    
+                    setTimeout(() => {
+                        copyButton.innerHTML = originalHtml;
+                    }, 2000);
+                    
+                }).catch(err => {
+                    // Show error notification if copy fails
+                    Toastify({
+                        text: "Failed to copy referral code",
+                        duration: 3000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                        stopOnFocus: true,
+                    }).showToast();
+                    console.error('Failed to copy text: ', err);
+                });
+            });
+        } else {
+            console.error('Copy referral button not found');
+        }
+    });
+</script>
 
+<script src="/static/assets/mentor/js/mentor-dashboard.js"></script>
     </div>
 </div>
 <script src="/static/assets/mentor/js/mentor-dashboard.js"></script>
