@@ -9,10 +9,12 @@ from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from auth_app.models import MentorProfile
 import json
+from sajre_backend.utils import login_required_nocache 
+
 from django.views.decorators.http import require_POST
 
 # Create your views here.
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def mentor_dashboard(request):
     # Count students referred by this user
     referred_students_count = CustomUser.objects.filter(
@@ -92,7 +94,7 @@ def mentor_dashboard(request):
 
 
 
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def create_mentor_profile(request):
     """
     First time profile creation view for vendor.
@@ -139,7 +141,7 @@ def create_mentor_profile(request):
     return render(request, "create_mentor_profile.html", context)
 
 
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def edit_profile(request):
     user = request.user
     try:
@@ -200,7 +202,7 @@ def edit_profile(request):
     return render(request, 'edit_profile.html', context)
 
 
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def mentor_change_password(request):
     if request.method == "POST":
         new_password = request.POST.get("new-password")
@@ -237,12 +239,12 @@ def mentor_change_password(request):
 
     return render(request, "mentor_change_password.html")
 
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def m_terms(request):
     return render(request, 'm_terms.html')
 
 @require_POST
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def update_terms_status(request):
     if request.method == 'POST':
         try:
@@ -254,7 +256,7 @@ def update_terms_status(request):
             return JsonResponse({'success': False, 'error': str(e)})
     return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def m_working_on(request):
     return render(request,'m_working_on.html')
 
@@ -263,7 +265,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 
 @require_GET
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def get_participant_details(request, user_id):
     try:
         user = CustomUser.objects.get(id=user_id, referred_by=request.user)

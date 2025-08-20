@@ -126,6 +126,7 @@ class ParticipantProfile(models.Model):
     age = models.IntegerField(blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
+    is_complete = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Participant Profile - {self.user.email}"
@@ -139,6 +140,15 @@ class ParticipantProfile(models.Model):
     def save(self, *args, **kwargs):
         self.age = self.calculate_age()
         super().save(*args, **kwargs)
+
+    def is_complete(self):
+        """Check if all required fields are filled"""
+        required_fields = [
+            self.father_name, self.mother_name, self.dob,
+            self.full_address, self.city, self.state, self.pincode,
+            self.photo, self.dob_proof
+        ]
+        return all(required_fields) and self.is_complete
 
 
 class MentorProfile(models.Model):
@@ -179,6 +189,22 @@ class MentorProfile(models.Model):
     location = models.CharField(max_length=255)
 
     created_at = models.DateTimeField(auto_now_add=True)
+    is_complete = models.BooleanField(default=False)
 
+    def is_complete(self):
+        """Check if all required fields are filled"""
+        required_fields = [
+            self.higher_qualification,
+            self.full_address,
+            self.city,
+            self.state,
+            self.pincode,
+            self.course_level,
+            self.course_name,
+            self.job_title,
+            self.passport_photo,
+            self.id_proof
+        ]
+        return all(required_fields) and self.is_complete
     def __str__(self):
         return f"Mentor Profile - {self.user.full_name or self.user.email}"

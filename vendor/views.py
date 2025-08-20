@@ -5,10 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.contrib.auth import update_session_auth_hash
 from auth_app.models import MentorProfile
+from sajre_backend.utils import login_required_nocache 
+
 # Create your views here.
 
 
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def vendor_dashboard(request):
     # Count mentors referred by this vendor (specific to vendor dashboard)
     referred_mentors_count = CustomUser.objects.filter(
@@ -94,7 +96,7 @@ def vendor_dashboard(request):
         'categories': categories,
     })
 
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def edit_vendor_profile(request):
     """
     Edit Vendor Profile view. If profile does not exist -> redirect to create page.
@@ -154,7 +156,7 @@ def edit_vendor_profile(request):
     return render(request, "edit_vendor_profile.html", context)
 
 
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def create_vendor_profile(request):
     """
     First time profile creation view for vendor.
@@ -201,7 +203,7 @@ def create_vendor_profile(request):
     return render(request, "create_vendor_profile.html", context)
 
 
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def vendor_change_password(request):
     if request.method == "POST":
         new_password = request.POST.get("new-password")
@@ -238,11 +240,11 @@ def vendor_change_password(request):
 
     return render(request, "vendor_change_password.html")
 
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def v_terms(request):
     return render(request,'v_terms.html')
 
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def v_working_on(request):
     return render(request,'v_working_on.html')
 

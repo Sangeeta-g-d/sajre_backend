@@ -255,5 +255,46 @@
     updateCountdown();
 </script>
 {% endif %}
+<script>
+// Prevent back navigation to basic details form after submission
+document.addEventListener('DOMContentLoaded', function() {
+    // Clear form pages from browser history
+    if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+    
+    // Intercept any attempts to navigate back to form pages
+    window.addEventListener('popstate', function(event) {
+        // Check if we're trying to go back to form pages
+        if (document.referrer && 
+            (document.referrer.includes('/participant/basic_details') || 
+             document.referrer.includes('/auth/') ||
+             document.referrer.includes('/register'))) {
+            
+            // Push the current page again to the history
+            window.history.pushState(null, null, window.location.href);
+            
+            // Show a notification
+            showNotification("Cannot return to previous form pages.");
+        }
+    });
+});
 
+// Function to show notification
+function showNotification(message) {
+    if (typeof Toastify !== 'undefined') {
+        Toastify({
+            text: message,
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            stopOnFocus: true,
+        }).showToast();
+    } else {
+        console.log(message);
+    }
+}
+</script>
 {% endblock %}

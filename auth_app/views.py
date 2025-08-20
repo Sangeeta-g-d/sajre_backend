@@ -5,6 +5,9 @@ import random
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import login
 from datetime import datetime
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
+from django.utils.decorators import method_decorator
 from django.db import transaction
 from django.http import JsonResponse
 from django.contrib.auth.tokens import default_token_generator
@@ -17,8 +20,28 @@ from django.views.decorators.http import require_POST
 def generate_otp():
     return str(random.randint(100000, 999999))  # 6-digit OTP
 
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
+
+@never_cache
 @csrf_protect
 def register(request):
+    # If user is already authenticated, redirect to appropriate dashboard
+    if request.user.is_authenticated:
+        # Determine redirect URL based on user role
+        if not request.user.role or request.user.role == "customer":
+            return redirect("/auth/select_category/")
+        elif request.user.role == "mentor":
+            return redirect("/mentor/mentor_dashboard/")
+        elif request.user.role == "vendor":
+            return redirect("/vendor/vendor_dashboard/")
+        elif request.user.role == "participant":
+            return redirect("/participants/dashboard/")
+        elif request.user.is_superuser:
+            return redirect("/admin_part/admin_dashboard/")
+        else:
+            return redirect("/working_on/")
+    
     if request.method == 'POST':
         full_name = request.POST.get('full_name')
         email = request.POST.get('email')
@@ -28,19 +51,35 @@ def register(request):
 
         # ✅ Validate phone number (must be 10 digits only)
         if not (phone_number.isdigit() and len(phone_number) == 10):
-            return render(request, 'registration.html', {'error': 'Phone number must be exactly 10 digits.'})
+            response = render(request, 'registration.html', {'error': 'Phone number must be exactly 10 digits.'})
+            response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+            response['Pragma'] = 'no-cache'
+            response['Expires'] = '0'
+            return response
 
         # Check if email already exists
         if CustomUser.objects.filter(email=email).exists():
-            return render(request, 'registration.html', {'error': 'Email already registered.'})
+            response = render(request, 'registration.html', {'error': 'Email already registered.'})
+            response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+            response['Pragma'] = 'no-cache'
+            response['Expires'] = '0'
+            return response
 
         # Check if phone number already exists
         if CustomUser.objects.filter(phone_number=phone_number).exists():
-            return render(request, 'registration.html', {'error': 'Phone number already registered.'})
+            response = render(request, 'registration.html', {'error': 'Phone number already registered.'})
+            response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+            response['Pragma'] = 'no-cache'
+            response['Expires'] = '0'
+            return response
 
         # Check password match
         if password != confirm_password:
-            return render(request, 'registration.html', {'error': 'Passwords do not match.'})
+            response = render(request, 'registration.html', {'error': 'Passwords do not match.'})
+            response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+            response['Pragma'] = 'no-cache'
+            response['Expires'] = '0'
+            return response
 
         try:
             with transaction.atomic():   # ✅ Wrap in transaction
@@ -61,16 +100,29 @@ def register(request):
                 send_otp_sms(phone_number, otp_code)
 
             # ✅ If everything succeeds, commit & redirect
-            return redirect('verify_otp', user_id=user.id)
+            response = redirect('verify_otp', user_id=user.id)
+            response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+            response['Pragma'] = 'no-cache'
+            response['Expires'] = '0'
+            return response
 
         except Exception as e:
             # Rollback happens automatically if exception raised
             print("Registration failed:", e)
-            return render(request, 'registration.html', {
+            response = render(request, 'registration.html', {
                 'error': 'Something went wrong. Please try again.'
             })
+            response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+            response['Pragma'] = 'no-cache'
+            response['Expires'] = '0'
+            return response
 
-    return render(request, 'registration.html')
+    # For GET requests, also set no-cache headers
+    response = render(request, 'registration.html')
+    response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
+    return response
 
 
 def csrf_failure(request, reason=""):
@@ -112,8 +164,42 @@ def resend_otp(request, user_id):
 
     return JsonResponse({"status": False, "message": "Invalid request method."})
 
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
+
+@never_cache
+@csrf_protect
 def verify_otp(request, user_id):
-    user = CustomUser.objects.get(id=user_id)
+    # If user is already authenticated, redirect to appropriate dashboard
+    if request.user.is_authenticated:
+        # Determine redirect URL based on user role
+        if not request.user.role or request.user.role == "customer":
+            redirect_url = "/auth/select_category/"
+        elif request.user.role == "mentor":
+            redirect_url = "/mentor/mentor_dashboard/"
+        elif request.user.role == "vendor":
+            redirect_url = "/vendor/vendor_dashboard/"
+        elif request.user.role == "participant":
+            redirect_url = "/participants/dashboard/"
+        elif request.user.is_superuser:
+            redirect_url = "/admin_part/admin_dashboard/"
+        else:
+            redirect_url = "/working_on/"
+        
+        response = redirect(redirect_url)
+        response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        response['Pragma'] = 'no-cache'
+        response['Expires'] = '0'
+        return response
+    
+    try:
+        user = CustomUser.objects.get(id=user_id)
+    except CustomUser.DoesNotExist:
+        response = render(request, 'verify_otp.html', {'error': 'Invalid user.'})
+        response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        response['Pragma'] = 'no-cache'
+        response['Expires'] = '0'
+        return response
     
     # get latest OTP for remaining_seconds countdown
     otp_obj = UserOTP.objects.filter(user=user).order_by('-created_at').first()
@@ -133,7 +219,12 @@ def verify_otp(request, user_id):
             user.save()
             UserOTP.objects.filter(user=user).delete()
             login(request, user)
-            return redirect('select_category')
+            
+            response = redirect('select_category')
+            response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+            response['Pragma'] = 'no-cache'
+            response['Expires'] = '0'
+            return response
 
         try:
             user_otp = UserOTP.objects.get(user=user, otp_code=otp_code)
@@ -144,31 +235,83 @@ def verify_otp(request, user_id):
                 user.save()
                 user_otp.delete()
                 login(request, user)
-                return redirect('select_category')
+                
+                response = redirect('select_category')
+                response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+                response['Pragma'] = 'no-cache'
+                response['Expires'] = '0'
+                return response
             else:
                 # If expired → return to template with error string
-                return render(request, 'verify_otp.html', {
+                response = render(request, 'verify_otp.html', {
                     'error': 'OTP expired',
                     'user_id': user_id,
                     'remaining_seconds': 0
                 })
+                response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+                response['Pragma'] = 'no-cache'
+                response['Expires'] = '0'
+                return response
 
         except UserOTP.DoesNotExist:
             # If OTP is invalid → return with error string
-            return render(request, 'verify_otp.html', {
+            response = render(request, 'verify_otp.html', {
                 'error': 'Invalid OTP',
                 'user_id': user_id,
                 'remaining_seconds': remaining_seconds
             })
+            response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+            response['Pragma'] = 'no-cache'
+            response['Expires'] = '0'
+            return response
 
     # GET request → show the page with countdown (if any)
-    return render(request, 'verify_otp.html', {
+    response = render(request, 'verify_otp.html', {
         'user_id': user_id,
         'remaining_seconds': remaining_seconds
     })
+    response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
+    return response
 
+@never_cache
+@csrf_protect
 @login_required
 def select_category(request):
+    # If user already has a role selected, redirect to appropriate page
+    if request.user.role and request.user.role != "customer":
+        # Role-based redirect
+        if request.user.role == 'participant':
+            # Check if participant has completed basic details
+            if hasattr(request.user, 'participant_profile') and getattr(request.user.participant_profile, 'is_complete', False):
+                response = redirect('/participants/dashboard/')
+            else:
+                response = redirect('/auth/participant_basic_details')
+        elif request.user.role == 'mentor':
+            # Check if mentor has completed registration
+            if hasattr(request.user, 'mentor_profile') and getattr(request.user.mentor_profile, 'is_complete', False):
+                response = redirect('/mentor/mentor_dashboard/')
+            else:
+                response = redirect('/auth/mentor_register/')
+        elif request.user.role == 'vendor':
+            # Check if vendor has completed registration (assuming vendor uses mentor registration)
+            if hasattr(request.user, 'mentor_profile') and getattr(request.user.mentor_profile, 'is_complete', False):
+                response = redirect('/vendor/vendor_dashboard/')
+            else:
+                response = redirect('/auth/mentor_register/')
+        elif request.user.role == 'school':
+            response = redirect('/working_on/')
+        elif request.user.role == 'college':
+            response = redirect('/working_on/')
+        else:
+            response = redirect('/working_on/')
+        
+        response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        response['Pragma'] = 'no-cache'
+        response['Expires'] = '0'
+        return response
+    
     if request.method == "POST":
         role = request.POST.get("role")
         if role:
@@ -190,26 +333,44 @@ def select_category(request):
 
             request.user.save()
 
-            # Role-based redirect
+            # Role-based redirect with no-cache headers
             if role == 'participant':
-                return redirect('/auth/participant_basic_details')
+                response = redirect('/auth/participant_basic_details')
             elif role == 'mentor':
-                return redirect('/auth/mentor_register/')
+                response = redirect('/auth/mentor_register/')
             elif role == 'vendor':
-                return redirect('/auth/mentor_register/')
+                response = redirect('/auth/mentor_register/')
             elif role == 'school':
-                return redirect('/working_on/')
+                response = redirect('/working_on/')
             elif role == 'college':
-                return redirect('/working_on/')
+                response = redirect('/working_on/')
+            else:
+                response = redirect('/working_on/')
+            
+            response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+            response['Pragma'] = 'no-cache'
+            response['Expires'] = '0'
+            return response
 
-            return redirect('/working_on/')
+    # For GET requests, also set no-cache headers
+    response = render(request, "selectcategory.html")
+    response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
+    return response
 
-    return render(request, "selectcategory.html")
-
-
-
+@never_cache
+@csrf_protect
 @login_required
 def participant_basic_details(request):
+    # If user has already completed basic details, redirect to dashboard
+    if hasattr(request.user, 'participant_profile') and request.user.participant_profile.is_complete():
+        response = redirect("/participants/dashboard")
+        response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        response['Pragma'] = 'no-cache'
+        response['Expires'] = '0'
+        return response
+    
     if request.method == "POST":
         user = request.user
         profile, created = ParticipantProfile.objects.get_or_create(user=user)
@@ -263,15 +424,44 @@ def participant_basic_details(request):
         if request.FILES.get("photoUpload"):
             profile.photo = request.FILES["photoUpload"]
 
+        # Mark profile as complete
+        profile.is_complete = True
         profile.save()
 
         print("Participant registration submitted successfully ✅")
-        return redirect("dashboard")
+        response = redirect("dashboard")
+        response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        response['Pragma'] = 'no-cache'
+        response['Expires'] = '0'
+        return response
 
-    return render(request, "participant_basic_details.html")
+    # For GET requests, also set no-cache headers
+    response = render(request, "participant_basic_details.html")
+    response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
+    return response
 
 
+@never_cache
+@csrf_protect
 def login_view(request):
+    # If user is already authenticated, redirect to appropriate dashboard
+    if request.user.is_authenticated:
+        # Determine redirect URL based on user role
+        if not request.user.role or request.user.role == "customer":
+            return redirect("/auth/select_category/")
+        elif request.user.role == "mentor":
+            return redirect("/mentor/mentor_dashboard/")
+        elif request.user.role == "vendor":
+            return redirect("/vendor/vendor_dashboard/")
+        elif request.user.role == "participant":
+            return redirect("/participants/dashboard/")
+        elif request.user.is_superuser:
+            return redirect("/admin_part/admin_dashboard/")
+        else:
+            return redirect("/working_on/")
+    
     if request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
@@ -279,8 +469,11 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-
-            # If role is not assigned (default 'customer' or None), redirect to select_category
+            
+            # Set no-cache headers for the response
+            response = None
+            
+            # Determine redirect URL
             if not user.role or user.role == "customer":
                 redirect_url = "/auth/select_category/"
             elif user.role == "mentor":
@@ -292,17 +485,23 @@ def login_view(request):
             elif user.is_superuser:
                 redirect_url = "/admin_part/admin_dashboard/"
             else:
-                redirect_url = "/working_on/"  # fallback for other roles
+                redirect_url = "/working_on/"
 
             # Handle AJAX login
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-                return JsonResponse({
+                response = JsonResponse({
                     'success': True,
                     'message': 'Login successful',
                     'redirect_url': redirect_url
                 })
-
-            return redirect(redirect_url)
+            else:
+                response = redirect(redirect_url)
+            
+            # Add headers to prevent caching
+            response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+            response['Pragma'] = 'no-cache'
+            response['Expires'] = '0'
+            return response
 
         else:
             # Invalid credentials
@@ -313,7 +512,12 @@ def login_view(request):
                 }, status=400)
             return render(request, "login.html", {'error': 'Invalid email or password'})
 
-    return render(request, "login.html")
+    # For GET requests, also set no-cache headers
+    response = render(request, "login.html")
+    response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
+    return response
 
 
 
@@ -321,9 +525,23 @@ def logout_view(request):
     logout(request)
     return redirect('/')
 
-
+@never_cache
+@csrf_protect
 @login_required
 def mentor_register(request):
+    # If user has already completed mentor registration, redirect to appropriate dashboard
+    if hasattr(request.user, 'mentor_profile') and request.user.mentor_profile.is_complete():
+        # Redirect based on role
+        if getattr(request.user, "role", "").lower() == "vendor":
+            response = redirect("/vendor/vendor_dashboard/")
+        else:
+            response = redirect("/mentor/mentor_dashboard/")
+        
+        response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        response['Pragma'] = 'no-cache'
+        response['Expires'] = '0'
+        return response
+    
     if request.method == "POST":
         user = request.user
         profile, created = MentorProfile.objects.get_or_create(user=user)
@@ -364,17 +582,29 @@ def mentor_register(request):
         if request.FILES.get("idProof"):
             profile.id_proof = request.FILES["idProof"]
 
+        # Mark profile as complete
+        profile.is_complete = True
         profile.save()
 
         print("✅ Mentor registration submitted successfully")
 
-        # Redirect based on role
+        # Redirect based on role with no-cache headers
         if getattr(user, "role", "").lower() == "vendor":
-            return redirect("/vendor/vendor_dashboard/")
-        return redirect("/mentor/mentor_dashboard/")
+            response = redirect("/vendor/vendor_dashboard/")
+        else:
+            response = redirect("/mentor/mentor_dashboard/")
+        
+        response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        response['Pragma'] = 'no-cache'
+        response['Expires'] = '0'
+        return response
 
-    return render(request, "mentor_register.html")
-
+    # For GET requests, also set no-cache headers
+    response = render(request, "mentor_register.html")
+    response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
+    return response
 
 
 def forgot_password(request):
