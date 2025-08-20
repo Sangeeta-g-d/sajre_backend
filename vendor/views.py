@@ -260,5 +260,5 @@ def mentor_list(request):
     return render(request, "mentor_list.html", context)
 
 def mentor_details(request, mentor_id):
-    mentor = get_object_or_404(MentorProfile, id=mentor_id)
+    mentor = MentorProfile.objects.get(user_id = mentor_id)
     return render(request, 'mentor_details.html', {'mentor': mentor})
