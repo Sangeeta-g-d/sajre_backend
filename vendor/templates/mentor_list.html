@@ -29,58 +29,51 @@
         </div>
 <div class="table-container">
     <table class="students-table">
-    <thead>
-        <tr>
-            <th><input type="checkbox" id="selectAll"></th>
-            <th>Student Name</th>
-            <th>Age Group</th>
-            <th>Category</th>
-            <th>Status</th>
-            <th>Registration Date</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-   <tbody id="studentsTableBody">
-    {% for mentor in mentors %}
+   <thead>
+  <tr>
+      <th><input type="checkbox" id="selectAll"></th>
+      <th>Mentor Name</th>
+      <th>Qualification</th>
+      <th>Job Title</th>
+      <th>Phone</th>
+      <th>Referral Code</th>
+      <th>Registration Date</th>
+      <th>Action</th>
+  </tr>
+</thead>
+<tbody id="studentsTableBody">
+  {% for mentor in mentors %}
+  <tr>
+      <td><input type="checkbox" class="row-checkbox"></td>
+      <td>
+          <div class="student-info">
+              <img src="{{ mentor.mentor_profile.passport_photo.url }}" 
+                   alt="{{ mentor.full_name }}" class="student-avatar">
+              <div>
+                  <div class="student-name">{{ mentor.full_name }}</div>
+                  <div class="student-email">{{ mentor.email }}</div>
+              </div>
+          </div>
+      </td>
+      <td>{{ mentor.mentor_profile.higher_qualification }}</td>
+      <td>{{ mentor.mentor_profile.job_title }}</td>
+      <td>{{ mentor.phone_number }}</td>
+      <td>{{ mentor.referral_code }}</td>
+      <td>{{ mentor.date_joined|date:"d M, Y" }}</td>
+      <td>
+          <a style="text-decoration: none;" href="{% url 'mentor_details' mentor.id %}" class="action-btn view-btn" 
+                 >
+              <i class="fas fa-eye"></i> View
+      </a>
+      </td>
+  </tr>
+  {% empty %}
     <tr>
-        <td><input type="checkbox" class="row-checkbox"></td>
-        <td>
-            <div class="student-info">
-                <img src="{{ mentor.mentor_profile.passport_photo.url }}" 
-                     alt="{{ mentor.full_name }}" class="student-avatar">
-                <div>
-                    <div class="student-name">{{ mentor.full_name }}</div>
-                    <div class="student-email">{{ mentor.email }}</div>
-                </div>
-            </div>
-        </td>
-        <td>
-            {{ mentor.mentor_profile.higher_qualification }}
-        </td>
-        <td>{{ mentor.mentor_profile.job_title }}</td>
-        <td>
-            {% if mentor.mentor_profile %}
-                <span class="status enrolled">Registered</span>
-            {% else %}
-                <span class="status not-enrolled">N/A</span>
-            {% endif %}
-        </td>
-        <td>{{ mentor.date_joined|date:"d M, Y" }}</td>
-        <td>
-            <button class="action-btn view-btn" 
-                    data-user-id="{{ mentor.id }}"
-                    data-bs-toggle="modal" 
-                    data-bs-target="#participantModal">
-                <i class="fas fa-eye"></i> View
-            </button>
-        </td>
+        <td colspan="8">No mentors found.</td>
     </tr>
-    {% empty %}
-    <tr>
-        <td colspan="7">No mentors found.</td>
-    </tr>
-    {% endfor %}
+  {% endfor %}
 </tbody>
+
 
 </table>
         </div>
