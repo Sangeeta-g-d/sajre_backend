@@ -1,9 +1,11 @@
 {% extends 'mentor_sidebar.html' %}
 {% block content %}
 {% load custom_filters %}
+{% load static %}
 
-<link rel="stylesheet" href="/static/assets/mentor/css/mentor-dashboard.css">
+<link rel="stylesheet" href="{% static 'assets/mentor/css/mentor-dashboard.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="{% static 'assets/mentor/css/mentor-dashboard-custom.css' %}">
 
 <div class="main-content">
     <!-- Updated Header Section with Export Button -->
@@ -34,10 +36,7 @@
                         <span class="stat-label">Via your referrals</span>
                     </div>
                 </div>
-
             </div>
-
-
 
             <!-- Card 3 -->
             <div class="stat-card">
@@ -51,14 +50,12 @@
                         <span class="stat-label">Active in competition</span>
                     </div>
                 </div>
-
             </div>
         </div>
 
         <!-- Actions and Tip Section -->
         <div class="actions-tip-section">
             <div class="tip-card">
-
                 <div class="tip-content">
                     <i class="fas fa-exclamation-circle"></i>
                     Follow up with registered students before deadlines!
@@ -67,129 +64,156 @@
         </div>
     </div>
 
-
-
     <div class="category-charts-container">
         <!-- Category Pie Charts Row -->
-    <div class="category-charts-row">
-    {% if category_data %}
-        {% for category in category_data %}
-        <div class="category-chart-card">
-            <div class="category-chart-card-title">
-                {{ category.name|remove_parentheses }} Category
-            </div>
+        <div class="category-charts-row">
+        {% if category_data %}
+            {% for category in category_data %}
+            <div class="category-chart-card">
+                <div class="category-chart-card-title">
+                    {{ category.name|remove_parentheses }} Category
+                </div>
 
-            {% if category.total > 0 %}
-                <div class="chart-container">
-                    <canvas id="{{ category.name|lower }}PieChart" width="90" height="90"></canvas>
-                    <div class="chart-stats">
-                        <div><strong>Total Users:</strong> {{ category.total }}</div>
-                        <div><strong>Registered:</strong> {{ category.total }}</div>
-                        <div><strong>Enrolled:</strong> {{ category.enrolled }}</div>
+                {% if category.total > 0 %}
+                    <div class="chart-container">
+                        <canvas id="{{ category.name|lower }}PieChart" width="90" height="90"></canvas>
+                        <div class="chart-stats">
+                            <div><strong>Total Users:</strong> {{ category.total }}</div>
+                            <div><strong>Registered:</strong> {{ category.total }}</div>
+                            <div><strong>Enrolled:</strong> {{ category.enrolled }}</div>
+                        </div>
                     </div>
-                </div>
-            {% else %}
-                <div class="no-data-message">
-                    <i class="fas fa-chart-pie"></i>
-                    <p>No data available for this category</p>
-                    <small>Once users join this category, their stats will appear here</small>
-                </div>
-            {% endif %}
+                {% else %}
+                    <div class="no-data-message">
+                        <i class="fas fa-chart-pie"></i>
+                        <p>No data available for this category</p>
+                        <small>Once users join this category, their stats will appear here</small>
+                    </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-data-message">
+                <i class="fas fa-chart-pie"></i>
+                <p>No category data available yet</p>
+                <small>Your referral statistics will appear here once students register</small>
+            </div>
+        {% endif %}
         </div>
-        {% endfor %}
-    {% else %}
-        <div class="no-data-message">
-            <i class="fas fa-chart-pie"></i>
-            <p>No category data available yet</p>
-            <small>Your referral statistics will appear here once students register</small>
-        </div>
-    {% endif %}
-</div>
-<!-- {% if request.user.role == "vendor" %}
-
-<div><h1>Vendor</h1></div>
-
-{% endif %} -->
+        
         <!-- Search and Filter Section -->
         <div class="search-filter-section">
             <div class="search-container">
                 <i class="fas fa-search"></i>
                 <input type="text" id="searchInput" placeholder="Search by Name or Category">
             </div>
-            <button class="filter-btn">
-                <i class="fas fa-filter"></i>
-                Filter
-            </button>
-        </div>
-<div class="table-container">
-    <table class="students-table">
-    <thead>
-        <tr>
-            <th><input type="checkbox" id="selectAll"></th>
-            <th>Student Name</th>
-            <th>Age Group</th>
-            <th>Category</th>
-            <th>Status</th>
-            <th>Registration Date</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody id="studentsTableBody">
-        {% for participant in participants %}
-        <tr>
-            <td><input type="checkbox" class="row-checkbox"></td>
-            <td>
-                <div class="student-info">
-                    <img src="{{ participant.user.participant_profile.photo.url|default:'https://via.placeholder.com/40' }}" 
-                         alt="{{ participant.user.full_name }}" class="student-avatar">
-                    <div>
-                        <div class="student-name">{{ participant.user.full_name }}</div>
-                        <div class="student-email">{{ participant.user.email }}</div>
+            <div class="filter-dropdown">
+                <button class="filter-btn">
+                    <i class="fas fa-filter"></i>
+                    Filter
+                </button>
+                <div class="filter-content">
+                    <div class="filter-group">
+                        <label>Status</label>
+                        <select id="statusFilter">
+                            <option value="all">All Statuses</option>
+                            <option value="enrolled">Enrolled</option>
+                            <option value="not-enrolled">Not Enrolled</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Category</label>
+                        <select id="categoryFilter">
+                            <option value="all">All Categories</option>
+                            {% for category in category_data %}
+                            <option value="{{ category.name }}">{{ category.name|remove_parentheses }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="filter-buttons">
+                        <button id="applyFilters" class="apply-filter-btn">Apply</button>
+                        <button id="resetFilters" class="reset-filter-btn">Reset</button>
                     </div>
                 </div>
-            </td>
-            <td>
-                {% if participant.matching_category %}
-                    {{ participant.matching_category.age_min }}-
-                    {{ participant.matching_category.age_max|default:"+" }}
-                {% else %}
-                    N/A
-                {% endif %}
-            </td>
-            <td>
-                {% if participant.user.participant and participant.user.participant.category %}
-                    <span class="category">{{ participant.user.participant.category.name }}</span>
-                {% elif participant.matching_category %}
-                    <span class="category">{{ participant.matching_category.name }}</span>
-                {% else %}
-                    <span class="category">N/A</span>
-                {% endif %}
-            </td>
-            <td>
-                {% if participant.user.participant and participant.user.participant.has_paid %}
-                    <span class="status enrolled">Enrolled</span>
-                {% else %}
-                    <span class="status not-enrolled">Not Enrolled</span>
-                {% endif %}
-            </td>
-            <td>{{ participant.user.date_joined|date:"d M, Y" }}</td>
-           <td>
-    <button class="action-btn view-btn" 
-            data-user-id="{{ participant.user.id }}"
-            data-bs-toggle="modal" 
-            data-bs-target="#participantModal">
-        <i class="fas fa-eye"></i> View
-    </button>
-</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="7">No participants found.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+            </div>
         </div>
+        
+        <div class="table-container">
+            <table class="students-table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="selectAll"></th>
+                        <th>Student Name</th>
+                        <th>Age Group</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Registration Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="studentsTableBody">
+                    {% for participant in participants %}
+                    <tr>
+                        <td><input type="checkbox" class="row-checkbox"></td>
+                        <td>
+                            <div class="student-info">
+                                <img src="{{ participant.user.participant_profile.photo.url|default:'https://via.placeholder.com/40' }}" 
+                                     alt="{{ participant.user.full_name }}" class="student-avatar">
+                                <div>
+                                    <div class="student-name">{{ participant.user.full_name }}</div>
+                                    <div class="student-email">{{ participant.user.email }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            {% if participant.matching_category %}
+                                {{ participant.matching_category.age_min }}-
+                                {{ participant.matching_category.age_max|default:"+" }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if participant.user.participant and participant.user.participant.category %}
+                                <span class="category">{{ participant.user.participant.category.name }}</span>
+                            {% elif participant.matching_category %}
+                                <span class="category">{{ participant.matching_category.name }}</span>
+                            {% else %}
+                                <span class="category">N/A</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if participant.user.participant and participant.user.participant.has_paid %}
+                                <span class="status enrolled">Enrolled</span>
+                            {% else %}
+                                <span class="status not-enrolled">Not Enrolled</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ participant.user.date_joined|date:"d M, Y" }}</td>
+                        <td>
+                            <button class="action-btn view-btn" 
+                                    data-user-id="{{ participant.user.id }}"
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#participantModal">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7">No participants found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <!-- No Results Message (initially hidden) -->
+            <div id="noResultsMessage" class="no-results-message" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h4>No matching students found</h4>
+                <p>Try adjusting your search or filter criteria</p>
+            </div>
+        </div>
+        
         <!-- Chart.js CDN -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
@@ -208,18 +232,16 @@
                     labels: ['Enrolled', 'Not Enrolled'],
                     datasets: [{
                         data: [{{ category.enrolled }}, {{ category.not_enrolled }}],
-                backgroundColor: ['#f95d5d', '#66deb4']
-            }]
-        },
+                        backgroundColor: ['#f95d5d', '#66deb4']
+                    }]
+                },
                 options: chartOptions
-    });
+            });
             {% endfor %}
         </script>
-
-
     </div>
 </div>
-<script src="/static/assets/mentor/js/mentor-dashboard.js"></script>
+
 <!-- Participant Details Modal -->
 <div class="modal fade" id="participantModal" tabindex="-1" aria-labelledby="participantModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -277,54 +299,8 @@
         </div>
     </div>
 </div>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Get all view buttons
-    const viewButtons = document.querySelectorAll('.view-btn');
-    
-    // Add click event to each button
-    viewButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const userId = this.getAttribute('data-user-id');
-            
-            // Fetch participant data via AJAX
-            fetch(`/mentor/get-participant-details/${userId}/`)
-                .then(response => response.json())
-                .then(data => {
-                    // Update modal with participant data
-                    document.getElementById('modalParticipantName').textContent = data.full_name;
-                    document.getElementById('modalParticipantEmail').textContent = data.email;
-                    document.getElementById('modalParticipantPhone').textContent = data.phone_number || 'N/A';
-                    document.getElementById('modalParticipantPhoto').src = data.photo || 'https://via.placeholder.com/200';
-                    
-                    // Personal Info
-                    document.getElementById('modalParticipantAge').textContent = data.age || 'N/A';
-                    document.getElementById('modalParticipantDob').textContent = data.dob || 'N/A';
-                    document.getElementById('modalParticipantFather').textContent = data.father_name || 'N/A';
-                    document.getElementById('modalParticipantMother').textContent = data.mother_name || 'N/A';
-                    
-                    // Address Info
-                    document.getElementById('modalParticipantAddress').textContent = data.full_address || 'N/A';
-                    document.getElementById('modalParticipantCity').textContent = data.city || 'N/A';
-                    document.getElementById('modalParticipantState').textContent = data.state || 'N/A';
-                    document.getElementById('modalParticipantPincode').textContent = data.pincode || 'N/A';
-                    
-                    // Education Info
-                    document.getElementById('modalParticipantSchool').textContent = data.school_name || data.university_name || 'N/A';
-                    document.getElementById('modalParticipantGrade').textContent = data.grade || data.stream || 'N/A';
-                    document.getElementById('modalParticipantBoard').textContent = data.school_board || data.university || 'N/A';
-                    
-                    // Registration Info
-                    document.getElementById('modalParticipantCategory').textContent = data.category || 'N/A';
-                    document.getElementById('modalParticipantStatus').textContent = data.has_paid ? 'Enrolled' : 'Not Enrolled';
-                    document.getElementById('modalParticipantRegDate').textContent = data.registration_date;
-                    document.getElementById('modalParticipantReferral').textContent = data.referral_code || 'N/A';
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        });
-    });
-});
-</script>
+
+<script src="{% static 'assets/mentor/js/mentor-dashboard.js' %}"></script>
+<script src="{% static 'assets/mentor/js/mentor-dashboard-custom.js' %}"></script>
+<script src="/static/assets/mentor/js/dashboard.js"></script>
 {% endblock %}
