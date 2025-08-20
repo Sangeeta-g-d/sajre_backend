@@ -359,27 +359,41 @@
             }
 
             .stats-cards {
-                flex-direction: column;
+                flex-direction: row;
+                width: 250%;
+                overflow-y: auto;
+                gap: 9px;
+                flex: 3;
+                margin-left: 0px;
             }
-        }
+
+
+            .actions-tip-section {
+                margin-left: 41%;
+                margin-top: 15%;
+                width: 160%;
+                align-items: center;
+                display: flex;
+                gap: 20px;
+                flex: 1;
+            }
+         }
 
         @media (max-width: 768px) {
             .main-content {
-                max-width: 40%;
                 margin-left: 0;
                 padding: 16px;
             }
 
             .content-header {
                 flex-direction: column;
-                align-items: flex-start;
+                align-items: center;
                 gap: 16px;
-                width: 300%;
+                /* width: 300%; */
             }
             .table-container {
                 overflow-x: auto;
-                        width: 495%;
-        overflow-y: auto;
+                overflow-y: auto;
             }
 
             .students-table {
@@ -439,7 +453,6 @@
             }
             
             .category-chart-card {
-                max-width: 40%;
                 box-sizing: border-box;
             }
             

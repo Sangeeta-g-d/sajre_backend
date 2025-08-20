@@ -895,14 +895,14 @@ section#ab_banner_section .ab_banner_container .banner_div{
 section#ab_banner_section h1.ab_banner_title {
     color: #FFFFFF;
     font-family: "Montserrat Alternates", sans-serif;
-    font-size: 80px;
+    font-size: 50px;
     font-weight: 700;
     line-height: 114%;
 }
 section#ab_banner_section p.ab_banner_description {
     font-family: "Poppins", sans-serif;
     color: #FFFFFF;
-    font-size: 24px;
+    font-size: 23px;
     font-weight: 400;
     line-height: 114%;
     margin-bottom: 44px;
@@ -911,7 +911,7 @@ section#ab_banner_section p.ab_banner_description {
 section#ab_banner_section a.ab_banner_btn {
     text-decoration: none;
     background: #FF8000;
-    padding: 22px 38px;
+    padding: 13px 30px;
     border-radius: 80px;
     font-family: "Inter", sans-serif;
     font-weight: 700;
@@ -919,7 +919,7 @@ section#ab_banner_section a.ab_banner_btn {
     color: #FFFFFF;
 }
 section#ab_banner_section .ab_banner_spacer{
-    /* height: 400px; */
+    height: 200px;
 }
 
 /* about us section css start form here */
@@ -1319,6 +1319,9 @@ footer#footer  .row.footer_botton_row p {
 @media (max-width: 768px) {
 
      .home_root{
+        padding-top: 100px;
+    }
+     .about_root{
         padding-top: 100px;
     }
     section#hm_banner_slider_section{

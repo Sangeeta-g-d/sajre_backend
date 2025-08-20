@@ -159,12 +159,15 @@
         font-size: 20px;
     }
     section#about_us_section p.about_us_description{
-        font-size: 12px; 
+        font-size: 13px; 
     }
     section#about_us_section img.about_us_side_img {
         width: 229px;
+        margin-left: 69%;
+        margin-top: -27%;
     }
     section#about_us_section .about_us_background_img{
+        margin-top: -38%;
         min-height: 250px;
         border-radius: 19.9px;
     }
@@ -175,6 +178,7 @@
     }
     section#ab_mission_section p.about_mission_des {
         font-size: 12px;
+        text-align: justify;
     }
     /* about mission section css end form here */
     /* about crouse section css start  */
@@ -203,6 +207,7 @@
     }
     section#about_founder_section .founder_info_box p{
         font-size: 12px;
+        text-align: justify;
     }
     /* about founder css end form here */
     /* about team section css start form here */
@@ -423,12 +428,13 @@
         font-size: 20px;
     }
     section#about_us_section p.about_us_description{
-        font-size: 12px; 
+        font-size: 13px; 
     }
     section#about_us_section img.about_us_side_img {
         width: 229px;
     }
     section#about_us_section .about_us_background_img{
+        margin-top: -38%;
         min-height: 250px;
         border-radius: 19.9px;
     }
@@ -439,6 +445,7 @@
     }
     section#ab_mission_section p.about_mission_des {
         font-size: 12px;
+        text-align: justify;
     }
     /* about mission section css end form here */
     /* about crouse section css start  */
@@ -468,6 +475,7 @@
     }
     section#about_founder_section .founder_info_box p{
         font-size: 12px;
+        text-align: justify;
     }
     /* about founder css end form here */
     /* about team section css start form here */
@@ -682,12 +690,13 @@
         font-size: 20px;
     }
     section#about_us_section p.about_us_description{
-        font-size: 12px; 
+        font-size: 13px; 
     }
     section#about_us_section img.about_us_side_img {
         width: 229px;
     }
     section#about_us_section .about_us_background_img{
+        margin-top: -38%;
         min-height: 250px;
         border-radius: 19.9px;
     }
@@ -698,6 +707,7 @@
     }
     section#ab_mission_section p.about_mission_des {
         font-size: 12px;
+        text-align: justify;
     }
     /* about mission section css end form here */
     /* about crouse section css start  */
@@ -726,6 +736,7 @@
     }
     section#about_founder_section .founder_info_box p{
         font-size: 12px;
+        text-align: justify;
     }
     /* about founder css end form here */
     /* about team section css start form here */
