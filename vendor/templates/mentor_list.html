@@ -19,7 +19,7 @@
 
     <div class="category-charts-container">
         <div class="search-filter-section">
-            <div class="search-container">
+              <div class="search-container">
                 <i class="fas fa-search"></i>
                 <input type="text" id="searchInput" placeholder="Search by Name or Category">
             </div>
@@ -89,10 +89,16 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <div id="noResultsMessage" class="no-results-message" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h4>No matching students found</h4>
+                <p>Try adjusting your search or filter criteria</p>
+            </div>
             </div>
         </div>
     </div>
 </div>
 
 <script src="/static/assets/mentor/js/mentor-dashboard.js"></script>
+<script src="/static/assets/mentor/js/dashboard.js"></script>
 {% endblock %}
