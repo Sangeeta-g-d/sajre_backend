@@ -243,44 +243,82 @@
         </div>
     </div>
     <script>
-    // Update your existing JavaScript with this
-     const openCardBtn = document.getElementById('openCardBtn');
-const closeCardBtn = document.getElementById('closeCardBtn');
-const modalCard = document.getElementById('modalCard');
-const overlay = document.getElementById('overlay');
-
-// Show modal on hover
-openCardBtn.addEventListener('mouseenter', () => {
-    modalCard.style.display = 'block';
-    overlay.style.display = 'block';
-});
-
-// Hide modal when mouse leaves BOTH li + modal
-openCardBtn.addEventListener('mouseleave', () => {
-    setTimeout(() => {
-        if (!modalCard.matches(':hover')) {
-            modalCard.style.display = 'none';
-            overlay.style.display = 'none';
+    const openCardBtn = document.getElementById('openCardBtn');
+        const closeCardBtn = document.getElementById('closeCardBtn');
+        const modalCard = document.getElementById('modalCard');
+        const overlay = document.getElementById('overlay');
+        
+        // Check if device is touch device (mobile/tablet)
+        function isTouchDevice() {
+            return (('ontouchstart' in window) ||
+                (navigator.maxTouchPoints > 0) ||
+                (navigator.msMaxTouchPoints > 0));
         }
-    }, 200); // small delay so user can move into modal
-});
+        
+        if (isTouchDevice()) {
+            // For touch devices (mobile/tablet) - use click events
+            let modalOpen = false;
+            
+            openCardBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!modalOpen) {
+                    modalCard.style.display = 'block';
+                    overlay.style.display = 'block';
+                    modalOpen = true;
+                }
+            });
+            
+            closeCardBtn.addEventListener('click', () => {
+                modalCard.style.display = 'none';
+                overlay.style.display = 'none';
+                modalOpen = false;
+            });
+            
+            overlay.addEventListener('click', () => {
+                modalCard.style.display = 'none';
+                overlay.style.display = 'none';
+                modalOpen = false;
+            });
+            
+            // Prevent modal close when tapping inside modal
+            modalCard.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+            
+        } else {
+            // For non-touch devices (desktop) - use hover events
+            openCardBtn.addEventListener('mouseenter', () => {
+                modalCard.style.display = 'block';
+                overlay.style.display = 'block';
+            });
+            
+            openCardBtn.addEventListener('mouseleave', () => {
+                setTimeout(() => {
+                    if (!modalCard.matches(':hover')) {
+                        modalCard.style.display = 'none';
+                        overlay.style.display = 'none';
+                    }
+                }, 200);
+            });
+            
+            modalCard.addEventListener('mouseleave', () => {
+                modalCard.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+            
+            // Close button
+            closeCardBtn.addEventListener('click', () => {
+                modalCard.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+            
+            // Overlay click
+            overlay.addEventListener('click', () => {
+                modalCard.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+        }
 
-modalCard.addEventListener('mouseleave', () => {
-    modalCard.style.display = 'none';
-    overlay.style.display = 'none';
-});
-
-// Close button
-closeCardBtn.addEventListener('click', () => {
-    modalCard.style.display = 'none';
-    overlay.style.display = 'none';
-});
-
-// Overlay click
-overlay.addEventListener('click', () => {
-    modalCard.style.display = 'none';
-    overlay.style.display = 'none';
-});
 
 </script>
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
