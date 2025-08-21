@@ -94,6 +94,11 @@
     color: #6c757d;
     margin: 0;
 }
+.stat-card-link {
+  text-decoration: none; /* remove underline */
+  color: inherit;        /* keep text color */
+  display: block;        /* make link act like a block */
+}
         .main-content {
             /* flex: 1;
             padding: 24px;
