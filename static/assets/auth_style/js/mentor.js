@@ -77,55 +77,69 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-   function validateInput(input) {
-    if (input.hasAttribute("required") && !input.value.trim()) {
-        showError(input, "This field is required");
-        return false;
-    }
-
-    // File input validation
-    if (input.type === "file" && input.hasAttribute("required") && input.files.length === 0) {
-        showError(input, "Please upload a file");
-        return false;
-    }
-
-    // Pincode check
-    if (input.id === "pincode" && input.value.trim() && !/^\d{6}$/.test(input.value.trim())) {
-        showError(input, "Enter a valid 6-digit PIN code");
-        return false;
-    }
-
-    // City, District, and State should not contain numbers
-    if (
-        ["city", "district", "state"].includes(input.id) &&
-        /\d/.test(input.value.trim())
-    ) 
-     if (input.id === "totalExperience" && input.value.trim()) {
-        let val = parseFloat(input.value.trim());
-        if (isNaN(val)) {
-            showError(input, "Enter a valid number");
+    function validateInput(input) {
+        if (input.hasAttribute("required") && !input.value.trim()) {
+            showError(input, "This field is required");
             return false;
         }
-        if (val < 0 || val > 999.9) {
-            showError(input, "Value must be between 0 and 999.9");
+
+        // File input validation
+        if (input.type === "file" && input.hasAttribute("required") && input.files.length === 0) {
+            showError(input, "Please upload a file");
             return false;
         }
-    }
 
-    {
-        showError(input, "Only letters are allowed");
-        return false;
-    }
+        // Pincode check
+        if (input.id === "pincode" && input.value.trim() && !/^\d{6}$/.test(input.value.trim())) {
+            showError(input, "Enter a valid 6-digit PIN code");
+            return false;
+        }
 
-    showError(input, "");
-    return true;
-}
+        // City, District, and State should not contain numbers
+        if (["city", "district", "state"].includes(input.id) && /\d/.test(input.value.trim())) {
+            showError(input, "Only letters are allowed");
+            return false;
+        }
+
+        // ✅ Total Experience validation
+        if (input.id === "totalExperience" && input.value.trim()) {
+            let val = parseFloat(input.value.trim());
+            if (isNaN(val)) {
+                showError(input, "Enter a valid number");
+                return false;
+            }
+            if (val < 0 || val > 999.9) {
+                showError(input, "Value must be between 0 and 999.9");
+                return false;
+            }
+            // Round to 1 decimal place
+            input.value = val.toFixed(1);
+        }
+
+        showError(input, "");
+        return true;
+    }
 
     // Real-time validation
     form.querySelectorAll("input, select, textarea").forEach(input => {
         input.addEventListener("blur", () => validateInput(input));
         input.addEventListener("input", () => validateInput(input));
     });
+
+    // Restrict typing for totalExperience field
+    const totalExpInput = document.getElementById("totalExperience");
+    if (totalExpInput) {
+        totalExpInput.addEventListener("input", () => {
+            let val = totalExpInput.value;
+            // Allow only digits and dot
+            val = val.replace(/[^0-9.]/g, "");
+            // Limit to one decimal
+            if ((val.match(/\./g) || []).length > 1) {
+                val = val.substring(0, val.length - 1);
+            }
+            totalExpInput.value = val;
+        });
+    }
 
     // On submit
     form.addEventListener("submit", (e) => {
