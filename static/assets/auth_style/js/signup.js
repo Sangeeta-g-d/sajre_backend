@@ -141,27 +141,31 @@ function validateForm() {
     return true; // All validations passed
 }
 
-// Form submit handler
+// Form submit handler - FIXED VERSION
 document.getElementById("signupForm").addEventListener("submit", function (e) {
     // Prevent default submission to run custom validation first
     e.preventDefault();
 
     if (validateForm()) {
-        // Prevent double click on success
-        if (localStorage.getItem("register_submitted") === "true") {
-            showToast("Add a valid phone number, Refresh to try again", "info");
-        } else {
-            localStorage.setItem("register_submitted", "true");
-            // If all checks pass, submit the form programmatically
+        // Disable submit button to prevent double submissions
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Creating Account...";
+        
+        // If all checks pass, submit the form programmatically
+        setTimeout(() => {
             this.submit();
-        }
+        }, 500);
+        
+        // Re-enable button after 5 seconds in case submission fails
+        setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        }, 5000);
     }
 });
-
-// Reset local storage on page refresh
-if (performance.navigation.type === 1) {
-    localStorage.removeItem("register_submitted");
-}
 
 // Function to toggle password visibility
 function togglePasswordVisibility(inputId, btn) {
