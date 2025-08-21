@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.contrib.auth import update_session_auth_hash
 from auth_app.models import MentorProfile
 from sajre_backend.utils import login_required_nocache 
+from django.db.models import Count, Q
 
 # Create your views here.
 
@@ -248,7 +249,7 @@ def v_terms(request):
 def v_working_on(request):
     return render(request,'v_working_on.html')
 
-@login_required(login_url="/auth/login/")
+@login_required_nocache
 def mentor_list(request):
     # mentors referred by this vendor
     mentors = CustomUser.objects.filter(
@@ -261,6 +262,35 @@ def mentor_list(request):
     }
     return render(request, "mentor_list.html", context)
 
+@login_required_nocache
 def mentor_details(request, mentor_id):
-    mentor = MentorProfile.objects.get(user_id = mentor_id)
-    return render(request, 'mentor_details.html', {'mentor': mentor})
+    print("🔍 mentor_details view called")
+    print(f"➡️ mentor_id from URL: {mentor_id}")
+
+    # ✅ Fetch mentor profile
+    mentor = MentorProfile.objects.get(user_id=mentor_id)
+    print(f"✅ Mentor fetched: {mentor} (User ID: {mentor.user.id}, Email: {mentor.user.email})")
+
+    # ✅ Get all referred users (participants)
+    referred_users = CustomUser.objects.filter(
+        role="participant",
+        referred_by=mentor.user
+    )
+    reg_count = referred_users.count()
+    print(f"👥 Total referred users found: ",reg_count)
+
+    # ✅ Get participant details for referred users
+    referred_participants = Participant.objects.filter(user__in=referred_users)
+    
+    # ✅ Count paid vs unpaid
+    paid_count = referred_participants.filter(has_paid=True).count()
+    unpaid_count = referred_participants.count() - paid_count
+
+    print(f"💰 Paid: {paid_count}, ❌ Unpaid: {unpaid_count}")
+
+    return render(request, "mentor_details.html", {
+        "mentor": mentor,
+        "reg_count": reg_count,
+        "paid_count": paid_count,
+        "unpaid_count": unpaid_count,
+    })

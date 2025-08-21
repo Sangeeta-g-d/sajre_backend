@@ -299,6 +299,8 @@
     font-weight: 600;
     color: #2d3748;
     font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
 }
 
 .card-body {
