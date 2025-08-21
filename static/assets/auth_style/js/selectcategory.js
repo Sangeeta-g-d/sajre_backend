@@ -1,12 +1,12 @@
-
 document.addEventListener("DOMContentLoaded", function() {
     // Initialize Lottie animation
-    new DotLottie({
+    const player = new DotLottiePlayer({
         autoplay: true,
         loop: true,
         canvas: document.getElementById("lottie-canvas"),
         src: "https://lottie.host/c87b4286-78e8-4812-8bea-a5fc104c5b09/jjZcK4GzdO.lottie",
     });
+    player.play();
 
     // Dropdown functionality
     const dropdownBtn = document.getElementById('dropdownBtn');

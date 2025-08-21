@@ -20,3 +20,17 @@ document.querySelectorAll('.form-control').forEach(input => {
         }
     });
 });
+function togglePasswordVisibility(inputId, btn) {
+    const input = document.getElementById(inputId);
+    const eyeIcon = btn.querySelector('.password-eye i');
+    if (input.type === "password") {
+        input.type = "text";
+        eyeIcon.classList.remove('bi-eye');
+        eyeIcon.classList.add('bi-eye-slash');
+    } else {
+        input.type = "password";
+        eyeIcon.classList.remove('bi-eye-slash');
+        eyeIcon.classList.add('bi-eye');
+    }
+}
+window.togglePasswordVisibility = togglePasswordVisibility;

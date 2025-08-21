@@ -392,6 +392,47 @@
         </div>
     </div>
 </div>
+
+<script>
+// Prevent back navigation to login page after authentication
+document.addEventListener('DOMContentLoaded', function() {
+    // Clear the login page from browser history
+    if (window.history && window.history.replaceState) {
+        // Replace the current history entry with the dashboard URL
+        window.history.replaceState(null, null, window.location.href);
+    }
+    
+    // Intercept any attempts to navigate back to login
+    window.addEventListener('popstate', function(event) {
+        // Check if we're trying to go back to a login-related page
+        if (document.referrer && document.referrer.includes('/auth/login')) {
+            // Push the current page again to the history
+            window.history.pushState(null, null, window.location.href);
+            
+            // Show a notification
+            showNotification("You're already logged in. Cannot return to login page.");
+        }
+    });
+});
+
+// Function to show notification
+function showNotification(message) {
+    if (typeof Toastify !== 'undefined') {
+        Toastify({
+            text: message,
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            stopOnFocus: true,
+        }).showToast();
+    } else {
+        // Fallback to console log if Toastify not available
+        console.log(message);
+    }
+}
+</script>
 <script src="/static/assets/mentor/js/dashboard.js"></script>
 <script src="/static/assets/mentor/js/mentor-dashboard.js"></script>
 {% endblock %}

@@ -6,6 +6,8 @@ from datetime import datetime
 from admin_part.models import RoundSchedule,CompetitionCategory,Participant,ParticipantPayment,Level,Round
 from django.http import JsonResponse
 import json
+from sajre_backend.utils import login_required_nocache 
+
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.db.models import F
@@ -17,7 +19,7 @@ import razorpay
 from django.conf import settings
 # Create your views here.
 
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def dashboard(request):
     try:
         profile = ParticipantProfile.objects.get(user=request.user)
@@ -64,7 +66,7 @@ def dashboard(request):
         "can_submit_art": can_submit_art
     })
 
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def terms(request):
     if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         try:
@@ -250,7 +252,7 @@ def update_terms_status(request):
         }, status=500)
 
 
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def create_razorpay_order(request):
     if request.method == "POST":
         amount = request.POST.get("amount")   # comes from frontend (₹ in paisa)
@@ -269,7 +271,7 @@ def create_razorpay_order(request):
     return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)
 
 
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def profile(request):
     try:
         profile = ParticipantProfile.objects.get(user=request.user)
@@ -316,7 +318,7 @@ def profile(request):
         return JsonResponse(context)
     return render(request, 'profile.html', context)
 
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def update_profile_photo(request):
     if request.method == "POST":
         try:
@@ -332,7 +334,7 @@ def update_profile_photo(request):
     return redirect("profile")
 
 
-@login_required(login_url='/auth/login/')
+@login_required_nocache
 def change_password(request):
     if request.method == "POST":
         new_password = request.POST.get("new-password")

@@ -57,6 +57,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'sajre_backend.urls'
 
+CSRF_FAILURE_VIEW = 'auth_app.views.csrf_failure'
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
