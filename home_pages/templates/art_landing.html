@@ -1,5 +1,6 @@
 {% extends 'art.html' %}
 {% block content %}
+{% load static %}
 <title>National Art Summit 2025 – Sajre Edutech | 11 Levels • ₹3L+ Prizes • Scholarships</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Join the National Art Summit 2025 by Sajre Edutech — a 3-round, 11-level creative competition for ages 9–35. Win cash prizes totaling ₹3,00,000+, earn up to ₹5,000/month scholarships, and gain national recognition and growth opportunities.">
@@ -620,7 +621,7 @@
 <div class="container">
     <div class="row  mt-5">
         <div class="col-md-6 ">
-            <img src="/static/assets/home_part/image/Competation.gif" class="img-fluid rounded shadow"
+            <img src="{% static 'assets/home_part/image/Competation.gif' %}" class="img-fluid rounded shadow"
                 style="max-height: 330px;width: 500px;" autoplay muted loop playsinline></img>
         </div>
         <div class="col-md-6">
