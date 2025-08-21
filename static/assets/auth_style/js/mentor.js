@@ -99,7 +99,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (
         ["city", "district", "state"].includes(input.id) &&
         /\d/.test(input.value.trim())
-    ) {
+    ) 
+     if (input.id === "totalExperience" && input.value.trim()) {
+        let val = parseFloat(input.value.trim());
+        if (isNaN(val)) {
+            showError(input, "Enter a valid number");
+            return false;
+        }
+        if (val < 0 || val > 999.9) {
+            showError(input, "Value must be between 0 and 999.9");
+            return false;
+        }
+    }
+
+    {
         showError(input, "Only letters are allowed");
         return false;
     }
