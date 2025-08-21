@@ -140,7 +140,7 @@
         }
     }
 </style>
-
+<div class="sidebar-overlay"></div>
 <style>
     /* Replace the existing modal-card styles with these */
   .overlay {
@@ -189,16 +189,7 @@
             justify-content: center;
         }
         
-        .nav-item {
-            padding: 12px 15px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            border-radius: 6px;
-            font-weight: 500;
-            color: #555;
-            transition: all 0.3s ease;
-             font-family: Poppins;
-        }
+       
         
         .nav-item.active {
             background-color: #e8f5e9;
@@ -305,6 +296,9 @@
                 width: 100%;
                 height: 150px;
             }
+            .contact_root{
+                padding-top: 100px;
+            }
         }
 
     /* Keep your existing overlay and close button styles */
@@ -336,52 +330,90 @@
         </div>
     </div>
     <script>
-    // Update your existing JavaScript with this
-     const openCardBtn = document.getElementById('openCardBtn');
-const closeCardBtn = document.getElementById('closeCardBtn');
-const modalCard = document.getElementById('modalCard');
-const overlay = document.getElementById('overlay');
-
-// Show modal on hover
-openCardBtn.addEventListener('mouseenter', () => {
-    modalCard.style.display = 'block';
-    overlay.style.display = 'block';
-});
-
-// Hide modal when mouse leaves BOTH li + modal
-openCardBtn.addEventListener('mouseleave', () => {
-    setTimeout(() => {
-        if (!modalCard.matches(':hover')) {
-            modalCard.style.display = 'none';
-            overlay.style.display = 'none';
+    const openCardBtn = document.getElementById('openCardBtn');
+        const closeCardBtn = document.getElementById('closeCardBtn');
+        const modalCard = document.getElementById('modalCard');
+        const overlay = document.getElementById('overlay');
+        
+        // Check if device is touch device (mobile/tablet)
+        function isTouchDevice() {
+            return (('ontouchstart' in window) ||
+                (navigator.maxTouchPoints > 0) ||
+                (navigator.msMaxTouchPoints > 0));
         }
-    }, 200); // small delay so user can move into modal
-});
+        
+        if (isTouchDevice()) {
+            // For touch devices (mobile/tablet) - use click events
+            let modalOpen = false;
+            
+            openCardBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!modalOpen) {
+                    modalCard.style.display = 'block';
+                    overlay.style.display = 'block';
+                    modalOpen = true;
+                }
+            });
+            
+            closeCardBtn.addEventListener('click', () => {
+                modalCard.style.display = 'none';
+                overlay.style.display = 'none';
+                modalOpen = false;
+            });
+            
+            overlay.addEventListener('click', () => {
+                modalCard.style.display = 'none';
+                overlay.style.display = 'none';
+                modalOpen = false;
+            });
+            
+            // Prevent modal close when tapping inside modal
+            modalCard.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+            
+        } else {
+            // For non-touch devices (desktop) - use hover events
+            openCardBtn.addEventListener('mouseenter', () => {
+                modalCard.style.display = 'block';
+                overlay.style.display = 'block';
+            });
+            
+            openCardBtn.addEventListener('mouseleave', () => {
+                setTimeout(() => {
+                    if (!modalCard.matches(':hover')) {
+                        modalCard.style.display = 'none';
+                        overlay.style.display = 'none';
+                    }
+                }, 200);
+            });
+            
+            modalCard.addEventListener('mouseleave', () => {
+                modalCard.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+            
+            // Close button
+            closeCardBtn.addEventListener('click', () => {
+                modalCard.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+            
+            // Overlay click
+            overlay.addEventListener('click', () => {
+                modalCard.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+        }
 
-modalCard.addEventListener('mouseleave', () => {
-    modalCard.style.display = 'none';
-    overlay.style.display = 'none';
-});
-
-// Close button
-closeCardBtn.addEventListener('click', () => {
-    modalCard.style.display = 'none';
-    overlay.style.display = 'none';
-});
-
-// Overlay click
-overlay.addEventListener('click', () => {
-    modalCard.style.display = 'none';
-    overlay.style.display = 'none';
-});
 
 </script>
 
-<link rel="stylesheet" href="/static/assets/home_part/css/contact.css">
+<!-- <link rel="stylesheet" href="/static/assets/home_part/css/contact.css"> -->
 
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<div class="sidebar-overlay"></div>
-
+<div class="contact_root">
 
 <div class="container my-5">
     <div class="row ">
@@ -518,6 +550,7 @@ overlay.addEventListener('click', () => {
             </div>
         </div>
     </div>
+</div>
 </div>
 
 
