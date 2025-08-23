@@ -3,7 +3,7 @@ from auth_app.models import CustomUser,MentorProfile
 from . models import *
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
+from django.db.models import Count
 from django.views.decorators.http import require_POST
 from django.utils.dateparse import parse_date
 
@@ -399,3 +399,19 @@ def edit_level(request, level_id):
         except Level.DoesNotExist:
             return JsonResponse({"status": "error", "message": "Level not found"})
     return JsonResponse({"status": "error", "message": "Invalid request"})
+
+def view_faq(request):
+    faq_counts = FAQ.objects.values("role_type").annotate(count=Count("id"))
+    faq_data = {item["role_type"]: item["count"] for item in faq_counts}
+    roles = [
+        ("vendor", "Vendor"),
+        ("mentor", "Mentor"),
+        ("participant", "Participant"),
+        ("Jury", "Jury"),
+        ("general", "General"),
+    ]
+    context = {
+        "roles": roles,
+        "faq_data": faq_data
+    }
+    return render(request,'view_faq.html',context)

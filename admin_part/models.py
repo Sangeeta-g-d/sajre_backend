@@ -114,3 +114,22 @@ class RoundSchedule(models.Model):
 
     def __str__(self):
         return f"{self.round} - {self.date} ({self.start_time} to {self.end_time})"
+
+
+
+class FAQ(models.Model):
+    ROLE_CHOICES = [
+        ("vendor", "Vendor"),
+        ("mentor", "Mentor"),
+        ("participant", "Participant"),
+        ("Jury", "jury"),
+        ("general", "General"),  
+    ]
+
+    question = models.CharField(max_length=255)
+    answer = models.TextField()
+    role_type = models.CharField(max_length=20, choices=ROLE_CHOICES, default="general")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.role_type} - {self.question[:50]}"

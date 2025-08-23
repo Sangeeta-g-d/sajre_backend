@@ -136,6 +136,12 @@
         <p>Competition Category List</p>
     </a>
 </li>
+<li class="nav-item {% if request.resolver_match.url_name == 'view_faq' %}active{% endif %}">
+    <a href="{% url 'view_faq' %}">
+        <i class="fas fa-users"></i>
+        <p>FAQ's</p>
+    </a>
+</li>
               <li class="nav-item">
                 <a href="../../documentation/index.html">
                   <i class="fas fa-file"></i>

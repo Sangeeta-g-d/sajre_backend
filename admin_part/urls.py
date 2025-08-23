@@ -27,5 +27,8 @@ urlpatterns = [
     path("update-last-date/", views.update_last_date, name="update_last_date"),
     path("edit_level/<int:level_id>/", views.edit_level, name="edit_level"),
 
+    # FAQ
+    path('view_faq/',views.view_faq,name="view_faq"),
+
 
 ]

@@ -1,0 +1,23 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+<div class="container">
+    <div class="page-inner">
+        <h3 class="mb-4">FAQ Dashboard</h3>
+        <div class="row">
+            {% for role, role_label in roles %}
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-3">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ role_label }}</h5>
+                        <p class="card-text">
+                            {{ faq_data|get_item:role|default:0 }} FAQs
+                        </p>
+                        <a href="{% url 'faq_list_by_role' role %}" class="btn btn-primary btn-sm">View FAQs</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
