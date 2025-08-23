@@ -243,7 +243,7 @@ position: relative;
 }
 section#view_event_section .hm_view_event_slider img {
     width: 100%;
-    height: 380px;
+    height: 480px;
     object-fit: cover;
     border-radius: 30px;
 }
