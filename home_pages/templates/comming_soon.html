@@ -1,9 +1,25 @@
 {% extends 'art.html' %}
 {% block content %}
+<style>
+    .content-image{
+        max-width: 65%;
+        height: auto;
+        margin-top:-50px;
+    }
+
+    @media (max-width: 768px) {
+           .time-image{
+        display: none;
+    }
+    .content-image{
+        margin-top:30%;
+    }
+}
+</style>
 <div class="container my-5">
     <div class="row">
         <div class="col-md-12 text-center">
-            <img src="/static/assets/home_part/image/contact.png" alt="Get in Touch"style="max-width: 65%; height: auto;margin-top:-50px;">
+            <img class="content-image" src="/static/assets/home_part/image/contact.png" alt="Get in Touch">
         </div>
     </div>
 </div>
