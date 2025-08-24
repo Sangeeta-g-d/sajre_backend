@@ -156,7 +156,6 @@ def edit_vendor_profile(request):
     }
     return render(request, "edit_vendor_profile.html", context)
 
-
 @login_required_nocache
 def create_vendor_profile(request):
     """
@@ -166,6 +165,11 @@ def create_vendor_profile(request):
 
     if request.method == "POST":
         try:
+            # Handle empty values for decimal field
+            total_experience_years = request.POST.get("total_experience_years")
+            if total_experience_years == '':
+                total_experience_years = None
+            
             vendor_profile = MentorProfile.objects.create(
                 user=user,
                 higher_qualification=request.POST.get("higher_qualification"),
@@ -176,7 +180,7 @@ def create_vendor_profile(request):
                 pincode=request.POST.get("pincode"),
                 store_or_advisor=request.POST.get("store_or_advisor"),
                 job_title=request.POST.get("job_title"),
-                total_experience_years=request.POST.get("total_experience_years"),
+                total_experience_years=total_experience_years,  # Use the processed value
                 current_employer=request.POST.get("current_employer"),
                 location=request.POST.get("location"),
                 work_history=request.POST.get("work_history"),

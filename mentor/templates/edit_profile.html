@@ -1,6 +1,39 @@
 {% extends 'mentor_sidebar.html' %}
 {% block content %}
 <link rel="stylesheet" href="/static/assets/mentor/css/edit-profile.css">
+<style>
+    .error-message {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        display: none;
+    }
+
+    .is-invalid {
+        border-color: #dc3545 !important;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+        position: relative;
+    }
+
+    .file-name {
+        margin-top: 0.25rem;
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+
+    .file-upload {
+        position: relative;
+    }
+
+    .current-file {
+        margin-top: 0.25rem;
+        font-size: 0.875rem;
+        color: #28a745;
+    }
+</style>
 <div class="container-fluid">
     <div class="main-content">
         <div class="header">
@@ -18,16 +51,18 @@
                 </div>
             </div>
             
-            <form class="password-form" method="post" action="" enctype="multipart/form-data">
+            <form id="mentorRegistrationForm" class="password-form" method="post" action="" enctype="multipart/form-data">
                 {% csrf_token %}
+                <input type="hidden" id="dashboardUrl" value="{% url 'mentor_dashboard' %}">
                 
                 <!-- Personal Information Section -->
                 <h5 class="section-title">Personal Information</h5>
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label for="full_name">Full Name</label>
-                        <input type="text" id="full_name" name="full_name" class="form-control" 
+                        <input type="text" id="full_name" name="full_name" class="form-control text-only" 
                                value="{{ user.full_name }}" placeholder="Full Name" required>
+                        <div class="error-message"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="email">Email</label>
@@ -41,6 +76,7 @@
                         <label for="phone_number">Phone Number</label>
                         <input type="text" id="phone_number" name="phone_number" class="form-control" 
                                value="{{ user.phone_number }}" placeholder="Phone Number">
+                        <div class="error-message"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="higher_qualification">Highest Qualification</label>
@@ -51,6 +87,7 @@
                             </option>
                             {% endfor %}
                         </select>
+                        <div class="error-message"></div>
                     </div>
                 </div>
                 
@@ -61,37 +98,43 @@
                         <label for="full_address">Full Address</label>
                         <textarea id="full_address" name="full_address" class="form-control" 
                                   placeholder="Full Address" required>{{ mentor_profile.full_address }}</textarea>
+                        <div class="error-message"></div>
                     </div>
                 </div>
                 
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label for="city">City</label>
-                        <input type="text" id="city" name="city" class="form-control" 
+                        <input type="text" id="city" name="city" class="form-control text-only" 
                                value="{{ mentor_profile.city }}" placeholder="City" required>
+                        <div class="error-message"></div>
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="district">District</label>
-                        <input type="text" id="district" name="district" class="form-control" 
+                        <input type="text" id="district" name="district" class="form-control text-only" 
                                value="{{ mentor_profile.district }}" placeholder="District" required>
+                        <div class="error-message"></div>
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="state">State</label>
-                        <input type="text" id="state" name="state" class="form-control" 
+                        <input type="text" id="state" name="state" class="form-control text-only" 
                                value="{{ mentor_profile.state }}" placeholder="State" required>
+                        <div class="error-message"></div>
                     </div>
                 </div>
                 
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label for="pincode">PIN Code</label>
-                        <input type="text" id="pincode" name="pincode" class="form-control" 
+                        <input type="number" id="pincode" name="pincode" class="form-control" 
                                value="{{ mentor_profile.pincode }}" placeholder="PIN Code" required>
+                        <div class="error-message"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="store_or_advisor">Store/Advisor (Optional)</label>
-                        <input type="text" id="store_or_advisor" name="store_or_advisor" class="form-control" 
+                        <input type="text" id="store_or_advisor" name="store_or_advisor" class="form-control text-only" 
                                value="{{ mentor_profile.store_or_advisor }}" placeholder="Store/Advisor">
+                        <div class="error-message"></div>
                     </div>
                 </div>
                 
@@ -100,27 +143,31 @@
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label for="job_title">Job Title</label>
-                        <input type="text" id="job_title" name="job_title" class="form-control" 
+                        <input type="text" id="job_title" name="job_title" class="form-control text-only" 
                                value="{{ mentor_profile.job_title }}" placeholder="Job Title">
+                        <div class="error-message"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="total_experience_years">Total Experience (Years)</label>
                         <input type="number" step="0.1" id="total_experience_years" name="total_experience_years" 
                                class="form-control" value="{{ mentor_profile.total_experience_years }}" 
                                placeholder="Total Experience">
+                        <div class="error-message"></div>
                     </div>
                 </div>
                 
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label for="current_employer">Current Employer</label>
-                        <input type="text" id="current_employer" name="current_employer" class="form-control" 
+                        <input type="text" id="current_employer" name="current_employer" class="form-control text-only" 
                                value="{{ mentor_profile.current_employer }}" placeholder="Current Employer">
+                        <div class="error-message"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="location">Location</label>
-                        <input type="text" id="location" name="location" class="form-control" 
+                        <input type="text" id="location" name="location" class="form-control text-only" 
                                value="{{ mentor_profile.location }}" placeholder="Location">
+                        <div class="error-message"></div>
                     </div>
                 </div>
                 
@@ -129,6 +176,7 @@
                         <label for="work_history">Work History</label>
                         <textarea id="work_history" name="work_history" class="form-control" 
                                   placeholder="Describe your work history">{{ mentor_profile.work_history }}</textarea>
+                        <div class="error-message"></div>
                     </div>
                 </div>
                 
@@ -137,32 +185,38 @@
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label for="course_level">Course Level</label>
-                        <input type="text" id="course_level" name="course_level" class="form-control" 
+                        <input type="text" id="course_level" name="course_level" class="form-control text-only" 
                                value="{{ mentor_profile.course_level }}" placeholder="Course Level">
+                        <div class="error-message"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="course_name">Course Name</label>
-                        <input type="text" id="course_name" name="course_name" class="form-control" 
+                        <input type="text" id="course_name" name="course_name" class="form-control text-only" 
                                value="{{ mentor_profile.course_name }}" placeholder="Course Name">
+                        <div class="error-message"></div>
                     </div>
                 </div>
                 
                 <!-- Document Uploads -->
                 <h5 class="section-title">Documents</h5>
                 <div class="row">
-                    <div class="col-md-6 form-group">
+                    <div class="col-md-6 form-group file-upload">
                         <label for="passport_photo">Passport Photo</label>
-                        <input type="file" id="passport_photo" name="passport_photo" class="form-control">
+                        <input type="file" id="passport_photo" name="passport_photo" class="form-control file-input">
+                        <div class="file-name">No new file selected</div>
                         {% if mentor_profile.passport_photo %}
-                        <small>Current: <a href="{{ mentor_profile.passport_photo.url }}" target="_blank">View Photo</a></small>
+                        <div class="current-file">Current: <a href="{{ mentor_profile.passport_photo.url }}" target="_blank">View Photo</a></div>
                         {% endif %}
+                        <div class="error-message"></div>
                     </div>
-                    <div class="col-md-6 form-group">
+                    <div class="col-md-6 form-group file-upload">
                         <label for="id_proof">ID Proof</label>
-                        <input type="file" id="id_proof" name="id_proof" class="form-control">
+                        <input type="file" id="id_proof" name="id_proof" class="form-control file-input">
+                        <div class="file-name">No new file selected</div>
                         {% if mentor_profile.id_proof %}
-                        <small>Current: <a href="{{ mentor_profile.id_proof.url }}" target="_blank">View ID Proof</a></small>
+                        <div class="current-file">Current: <a href="{{ mentor_profile.id_proof.url }}" target="_blank">View ID Proof</a></div>
                         {% endif %}
+                        <div class="error-message"></div>
                     </div>
                 </div>
                 
@@ -177,76 +231,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script src="/static/assets/mentor/js/profile-validation.js"></script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('.password-form');
-    
-    form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(form);
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalBtnText = submitBtn.textContent;
-        
-        try {
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Updating...';
-            
-            const response = await fetch('', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value
-                }
-            });
-            
-            const data = await response.json();
-            
-           if (response.ok) {
-    Toastify({
-        text: data.message,
-        duration: 3000,
-        close: true,
-        gravity: "top",
-        position: "right",
-        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-        stopOnFocus: true
-    }).showToast();
 
-    // Redirect after 3 seconds (matches toast duration)
-    setTimeout(function () {
-        window.location.href = "/mentor/mentor_dashboard/";
-    }, 3000);
-
-} else {
-    throw new Error(data.message);
-}
-
-        } catch (error) {
-            Toastify({
-                text: error.message,
-                duration: 3000,
-                close: true,
-                gravity: "top",
-                position: "right",
-                backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
-                stopOnFocus: true
-            }).showToast();
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalBtnText;
-        }
-    });
-    
-    // Handle cancel button
-    const cancelBtn = document.querySelector('.btn-cancel');
-    if (cancelBtn) {
-        cancelBtn.addEventListener('click', function() {
-            window.location.href = "{% url 'mentor_dashboard' %}";
-        });
-    }
-});
-</script>
 {% endblock %}
