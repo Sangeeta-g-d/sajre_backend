@@ -43,6 +43,7 @@
     }
 
     .reference_frd {
+        z-index: 10000;
         background-color: #000000;
         border: none;
         border-radius: 40px;
