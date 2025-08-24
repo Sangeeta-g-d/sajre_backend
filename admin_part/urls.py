@@ -24,11 +24,14 @@ urlpatterns = [
     path('level_info/<int:level_id>/', views.level_info, name='level_info'),
     path("add-round/", views.add_round, name="add_round"),
     path("add-or-update-schedule/", views.add_or_update_schedule, name="add_or_update_schedule"),
-    path("update-last-date/", views.update_last_date, name="update_last_date"),
+    # path("update-last-date/", views.update_last_date, name="update_last_date"),
     path("edit_level/<int:level_id>/", views.edit_level, name="edit_level"),
 
     # FAQ
     path('view_faq/',views.view_faq,name="view_faq"),
+    path("add_faq/", views.add_faq, name="add_faq"),
+    path("faqs/<str:role>/", views.view_faqs_by_role, name="view_faqs_by_role"),   
+    path("delete_faq/<int:faq_id>/", views.delete_faq, name="delete_faq"),
 
 
 ]

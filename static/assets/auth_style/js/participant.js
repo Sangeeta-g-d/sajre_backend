@@ -8,9 +8,10 @@ new DotLottie({
     src: "https://lottie.host/1197e7ab-7b58-48f7-86e9-6706d1dc8756/ly3NSmJS9W.lottie",
 });
 
-
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form");
+    const MAX_PHOTO_SIZE = 2 * 1024 * 1024; // 2MB for photos
+    const MAX_ID_PROOF_SIZE = 5 * 1024 * 1024; // 5MB for ID proof
 
     // Create error containers for all inputs/selects/textareas
     form.querySelectorAll("input, select, textarea").forEach(input => {
@@ -22,46 +23,70 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Validation rules (college fields omitted - optional)
-   const validators = {
-    // Personal details
-    fatherName: value => /^[A-Za-z\s]+$/.test(value) || "Father's name should contain only letters",
-    motherName: value => /^[A-Za-z\s]+$/.test(value) || "Mother's name should contain only letters",
-    dob: value => {
-        if (!value.trim()) return "Date of Birth is required";
+    const validators = {
+        // Personal details
+        fatherName: value => /^[A-Za-z\s]+$/.test(value) || "Father's name should contain only letters",
+        motherName: value => /^[A-Za-z\s]+$/.test(value) || "Mother's name should contain only letters",
+        dob: value => {
+            if (!value.trim()) return "Date of Birth is required";
+            
+            const dob = new Date(value);
+            const today = new Date();
+            let age = today.getFullYear() - dob.getFullYear();
+            const monthDiff = today.getMonth() - dob.getMonth();
+            
+            // Adjust age if birthday hasn't occurred yet this year
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+            
+            return age >= 9 || "You must be at least 9 years old to register";
+        },
+        fullAddress: value => value.trim().length >= 5 || "Address should be at least 5 characters",
+        streetAddress: value => value.trim().length >= 3 || "Street address should be at least 3 characters",
+        city: value => /^[A-Za-z\s]+$/.test(value) || "City should contain only letters",
+        district: value => /^[A-Za-z\s]+$/.test(value) || "District should contain only letters",
+        state: value => /^[A-Za-z\s]+$/.test(value) || "State should contain only letters",
+        pincode: value => /^\d{6}$/.test(value) || "Pincode must be exactly 6 digits",
         
-        const dob = new Date(value);
-        const today = new Date();
-        let age = today.getFullYear() - dob.getFullYear();
-        const monthDiff = today.getMonth() - dob.getMonth();
-        
-        // Adjust age if birthday hasn't occurred yet this year
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
-            age--;
-        }
-        
-        return age >= 9 || "You must be at least 9 years old to register";
-    },
-    fullAddress: value => value.trim().length >= 5 || "Address should be at least 5 characters",
-    streetAddress: value => value.trim().length >= 3 || "Street address should be at least 3 characters",
-    city: value => /^[A-Za-z\s]+$/.test(value) || "City should contain only letters",
-    district: value => /^[A-Za-z\s]+$/.test(value) || "District should contain only letters",
-    state: value => /^[A-Za-z\s]+$/.test(value) || "State should contain only letters",
-    pincode: value => /^\d{6}$/.test(value) || "Pincode must be exactly 6 digits",
-    dobProof: value => value !== "" || "Please upload a proof of DOB",
-    photoUpload: value => value !== "" || "Please upload a photo",
+        // File upload validators with size check
+        dobProof: value => {
+            if (!value) return "Please upload a proof of DOB";
+            
+            const fileInput = document.getElementById('dobProof');
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                if (file.size > MAX_ID_PROOF_SIZE) {
+                    return "ID proof file size must be less than 5MB";
+                }
+            }
+            return true;
+        },
+        photoUpload: value => {
+            if (!value) return "Please upload a photo";
+            
+            const fileInput = document.getElementById('photoUpload');
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                if (file.size > MAX_PHOTO_SIZE) {
+                    return "Photo file size must be less than 2MB";
+                }
+            }
+            return true;
+        },
 
-    // School - required
-    schoolName: value => value.trim().length >= 2 || "School name is required",
-    schoolBoard: value => value.trim() !== "" || "Please select a board",
-    schoolLocation: value => value.trim().length >= 2 || "School location is required",
+        // School - required
+        schoolName: value => value.trim().length >= 2 || "School name is required",
+        schoolBoard: value => value.trim() !== "" || "Please select a board",
+        schoolLocation: value => value.trim().length >= 2 || "School location is required",
 
-    // College - optional (validate only if filled)
-    courseName: value => value.trim() === "" || value.trim().length >= 2 || "Course name must be at least 2 characters",
-    university: value => value.trim() === "" || value.trim().length >= 2 || "University is too short",
-    universityName: value => value.trim() === "" || value.trim().length >= 2 || "University name is too short",
-    academicYear: value => value.trim() === "" || /^[0-9]+(st|nd|rd|th)\sYear$/i.test(value) || "Format example: '1st Year'",
-    stream: value => value.trim() === "" || value.trim().length >= 2 || "Stream must be at least 2 characters"
-};
+        // College - optional (validate only if filled)
+        courseName: value => value.trim() === "" || value.trim().length >= 2 || "Course name must be at least 2 characters",
+        university: value => value.trim() === "" || value.trim().length >= 2 || "University is too short",
+        universityName: value => value.trim() === "" || value.trim().length >= 2 || "University name is too short",
+        academicYear: value => value.trim() === "" || /^[0-9]+(st|nd|rd|th)\sYear$/i.test(value) || "Format example: '1st Year'",
+        stream: value => value.trim() === "" || value.trim().length >= 2 || "Stream must be at least 2 characters"
+    };
 
     function showError(input, message) {
         let errorDiv = input.parentElement.querySelector(".error-message");
@@ -129,15 +154,21 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!valid) e.preventDefault();
     });
 
-    // File upload display
+    // File upload display with size validation
     document.getElementById('dobProof').addEventListener('change', function (e) {
         const fileName = e.target.files[0] ? e.target.files[0].name : 'No file uploaded';
         this.parentElement.querySelector('.file-name').textContent = fileName;
+        
+        // Validate file size immediately after selection
+        validateField(this);
     });
 
     document.getElementById('photoUpload').addEventListener('change', function (e) {
         const fileName = e.target.files[0] ? e.target.files[0].name : 'No file uploaded';
         this.parentElement.querySelector('.file-name').textContent = fileName;
+        
+        // Validate file size immediately after selection
+        validateField(this);
     });
 
     // Floating labels

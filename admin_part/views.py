@@ -337,34 +337,34 @@ def add_or_update_schedule(request):
         return JsonResponse({"success": False, "error": str(e)})
 
 
-@csrf_exempt
-def update_last_date(request):
-    if request.method == "POST":
-        round_id = request.POST.get("round_id")
-        start_date_str = request.POST.get("registration_start_date")
-        registration_end_date = request.POST.get("registration_end_date")
+# @csrf_exempt
+# def update_last_date(request):
+#     if request.method == "POST":
+#         round_id = request.POST.get("round_id")
+#         start_date_str = request.POST.get("registration_start_date")
+#         registration_end_date = request.POST.get("registration_end_date")
 
-        try:
-            round_obj = Round.objects.get(id=round_id)
-            last_date = parse_date(date_str)
+#         try:
+#             round_obj = Round.objects.get(id=round_id)
+#             last_date = parse_date(date_str)
 
-            if not last_date:
-                return JsonResponse({"success": False, "error": "Invalid date format"})
+#             if not last_date:
+#                 return JsonResponse({"success": False, "error": "Invalid date format"})
 
-            # Prevent past dates
-            from datetime import date as dt_date
-            if last_date < dt_date.today():
-                return JsonResponse({"success": False, "error": "Cannot set past date."})
+#             # Prevent past dates
+#             from datetime import date as dt_date
+#             if last_date < dt_date.today():
+#                 return JsonResponse({"success": False, "error": "Cannot set past date."})
 
-            round_obj.last_registration_date = last_date
-            round_obj.save()
+#             round_obj.last_registration_date = last_date
+#             round_obj.save()
 
-            return JsonResponse({"success": True, "message": "Last registration date updated successfully!"})
+#             return JsonResponse({"success": True, "message": "Last registration date updated successfully!"})
 
-        except Round.DoesNotExist:
-            return JsonResponse({"success": False, "error": "Round not found."})
+#         except Round.DoesNotExist:
+#             return JsonResponse({"success": False, "error": "Round not found."})
 
-    return JsonResponse({"success": False, "error": "Invalid request"})
+#     return JsonResponse({"success": False, "error": "Invalid request"})
 
 @csrf_exempt
 def edit_level(request, level_id):
@@ -403,15 +403,70 @@ def edit_level(request, level_id):
 def view_faq(request):
     faq_counts = FAQ.objects.values("role_type").annotate(count=Count("id"))
     faq_data = {item["role_type"]: item["count"] for item in faq_counts}
+
     roles = [
         ("vendor", "Vendor"),
         ("mentor", "Mentor"),
         ("participant", "Participant"),
-        ("Jury", "Jury"),
+        ("jury", "Jury"),   # lowercase for consistency
         ("general", "General"),
     ]
+
+    # Build role list with counts
+    roles_with_counts = [(role, label, faq_data.get(role, 0)) for role, label in roles]
+
     context = {
-        "roles": roles,
-        "faq_data": faq_data
+        "roles_with_counts": roles_with_counts,
+        "faq_role_choices": FAQ.ROLE_CHOICES,
     }
-    return render(request,'view_faq.html',context)
+    return render(request, "view_faq.html", context)
+
+
+
+def add_faq(request):
+    if request.method == "POST" and request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        question = request.POST.get("question")
+        answer = request.POST.get("answer")
+        role_type = request.POST.get("role_type")
+
+        if not question or not answer or not role_type:
+            return JsonResponse({"error": "All fields are required"}, status=400)
+
+        faq = FAQ.objects.create(
+            question=question,
+            answer=answer,
+            role_type=role_type
+        )
+
+        # ✅ Get updated count for this role
+        new_count = FAQ.objects.filter(role_type=role_type).count()
+
+        return JsonResponse({
+            "message": "FAQ added successfully",
+            "role_type": role_type,
+            "new_count": new_count
+        })
+
+    return JsonResponse({"error": "Invalid request"}, status=400)
+
+
+def view_faqs_by_role(request, role):
+    role_label = dict(FAQ.ROLE_CHOICES).get(role, "FAQs")  # Get display name
+    faqs = FAQ.objects.filter(role_type=role).order_by("-created_at")
+
+    context = {
+        "role": role,
+        "role_label": role_label,
+        "faqs": faqs,
+    }
+    return render(request, "view_faqs_by_role.html", context)
+
+
+@require_POST
+def delete_faq(request, faq_id):
+    try:
+        faq = FAQ.objects.get(id=faq_id)
+        faq.delete()
+        return JsonResponse({"success": True, "message": "FAQ deleted successfully"})
+    except FAQ.DoesNotExist:
+        return JsonResponse({"success": False, "message": "FAQ not found"}, status=404)
