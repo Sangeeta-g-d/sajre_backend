@@ -4,7 +4,9 @@ from auth_app.models import ParticipantProfile
 from django.utils import timezone
 from django.db.models import Q 
 from datetime import datetime
-
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from admin_part.models import TutorInquiry
 # Create your views here.
 
 
@@ -93,6 +95,25 @@ def about_us(request):
 
 def index(request):
     return render(request,'index.html')
+
+@csrf_exempt
+def submit_tutor_form(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        phone = request.POST.get("phone")
+        skills = request.POST.get("skills")
+
+        TutorInquiry.objects.create(
+            name=name,
+            email=email,
+            phone=phone,
+            skills=skills
+        )
+
+        return JsonResponse({"status": "success", "message": "Form submitted successfully!"})
+    return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)
+
 
 def comming_soon(request):
     return render(request,'comming_soon.html')

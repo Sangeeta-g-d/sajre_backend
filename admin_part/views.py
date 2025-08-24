@@ -6,6 +6,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Count
 from django.views.decorators.http import require_POST
 from django.utils.dateparse import parse_date
+from django.db.models import Max
+from django.utils import timezone
+import pytz
 
 # Create your views here.
 
@@ -474,10 +477,62 @@ def delete_faq(request, faq_id):
 
 def enrolled_list(request, level_id):
     level = get_object_or_404(Level, id=level_id)
-    participants = Participant.objects.filter(level=level)
+    participants = Participant.objects.filter(level=level).select_related("user", "category")
+
+    # Convert to IST
+    ist = pytz.timezone("Asia/Kolkata")
+
+    for p in participants:
+        latest_payment = ParticipantPayment.objects.filter(
+            participant=p, status="paid"
+        ).order_by("-payment_date").first()
+
+        p.latest_payment_date = (
+            timezone.localtime(latest_payment.payment_date, ist)
+            if latest_payment and latest_payment.payment_date else None
+        )
 
     context = {
         "level": level,
         "participants": participants,
     }
     return render(request, "enrolled_list.html", context)
+
+
+def participant_detail(request, participant_id):
+    user = get_object_or_404(CustomUser, id=participant_id, role="participant")
+    profile = getattr(user, "participant_profile", None)
+
+    context = {
+        "user": user,
+        "profile": profile,
+    }
+    return render(request, "participant_detail.html", context)
+
+def tutor_enquiries(request):
+    enquiries = TutorInquiry.objects.all().order_by("-submitted_at")
+    return render(request, "tutor_enquiries.html", {"enquiries": enquiries})
+
+def add_course(request):
+    if request.method == "POST" and request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        name = request.POST.get("name")
+        subtitle = request.POST.get("subtitle")
+        image = request.FILES.get("image")
+
+        errors = []
+        if not name:
+            errors.append("Course name is required.")
+        if not subtitle:
+            errors.append("Course subtitle is required.")
+
+        if errors:
+            return JsonResponse({"status": "error", "errors": errors})
+
+        Course.objects.create(
+            name=name,
+            subtitle=subtitle,
+            image=image
+        )
+        return JsonResponse({"status": "success", "message": "Course added successfully!"})
+
+    return render(request, "add_course.html")

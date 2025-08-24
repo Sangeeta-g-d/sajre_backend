@@ -134,3 +134,26 @@ class FAQ(models.Model):
 
     def __str__(self):
         return f"{self.role_type} - {self.question[:50]}"
+    
+
+class TutorInquiry(models.Model):
+    name = models.CharField(max_length=150)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    skills = models.TextField()
+    submitted_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.name} - {self.email}"
+
+
+class Course(models.Model):
+    name = models.CharField(max_length=200, unique=True)  # Course Name
+    subtitle = models.CharField(max_length=255, blank=True, null=True)  # Short description / sub-title
+    image = models.ImageField(upload_to='course_images/', blank=True, null=True)  # Course image
+
+    created_at = models.DateTimeField(auto_now_add=True)  # When course was created
+    updated_at = models.DateTimeField(auto_now=True)  # When course was last updated
+
+    def __str__(self):
+        return self.name

@@ -7,3 +7,5 @@ def get_item(dictionary, key):
     if dictionary:
         return dictionary.get(key, 0)
     return 0
+
+

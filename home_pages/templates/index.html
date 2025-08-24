@@ -224,7 +224,9 @@
                 height: 150px;
             }
         }
-
+.form-input.error {
+    border-color: red !important;
+}
     /* Keep your existing overlay and close button styles */
 </style>
  
@@ -708,37 +710,92 @@ Artists from across the nation compete live, showcasing their talent on stage in
             <div class="overlay" id="overlay"></div>
 
             <!-- Replace your existing popup-overlay div with this improved version -->
-            <div class="popup-overlay" id="popupOverlay">
-                <div class="popup-container">
-                    <button class="close-btn" id="closePopupBtn">&times;</button>
+         <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-container">
+        <button class="close-btn" id="closePopupBtn">&times;</button>
 
-                    <div class="popup-header">
-                        <h2 class="popup-title">Let's Connect With Us</h2>
-                    </div>
+        <div class="popup-header">
+            <h2 class="popup-title">Let's Connect With Us</h2>
+        </div>
 
-                    <form id="tutorForm">
-                        <div class="form-group">
-                            <input type="text" class="form-input" placeholder="Name" name="name" required>
-                        </div>
+       <form id="tutorForm">
+    <!-- Full Name (only alphabets and spaces, no digits allowed) -->
+    <div class="form-group">
+        <input type="text" 
+               class="form-input" 
+               placeholder="Full Name" 
+               name="name" 
+               required
+               pattern="^[A-Za-z\s]+$" 
+               title="Name should only contain letters and spaces." >
+    </div>
 
-                        <div class="form-group">
-                            <input type="email" class="form-input" placeholder="Email" name="email" required>
-                        </div>
+    <!-- Email (HTML5 built-in validation handles format) -->
+    <div class="form-group">
+        <input type="email" 
+               class="form-input" 
+               placeholder="Email" 
+               name="email" 
+               required
+               title="Please enter a valid email address.">
+    </div>
 
-                        <div class="form-group">
-                            <input type="tel" class="form-input" placeholder="Phone No" name="phone" required>
-                        </div>
+    <!-- Phone (only 10 digits) -->
+    <div class="form-group">
+        <input type="tel" 
+               class="form-input" 
+               placeholder="Phone No" 
+               name="phone" 
+               required
+               pattern="^\d{10}$" 
+               maxlength="10"
+               title="Phone number must be exactly 10 digits.">
+    </div>
 
-                        <div class="form-group">
-                            <input type="text" class="form-input" placeholder="Skills" name="skills" required>
-                        </div>
+    <!-- Skills (letters, numbers, commas, and spaces allowed) -->
+    <div class="form-group">
+        <input type="text" 
+               class="form-input" 
+               placeholder="Skills (e.g., Python, Django)" 
+               name="skills" 
+               required
+               pattern="^[A-Za-z0-9,\s]+$" 
+               title="Skills should only contain letters, numbers, commas, and spaces.">
+    </div>
 
-                        <button type="submit" class="submit-btn" id="submitBtn">
-                            Submit
-                        </button>
-                    </form>
-                </div>
-            </div>
+    <button type="submit" class="submit-btn" id="submitBtn">Submit</button>
+</form>
+
+    </div>
+</div>
+
+<script>
+document.getElementById("tutorForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    let formData = new FormData(this);
+
+    let response = await fetch("/submit-tutor-form/", {
+        method: "POST",
+        body: formData
+    });
+
+    let data = await response.json();
+
+    Toastify({
+        text: data.message,
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: data.status === "success" ? "green" : "red"
+    }).showToast();
+
+    if (data.status === "success") {
+        document.getElementById("tutorForm").reset();
+        document.getElementById("popupOverlay").style.display = "none";
+    }
+});
+</script>
             <section id="hm_event_section" class="py-5">
                 <div class="container">
                     <h2 class="text-center section-title mb-5">Events</h2>
@@ -1824,4 +1881,6 @@ Artists from across the nation compete live, showcasing their talent on stage in
                 }
             });
         </script>
+
+        <!-- tutor form js -->
 {% endblock %}
