@@ -2,7 +2,6 @@
 {% block content %}
 <link rel="stylesheet" href="/static/assets/mentor/css/edit-profile.css">
 
-
 <div class="container-fluid">
     <div class="main-content">
         <div class="password-card">
@@ -25,7 +24,7 @@
                     <div class="col-md-6 form-group">
                         <label for="full_name">Full Name</label>
                         <input type="text" id="full_name" name="full_name"
-                               class="form-control" value="{{ user.full_name }}" placeholder="Full Name" required>
+                               class="form-control text-only" value="{{ user.full_name }}" placeholder="Full Name" required>
                         <div class="error-message"></div>
                     </div>
                     <div class="col-md-6 form-group">
@@ -44,13 +43,13 @@
                     <div class="col-md-6 form-group">
                         <label for="higher_qualification">Highest Qualification</label>
                         <select id="higherQualification" name="higher_qualification" class="form-control" required>
-                <option value="">Select Qualification</option>
-                <option value="PhD">PhD</option>
-                <option value="Master's Degree">Master's Degree</option>
-                <option value="Bachelor's Degree">Bachelor's Degree</option>
-                <option value="Diploma">Diploma</option>
-                <option value="Other">Other</option>
-            </select>
+                            <option value="">Select Qualification</option>
+                            <option value="PhD">PhD</option>
+                            <option value="Master's Degree">Master's Degree</option>
+                            <option value="Bachelor's Degree">Bachelor's Degree</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Other">Other</option>
+                        </select>
                         <div class="error-message"></div>
                     </div>
                 </div>
@@ -69,19 +68,19 @@
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label for="city">City</label>
-                        <input type="text" id="city" name="city" class="form-control"
+                        <input type="text" id="city" name="city" class="form-control text-only"
                                placeholder="City" required>
                         <div class="error-message"></div>
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="district">District</label>
-                        <input type="text" id="district" name="district" class="form-control"
+                        <input type="text" id="district" name="district" class="form-control text-only"
                                placeholder="District" required>
                         <div class="error-message"></div>
                     </div>
                     <div class="col-md-4 form-group">
                         <label for="state">State</label>
-                        <input type="text" id="state" name="state" class="form-control"
+                        <input type="text" id="state" name="state" class="form-control text-only"
                                placeholder="State" required>
                         <div class="error-message"></div>
                     </div>
@@ -90,14 +89,15 @@
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label for="pincode">PIN Code</label>
-                        <input type="text" id="pincode" name="pincode" class="form-control"
+                        <input type="number" id="pincode" name="pincode" class="form-control"
                                placeholder="PIN Code" required>
                         <div class="error-message"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="store_or_advisor">Store/Advisor (Optional)</label>
                         <input type="text" id="store_or_advisor" name="store_or_advisor"
-                               class="form-control" placeholder="Store/Advisor">
+                               class="form-control text-only" placeholder="Store/Advisor">
+                        <div class="error-message"></div>
                     </div>
                 </div>
 
@@ -107,12 +107,15 @@
                     <div class="col-md-6 form-group">
                         <label for="job_title">Job Title</label>
                         <input type="text" id="job_title" name="job_title"
-                               class="form-control" placeholder="Job Title">
+                               class="form-control text-only" placeholder="Job Title">
+                        <div class="error-message"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="total_experience_years">Total Experience (Years)</label>
                         <input type="number" step="0.1" id="total_experience_years"
-                               name="total_experience_years" class="form-control" placeholder="Total Experience">
+                               name="total_experience_years" class="form-control"
+                               placeholder="Total Experience">
+                        <div class="error-message"></div>
                     </div>
                 </div>
 
@@ -120,12 +123,14 @@
                     <div class="col-md-6 form-group">
                         <label for="current_employer">Current Employer</label>
                         <input type="text" id="current_employer" name="current_employer"
-                               class="form-control" placeholder="Current Employer">
+                               class="form-control text-only" placeholder="Current Employer">
+                        <div class="error-message"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="location">Location</label>
                         <input type="text" id="location" name="location"
-                               class="form-control" placeholder="Location">
+                               class="form-control text-only" placeholder="Location">
+                        <div class="error-message"></div>
                     </div>
                 </div>
 
@@ -134,6 +139,7 @@
                         <label for="work_history">Work History</label>
                         <textarea id="work_history" name="work_history"
                                   class="form-control" placeholder="Describe your work history"></textarea>
+                        <div class="error-message"></div>
                     </div>
                 </div>
 
@@ -143,12 +149,14 @@
                     <div class="col-md-6 form-group">
                         <label for="course_level">Course Level</label>
                         <input type="text" id="course_level" name="course_level"
-                               class="form-control" placeholder="Course Level">
+                               class="form-control text-only" placeholder="Course Level">
+                        <div class="error-message"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="course_name">Course Name</label>
                         <input type="text" id="course_name" name="course_name"
-                               class="form-control" placeholder="Course Name">
+                               class="form-control text-only" placeholder="Course Name">
+                        <div class="error-message"></div>
                     </div>
                 </div>
 
@@ -182,46 +190,258 @@
         </div>
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script>
+// Helper functions for error handling
+function showError(input, message) {
+    const errorDiv = input.parentElement.querySelector('.error-message');
+    if (errorDiv) {
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+    }
+    input.classList.add("is-invalid");
+}
+
+function clearError(input) {
+    const errorDiv = input.parentElement.querySelector('.error-message');
+    if (errorDiv) {
+        errorDiv.textContent = "";
+        errorDiv.style.display = 'none';
+    }
+    input.classList.remove("is-invalid");
+}
+
+// Validation functions
+function validateTextField(input) {
+    const regex = /^[A-Za-z\s.,'-]+$/;
+    if (input.value.trim() !== "" && !regex.test(input.value.trim())) {
+        showError(input, "Only alphabets, spaces, and basic punctuation are allowed.");
+        return false;
+    } else {
+        clearError(input);
+        return true;
+    }
+}
+
+function validateNumberField(input) {
+    if (input.value && isNaN(input.value)) {
+        showError(input, "Please enter a valid number.");
+        return false;
+    } else {
+        clearError(input);
+        return true;
+    }
+}
+
+function validatePincode(input) {
+    const regex = /^\d{6}$/;
+    if (input.value && !regex.test(input.value)) {
+        showError(input, "PIN code must be exactly 6 digits.");
+        return false;
+    } else {
+        clearError(input);
+        return true;
+    }
+}
+
+function validateExperience(input) {
+    const value = parseFloat(input.value);
+    if (input.value && (isNaN(value) || value < 0 || value > 50)) {
+        showError(input, "Please enter a valid experience between 0 and 50 years.");
+        return false;
+    } else {
+        clearError(input);
+        return true;
+    }
+}
+
+function validateFile(input, maxSize, fileTypes) {
+    if (input.files.length > 0) {
+        const file = input.files[0];
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+        
+        // Check file size
+        if (file.size > maxSize) {
+            showError(input, `File must be less than ${maxSize / (1024*1024)}MB.`);
+            return false;
+        }
+        
+        // Check file type
+        if (fileTypes && !fileTypes.includes(fileExtension) && !fileTypes.includes(file.type)) {
+            showError(input, `Please upload a valid file type: ${fileTypes.join(', ')}.`);
+            return false;
+        }
+        
+        clearError(input);
+        return true;
+    }
+    return true; // No file is not an error until required validation
+}
+
+// Set up event listeners for real-time validation
+document.addEventListener('DOMContentLoaded', function() {
+    // Text-only fields validation on input
+    document.querySelectorAll('.text-only').forEach(input => {
+        input.addEventListener('input', function() {
+            validateTextField(this);
+        });
+        
+        input.addEventListener('blur', function() {
+            validateTextField(this);
+        });
+    });
+    
+    // Number fields validation
+    const numberFields = document.querySelectorAll('input[type="number"]');
+    numberFields.forEach(input => {
+        input.addEventListener('input', function() {
+            if (this.id === 'pincode') {
+                validatePincode(this);
+            } else if (this.id === 'total_experience_years') {
+                validateExperience(this);
+            } else {
+                validateNumberField(this);
+            }
+        });
+    });
+    
+    // File upload validation on change
+    document.querySelectorAll('.file-input').forEach(input => {
+        input.addEventListener('change', function() {
+            const fileTypes = this.id === 'passport_photo' 
+                ? ['jpg', 'jpeg', 'png', 'gif'] 
+                : ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'];
+            const maxSize = this.id === 'passport_photo' 
+                ? 2 * 1024 * 1024 
+                : 5 * 1024 * 1024;
+                
+            validateFile(this, maxSize, fileTypes);
+            
+            // Update file name display
+            const fileNameDiv = this.parentElement.querySelector('.file-name');
+            if (fileNameDiv && this.files.length > 0) {
+                fileNameDiv.textContent = this.files[0].name;
+            }
+        });
+    });
+    
+    // Select field validation
+    document.querySelectorAll('select').forEach(select => {
+        select.addEventListener('change', function() {
+            if (this.value === '') {
+                showError(this, "This field is required.");
+            } else {
+                clearError(this);
+            }
+        });
+    });
+    
+    // Textarea validation
+    document.querySelectorAll('textarea').forEach(textarea => {
+        textarea.addEventListener('input', function() {
+            if (this.value.trim() === '') {
+                showError(this, "This field is required.");
+            } else {
+                clearError(this);
+            }
+        });
+    });
+});
+
+// Form submission validation
+function validateForm() {
+    let valid = true;
+    
+    // Validate all text fields
+    document.querySelectorAll('.text-only').forEach(input => {
+        if (!validateTextField(input)) valid = false;
+    });
+    
+    // Validate number fields
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        if (input.id === 'pincode') {
+            if (!validatePincode(input)) valid = false;
+        } else if (input.id === 'total_experience_years') {
+            if (!validateExperience(input)) valid = false;
+        } else {
+            if (!validateNumberField(input)) valid = false;
+        }
+    });
+    
+    // Validate required fields
+    document.querySelectorAll('[required]').forEach(input => {
+        if (input.value.trim() === '') {
+            showError(input, "This field is required.");
+            valid = false;
+        }
+    });
+    
+    // Validate file uploads
+    const passport = document.getElementById("passport_photo");
+    if (!validateFile(passport, 2 * 1024 * 1024, ['jpg', 'jpeg', 'png', 'gif'])) {
+        valid = false;
+    }
+    
+    const idProof = document.getElementById("id_proof");
+    if (!validateFile(idProof, 5 * 1024 * 1024, ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'])) {
+        valid = false;
+    }
+    
+    return valid;
+}
+
+// Form submission handler
 document.getElementById('mentorRegistrationForm').addEventListener('submit', function(e) {
-    e.preventDefault();   // Prevent normal form submission
+    e.preventDefault();
+    if (!validateForm()) {
+        Toastify({
+            text: "Please fix the errors in the form.",
+            duration: 3000, 
+            close: true,
+            gravity: "top", 
+            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)"
+        }).showToast();
+        return;
+    }
 
     const form = e.target;
     const formData = new FormData(form);
 
     fetch(form.action, {
         method: "POST",
-        headers: {
-            "X-CSRFToken": form.csrfmiddlewaretoken.value
-        },
+        headers: { "X-CSRFToken": form.querySelector('[name=csrfmiddlewaretoken]').value },
         body: formData
     })
     .then(res => res.json())
     .then(data => {
         if (data.status === 'success') {
-            Toastify({
-                text: data.message,
-                duration: 3000,
+            Toastify({ 
+                text: data.message, 
+                duration: 3000, 
                 close: true,
+                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)"
             }).showToast();
-
-            // Optional — redirect after a short delay
-            setTimeout(() => {
-                window.location.href = "{% url 'vendor_dashboard' %}";
-            }, 2000);
+            setTimeout(() => { window.location.href = "{% url 'vendor_dashboard' %}"; }, 2000);
         } else {
             Toastify({
-                text: data.message,
-                duration: 3000,
+                text: data.message, 
+                duration: 3000, 
                 close: true,
-                gravity: "top",
+                gravity: "top", 
                 backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)"
             }).showToast();
         }
+    })
+    .catch(error => {
+        Toastify({
+            text: "An error occurred. Please try again.",
+            duration: 3000, 
+            close: true,
+            gravity: "top", 
+            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)"
+        }).showToast();
     });
 });
 </script>
-
-<script src="/static/assets/mentor/js/edit-profile.js"></script>
 {% endblock %}

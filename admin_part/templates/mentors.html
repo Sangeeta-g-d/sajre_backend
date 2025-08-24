@@ -1,0 +1,157 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header">
+            <h3 class="fw-bold mb-3">mentor Management</h3>
+            <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                    <a href="#">
+                        <i class="icon-home"></i>
+                    </a>
+                </li>
+                <li class="separator">
+                    <i class="icon-arrow-right"></i>
+                </li>
+               
+                <li class="separator">
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin_part/mentors/">Mentors</a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Mentor List</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="vendors-datatables" class="display table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Email</th>
+                                        <th>Full Name</th>
+                                        <th>Phone Number</th>
+                                        <th>Date Joined</th>
+                                        
+                                        <th>Referral Code</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for mentor in mentors %}
+                                    <tr>
+                                        <td>{{ mentor.id }}</td>
+                                        <td>{{ mentor.email }}</td>
+                                        <td>{{ mentor.full_name|default:"N/A" }}</td>
+                                        <td>{{ mentor.phone_number|default:"N/A" }}</td>
+                                        <td data-order="{{ mentor.date_joined|date:'U' }}">
+                                            {{ mentor.date_joined|date:"M j, Y" }}
+                                        </td>
+                                       
+                                        <td>{{ mentor.referral_code|default:"N/A" }}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="{% url 'view_mentor_details' mentor.id %}" type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" title="View">
+                                                    <i class="icon-eye"></i>
+                                                </a>
+                                                <!-- <button type="button" class="btn btn-sm btn-info" data-toggle="tooltip" title="Edit">
+                                                    <i class="icon-pencil"></i>
+                                                </button> -->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- DataTables JavaScript -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    // Initialize DataTable with common configuration
+    $('#vendors-datatables').DataTable({
+        "pageLength": 10,
+        "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+        "order": [[4, "desc"]], // Default sort by Date Joined descending (column index 4)
+        "responsive": true,
+        "autoWidth": false,
+        "columnDefs": [
+            { "orderable": false, "targets": [7] } // Disable sorting on Actions column (index 7)
+        ],
+        "language": {
+            "search": "Search:",
+            "lengthMenu": "Show _MENU_ entries",
+            "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+            "infoEmpty": "Showing 0 to 0 of 0 entries",
+            "infoFiltered": "(filtered from _MAX_ total entries)",
+            "paginate": {
+                "first": "First",
+                "last": "Last",
+                "next": "Next",
+                "previous": "Previous"
+            }
+        }
+    });
+    
+    // Add custom CSS for DataTables
+    $('.dataTables_length select').addClass('form-control form-control-sm');
+    $('.dataTables_filter input').addClass('form-control form-control-sm');
+    
+    // Initialize tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
+<style>
+.dataTables_wrapper .dataTables_length, 
+.dataTables_wrapper .dataTables_filter, 
+.dataTables_wrapper .dataTables_info, 
+.dataTables_wrapper .dataTables_paginate {
+    padding: 1rem;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: transparent;
+    border: 0;
+}
+
+/* Ensure date stays in single line */
+#vendors-datatables td {
+    white-space: nowrap;
+}
+
+/* Style for badges */
+.badge {
+    padding: 0.4em 0.6em;
+    font-size: 0.75em;
+    font-weight: 600;
+}
+</style>
+{% endblock %}

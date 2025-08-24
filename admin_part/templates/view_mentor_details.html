@@ -1,0 +1,364 @@
+    {% extends 'admin_base.html' %}
+    {% load static %}
+
+    {% block content %}
+    <div class="container">
+        <div class="page-inner">
+            <div class="page-header">
+                <h3 class="fw-bold mb-3">Vendor Details</h3>
+                <ul class="breadcrumbs mb-3">
+                    <li class="nav-home">
+                        <a href="{% url 'admin_dashboard' %}">
+                            <i class="icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="icon-arrow-right"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'vendor_list' %}">Vendors</a>
+                    </li>
+                    <li class="separator">
+                        <i class="icon-arrow-right"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Vendor Details</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                    
+                        <div class="card-body">
+                            <div class="row mb-4">
+        <!-- Referred Mentors -->
+        <div class="col-sm-4 col-md-4">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-primary bubble-shadow-small">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">Referred Mentors</p>
+                                <h4 class="card-title">{{ total_mentors }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Referred Students -->
+        <div class="col-sm-4 col-md-4">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-info bubble-shadow-small">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">Referred Participants</p>
+                                <h4 class="card-title">{{ total_participants }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enrolled Students -->
+        <div class="col-sm-4 col-md-4">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-success bubble-shadow-small">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">Enrolled Participants</p>
+                                <h4 class="card-title">{{ enrolled_participants }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+                            <!-- Basic Information Section -->
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h5 class="card-title mb-0">Basic Information</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <th width="40%">Mentor ID:</th>
+                                                    <td>{{ mentor.id }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Email:</th>
+                                                    <td>{{ mentor.email }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Full Name:</th>
+                                                    <td>{{ mentor.full_name|default:"Not provided" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Phone Number:</th>
+                                                    <td>{{ mentor.phone_number|default:"Not provided" }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <th width="40%">Date Joined:</th>
+                                                    <td>{{ mentor.date_joined|date:"M j, Y" }}</td>
+                                                </tr>
+                                              
+                                                <tr>
+                                                    <th>Account Status:</th>
+                                                    <td>
+                                                        {% if mentor.is_active %}
+                                                            <span class="badge badge-success">Active</span>
+                                                        {% else %}
+                                                            <span class="badge badge-danger">Inactive</span>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <th width="20%">Referral Code:</th>
+                                                    <td>{{ mentor.referral_code|default:"Not provided" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Referred By:</th>
+                                                    <td>
+                                                        {% if mentor.referred_by %}
+                                                            {{ mentor.referred_by.email }} (ID: {{ mentor.referred_by.id }})
+                                                        {% else %}
+                                                            Not referred
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Mentor Profile Section -->
+                            {% if mentor_profile %}
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h5 class="card-title mb-0">Mentor Profile Details</h5>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Qualification Details -->
+                                    <h6 class="text-primary mb-3">Qualification Details</h6>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <th width="40%">Higher Qualification:</th>
+                                                    <td>{{ mentor_profile.higher_qualification|default:"Not provided" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Course Level:</th>
+                                                    <td>{{ mentor_profile.course_level|default:"Not provided" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Course Name:</th>
+                                                    <td>{{ mentor_profile.course_name|default:"Not provided" }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <th width="40%">Job Title:</th>
+                                                    <td>{{ mentor_profile.job_title|default:"Not provided" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total Experience:</th>
+                                                    <td>
+                                                        {% if mentor_profile.total_experience_years %}
+                                                            {{ mentor_profile.total_experience_years }} years
+                                                        {% else %}
+                                                            Not provided
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Current Employer:</th>
+                                                    <td>{{ mentor_profile.current_employer|default:"Not provided" }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Address Details -->
+                                    <h6 class="text-primary mt-4 mb-3">Address Details</h6>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <th width="40%">Full Address:</th>
+                                                    <td>{{ mentor_profile.full_address|default:"Not provided" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>City:</th>
+                                                    <td>{{ mentor_profile.city|default:"Not provided" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>District:</th>
+                                                    <td>{{ mentor_profile.district|default:"Not provided" }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <th width="40%">State:</th>
+                                                    <td>{{ mentor_profile.state|default:"Not provided" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Pincode:</th>
+                                                    <td>{{ mentor_profile.pincode|default:"Not provided" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Store/Advisor:</th>
+                                                    <td>{{ mentor_profile.store_or_advisor|default:"Not provided" }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Additional Information -->
+                                    <h6 class="text-primary mt-4 mb-3">Additional Information</h6>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <th width="40%">Location:</th>
+                                                    <td>{{ mentor_profile.location|default:"Not provided" }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Profile Created:</th>
+                                                    <td>{{ mentor_profile.created_at|date:"M j, Y" }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <th width="40%">Profile Complete:</th>
+                                                    <td>
+                                                        {% if mentor_profile.is_complete %}
+                                                            <span class="badge badge-success">Yes</span>
+                                                        {% else %}
+                                                            <span class="badge badge-warning">No</span>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                {% if mentor_profile.work_history %}
+                                                <tr>
+                                                    <th>Work History:</th>
+                                                    <td>{{ mentor_profile.work_history }}</td>
+                                                </tr>
+                                                {% endif %}
+                                            </table>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Documents -->
+                                    <h6 class="text-primary mt-4 mb-3">Documents</h6>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {% if mentor_profile.passport_photo %}
+                                            <div class="mb-3">
+                                                <h6>Passport Photo:</h6>
+                                                <img src="{{ mentor_profile.passport_photo.url }}" alt="Passport Photo" class="img-thumbnail" style="max-height: 150px;">
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {% if mentor_profile.id_proof %}
+                                            <div class="mb-3">
+                                                <h6>ID Proof:</h6>
+                                                <a href="{{ mentor_profile.id_proof.url }}" target="_blank" class="btn btn-sm btn-info">
+                                                    <i class="icon-doc"></i> View ID Proof
+                                                </a>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <!-- No Mentor Profile Section -->
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h5 class="card-title mb-0">Mentor Profile</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="alert alert-info">
+                                        <i class="icon-info"></i>
+                                        This mentor does not have a mentor profile.
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            
+                            <!-- Actions Section -->
+                    
+                                <div class="card-body">
+                                    <div class="btn-group">
+                                        <a href="{% url 'vendor_list' %}" class="btn btn-secondary">
+                                            <i class="icon-arrow-left"></i> Back to List
+                                        </a>
+                                    
+                                        {% if mentor.is_active %}
+                                        <a href="#" class="btn btn-warning">
+                                            <i class="icon-close"></i> Deactivate
+                                        </a>
+                                        {% else %}
+                                        <a href="#" class="btn btn-success">
+                                            <i class="icon-check"></i> Activate
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block extra_js %}
+
+    {% endblock %}

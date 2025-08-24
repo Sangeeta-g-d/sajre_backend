@@ -16,28 +16,37 @@ class CompetitionCategory(models.Model):
     def __str__(self):
         return self.name
 
-
 class Level(models.Model):
-    category = models.ForeignKey(CompetitionCategory, on_delete=models.CASCADE, related_name="levels")
+    category = models.ForeignKey(
+        CompetitionCategory, on_delete=models.CASCADE, related_name="levels"
+    )
     number = models.IntegerField()  # 1,2,3,4,5...
     description = models.TextField(blank=True, null=True)
 
+    # ✅ New fields
+    registration_start_date = models.DateField(
+        null=True,
+        blank=True,
+        help_text="Registration start date for this level"
+    )
+    registration_end_date = models.DateField(
+        null=True,
+        blank=True,
+        help_text="Registration end date for this level"
+    )
+
     def __str__(self):
         return f"Level {self.number} - {self.category.name}"
-
 
 class Round(models.Model):
     level = models.ForeignKey(Level, on_delete=models.CASCADE, related_name="rounds")
     number = models.IntegerField()  # 1,2,3
     mode = models.CharField(max_length=20, choices=[("online", "Online"), ("offline", "Offline")])
     description = models.TextField(blank=True, null=True)
-    last_registration_date = models.DateField(
-        null=True,
-        blank=True,
-        help_text="Last date for registration for this round"
-    )
+
     def __str__(self):
         return f"Level {self.level.number} - Round {self.number} ({self.mode})"
+
 
 class Participant(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -106,3 +115,22 @@ class RoundSchedule(models.Model):
 
     def __str__(self):
         return f"{self.round} - {self.date} ({self.start_time} to {self.end_time})"
+
+
+
+class FAQ(models.Model):
+    ROLE_CHOICES = [
+        ("vendor", "Vendor"),
+        ("mentor", "Mentor"),
+        ("participant", "Participant"),
+        ("Jury", "jury"),
+        ("general", "General"),  
+    ]
+
+    question = models.CharField(max_length=255)
+    answer = models.TextField()
+    role_type = models.CharField(max_length=20, choices=ROLE_CHOICES, default="general")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.role_type} - {self.question[:50]}"

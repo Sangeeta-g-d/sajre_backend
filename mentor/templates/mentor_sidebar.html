@@ -62,7 +62,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-content">
-           <div class="profile_img">
+        <div class="profile_img">
     {% if mentor_profile %}
         {% if mentor_profile.passport_photo %}
             <img src="{{ mentor_profile.passport_photo.url }}" alt="Profile" class="profile-img mb-2" style="width:80px;height:80px;border-radius:50%;">
@@ -83,8 +83,13 @@
         <span id="referralCode">{{ request.user.referral_code }}</span>
         <i class="bi bi-clipboard ms-2 copy-icon"></i>
     </a>
-</div>
 
+    {% if not request.user.referred_by %}
+        <small class="text-secondary mb-2 d-block">
+            Forgot to add a referral code? <a href="#" data-bs-toggle="modal" data-bs-target="#referralModal">Add now</a>
+        </small>
+    {% endif %}
+</div>
 
             
             <div class="sidebar-menu">
@@ -137,7 +142,30 @@
             </div>
         </div>
     </div>
-
+<!-- Referral Modal -->
+<div class="modal fade" id="referralModal" tabindex="-1" aria-labelledby="referralModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="referralModalLabel">Enter Referral Code</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="referralForm">
+          <div class="mb-3">
+            <label for="referralInput" class="form-label">Referral Code</label>
+            <input type="text" class="form-control" id="referralInput" placeholder="Enter referral code" required>
+          </div>
+          <div id="loader" class="text-center d-none">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-2">Verifying...</p>
+          </div>
+          <button type="submit" class="btn btn-secondary" id="submitReferralBtn">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
     {% block content %}
 
     {% endblock %}
@@ -178,5 +206,87 @@ document.getElementById('referralLink').addEventListener('click', function(e) {
     });
 });
 </script>
+<!-- referral js -->
+ <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const referralForm = document.getElementById("referralForm");
+    const referralInput = document.getElementById("referralInput");
+    const loader = document.getElementById("loader");
+    const submitBtn = document.getElementById("submitReferralBtn");
+
+    referralForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        loader.classList.remove("d-none");
+        submitBtn.disabled = true;
+
+        const referralCode = referralInput.value.trim();
+
+        fetch("/participants/add_referral/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken"),
+            },
+            body: JSON.stringify({ referral_code: referralCode }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            loader.classList.add("d-none");
+            submitBtn.disabled = false;
+
+            if (data.success) {
+                Toastify({
+                    text: "Referral code verified successfully 🎉",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                }).showToast();
+                setTimeout(() => location.reload(), 1500);
+            } else {
+                Toastify({
+                    text: data.error || "Invalid referral code ❌",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                }).showToast();
+            }
+        })
+        .catch(err => {
+            loader.classList.add("d-none");
+            submitBtn.disabled = false;
+            Toastify({
+                text: "Something went wrong!",
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+            }).showToast();
+            console.error(err);
+        });
+    });
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(";");
+            for (let cookie of cookies) {
+                cookie = cookie.trim();
+                if (cookie.startsWith(name + "=")) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+});
+</script>
+
 </body>
 </html>

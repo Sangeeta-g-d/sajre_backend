@@ -11,6 +11,7 @@ urlpatterns = [
     path("create-order/", views.create_razorpay_order, name="create_razorpay_order"),
     path('payment-success/', views.payment_success, name='payment_success'),
     path('payment_failed',views.payment_failed,name="payment-failed"),
-    path('p_working_on/',views.p_working_on,name="p_working_on")
+    path('p_working_on/',views.p_working_on,name="p_working_on"),
+    path("add_referral/", views.add_referral, name="add_referral"),
 
 ]

@@ -9,3 +9,4 @@ def remove_parentheses(value):
     if '(' in value and ')' in value:
         return value.split('(')[0].strip()
     return value
+

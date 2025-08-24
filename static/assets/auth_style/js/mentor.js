@@ -9,12 +9,25 @@ document.addEventListener("DOMContentLoaded", () => {
         src: "https://lottie.host/0038cad6-6505-43bf-9cbe-9b319593e3dc/i8RiuBfVRQ.lottie",
     });
 
-    // File upload display
-    document.querySelectorAll('.file-input').forEach(input => {
-        input.addEventListener('change', function () {
-            let fileName = this.files.length > 0 ? this.files[0].name : "No file uploaded";
-            this.closest('.file-upload').querySelector('.file-name').textContent = fileName;
-        });
+    // File size limits
+    const MAX_PASSPORT_PHOTO_SIZE = 2 * 1024 * 1024; // 2MB for passport photo
+    const MAX_ID_PROOF_SIZE = 5 * 1024 * 1024; // 5MB for ID proof
+
+    // File upload display with size validation
+    document.getElementById('passportPhoto').addEventListener('change', function (e) {
+        const fileName = e.target.files[0] ? e.target.files[0].name : 'No file uploaded';
+        this.closest('.file-upload').querySelector('.file-name').textContent = fileName;
+        
+        // Validate file size immediately after selection
+        validateInput(this);
+    });
+
+    document.getElementById('idProof').addEventListener('change', function (e) {
+        const fileName = e.target.files[0] ? e.target.files[0].name : 'No file uploaded';
+        this.closest('.file-upload').querySelector('.file-name').textContent = fileName;
+        
+        // Validate file size immediately after selection
+        validateInput(this);
     });
 
     // Floating labels
@@ -83,10 +96,30 @@ document.addEventListener("DOMContentLoaded", () => {
             return false;
         }
 
-        // File input validation
-        if (input.type === "file" && input.hasAttribute("required") && input.files.length === 0) {
-            showError(input, "Please upload a file");
-            return false;
+        // File input validation with size check
+        if (input.type === "file") {
+            if (input.hasAttribute("required") && input.files.length === 0) {
+                showError(input, "Please upload a file");
+                return false;
+            }
+            
+            // Check file size for passport photo
+            if (input.id === "passportPhoto" && input.files.length > 0) {
+                const file = input.files[0];
+                if (file.size > MAX_PASSPORT_PHOTO_SIZE) {
+                    showError(input, "Passport photo must be less than 2MB");
+                    return false;
+                }
+            }
+            
+            // Check file size for ID proof
+            if (input.id === "idProof" && input.files.length > 0) {
+                const file = input.files[0];
+                if (file.size > MAX_ID_PROOF_SIZE) {
+                    showError(input, "ID proof must be less than 5MB");
+                    return false;
+                }
+            }
         }
 
         // Pincode check
@@ -96,12 +129,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // City, District, and State should not contain numbers
-        if (["city", "district", "state"].includes(input.id) && /\d/.test(input.value.trim())) {
+        if (["city", "district", "state"].includes(input.id) && input.value.trim() && /\d/.test(input.value.trim())) {
             showError(input, "Only letters are allowed");
             return false;
         }
 
-        // ✅ Total Experience validation
+        // Total Experience validation
         if (input.id === "totalExperience" && input.value.trim()) {
             let val = parseFloat(input.value.trim());
             if (isNaN(val)) {

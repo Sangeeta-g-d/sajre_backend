@@ -1,0 +1,128 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header">
+            <h3 class="fw-bold mb-3">Edit Competition Category</h3>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <form id="editCategoryForm">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" name="name" value="{{ category.name }}" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Age Min</label>
+                            <input type="number" name="age_min" value="{{ category.age_min }}" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Age Max</label>
+                            <input type="number" name="age_max" value="{{ category.age_max|default_if_none:'' }}" class="form-control">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Theme</label>
+                            <input type="text" name="theme" value="{{ category.theme|default:'' }}" class="form-control">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Fee (₹)</label>
+                            <input type="number" step="0.01" name="fee" value="{{ category.fee }}" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Level Start</label>
+                            <input type="number" name="level_start" value="{{ category.level_start }}" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Prize 1 (₹)</label>
+                            <input type="number" step="0.01" name="prize_1" value="{{ category.prize_1 }}" class="form-control" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Prize 2 (₹)</label>
+                            <input type="number" step="0.01" name="prize_2" value="{{ category.prize_2 }}" class="form-control" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Prize 3 (₹)</label>
+                            <input type="number" step="0.01" name="prize_3" value="{{ category.prize_3 }}" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary">Update Category</button>
+                        <a href="{% url 'competition_category_list' %}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ✅ CSRF helper
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        let cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// ✅ Toastify helper
+function showToast(message, type="success") {
+    Toastify({
+        text: message,
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: type === "success" ? "green" : "red",
+        stopOnFocus: true
+    }).showToast();
+}
+
+// ✅ Handle form submit
+document.getElementById("editCategoryForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let formData = new FormData(this);
+
+    fetch("", {   // "" means same URL (/edit_category/<id>/)
+        method: "POST",
+        headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+            "X-Requested-With": "XMLHttpRequest"
+        },
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.status === "success") {
+            showToast(data.message, "success");
+            setTimeout(() => {
+                window.location.href = "{% url 'competition_category_list' %}";
+            }, 3000);  // redirect after 3s
+        } else {
+            showToast(data.message, "error");
+        }
+    })
+    .catch(() => {
+        showToast("Something went wrong.", "error");
+    });
+});
+</script>
+{% endblock %}
