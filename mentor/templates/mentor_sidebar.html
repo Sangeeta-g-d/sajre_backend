@@ -78,17 +78,31 @@
     {% endif %}
 
     <!-- ✅ Always show referral link -->
-    <a class="btn reference_frd border text-white d-flex align-items-center justify-content-center" id="referralLink">
-        <i class="bi bi-link-45deg me-2"></i>
-        <span id="referralCode">{{ request.user.referral_code }}</span>
-        <i class="bi bi-clipboard ms-2 copy-icon"></i>
-    </a>
+   <!-- ✅ Always show referral link -->
+<a class="btn reference_frd border text-white d-flex align-items-center justify-content-center" id="referralLink">
+    <i class="bi bi-link-45deg me-2"></i>
+    <span id="referralCode">{{ request.user.referral_code }}</span>
+    <i class="bi bi-clipboard ms-2 copy-icon"></i>
+</a>
 
-    {% if not request.user.referred_by %}
-        <small class="text-secondary mb-2 d-block">
-            Forgot to add a referral code? <a href="#" data-bs-toggle="modal" data-bs-target="#referralModal">Add now</a>
-        </small>
-    {% endif %}
+<!-- Fixed referral display logic -->
+{% if request.user.referred_by %}
+    <small class="text-secondary mb-2 d-block">
+        Referred by: 
+        <span class="fw-semibold text-black">
+            {% if request.user.referred_by.full_name %}
+                {{ request.user.referred_by.full_name }}
+            {% else %}
+                {{ request.user.referred_by.email }}
+            {% endif %}
+        </span>
+    </small>
+{% else %}
+    <small class="text-secondary mb-2 d-block">
+        Forgot to add a referral code? 
+        <a href="#" data-bs-toggle="modal" data-bs-target="#referralModal">Add now</a>
+    </small>
+{% endif %}
 </div>
 
             

@@ -1,8 +1,29 @@
 {% extends 'vendor_base.html' %}
 {% block content %}
+<style>
+    .error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: none;
+}
+
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.file-name {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+</style>
 <link rel="stylesheet" href="/static/assets/mentor/css/edit-profile.css">
-
-
 <div class="container-fluid">
     <div class="main-content">
         <div class="password-card">
@@ -18,7 +39,7 @@
 
             <form id="mentorRegistrationForm" class="password-form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-
+                 <input type="hidden" id="dashboardUrl" value="{% url 'vendor_dashboard' %}">
                 <!-- Personal Information Section -->
                 <h5 class="section-title">Personal Information</h5>
                 <div class="row">
@@ -98,6 +119,7 @@
                         <label for="store_or_advisor">Store/Advisor (Optional)</label>
                         <input type="text" id="store_or_advisor" name="store_or_advisor"
                                class="form-control" placeholder="Store/Advisor">
+                        <div class="error-message"></div>
                     </div>
                 </div>
 
@@ -108,11 +130,13 @@
                         <label for="job_title">Job Title</label>
                         <input type="text" id="job_title" name="job_title"
                                class="form-control" placeholder="Job Title">
+                        <div class="error-message"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="total_experience_years">Total Experience (Years)</label>
                         <input type="number" step="0.1" id="total_experience_years"
                                name="total_experience_years" class="form-control" placeholder="Total Experience">
+                        <div class="error-message"></div>
                     </div>
                 </div>
 
@@ -121,11 +145,13 @@
                         <label for="current_employer">Current Employer</label>
                         <input type="text" id="current_employer" name="current_employer"
                                class="form-control" placeholder="Current Employer">
+                        <div class="error-message"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="location">Location</label>
                         <input type="text" id="location" name="location"
                                class="form-control" placeholder="Location">
+                        <div class="error-message"></div>
                     </div>
                 </div>
 
@@ -134,6 +160,7 @@
                         <label for="work_history">Work History</label>
                         <textarea id="work_history" name="work_history"
                                   class="form-control" placeholder="Describe your work history"></textarea>
+                        <div class="error-message"></div>
                     </div>
                 </div>
 
@@ -144,11 +171,13 @@
                         <label for="course_level">Course Level</label>
                         <input type="text" id="course_level" name="course_level"
                                class="form-control" placeholder="Course Level">
+                        <div class="error-message"></div>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="course_name">Course Name</label>
                         <input type="text" id="course_name" name="course_name"
                                class="form-control" placeholder="Course Name">
+                        <div class="error-message"></div>
                     </div>
                 </div>
 
@@ -183,45 +212,4 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-<script>
-document.getElementById('mentorRegistrationForm').addEventListener('submit', function(e) {
-    e.preventDefault();   // Prevent normal form submission
-
-    const form = e.target;
-    const formData = new FormData(form);
-
-    fetch(form.action, {
-        method: "POST",
-        headers: {
-            "X-CSRFToken": form.csrfmiddlewaretoken.value
-        },
-        body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.status === 'success') {
-            Toastify({
-                text: data.message,
-                duration: 3000,
-                close: true,
-            }).showToast();
-
-            // Optional — redirect after a short delay
-            setTimeout(() => {
-                window.location.href = "{% url 'vendor_dashboard' %}";
-            }, 2000);
-        } else {
-            Toastify({
-                text: data.message,
-                duration: 3000,
-                close: true,
-                gravity: "top",
-                backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)"
-            }).showToast();
-        }
-    });
-});
-</script>
-
-<script src="/static/assets/mentor/js/edit-profile.js"></script>
-{% endblock %}
+<script src="/static/assets/vendor/js/vendor-profile-validation.js"></script>{% endblock %}

@@ -156,7 +156,6 @@ def edit_vendor_profile(request):
     }
     return render(request, "edit_vendor_profile.html", context)
 
-
 @login_required_nocache
 def create_vendor_profile(request):
     """
@@ -166,6 +165,11 @@ def create_vendor_profile(request):
 
     if request.method == "POST":
         try:
+            # Handle empty values for decimal field
+            total_experience_years = request.POST.get("total_experience_years")
+            if total_experience_years == '':
+                total_experience_years = None
+            
             vendor_profile = MentorProfile.objects.create(
                 user=user,
                 higher_qualification=request.POST.get("higher_qualification"),
@@ -176,7 +180,7 @@ def create_vendor_profile(request):
                 pincode=request.POST.get("pincode"),
                 store_or_advisor=request.POST.get("store_or_advisor"),
                 job_title=request.POST.get("job_title"),
-                total_experience_years=request.POST.get("total_experience_years"),
+                total_experience_years=total_experience_years,  # Use the processed value
                 current_employer=request.POST.get("current_employer"),
                 location=request.POST.get("location"),
                 work_history=request.POST.get("work_history"),
@@ -261,35 +265,25 @@ def mentor_list(request):
         "mentors": mentors
     }
     return render(request, "mentor_list.html", context)
-
 @login_required_nocache
 def mentor_details(request, mentor_id):
-    print("🔍 mentor_details view called")
-    print(f"➡️ mentor_id from URL: {mentor_id}")
+    try:
+        mentor = MentorProfile.objects.get(user_id=mentor_id)
+        user = mentor.user  # ✅ set user when mentor exists
+    except MentorProfile.DoesNotExist:
+        user = get_object_or_404(CustomUser, id=mentor_id, role="mentor")
+        mentor = None  # so template can handle this
 
-    # ✅ Fetch mentor profile
-    mentor = MentorProfile.objects.get(user_id=mentor_id)
-    print(f"✅ Mentor fetched: {mentor} (User ID: {mentor.user.id}, Email: {mentor.user.email})")
-
-    # ✅ Get all referred users (participants)
-    referred_users = CustomUser.objects.filter(
-        role="participant",
-        referred_by=mentor.user
-    )
+    referred_users = CustomUser.objects.filter(role="participant", referred_by=user)
     reg_count = referred_users.count()
-    print(f"👥 Total referred users found: ",reg_count)
 
-    # ✅ Get participant details for referred users
     referred_participants = Participant.objects.filter(user__in=referred_users)
-    
-    # ✅ Count paid vs unpaid
     paid_count = referred_participants.filter(has_paid=True).count()
     unpaid_count = referred_participants.count() - paid_count
 
-    print(f"💰 Paid: {paid_count}, ❌ Unpaid: {unpaid_count}")
-
     return render(request, "mentor_details.html", {
         "mentor": mentor,
+        "user": user,
         "reg_count": reg_count,
         "paid_count": paid_count,
         "unpaid_count": unpaid_count,

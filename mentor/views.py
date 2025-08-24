@@ -102,6 +102,11 @@ def create_mentor_profile(request):
 
     if request.method == "POST":
         try:
+            # Handle empty values for decimal field
+            total_experience_years = request.POST.get("total_experience_years")
+            if total_experience_years == '':
+                total_experience_years = None
+                
             MentorProfile.objects.create(
                 user=user,
                 higher_qualification=request.POST.get("higher_qualification"),
@@ -112,7 +117,7 @@ def create_mentor_profile(request):
                 pincode=request.POST.get("pincode"),
                 store_or_advisor=request.POST.get("store_or_advisor"),
                 job_title=request.POST.get("job_title"),
-                total_experience_years=request.POST.get("total_experience_years"),
+                total_experience_years=total_experience_years,  # Use the processed value
                 current_employer=request.POST.get("current_employer"),
                 location=request.POST.get("location"),
                 work_history=request.POST.get("work_history"),
@@ -127,8 +132,6 @@ def create_mentor_profile(request):
 
     return render(request, "create_mentor_profile.html", {"user": user, "vendor_profile": None})
 
-
-
 @login_required_nocache
 def edit_profile(request):
     user = request.user
@@ -140,6 +143,11 @@ def edit_profile(request):
     
     if request.method == 'POST':
         try:
+            # Handle empty values for decimal field
+            total_experience_years = request.POST.get("total_experience_years")
+            if total_experience_years == '':
+                total_experience_years = None
+            
             # Update User fields
             user.full_name = request.POST.get('full_name', user.full_name)
             user.phone_number = request.POST.get('phone_number', user.phone_number)
@@ -154,7 +162,7 @@ def edit_profile(request):
             mentor_profile.pincode = request.POST.get('pincode')
             mentor_profile.store_or_advisor = request.POST.get('store_or_advisor')
             mentor_profile.job_title = request.POST.get('job_title')
-            mentor_profile.total_experience_years = request.POST.get('total_experience_years')
+            mentor_profile.total_experience_years = total_experience_years  # Use processed value
             mentor_profile.current_employer = request.POST.get('current_employer')
             mentor_profile.location = request.POST.get('location')
             mentor_profile.work_history = request.POST.get('work_history')
@@ -187,6 +195,11 @@ def edit_profile(request):
         'user': user,
         'mentor_profile': mentor_profile
     }
+    
+    # Check if it's an AJAX request
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
+    
     return render(request, 'edit_profile.html', context)
 
 
