@@ -7,7 +7,7 @@ from admin_part.models import RoundSchedule,CompetitionCategory,Participant,Part
 from django.http import JsonResponse
 import json
 from sajre_backend.utils import login_required_nocache 
-
+from auth_app.models import CustomUser
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.db.models import F
@@ -373,3 +373,35 @@ def change_password(request):
 
 def p_working_on(request):
     return render(request,'p_working_on.html')
+
+
+@csrf_exempt
+def add_referral(request):
+    if request.method == "POST" and request.user.is_authenticated:
+
+        print("hhiiiiiiiiiiiiiiiii")
+        try:
+            data = json.loads(request.body)
+            referral_code = data.get("referral_code")
+
+            if not referral_code:
+                return JsonResponse({"success": False, "error": "Referral code is required"})
+
+            try:
+                referrer = CustomUser.objects.get(referral_code=referral_code)
+            except CustomUser.DoesNotExist:
+                return JsonResponse({"success": False, "error": "Invalid referral code"})
+
+            # Save referral
+            user = request.user
+            if not user.referred_by:  # only if not already referred
+                user.referred_by = referrer
+                user.save()
+                return JsonResponse({"success": True})
+            else:
+                return JsonResponse({"success": False, "error": "Referral already set"})
+
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)})
+
+    return JsonResponse({"success": False, "error": "Invalid request"})

@@ -1,0 +1,45 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+<div class="container">
+    <div class="page-inner">
+        <h3 class="mb-4">Enrolled Participants - Level {{ level.number }} ({{ level.category.name }})</h3>
+
+        {% if participants %}
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Age</th>
+                    <th>Category</th>
+                    <th>Payment Status</th>
+                    <th>Total Paid</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in participants %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ p.user.get_full_name }}</td>
+                    <td>{{ p.user.email }}</td>
+                    <td>{{ p.age }}</td>
+                    <td>{{ p.category.name }}</td>
+                    <td>
+                        {% if p.has_paid %}
+                            <span class="badge bg-success">Paid</span>
+                        {% else %}
+                            <span class="badge bg-danger">Unpaid</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ p.total_paid }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="alert alert-warning">No participants enrolled for this level yet.</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

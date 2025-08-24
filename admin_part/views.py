@@ -470,3 +470,14 @@ def delete_faq(request, faq_id):
         return JsonResponse({"success": True, "message": "FAQ deleted successfully"})
     except FAQ.DoesNotExist:
         return JsonResponse({"success": False, "message": "FAQ not found"}, status=404)
+
+
+def enrolled_list(request, level_id):
+    level = get_object_or_404(Level, id=level_id)
+    participants = Participant.objects.filter(level=level)
+
+    context = {
+        "level": level,
+        "participants": participants,
+    }
+    return render(request, "enrolled_list.html", context)

@@ -82,23 +82,33 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-content">
-           <div class="profile_img text-center">
-    {% if profile.photo %}
-        <img src="{{ profile.photo.url }}" alt="Profile" class="profile-img mb-2" style="width:80px;height:80px;border-radius:50%;">
-    {% else %}
-        <img src="/static/assets/participant/img/profile.png" alt="Default Profile" class="profile-img mb-2" style="width:80px;height:80px;border-radius:50%;">
-    {% endif %}
-   <h6 class="mb-0 text-black">{{ profile.user.get_full_name|default:profile.user.full_name }}</h6>
-    <small class="text-secondary mb-2 d-block">{{ profile.user.email }}</small>
-<small class="text-secondary mb-2 d-block">Age : {{ age }}</small>
-<small class="text-secondary mb-2 d-block">{{ category }}</small>
-    <a class="btn reference_frd border text-white d-flex align-items-center justify-content-center" id="referralLink">
-    <i class="bi bi-link-45deg me-2"></i>
-    <span id="referralCode">{{ request.user.referral_code }}</span>
-    <i class="bi bi-clipboard ms-2 copy-icon"></i>
-</a>
-</div>
+            <div class="profile_img text-center">
+            {% if profile.photo %}
+                <img src="{{ profile.photo.url }}" alt="Profile" class="profile-img mb-2" style="width:80px;height:80px;border-radius:50%;">
+            {% else %}
+                <img src="/static/assets/participant/img/profile.png" alt="Default Profile" class="profile-img mb-2" style="width:80px;height:80px;border-radius:50%;">
+            {% endif %}
+            <h6 class="mb-0 text-black">{{ profile.user.get_full_name|default:profile.user.full_name }}</h6>
+            <small class="text-secondary mb-2 d-block">{{ profile.user.email }}</small>
+            <small class="text-secondary mb-2 d-block">Age : {{ age }}</small>
+            <small class="text-secondary mb-2 d-block">{{ category }}</small>
 
+            <a class="btn reference_frd border text-white d-flex align-items-center justify-content-center" id="referralLink">
+                <i class="bi bi-link-45deg me-2"></i>
+                <span id="referralCode">{{ request.user.referral_code }}</span>
+                <i class="bi bi-clipboard ms-2 copy-icon"></i>
+            </a>
+
+            {% if referred_name %}
+                <small class="text-secondary mb-2 d-block">
+                    Referred by: <span class="fw-semibold text-black">{{ referred_name }}</span>
+                </small>
+            {% else %}
+                <small class="text-secondary mb-2 d-block">
+                    Forgot to add a referral code? <a href="#" data-bs-toggle="modal" data-bs-target="#referralModal">Add now</a>
+                </small>
+            {% endif %}
+        </div>
             
             <div class="sidebar-menu">
                 <ul class="nav flex-column">
@@ -154,12 +164,35 @@
     {% block content %}
 
     {% endblock %}
-    <!-- Main Content -->
+    <!-- Main Content -->   
     <!-- <div class="main-content"> -->
         <!-- Your main content goes here -->
         <!-- <div style="height: 2000px">Scrollable content to test sidebar scrolling</div>
     </div> -->
-
+<!-- Referral Modal -->
+<div class="modal fade" id="referralModal" tabindex="-1" aria-labelledby="referralModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="referralModalLabel">Enter Referral Code</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="referralForm">
+          <div class="mb-3">
+            <label for="referralInput" class="form-label">Referral Code</label>
+            <input type="text" class="form-control" id="referralInput" placeholder="Enter referral code" required>
+          </div>
+          <div id="loader" class="text-center d-none">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-2">Verifying...</p>
+          </div>
+          <button type="submit" class="btn btn-secondary " id="submitReferralBtn">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
        <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
@@ -253,5 +286,91 @@ document.getElementById('referralLink').addEventListener('click', function(e) {
     });
 });
 </script>
+
+<!-- referral code script -->
+ <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const referralForm = document.getElementById("referralForm");
+    const referralInput = document.getElementById("referralInput");
+    const loader = document.getElementById("loader");
+    const submitBtn = document.getElementById("submitReferralBtn");
+
+    referralForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        // Show loader
+        loader.classList.remove("d-none");
+        submitBtn.disabled = true;
+
+        const referralCode = referralInput.value.trim();
+
+        // Send to backend via fetch API
+        fetch("/participants/add_referral/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken"), // CSRF protection
+            },
+            body: JSON.stringify({ referral_code: referralCode }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            loader.classList.add("d-none");
+            submitBtn.disabled = false;
+
+            if (data.success) {
+                Toastify({
+                    text: "Referral code verified successfully 🎉",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                }).showToast();
+                setTimeout(() => location.reload(), 1500);
+            } else {
+                Toastify({
+                    text: data.error || "Invalid referral code ❌",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                }).showToast();
+            }
+        })
+        .catch(err => {
+            loader.classList.add("d-none");
+            submitBtn.disabled = false;
+            Toastify({
+                text: "Something went wrong!",
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+            }).showToast();
+            console.error(err);
+        });
+    });
+
+    // CSRF helper
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(";");
+            for (let cookie of cookies) {
+                cookie = cookie.trim();
+                if (cookie.startsWith(name + "=")) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+});
+</script>
+
 </body>
 </html>  

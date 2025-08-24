@@ -131,6 +131,7 @@
                             <th>Description</th>
                             <th>Start Date</th>
                             <th>End Date</th>
+                             <th>Participants</th> 
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -257,6 +258,12 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <td>${l.description}</td>
                                 <td>${l.registration_start_date || "—"}</td>
                                 <td>${l.registration_end_date || "—"}</td>
+                                 <td>
+                                    <a href="/admin_part/enrolled_list/${l.id}/" 
+                                       class="btn btn-sm btn-info">
+                                       <i class="icon-users"></i> View
+                                    </a>
+                                </td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="/admin_part/level_info/${l.id}/" class="btn btn-sm btn-info info-level-btn" title="Info" data-level-id="${l.id}">

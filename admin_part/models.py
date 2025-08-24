@@ -47,6 +47,7 @@ class Round(models.Model):
     def __str__(self):
         return f"Level {self.level.number} - Round {self.number} ({self.mode})"
 
+
 class Participant(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     age = models.IntegerField()

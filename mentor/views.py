@@ -93,7 +93,6 @@ def mentor_dashboard(request):
     })
 
 
-
 @login_required_nocache
 def create_mentor_profile(request):
     """
@@ -103,7 +102,7 @@ def create_mentor_profile(request):
 
     if request.method == "POST":
         try:
-            vendor_profile = MentorProfile.objects.create(
+            MentorProfile.objects.create(
                 user=user,
                 higher_qualification=request.POST.get("higher_qualification"),
                 full_address=request.POST.get("full_address"),
@@ -122,23 +121,12 @@ def create_mentor_profile(request):
                 passport_photo=request.FILES.get("passport_photo"),
                 id_proof=request.FILES.get("id_proof")
             )
-
-            return JsonResponse({
-                "status": "success",
-                "message": "Profile created successfully!"
-            })
+            return JsonResponse({"status": "success", "message": "Profile created successfully!"})
         except Exception as e:
-            return JsonResponse({
-                "status": "error",
-                "message": f"Error creating profile: {str(e)}"
-            }, status=400)
+            return JsonResponse({"status": "error", "message": f"Error creating profile: {str(e)}"}, status=400)
 
-    # Empty context for first time
-    context = {
-        "user": user,
-        "vendor_profile": None  # Pass None so template renders empty fields
-    }
-    return render(request, "create_mentor_profile.html", context)
+    return render(request, "create_mentor_profile.html", {"user": user, "vendor_profile": None})
+
 
 
 @login_required_nocache
