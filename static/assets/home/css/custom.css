@@ -254,12 +254,12 @@ section#view_event_section .slick-prev, section#view_event_section .slick-next {
 section#view_event_section .slick-prev {
     left: 27px;
 }
-button.slick-prev.custom-prev.slick-arrow svg,
+/* button.slick-prev.custom-prev.slick-arrow svg,
 button.slick-prev.custom-next.slick-arrow svg
 {
     height: 59px !important;
     width: 21px;
-}
+} */
 
 section#view_event_section .slick-next {
     right: 27px;
