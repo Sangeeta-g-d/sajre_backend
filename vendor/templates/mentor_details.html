@@ -155,7 +155,8 @@
 </style>
 
     <!-- Mentor Profile Card -->
-    <div class="mentor-profile-container">
+  <div class="mentor-profile-container">
+    {% if mentor %}
         <div class="row">
             <!-- Left Side - Personal Info -->
             <div class="col-lg-4">
@@ -173,7 +174,7 @@
                         <div class="profile-name-info">
                             <h2 class="mentor-name">{{ mentor.user.full_name|default:"Mentor Name" }}</h2>
                             {% if mentor.job_title %}
-                            <p class="mentor-role">{{ mentor.job_title }}</p>
+                                <p class="mentor-role">{{ mentor.job_title }}</p>
                             {% endif %}
                         </div>
                     </div>
@@ -220,17 +221,17 @@
                         Identity Verification
                     </h4>
                     {% if mentor.id_proof %}
-                    <div class="id-proof-content">
-                        <i class="bi bi-file-earmark-pdf text-danger me-2"></i>
-                        <a href="{{ mentor.id_proof.url }}" target="_blank" class="id-proof-link">
-                            View ID Proof Document
-                        </a>
-                    </div>
+                        <div class="id-proof-content">
+                            <i class="bi bi-file-earmark-pdf text-danger me-2"></i>
+                            <a href="{{ mentor.id_proof.url }}" target="_blank" class="id-proof-link">
+                                View ID Proof Document
+                            </a>
+                        </div>
                     {% else %}
-                    <div class="id-proof-content text-muted">
-                        <i class="bi bi-exclamation-circle me-2"></i>
-                        No ID proof uploaded
-                    </div>
+                        <div class="id-proof-content text-muted">
+                            <i class="bi bi-exclamation-circle me-2"></i>
+                            No ID proof uploaded
+                        </div>
                     {% endif %}
                 </div>
             </div>
@@ -325,7 +326,7 @@
                     </div>
                 </div>
 
-                <!-- Professional Experience Card (Conditional) -->
+                <!-- Professional Experience Card -->
                 {% if mentor.job_title or mentor.total_experience_years or mentor.work_history or mentor.current_employer or mentor.location %}
                 <div class="info-card">
                     <div class="card-header">
@@ -386,7 +387,14 @@
                 {% endif %}
             </div>
         </div>
-    </div>
+    {% else %}
+        <div class="alert alert-warning text-center">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            This mentor has not completed their profile yet.
+        </div>
+    {% endif %}
+</div>
+
 </div>
 
 <script src="/static/assets/mentor/js/mentor-dashboard.js"></script>

@@ -1,4 +1,4 @@
-// static/assets/mentor/js/vendor-profile-validation.js
+// vendor-profile-validation.js
 
 // Helper functions for error handling
 function showError(input, message) {
@@ -21,6 +21,12 @@ function clearError(input) {
 
 // Validation functions
 function validateTextField(input) {
+    // Allow empty values for optional fields
+    if (!input.hasAttribute('required') && input.value.trim() === '') {
+        clearError(input);
+        return true;
+    }
+    
     const regex = /^[A-Za-z\s.,'-]+$/;
     if (input.value.trim() !== "" && !regex.test(input.value.trim())) {
         showError(input, "Only alphabets, spaces, and basic punctuation are allowed.");
@@ -31,7 +37,47 @@ function validateTextField(input) {
     }
 }
 
+function validateEmail(input) {
+    // Allow empty values for optional fields
+    if (!input.hasAttribute('required') && input.value.trim() === '') {
+        clearError(input);
+        return true;
+    }
+    
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (input.value.trim() !== "" && !regex.test(input.value.trim())) {
+        showError(input, "Please enter a valid email address.");
+        return false;
+    } else {
+        clearError(input);
+        return true;
+    }
+}
+
+function validatePhone(input) {
+    // Allow empty values for optional fields
+    if (!input.hasAttribute('required') && input.value.trim() === '') {
+        clearError(input);
+        return true;
+    }
+    
+    const regex = /^[0-9]{10}$/;
+    if (input.value.trim() !== "" && !regex.test(input.value.trim())) {
+        showError(input, "Please enter a valid 10-digit phone number.");
+        return false;
+    } else {
+        clearError(input);
+        return true;
+    }
+}
+
 function validateNumberField(input) {
+    // Allow empty values for optional fields
+    if (!input.hasAttribute('required') && input.value.trim() === '') {
+        clearError(input);
+        return true;
+    }
+    
     if (input.value && isNaN(input.value)) {
         showError(input, "Please enter a valid number.");
         return false;
@@ -89,18 +135,22 @@ function validateFile(input, maxSize, fileTypes) {
         clearError(input);
         return true;
     }
-    return true; // No file is not an error until required validation
+    
+    // Check if file is required but not uploaded
+    if (input.hasAttribute('required') && input.files.length === 0) {
+        showError(input, "This file is required.");
+        return false;
+    }
+    
+    return true;
 }
 
 // Set up event listeners for real-time validation
 function setupFormValidation() {
-    // Text fields validation on input
-    const textFields = ['full_name', 'city', 'district', 'state', 'store_or_advisor', 
-                       'job_title', 'current_employer', 'location', 'course_level', 'course_name'];
-    
-    textFields.forEach(fieldId => {
-        const input = document.getElementById(fieldId);
-        if (input) {
+    // Text-only fields validation on input
+    document.querySelectorAll('input[type="text"]').forEach(input => {
+        // Skip phone and pincode fields
+        if (input.id !== 'phone_number' && input.id !== 'pincode') {
             input.addEventListener('input', function() {
                 validateTextField(this);
             });
@@ -109,20 +159,68 @@ function setupFormValidation() {
                 validateTextField(this);
             });
         }
+        
+        // Validate on initial load if required
+        if (input.hasAttribute('required') && input.value.trim() === '') {
+            showError(input, "This field is required.");
+        }
     });
     
-    // Number fields validation
+    // Email field validation
+    const emailField = document.getElementById('email');
+    if (emailField) {
+        emailField.addEventListener('input', function() {
+            validateEmail(this);
+        });
+        
+        emailField.addEventListener('blur', function() {
+            validateEmail(this);
+        });
+    }
+    
+    // Phone field validation
+    const phoneField = document.getElementById('phone_number');
+    if (phoneField) {
+        phoneField.addEventListener('input', function() {
+            validatePhone(this);
+        });
+        
+        phoneField.addEventListener('blur', function() {
+            validatePhone(this);
+        });
+        
+        // Validate on initial load if required
+        if (phoneField.hasAttribute('required') && phoneField.value.trim() === '') {
+            showError(phoneField, "This field is required.");
+        }
+    }
+    
+    // Pincode field validation
+    const pincodeField = document.getElementById('pincode');
+    if (pincodeField) {
+        pincodeField.addEventListener('input', function() {
+            validatePincode(this);
+        });
+        
+        pincodeField.addEventListener('blur', function() {
+            validatePincode(this);
+        });
+        
+        // Validate on initial load if required
+        if (pincodeField.hasAttribute('required') && pincodeField.value.trim() === '') {
+            showError(pincodeField, "This field is required.");
+        }
+    }
+    
+    // Experience field validation
     const experienceField = document.getElementById('total_experience_years');
     if (experienceField) {
         experienceField.addEventListener('input', function() {
             validateExperience(this);
         });
-    }
-    
-    const pincodeField = document.getElementById('pincode');
-    if (pincodeField) {
-        pincodeField.addEventListener('input', function() {
-            validatePincode(this);
+        
+        experienceField.addEventListener('blur', function() {
+            validateExperience(this);
         });
     }
     
@@ -137,39 +235,38 @@ function setupFormValidation() {
                 : 5 * 1024 * 1024;
                 
             validateFile(this, maxSize, fileTypes);
-            
-            // Update file name display
-            const fileNameDiv = this.parentElement.querySelector('.file-name');
-            if (fileNameDiv && this.files.length > 0) {
-                fileNameDiv.textContent = this.files[0].name;
-            }
         });
     });
     
     // Select field validation
-    const qualificationSelect = document.getElementById('higherQualification');
-    if (qualificationSelect) {
-        qualificationSelect.addEventListener('change', function() {
-            if (this.value === '') {
+    document.querySelectorAll('select').forEach(select => {
+        select.addEventListener('change', function() {
+            if (this.hasAttribute('required') && this.value === '') {
                 showError(this, "This field is required.");
             } else {
                 clearError(this);
             }
         });
-    }
+        
+        // Validate on initial load if required
+        if (select.hasAttribute('required') && select.value === '') {
+            showError(select, "This field is required.");
+        }
+    });
     
     // Textarea validation
-    const textareas = ['full_address', 'work_history'];
-    textareas.forEach(textareaId => {
-        const textarea = document.getElementById(textareaId);
-        if (textarea) {
-            textarea.addEventListener('input', function() {
-                if (this.hasAttribute('required') && this.value.trim() === '') {
-                    showError(this, "This field is required.");
-                } else {
-                    clearError(this);
-                }
-            });
+    document.querySelectorAll('textarea').forEach(textarea => {
+        textarea.addEventListener('input', function() {
+            if (this.hasAttribute('required') && this.value.trim() === '') {
+                showError(this, "This field is required.");
+            } else {
+                clearError(this);
+            }
+        });
+        
+        // Validate on initial load if required
+        if (textarea.hasAttribute('required') && textarea.value.trim() === '') {
+            showError(textarea, "This field is required.");
         }
     });
 }
@@ -178,11 +275,19 @@ function setupFormValidation() {
 function validateForm() {
     let valid = true;
     
+    // Clear all errors first
+    document.querySelectorAll('.error-message').forEach(error => {
+        error.textContent = "";
+        error.style.display = 'none';
+    });
+    document.querySelectorAll('.is-invalid').forEach(input => {
+        input.classList.remove("is-invalid");
+    });
+    
     // Validate required text fields
-    const requiredTextFields = ['full_name', 'city', 'district', 'state'];
-    requiredTextFields.forEach(fieldId => {
-        const input = document.getElementById(fieldId);
-        if (input && input.hasAttribute('required')) {
+    document.querySelectorAll('input[type="text"][required]').forEach(input => {
+        // Skip phone and pincode fields (handled separately)
+        if (input.id !== 'phone_number' && input.id !== 'pincode') {
             if (input.value.trim() === '') {
                 showError(input, "This field is required.");
                 valid = false;
@@ -192,9 +297,36 @@ function validateForm() {
         }
     });
     
-    // Validate pincode
+    // Validate optional text fields (if they have content)
+    document.querySelectorAll('input[type="text"]:not([required])').forEach(input => {
+        // Skip phone and pincode fields
+        if (input.id !== 'phone_number' && input.id !== 'pincode' && input.value.trim() !== '') {
+            if (!validateTextField(input)) {
+                valid = false;
+            }
+        }
+    });
+    
+    // Validate email (readonly but should still be valid)
+    const emailField = document.getElementById('email');
+    if (emailField && !validateEmail(emailField)) {
+        valid = false;
+    }
+    
+    // Validate phone (required)
+    const phoneField = document.getElementById('phone_number');
+    if (phoneField) {
+        if (phoneField.hasAttribute('required') && phoneField.value.trim() === '') {
+            showError(phoneField, "This field is required.");
+            valid = false;
+        } else if (phoneField.value.trim() !== '' && !validatePhone(phoneField)) {
+            valid = false;
+        }
+    }
+    
+    // Validate pincode (required)
     const pincodeField = document.getElementById('pincode');
-    if (pincodeField && pincodeField.hasAttribute('required')) {
+    if (pincodeField) {
         if (pincodeField.value.trim() === '') {
             showError(pincodeField, "This field is required.");
             valid = false;
@@ -203,8 +335,16 @@ function validateForm() {
         }
     }
     
-    // Validate qualification select
-    const qualificationSelect = document.getElementById('higherQualification');
+    // Validate experience field (optional)
+    const experienceField = document.getElementById('total_experience_years');
+    if (experienceField && experienceField.value.trim() !== '') {
+        if (!validateExperience(experienceField)) {
+            valid = false;
+        }
+    }
+    
+    // Validate select field (required)
+    const qualificationSelect = document.getElementById('higher_qualification');
     if (qualificationSelect && qualificationSelect.hasAttribute('required')) {
         if (qualificationSelect.value === '') {
             showError(qualificationSelect, "This field is required.");
@@ -212,7 +352,7 @@ function validateForm() {
         }
     }
     
-    // Validate full address textarea
+    // Validate textarea (required)
     const fullAddress = document.getElementById('full_address');
     if (fullAddress && fullAddress.hasAttribute('required')) {
         if (fullAddress.value.trim() === '') {
@@ -221,33 +361,15 @@ function validateForm() {
         }
     }
     
-    // Validate experience field if it has value
-    const experienceField = document.getElementById('total_experience_years');
-    if (experienceField && experienceField.value.trim() !== '') {
-        if (!validateExperience(experienceField)) {
-            valid = false;
-        }
-    }
-    
-    // Validate file uploads
+    // Validate file uploads (optional for edit)
     const passport = document.getElementById("passport_photo");
-    if (passport && passport.hasAttribute('required')) {
-        if (passport.files.length === 0) {
-            showError(passport, "Passport photo is required.");
-            valid = false;
-        } else if (!validateFile(passport, 2 * 1024 * 1024, ['jpg', 'jpeg', 'png', 'gif'])) {
-            valid = false;
-        }
+    if (passport && passport.files.length > 0 && !validateFile(passport, 2 * 1024 * 1024, ['jpg', 'jpeg', 'png', 'gif'])) {
+        valid = false;
     }
     
     const idProof = document.getElementById("id_proof");
-    if (idProof && idProof.hasAttribute('required')) {
-        if (idProof.files.length === 0) {
-            showError(idProof, "ID proof is required.");
-            valid = false;
-        } else if (!validateFile(idProof, 5 * 1024 * 1024, ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'])) {
-            valid = false;
-        }
+    if (idProof && idProof.files.length > 0 && !validateFile(idProof, 5 * 1024 * 1024, ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'])) {
+        valid = false;
     }
     
     return valid;
@@ -262,59 +384,90 @@ document.addEventListener('DOMContentLoaded', function() {
     if (form) {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
+            
             if (!validateForm()) {
                 Toastify({
                     text: "Please fix the errors in the form.",
                     duration: 3000, 
                     close: true,
                     gravity: "top", 
+                    position: "right",
                     backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)"
                 }).showToast();
+                
+                // Scroll to first error
+                const firstError = document.querySelector('.is-invalid');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
                 return;
             }
 
             const formData = new FormData(this);
 
+            // Show loading state
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            submitButton.textContent = "Updating Profile...";
+            submitButton.disabled = true;
+
             fetch(this.action, {
                 method: "POST",
                 headers: { 
-                    "X-CSRFToken": this.querySelector('[name=csrfmiddlewaretoken]').value 
+                    "X-CSRFToken": this.querySelector('[name=csrfmiddlewaretoken]').value,
+                    "X-Requested-With": "XMLHttpRequest"
                 },
                 body: formData
             })
-            .then(res => res.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.status === 'success') {
                     Toastify({ 
                         text: data.message, 
                         duration: 3000, 
                         close: true,
+                        gravity: "top", 
+                        position: "right",
                         backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)"
                     }).showToast();
+                    
+                    // Redirect after successful update
                     setTimeout(() => { 
-                        // Get the URL from the hidden field
-                        const dashboardUrl = document.getElementById('dashboardUrl').value;
-                        window.location.href = dashboardUrl; 
+                        window.location.href = "/vendor/vendor_dashboard/";
                     }, 2000);
                 } else {
-                    Toastify({
-                        text: data.message, 
-                        duration: 3000, 
-                        close: true,
-                        gravity: "top", 
-                        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)"
-                    }).showToast();
+                    throw new Error(data.message);
                 }
             })
             .catch(error => {
                 Toastify({
-                    text: "An error occurred. Please try again.",
-                    duration: 3000, 
+                    text: error.message || "An error occurred. Please try again.",
+                    duration: 5000, 
                     close: true,
                     gravity: "top", 
+                    position: "right",
                     backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)"
                 }).showToast();
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                // Restore button state
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
             });
+        });
+    }
+    
+    // Cancel button functionality
+    const cancelButton = document.querySelector('.btn-cancel');
+    if (cancelButton) {
+        cancelButton.addEventListener('click', function() {
+            window.location.href = "/vendor/vendor_dashboard/";
         });
     }
 });

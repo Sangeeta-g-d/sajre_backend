@@ -265,35 +265,25 @@ def mentor_list(request):
         "mentors": mentors
     }
     return render(request, "mentor_list.html", context)
-
 @login_required_nocache
 def mentor_details(request, mentor_id):
-    print("🔍 mentor_details view called")
-    print(f"➡️ mentor_id from URL: {mentor_id}")
+    try:
+        mentor = MentorProfile.objects.get(user_id=mentor_id)
+        user = mentor.user  # ✅ set user when mentor exists
+    except MentorProfile.DoesNotExist:
+        user = get_object_or_404(CustomUser, id=mentor_id, role="mentor")
+        mentor = None  # so template can handle this
 
-    # ✅ Fetch mentor profile
-    mentor = MentorProfile.objects.get(user_id=mentor_id)
-    print(f"✅ Mentor fetched: {mentor} (User ID: {mentor.user.id}, Email: {mentor.user.email})")
-
-    # ✅ Get all referred users (participants)
-    referred_users = CustomUser.objects.filter(
-        role="participant",
-        referred_by=mentor.user
-    )
+    referred_users = CustomUser.objects.filter(role="participant", referred_by=user)
     reg_count = referred_users.count()
-    print(f"👥 Total referred users found: ",reg_count)
 
-    # ✅ Get participant details for referred users
     referred_participants = Participant.objects.filter(user__in=referred_users)
-    
-    # ✅ Count paid vs unpaid
     paid_count = referred_participants.filter(has_paid=True).count()
     unpaid_count = referred_participants.count() - paid_count
 
-    print(f"💰 Paid: {paid_count}, ❌ Unpaid: {unpaid_count}")
-
     return render(request, "mentor_details.html", {
         "mentor": mentor,
+        "user": user,
         "reg_count": reg_count,
         "paid_count": paid_count,
         "unpaid_count": unpaid_count,
