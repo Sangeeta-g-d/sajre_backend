@@ -9,65 +9,64 @@ from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from auth_app.models import MentorProfile
 import json
+from admin_part.models import FAQ
 from sajre_backend.utils import login_required_nocache 
 
 from django.views.decorators.http import require_POST
 
 # Create your views here.
-@login_required_nocache
+@login_required
 def mentor_dashboard(request):
-    # Count students referred by this user
+    # ✅ Check if user is a mentor
+    if request.user.role != "mentor":
+        return redirect("/")  # Or raise 403 if only mentors should access
+
+    # ✅ Check if mentor has a profile
+    if not hasattr(request.user, "mentor_profile"):
+        return redirect("/auth/complete_profile")  # URL name for your profile creation page
+
+    mentor_profile = request.user.mentor_profile
+
+    # ------- Your existing logic below -------
     referred_students_count = CustomUser.objects.filter(
         referred_by=request.user,
         role="participant"
     ).count()
-    print("Total referred students:", referred_students_count)
 
-    # Count enrolled students
     enrolled_students_count = Participant.objects.filter(
         user__referred_by=request.user,
         has_paid=True
     ).count()
-    print("Enrolled referred students:", enrolled_students_count)
 
-    # Get all categories
     categories = CompetitionCategory.objects.all()
-    
-    # Get category-wise data for pie charts
+
     category_data = []
     for category in categories:
         total = 0
         enrolled = 0
-    
-        # loop through all referred users and use the same matching logic
         for user in CustomUser.objects.filter(referred_by=request.user, role="participant"):
-            # check matching category
             matched = None
             if hasattr(user, "participant_profile") and user.participant_profile.age:
                 age = user.participant_profile.age
                 if age >= category.age_min and (category.age_max is None or age <= category.age_max):
                     matched = True
-    
             if matched:
                 total += 1
-                # if matched and paid → enrolled++
                 if hasattr(user, "participant") and user.participant.has_paid:
                     enrolled += 1
-    
+
         category_data.append({
             "name": category.name,
             "total": total,
             "enrolled": enrolled,
             "not_enrolled": total - enrolled
         })
-        # Fetch participants with their matching category
+
     participants = []
     for user in CustomUser.objects.filter(
         referred_by=request.user,
         role="participant"
     ).select_related("participant", "participant__category", "participant_profile"):
-        
-        # Find matching category based on age
         matching_category = None
         if hasattr(user, 'participant_profile') and user.participant_profile.age:
             age = user.participant_profile.age
@@ -76,9 +75,6 @@ def mentor_dashboard(request):
                         (category.age_max is None or age <= category.age_max)):
                     matching_category = category
                     break
-
-        print(f"User: {user.full_name} → Matching Category: {matching_category}")
-
         participants.append({
             'user': user,
             'matching_category': matching_category
@@ -91,7 +87,6 @@ def mentor_dashboard(request):
         'participants': participants,
         'categories': categories,
     })
-
 
 @login_required_nocache
 def create_mentor_profile(request):
@@ -301,3 +296,8 @@ def get_participant_details(request, user_id):
     
     except CustomUser.DoesNotExist:
         return JsonResponse({'error': 'Participant not found'}, status=404)
+
+    
+def mentor_faq(request):
+    faqs = FAQ.objects.filter(role_type='mentor').order_by('created_at')
+    return render(request, 'mentor_faq.html', {'faqs': faqs})

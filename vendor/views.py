@@ -10,9 +10,12 @@ from django.db.models import Count, Q
 
 # Create your views here.
 
-
 @login_required_nocache
 def vendor_dashboard(request):
+    # ✅ Redirect vendors without MentorProfile
+    if request.user.role == "vendor" and not hasattr(request.user, "mentor_profile"):
+        return redirect("/auth/complete_profile/")
+
     # Count mentors referred by this vendor (specific to vendor dashboard)
     referred_mentors_count = CustomUser.objects.filter(
         referred_by=request.user,
@@ -42,7 +45,6 @@ def vendor_dashboard(request):
     
         # loop through all referred users and use the same matching logic
         for user in CustomUser.objects.filter(referred_by=request.user, role="participant"):
-            # check matching category
             matched = None
             if hasattr(user, "participant_profile") and user.participant_profile.age:
                 age = user.participant_profile.age
@@ -51,7 +53,6 @@ def vendor_dashboard(request):
     
             if matched:
                 total += 1
-                # if matched and paid → enrolled++
                 if hasattr(user, "participant") and user.participant.has_paid:
                     enrolled += 1
     
@@ -61,6 +62,7 @@ def vendor_dashboard(request):
             "enrolled": enrolled,
             "not_enrolled": total - enrolled
         })
+
     # Fetch participants with their matching category
     participants = []
     for user in CustomUser.objects.filter(
@@ -68,7 +70,6 @@ def vendor_dashboard(request):
         role="participant"  
     ).select_related("participant", "participant__category", "participant_profile"):
         
-        # Find matching category based on age
         matching_category = None
         if hasattr(user, 'participant_profile') and user.participant_profile.age:
             age = user.participant_profile.age
@@ -83,19 +84,20 @@ def vendor_dashboard(request):
             'matching_category': matching_category
         })
 
-    # Vendor-specific logic (if 5+ mentors referred, mark as active vendor)
+    # Vendor-specific logic
     if referred_mentors_count >= 5 and request.user.role == "vendor":
         request.user.active_vendor = True
         request.user.save(update_fields=["active_vendor"])
 
     return render(request, 'vendor_dashboard.html', {
-        'referred_mentors_count': referred_mentors_count,  # Vendor-specific metric
+        'referred_mentors_count': referred_mentors_count,
         'referred_students_count': referred_students_count,
         'enrolled_students_count': enrolled_students_count,
         'category_data': category_data,
-        'participants': participants,  # Changed from participants_list to match mentor dashboard
+        'participants': participants,
         'categories': categories,
     })
+
 
 @login_required_nocache
 def edit_vendor_profile(request):

@@ -148,10 +148,11 @@
         <p>Tutor Enquiries</p>
     </a>
 </li>
-<li class="nav-item {% if request.resolver_match.url_name == 'add_course' %}active{% endif %}">
-    <a href="{% url 'add_course' %}">
+
+<li class="nav-item {% if request.resolver_match.url_name == 'view_courses' %}active{% endif %}">
+    <a href="{% url 'view_courses' %}">
         <i class="fas fa-users"></i>
-        <p>Add Course</p>
+        <p>View Courses</p>
     </a>
 </li>
               <li class="nav-item">

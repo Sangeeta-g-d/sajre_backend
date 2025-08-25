@@ -4,9 +4,10 @@ from auth_app.models import ParticipantProfile
 from django.utils import timezone
 from django.db.models import Q 
 from datetime import datetime
+from admin_part.models import Course
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from admin_part.models import TutorInquiry
+from admin_part.models import TutorInquiry,FAQ
 # Create your views here.
 
 
@@ -91,10 +92,13 @@ def art_contact(request):
 def about_us(request):
     return render(request,'about_us.html')
     
-
-
 def index(request):
-    return render(request,'index.html')
+    courses = Course.objects.all().order_by('-created_at')  # latest courses
+    faqs = FAQ.objects.filter(role_type="general").order_by("created_at")  # only general faqs
+    return render(request, 'index.html', {
+        'courses': courses,
+        'faqs': faqs
+    })
 
 @csrf_exempt
 def submit_tutor_form(request):

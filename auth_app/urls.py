@@ -9,7 +9,7 @@ urlpatterns = [
     path('participant_basic_details/', views.participant_basic_details, name="participant_basic_details"),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
-    path('mentor_register/', views.mentor_register, name='mentor_register'),
+    path('complete_profile/', views.mentor_register, name='mentor_register'),
     path('resend-otp/<int:user_id>/', views.resend_otp, name='resend_otp'),
 
     # ---- Forgot / Reset Password ----

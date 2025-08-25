@@ -1,0 +1,129 @@
+{% extends 'mentor_sidebar.html' %}
+{% block content %}
+
+<link rel="stylesheet" href="/static/assets/participant/css/terms.css">
+
+<div class="container-fluid">
+    <div class="main-content">
+        <h2 class="mb-4" style="margin-top: 5%;">Mentor FAQs</h2>
+
+        {% if faqs %}
+            <div class="faq-section">
+                {% for faq in faqs %}
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span class="faq-text">{{ faq.question }}</span>
+                            <span class="toggle-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>{{ faq.answer|linebreaks }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No FAQs available for mentors right now.</p>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .faq-section {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .faq-item {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        margin-bottom: 16px;
+        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        transition: box-shadow 0.3s ease;
+    }
+    
+    .faq-item:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .faq-question {
+        width: 100%;
+        text-align: left;
+        background: #f9f9f9;
+        border: none;
+        padding: 18px 20px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 16px;
+        color: #2c3e50;
+        transition: background-color 0.2s ease;
+    }
+    
+    .faq-question:hover {
+        background: #f0f4f8;
+    }
+    
+    .faq-text {
+        flex: 1;
+        margin-right: 15px;
+    }
+    
+    .faq-answer {
+        display: none;
+        padding: 20px;
+        background: #fff;
+        border-top: 1px solid #eaeaea;
+        line-height: 1.6;
+        color: #555;
+    }
+    
+    .faq-item.active .faq-answer {
+        display: block;
+        animation: fadeIn 0.3s ease;
+    }
+    
+    .toggle-icon {
+        font-size: 18px;
+        font-weight: normal;
+        transition: transform 0.3s ease;
+        color: #3498db;
+        min-width: 20px;
+        text-align: center;
+    }
+    
+    .faq-item.active .toggle-icon {
+        transform: rotate(45deg);
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const faqItems = document.querySelectorAll(".faq-item");
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector(".faq-question");
+            
+            question.addEventListener("click", function () {
+                // Close all other FAQs
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains("active")) {
+                        otherItem.classList.remove("active");
+                    }
+                });
+                
+                // Toggle current FAQ
+                item.classList.toggle("active");
+            });
+        });
+    });
+</script>
+
+{% endblock %}

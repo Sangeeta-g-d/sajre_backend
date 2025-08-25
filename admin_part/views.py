@@ -9,16 +9,18 @@ from django.utils.dateparse import parse_date
 from django.db.models import Max
 from django.utils import timezone
 import pytz
-
+from sajre_backend.utils import login_required_nocache 
 # Create your views here.
 
 
 def a_index(request):
     return render(request,'a_index.html')
 
+@login_required_nocache
 def admin_dashboard(request):
     return render(request,'admin_dashboard.html')
 
+@login_required_nocache
 def vendor_list(request):
     # Filter users with vendor role
     vendors = CustomUser.objects.filter(role='vendor')
@@ -28,6 +30,8 @@ def vendor_list(request):
     }
     return render(request, 'vendor_list.html', context)
 
+
+@login_required_nocache
 def vendor_details(request, vendor_id):
     vendor = get_object_or_404(CustomUser, id=vendor_id, role="vendor")
 
@@ -55,7 +59,7 @@ def vendor_details(request, vendor_id):
     return render(request, "vendor_details.html", context)
 
 
-
+@login_required_nocache
 def mentors(request):
     # Filter users with vendor role
     mentors = CustomUser.objects.filter(role='mentor')
@@ -65,7 +69,7 @@ def mentors(request):
     }
     return render(request, 'mentors.html', context)
 
-
+@login_required_nocache
 def view_mentor_details(request, mentor_id):
     mentor = get_object_or_404(CustomUser, id=mentor_id, role="mentor")
 
@@ -90,7 +94,7 @@ def view_mentor_details(request, mentor_id):
     }
     return render(request, "view_mentor_details.html", context)
 
-
+@login_required_nocache
 def participants_list(request):
     participants = CustomUser.objects.filter(role='participant')
     
@@ -105,10 +109,12 @@ from django.contrib import messages
 from .models import CompetitionCategory, Level, Round
 
 # Competition Category CRUD Views
+@login_required_nocache
 def competition_category_list(request):
     categories = CompetitionCategory.objects.all()
     return render(request, 'competition_category_list.html', {'categories': categories})
 
+@login_required_nocache
 def add_competition_category(request):
     if request.method == "POST":
         name = request.POST.get("name", "").strip()
@@ -175,7 +181,7 @@ def delete_competition_category(request, pk):
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
 
 
-
+@login_required_nocache
 def edit_competition_category(request, pk):
     category = get_object_or_404(CompetitionCategory, pk=pk)
 
@@ -200,7 +206,7 @@ def edit_competition_category(request, pk):
         except Exception as e:
             return JsonResponse({"status": "error", "message": str(e)}, status=400)
         
-
+@login_required_nocache
 def get_category_levels(request, category_id):
     category = get_object_or_404(CompetitionCategory, id=category_id)
     levels = category.levels.all().order_by("number")
@@ -265,6 +271,7 @@ def delete_level(request, level_id):
     except Level.DoesNotExist:
         return JsonResponse({"status": "error", "message": "Level not found"}, status=404)
 
+@login_required_nocache
 def level_info(request, level_id):
     level = get_object_or_404(Level, id=level_id)
     rounds = level.rounds.all().prefetch_related("schedules")
@@ -274,6 +281,7 @@ def level_info(request, level_id):
         "rounds": rounds
     })
 
+@login_required_nocache
 def add_round(request):
     if request.method == "POST":
         try:
@@ -403,6 +411,7 @@ def edit_level(request, level_id):
             return JsonResponse({"status": "error", "message": "Level not found"})
     return JsonResponse({"status": "error", "message": "Invalid request"})
 
+@login_required_nocache
 def view_faq(request):
     faq_counts = FAQ.objects.values("role_type").annotate(count=Count("id"))
     faq_data = {item["role_type"]: item["count"] for item in faq_counts}
@@ -425,7 +434,7 @@ def view_faq(request):
     return render(request, "view_faq.html", context)
 
 
-
+@login_required_nocache
 def add_faq(request):
     if request.method == "POST" and request.headers.get("X-Requested-With") == "XMLHttpRequest":
         question = request.POST.get("question")
@@ -452,7 +461,7 @@ def add_faq(request):
 
     return JsonResponse({"error": "Invalid request"}, status=400)
 
-
+@login_required_nocache
 def view_faqs_by_role(request, role):
     role_label = dict(FAQ.ROLE_CHOICES).get(role, "FAQs")  # Get display name
     faqs = FAQ.objects.filter(role_type=role).order_by("-created_at")
@@ -475,6 +484,7 @@ def delete_faq(request, faq_id):
         return JsonResponse({"success": False, "message": "FAQ not found"}, status=404)
 
 
+@login_required_nocache
 def enrolled_list(request, level_id):
     level = get_object_or_404(Level, id=level_id)
     participants = Participant.objects.filter(level=level).select_related("user", "category")
@@ -498,7 +508,7 @@ def enrolled_list(request, level_id):
     }
     return render(request, "enrolled_list.html", context)
 
-
+@login_required_nocache
 def participant_detail(request, participant_id):
     user = get_object_or_404(CustomUser, id=participant_id, role="participant")
     profile = getattr(user, "participant_profile", None)
@@ -509,10 +519,12 @@ def participant_detail(request, participant_id):
     }
     return render(request, "participant_detail.html", context)
 
+@login_required_nocache
 def tutor_enquiries(request):
     enquiries = TutorInquiry.objects.all().order_by("-submitted_at")
     return render(request, "tutor_enquiries.html", {"enquiries": enquiries})
 
+@login_required_nocache
 def add_course(request):
     if request.method == "POST" and request.headers.get("X-Requested-With") == "XMLHttpRequest":
         name = request.POST.get("name")
@@ -536,3 +548,44 @@ def add_course(request):
         return JsonResponse({"status": "success", "message": "Course added successfully!"})
 
     return render(request, "add_course.html")
+
+@login_required_nocache
+def view_courses(request):
+    courses = Course.objects.all().order_by('-id')  # latest first
+    return render(request, 'view_course.html', {'courses': courses})
+
+def edit_course(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
+
+    if request.method == "POST":
+        name = request.POST.get("name")
+        subtitle = request.POST.get("subtitle")
+        image = request.FILES.get("image")
+
+        if not name:
+            return JsonResponse({"success": False, "error": "Course name is required."})
+
+        # Update course fields
+        course.name = name
+        course.subtitle = subtitle
+        if image:
+            course.image = image
+        course.save()
+
+        return JsonResponse({"success": True, "message": "Course updated successfully!"})
+
+    return render(request, "edit_course.html", {"course": course})
+
+
+@csrf_exempt
+def delete_course(request, course_id):
+    if request.method == "POST":
+        course = get_object_or_404(Course, id=course_id)
+        course.delete()
+
+        if request.headers.get("x-requested-with") == "XMLHttpRequest":  
+            return JsonResponse({"success": True, "message": "Course deleted successfully!"})
+
+        return redirect("/admin_part/courses/")
+
+    return JsonResponse({"success": False, "message": "Invalid request"}, status=400)

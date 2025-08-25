@@ -1,0 +1,93 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header d-flex justify-content-between align-items-center">
+            <h3 class="fw-bold mb-3">Edit Course</h3>
+            <a href="/admin_part/view_courses/" class="btn btn-secondary btn-sm">← Back</a>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form id="editCourseForm" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <!-- Course Name -->
+                    <div class="mb-3">
+                        <label class="form-label">Course Name</label>
+                        <input type="text" name="name" class="form-control" 
+                               value="{{ course.name }}" required>
+                        <div class="text-danger small" id="error-name"></div>
+                    </div>
+
+                    <!-- Subtitle -->
+                    <div class="mb-3">
+                        <label class="form-label">Course Subtitle</label>
+                        <input type="text" name="subtitle" class="form-control" 
+                               value="{{ course.subtitle }}">
+                    </div>
+
+                    <!-- Image -->
+                    <div class="mb-3">
+                        <label class="form-label">Course Image</label>
+                        <input type="file" name="image" class="form-control">
+                        {% if course.image %}
+                            <div class="mt-2">
+                                <img src="{{ course.image.url }}" alt="Current Image" 
+                                     style="width:120px; height:80px; object-fit:cover; border-radius:5px;">
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn btn-primary">Update Course</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toastify -->
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+<script>
+document.getElementById("editCourseForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    const response = await fetch("", {
+        method: "POST",
+        body: formData,
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+        Toastify({
+            text: data.message,
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#28a745",
+        }).showToast();
+
+        setTimeout(() => {
+            window.location.href = "/admin_part/view_courses/";
+        }, 1500);
+    } else {
+        document.getElementById("error-name").innerText = data.error || "";
+        Toastify({
+            text: data.error || "Something went wrong",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#dc3545",
+        }).showToast();
+    }
+});
+</script>
+{% endblock %}
