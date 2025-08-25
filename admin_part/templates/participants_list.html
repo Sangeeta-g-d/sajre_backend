@@ -72,9 +72,12 @@
                                         </td>
                                         <td>
                                             <div class="btn-group">
-                                                <a href="#" type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" title="View Details">
-                                                    <i class="icon-eye"></i>
-                                                </a>
+                                              <a href="{% url 'participant_detail' participant.id %}" 
+   type="button" class="btn btn-sm btn-primary" 
+   data-toggle="tooltip" title="View Details">
+    <i class="icon-eye"></i>
+</a>
+
                                                  <!-- <button type="button" class="btn btn-sm btn-info" data-toggle="tooltip" title="Edit">
                                                     <i class="icon-pencil"></i>
                                                 </button> -->

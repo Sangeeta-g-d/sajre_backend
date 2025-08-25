@@ -293,13 +293,13 @@ def select_category(request):
             if hasattr(request.user, 'mentor_profile') and getattr(request.user.mentor_profile, 'is_complete', False):
                 response = redirect('/mentor/mentor_dashboard/')
             else:
-                response = redirect('/auth/mentor_register/')
+                response = redirect('/auth/complete_profile/')
         elif request.user.role == 'vendor':
             # Check if vendor has completed registration (assuming vendor uses mentor registration)
             if hasattr(request.user, 'mentor_profile') and getattr(request.user.mentor_profile, 'is_complete', False):
                 response = redirect('/vendor/vendor_dashboard/')
             else:
-                response = redirect('/auth/mentor_register/')
+                response = redirect('/auth/complete_profile/')
         elif request.user.role == 'school':
             response = redirect('/working_on/')
         elif request.user.role == 'college':
@@ -337,9 +337,9 @@ def select_category(request):
             if role == 'participant':
                 response = redirect('/auth/participant_basic_details')
             elif role == 'mentor':
-                response = redirect('/auth/mentor_register/')
+                response = redirect('/auth/complete_profile/')
             elif role == 'vendor':
-                response = redirect('/auth/mentor_register/')
+                response = redirect('/auth/complete_profile/')
             elif role == 'school':
                 response = redirect('/working_on/')
             elif role == 'college':

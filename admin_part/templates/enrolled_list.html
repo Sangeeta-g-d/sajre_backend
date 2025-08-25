@@ -2,44 +2,85 @@
 {% block content %}
 <div class="container">
     <div class="page-inner">
-        <h3 class="mb-4">Enrolled Participants - Level {{ level.number }} ({{ level.category.name }})</h3>
+        <div class="page-header">
+            <h3 class="fw-bold mb-3">Enrolled Participants</h3>
+            <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                    <a href="/admin_part/admin_dashboard/">
+                        <i class="icon-home"></i>
+                    </a>
+                </li>
+                <li class="separator"><i class="icon-arrow-right"></i></li>
+                <li class="nav-item"><a href="/admin_part/competition_category_list/">Competition Management</a></li>
+                <li class="separator"><i class="icon-arrow-right"></i></li>
+                <li class="nav-item">
+                    <a href="#">Level {{ level.number }} ({{ level.category.name }})</a>
+                </li>
+            </ul>
+        </div>
 
-        {% if participants %}
-        <table class="table table-bordered table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th>#</th>
-                    <th>Full Name</th>
-                    <th>Email</th>
-                    <th>Age</th>
-                    <th>Category</th>
-                    <th>Payment Status</th>
-                    <th>Total Paid</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for p in participants %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ p.user.get_full_name }}</td>
-                    <td>{{ p.user.email }}</td>
-                    <td>{{ p.age }}</td>
-                    <td>{{ p.category.name }}</td>
-                    <td>
-                        {% if p.has_paid %}
-                            <span class="badge bg-success">Paid</span>
-                        {% else %}
-                            <span class="badge bg-danger">Unpaid</span>
-                        {% endif %}
-                    </td>
-                    <td>{{ p.total_paid }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <div class="alert alert-warning">No participants enrolled for this level yet.</div>
-        {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                   <div class="card-header">
+                        <div class="d-flex align-items-center justify-content-between w-100">
+                            <h4 class="card-title mb-0">Participants - Level {{ level.number }}</h4>
+                        </div>
+                    </div>
+
+                    {% if participants %}
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="participants-datatables" class="display table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Full Name</th>
+                                        <th>Email</th>
+                                        <th>Age</th>
+                                        <th>Category</th>
+                                        <th>Payment Status</th>
+                                        <th>Total Paid</th>
+                                        <th>Paid Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for p in participants %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td style="white-space: nowrap;">{{ p.user.full_name }}</td>
+                                        <td>{{ p.user.email }}</td>
+                                        <td>{{ p.age }}</td>
+                                        <td>{{ p.category.name }}</td>
+                                        <td>
+                                            {% if p.has_paid %}
+                                                <span class="badge bg-success">Paid</span>
+                                            {% else %}
+                                                <span class="badge bg-danger">Unpaid</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>₹{{ p.total_paid }}</td>
+                                        <td>
+                                            {% if p.latest_payment_date %}
+                                                {{ p.latest_payment_date|date:"M d, Y H:i" }}
+                                            {% else %}
+                                                <span class="text-muted">—</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-warning m-3">
+                        No participants enrolled for this level yet.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

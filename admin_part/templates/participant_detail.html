@@ -1,0 +1,100 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header">
+            <h3 class="fw-bold mb-3">Participant Details</h3>
+            <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                    <a href="/admin_part/admin_dashboard/"><i class="icon-home"></i></a>
+                </li>
+                <li class="separator"><i class="icon-arrow-right"></i></li>
+                <li class="nav-item"><a href="/admin_part/participants_list/">Participants</a></li>
+                <li class="separator"><i class="icon-arrow-right"></i></li>
+                <li class="nav-item"><a href="#">Details</a></li>
+            </ul>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        {% if profile and profile.photo %}
+                            <img src="{{ profile.photo.url }}" class="img-fluid rounded-circle mb-3" width="150" height="150">
+                        {% else %}
+                            <img src="https://via.placeholder.com/150" class="img-fluid rounded-circle mb-3" width="150" height="150">
+                        {% endif %}
+                        <h4 class="mb-0">{{ user.full_name|default:"N/A" }}</h4>
+                        <small class="text-muted">{{ user.email }}</small>
+                        <p class="mt-2">
+                            <span class="badge {% if user.is_active %}badge-success{% else %}badge-danger{% endif %}">
+                                {{ user.is_active|yesno:"Active,Inactive" }}
+                            </span>
+                        </p>
+                        <p><strong>Phone:</strong> {{ user.phone_number|default:"N/A" }}</p>
+                        <p><strong>Date Joined:</strong> {{ user.date_joined|date:"M j, Y" }}</p>
+                        <p><strong>Referral Code:</strong> {{ user.referral_code|default:"N/A" }}</p>
+                        <p><strong>Referred By:</strong>
+                            {% if user.referred_by %}
+                                {{ user.referred_by.email }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Profile Information</h4>
+                    </div>
+                    <div class="card-body">
+                        {% if profile %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3"><strong>Father's Name:</strong> {{ profile.father_name|default:"N/A" }}</div>
+                            <div class="col-md-6 mb-3"><strong>Mother's Name:</strong> {{ profile.mother_name|default:"N/A" }}</div>
+                            <div class="col-md-6 mb-3"><strong>Date of Birth:</strong> {{ profile.dob|date:"M j, Y"|default:"N/A" }}</div>
+                            <div class="col-md-6 mb-3"><strong>Age:</strong> {{ profile.age|default:"N/A" }}</div>
+                            <div class="col-md-12 mb-3"><strong>Address:</strong> {{ profile.full_address|default:"N/A" }}</div>
+                            <div class="col-md-4 mb-3"><strong>City:</strong> {{ profile.city|default:"N/A" }}</div>
+                            <div class="col-md-4 mb-3"><strong>District:</strong> {{ profile.district|default:"N/A" }}</div>
+                            <div class="col-md-4 mb-3"><strong>State:</strong> {{ profile.state|default:"N/A" }}</div>
+                            <div class="col-md-4 mb-3"><strong>Pincode:</strong> {{ profile.pincode|default:"N/A" }}</div>
+                            <div class="col-md-4 mb-3"><strong>Grade:</strong> {{ profile.grade|default:"N/A" }}</div>
+                            <div class="col-md-4 mb-3"><strong>How did you know:</strong> {{ profile.how_did_you_know|default:"N/A" }}</div>
+                        </div>
+
+                        <h5 class="mt-4">Education Details</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3"><strong>School:</strong> {{ profile.school_name|default:"N/A" }}</div>
+                            <div class="col-md-6 mb-3"><strong>Board:</strong> {{ profile.school_board|default:"N/A" }}</div>
+                            <div class="col-md-6 mb-3"><strong>Location:</strong> {{ profile.school_location|default:"N/A" }}</div>
+                            <div class="col-md-6 mb-3"><strong>Course:</strong> {{ profile.course_name|default:"N/A" }}</div>
+                            <div class="col-md-6 mb-3"><strong>University:</strong> {{ profile.university_name|default:"N/A" }}</div>
+                            <div class="col-md-6 mb-3"><strong>Stream:</strong> {{ profile.stream|default:"N/A" }}</div>
+                            <div class="col-md-6 mb-3"><strong>Academic Year:</strong> {{ profile.academic_year|default:"N/A" }}</div>
+                        </div>
+
+                        <h5 class="mt-4">Documents</h5>
+                        <ul>
+                            <li>DOB Proof: {% if profile.dob_proof %}<a href="{{ profile.dob_proof.url }}" target="_blank">View</a>{% else %}N/A{% endif %}</li>
+                            <li>Photo: {% if profile.photo %}<a href="{{ profile.photo.url }}" target="_blank">View</a>{% else %}N/A{% endif %}</li>
+                            <li>Education Document: {% if profile.edu_doc %}<a href="{{ profile.edu_doc.url }}" target="_blank">View</a>{% else %}N/A{% endif %}</li>
+                        </ul>
+                        {% else %}
+                            <p class="text-muted">No profile details available.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card-title { font-weight: bold; }
+.badge { font-size: 0.85em; padding: 0.4em 0.6em; }
+</style>
+{% endblock %}

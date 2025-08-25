@@ -9,6 +9,12 @@ urlpatterns = [
     path('mentors/',views.mentors,name="mentors"),
     path('view_mentor_details/<int:mentor_id>/',views.view_mentor_details,name="view_mentor_details"),
     path('participants_list/',views.participants_list,name="participants_list"),
+    path("participant_detail/<int:participant_id>/", views.participant_detail, name="participant_detail"),
+    path("tutor_enquiries/", views.tutor_enquiries, name="tutor_enquiries"),
+    path("add_course/", views.add_course, name="add_course"),
+    path("view_courses/", views.view_courses, name="view_courses"),
+    path("edit_course/<int:course_id>/", views.edit_course, name="edit_course"),
+    path("delete_course/<int:course_id>/", views.delete_course, name="delete_course"),
 
 
     # competition

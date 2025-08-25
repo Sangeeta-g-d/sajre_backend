@@ -224,7 +224,9 @@
                 height: 150px;
             }
         }
-
+.form-input.error {
+    border-color: red !important;
+}
     /* Keep your existing overlay and close button styles */
 </style>
  
@@ -468,165 +470,49 @@ Artists from across the nation compete live, showcasing their talent on stage in
                         <div class="slider-nav">
                         </div>
                     </div>
-                    <div class="slider-wrapper ">
-                        <div class="course-slider mb-2">
-                            <div class="course-card">
-                                <div class="card-inner">
-                                    <!-- Front Side -->
-                                    <div class="card-front">
-                                        <img src="/static/assets/home/img/cyberScurity.jpg"
-                                            alt="Ethical Hacking Course" class="img-fluid">
-                                        <div class="p-3">
-                                            <h3 class="crouse_card_title">Cyber Security</h3>
-                                            <p class="crouse_card_sub_title">Learn ethical hacking to secure digital systems effectively.</p>
-                                            <!-- <div class="skill-tags">
-                                                <span>Skill</span>
-                                                <span>Linux</span>
-                                                <span>Phishing</span>
-                                                <span>Hacking</span>
-                                            </div> -->
-                                        </div>
-                                    </div>
+                   <div class="slider-wrapper">
+    <div class="course-slider mb-2">
+        {% for course in courses %}
+        <div class="course-card">
+            <div class="card-inner">
+                <!-- Front Side -->
+                <div class="card-front">
+                    {% if course.image %}
+                        <img src="{{ course.image.url }}" alt="{{ course.name }}" class="img-fluid">
+                
+                    {% endif %}
+                    
+                    <div class="p-3">
+                        <h3 class="crouse_card_title">{{ course.name }}</h3>
+                        <p class="crouse_card_sub_title">
+                            {{ course.subtitle|default:"No description available" }}
+                        </p>
+                    </div>
+                </div>
 
-                                    <!-- Back Side -->
-                                    <div class="card-back">
-                                        <div class="crouse_back_top">
-                                            <h3 class="crouse_back_title">Cyber Security</h3>
-                                            <p class="crouse_back_sub_title">Learn ethical hacking to secure digital systems effectively.</p>
-                                            
-                                        </div>
-                                        <div class="crouse_back_bottom">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <!---- <h2 class="mb-0">₹4500</h2> --->
-                                                <button class="btn btn-dark rounded-5"><a class="text-white text-decoration-none" href="/comming_soon/">View Course</a></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="course-card">
-                                <div class="card-inner">
-                                    <!-- Front Side -->
-                                    <div class="card-front">
-                                        <img src="/static/assets/home/img/webDesign.jpg"
-                                            alt="Ethical Hacking Course" class="img-fluid">
-                                        <div class="p-3">
-                                            <h3 class="crouse_card_title">Web Designing</h3>
-                                            <p class="crouse_card_sub_title">Master web designing and create engaging interactive websites.</p>
-                                            
-                                        </div>
-                                    </div>
-
-                                    <!-- Back Side -->
-                                    <div class="card-back">
-                                        <div class="crouse_back_top">
-                                            <h3 class="crouse_back_title">Web Designing</h3>
-                                            <p class="crouse_back_sub_title">Master web designing and create engaging interactive websites.</p>
-                                           
-                                        </div>
-                                        <div class="crouse_back_bottom">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <!---- <h2 class="mb-0">₹4500</h2> --->
-                                                <button class="btn btn-dark rounded-5 align-items-center"> <a class="text-white text-decoration-none " href="/art_gallery/">
-                                                    View Course</a></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="course-card">
-                                <div class="card-inner">
-                                    <!-- Front Side -->
-                                    <div class="card-front">
-                                        <img src="/static/assets/home/img/fashionDesign.jpg"
-                                            alt="Ethical Hacking Course" class="img-fluid">
-                                        <div class="p-3">
-                                            <h3 class="crouse_card_title">Fashion Designing</h3>
-                                            <p class="crouse_card_sub_title">Explore fashion designing and unleash creative stylistic ideas.
-</p>
-                                            
-                                        </div>
-                                    </div>
-
-                                    <!-- Back Side -->
-                                    <div class="card-back">
-                                        <div class="crouse_back_top">
-                                            <h3 class="crouse_back_title">Fashion Designing</h3>
-                                            <p class="crouse_back_sub_title">Explore fashion designing and unleash creative stylistic ideas.
-</p>
-                                            
-                                        </div>
-                                        <div class="crouse_back_bottom">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <!---- <h2 class="mb-0">₹4500</h2> --->
-                                                <button class="btn btn-dark rounded-5"><a class="text-white text-decoration-none" href="/art_gallery/">View Course</a></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="course-card">
-                                <div class="card-inner">
-                                    <!-- Front Side -->
-                                    <div class="card-front">
-                                        <img src="/static/assets/home/img/degitalMarket.jpg"
-                                            alt="Ethical Hacking Course" class="img-fluid">
-                                        <div class="p-3">
-                                            <h3 class="crouse_card_title">Sales & Marketing</h3>
-                                            <p class="crouse_card_sub_title">Develop sales and marketing strategies to boost growth.</p>
-                                            
-                                        </div>
-                                    </div>
-
-                                    <!-- Back Side -->
-                                    <div class="card-back">
-                                        <div class="crouse_back_top">
-                                            <h3 class="crouse_back_title">Sales & Marketing</h3>
-                                            <p class="crouse_back_sub_title">Develop sales and marketing strategies to boost growth.</p>
-                                           
-                                        </div>
-                                        <div class="crouse_back_bottom">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <!---- <h2 class="mb-0">₹4500</h2> --->
-                                                <button class="btn btn-dark rounded-5"><a class="text-white text-decoration-none" href="/art_gallery/">View Course</a></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="course-card">
-                                <div class="card-inner">
-                                    <!-- Front Side -->
-                                    <div class="card-front">
-                                        <img src="/static/assets/home/img/crouse_slider_1.jpg"
-                                            alt="Ethical Hacking Course" class="img-fluid">
-                                        <div class="p-3">
-                                            <h3 class="crouse_card_title">Ethical Hacking</h3>
-                                            <p class="crouse_card_sub_title">This Course Is Make You Industry Ready
-                                                Cyber Expert</p>
-                                            
-                                        </div>
-                                    </div>
-
-                                    <!-- Back Side -->
-                                    <div class="card-back">
-                                        <div class="crouse_back_top">
-                                            <h3 class="crouse_back_title">Ethical Hacking</h3>
-                                            <p class="crouse_back_sub_title">This Course Is Make You Industry Ready
-                                                Cyber Expert</p>
-                                            
-                                        </div>
-                                        <div class="crouse_back_bottom">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <!---- <h2 class="mb-0">₹4500</h2> --->
-                                                <button class="btn btn-dark rounded-5"><a class="text-white text-decoration-none" href="/art_gallery/">View Course</a></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <!-- Back Side -->
+                <div class="card-back">
+                    <div class="crouse_back_top">
+                        <h3 class="crouse_back_title">{{ course.name }}</h3>
+                        <p class="crouse_back_sub_title">
+                            {{ course.subtitle|default:"No description available" }}
+                        </p>
+                    </div>
+                    <div class="crouse_back_bottom">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <button class="btn btn-dark rounded-5">
+                                <a class="text-white text-decoration-none" href="/comming_soon/">
+                                    View Course
+                                </a>
+                            </button>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
                 </div>
             </section>
@@ -712,37 +598,92 @@ Artists from across the nation compete live, showcasing their talent on stage in
             <div class="overlay" id="overlay"></div>
 
             <!-- Replace your existing popup-overlay div with this improved version -->
-            <div class="popup-overlay" id="popupOverlay">
-                <div class="popup-container">
-                    <button class="close-btn" id="closePopupBtn">&times;</button>
+         <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-container">
+        <button class="close-btn" id="closePopupBtn">&times;</button>
 
-                    <div class="popup-header">
-                        <h2 class="popup-title">Let's Connect With Us</h2>
-                    </div>
+        <div class="popup-header">
+            <h2 class="popup-title">Let's Connect With Us</h2>
+        </div>
 
-                    <form id="tutorForm">
-                        <div class="form-group">
-                            <input type="text" class="form-input" placeholder="Name" name="name" required>
-                        </div>
+       <form id="tutorForm">
+    <!-- Full Name (only alphabets and spaces, no digits allowed) -->
+    <div class="form-group">
+        <input type="text" 
+               class="form-input" 
+               placeholder="Full Name" 
+               name="name" 
+               required
+               pattern="^[A-Za-z\s]+$" 
+               title="Name should only contain letters and spaces." >
+    </div>
 
-                        <div class="form-group">
-                            <input type="email" class="form-input" placeholder="Email" name="email" required>
-                        </div>
+    <!-- Email (HTML5 built-in validation handles format) -->
+    <div class="form-group">
+        <input type="email" 
+               class="form-input" 
+               placeholder="Email" 
+               name="email" 
+               required
+               title="Please enter a valid email address.">
+    </div>
 
-                        <div class="form-group">
-                            <input type="tel" class="form-input" placeholder="Phone No" name="phone" required>
-                        </div>
+    <!-- Phone (only 10 digits) -->
+    <div class="form-group">
+        <input type="tel" 
+               class="form-input" 
+               placeholder="Phone No" 
+               name="phone" 
+               required
+               pattern="^\d{10}$" 
+               maxlength="10"
+               title="Phone number must be exactly 10 digits.">
+    </div>
 
-                        <div class="form-group">
-                            <input type="text" class="form-input" placeholder="Skills" name="skills" required>
-                        </div>
+    <!-- Skills (letters, numbers, commas, and spaces allowed) -->
+    <div class="form-group">
+        <input type="text" 
+               class="form-input" 
+               placeholder="Skills (e.g., Python, Django)" 
+               name="skills" 
+               required
+               pattern="^[A-Za-z0-9,\s]+$" 
+               title="Skills should only contain letters, numbers, commas, and spaces.">
+    </div>
 
-                        <button type="submit" class="submit-btn" id="submitBtn">
-                            Submit
-                        </button>
-                    </form>
-                </div>
-            </div>
+    <button type="submit" class="submit-btn" id="submitBtn">Submit</button>
+</form>
+
+    </div>
+</div>
+
+<script>
+document.getElementById("tutorForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    let formData = new FormData(this);
+
+    let response = await fetch("/submit-tutor-form/", {
+        method: "POST",
+        body: formData
+    });
+
+    let data = await response.json();
+
+    Toastify({
+        text: data.message,
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: data.status === "success" ? "green" : "red"
+    }).showToast();
+
+    if (data.status === "success") {
+        document.getElementById("tutorForm").reset();
+        document.getElementById("popupOverlay").style.display = "none";
+    }
+});
+</script>
             <section id="hm_event_section" class="py-5">
                 <div class="container">
                     <h2 class="text-center section-title mb-5">Events</h2>
@@ -1072,289 +1013,53 @@ Artists from across the nation compete live, showcasing their talent on stage in
             <section id="hm_faq_section" class="py-5">
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-lg-10">
-                            <div class="text-center mb-5">
-                                <p class="faq_sub_title">F A Q s</p>
-                                <h2 class="faq_title">Got questions? We’ve got answers!</h2>
-                                <p class="faq_description">At Sajre Edutech, we understand that learners and
-                                    participants often have
-                                    questions</p>
-                            </div>
+                       <div class="col-lg-10">
+    <div class="text-center mb-5">
+        <p class="faq_sub_title">F A Q s</p>
+        <h2 class="faq_title">Got questions? We’ve got answers!</h2>
+        <p class="faq_description">At Sajre Edutech, we understand that learners and
+            participants often have questions</p>
+    </div>
 
-                            <div class="accordion">
-                                <div class="accordion__item">
-                                    <div class="accordion__title">
-                                        <div class="accordion__arrow"><span class="accordion__arrow-item ">
-                                                <svg width="28" height="18" viewBox="0 0 28 28" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <g clip-path="url(#clip0_60_796)">
-                                                        <path
-                                                            d="M0.167847 14.1052C0.167847 13.1491 0.942925 12.374 1.89903 12.374H26.1356C27.0918 12.374 27.8668 13.1491 27.8668 14.1052C27.8668 15.0613 27.0918 15.8364 26.1356 15.8364H1.89903C0.942926 15.8364 0.167847 15.0613 0.167847 14.1052Z"
-                                                            fill="#2D3D4E" />
-                                                        <path
-                                                            d="M12.2861 1.98705C12.2861 1.03094 13.0612 0.255859 14.0173 0.255859C14.9734 0.255859 15.7485 1.03094 15.7485 1.98705V26.2237C15.7485 27.1798 14.9734 27.9548 14.0173 27.9548C13.0612 27.9548 12.2861 27.1798 12.2861 26.2237V1.98705Z"
-                                                            fill="#2D3D4E" />
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0_60_796">
-                                                            <rect width="27.699" height="27.699" fill="white"
-                                                                transform="translate(0.167847 0.255859)" />
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
+    <div class="accordion">
+        {% for faq in faqs %}
+        <div class="accordion__item">
+            <div class="accordion__title">
+                <div class="accordion__arrow">
+                    <span class="accordion__arrow-item">
+                        <svg width="28" height="18" viewBox="0 0 28 28" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_60_796)">
+                                <path d="M0.167847 14.1052C0.167847 13.1491 0.942925 12.374 
+                                    1.89903 12.374H26.1356C27.0918 12.374 27.8668 13.1491 
+                                    27.8668 14.1052C27.8668 15.0613 27.0918 15.8364 
+                                    26.1356 15.8364H1.89903C0.942926 15.8364 
+                                    0.167847 15.0613 0.167847 14.1052Z" fill="#2D3D4E"/>
+                                <path d="M12.2861 1.98705C12.2861 1.03094 13.0612 
+                                    0.255859 14.0173 0.255859C14.9734 0.255859 
+                                    15.7485 1.03094 15.7485 1.98705V26.2237C15.7485 
+                                    27.1798 14.9734 27.9548 14.0173 27.9548C13.0612 
+                                    27.9548 12.2861 27.1798 12.2861 26.2237V1.98705Z" 
+                                    fill="#2D3D4E"/>
+                            </g>
+                        </svg>
+                    </span>
+                </div>
+                <span class="accordion__title-text">
+                    <span>✦</span>
+                    <span>{{ faq.question }}</span>
+                </span>
+            </div>
+            <div class="accordion__content">
+                {{ faq.answer|safe }}
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-muted text-center">No FAQs available right now.</p>
+        {% endfor %}
+    </div>
+</div>
 
-                                            </span></div>
-                                        <span class="accordion__title-text">
-                                            <span>✦</span>
-                                            <span>What is the National Art Summit (NAS)?</span>
-                                        </span>
-                                    </div>
-                                    <div class="accordion__content">
-                                        The National Art Summit (NAS) is a nationwide creative competition organized by
-                                        Sajre Edutech, designed to give visibility to emerging and professional artists
-                                        across India. It includes multiple age categories, exciting themes, and
-                                        attractive rewards.
-                                    </div>
-                                </div>
-                                <div class="accordion__item">
-                                    <div class="accordion__title">
-                                        <div class="accordion__arrow"><span class="accordion__arrow-item ">
-                                                <svg width="28" height="18" viewBox="0 0 28 28" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <g clip-path="url(#clip0_60_796)">
-                                                        <path
-                                                            d="M0.167847 14.1052C0.167847 13.1491 0.942925 12.374 1.89903 12.374H26.1356C27.0918 12.374 27.8668 13.1491 27.8668 14.1052C27.8668 15.0613 27.0918 15.8364 26.1356 15.8364H1.89903C0.942926 15.8364 0.167847 15.0613 0.167847 14.1052Z"
-                                                            fill="#2D3D4E" />
-                                                        <path
-                                                            d="M12.2861 1.98705C12.2861 1.03094 13.0612 0.255859 14.0173 0.255859C14.9734 0.255859 15.7485 1.03094 15.7485 1.98705V26.2237C15.7485 27.1798 14.9734 27.9548 14.0173 27.9548C13.0612 27.9548 12.2861 27.1798 12.2861 26.2237V1.98705Z"
-                                                            fill="#2D3D4E" />
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0_60_796">
-                                                            <rect width="27.699" height="27.699" fill="white"
-                                                                transform="translate(0.167847 0.255859)" />
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-
-                                            </span></div>
-                                        <span class="accordion__title-text">
-                                            <span>✦</span>
-                                            <span>Who can participate in NAS?</span>
-                                        </span>
-                                    </div>
-                                    <div class="accordion__content">
-                                        Anyone aged 9 years and above can participate, with categories for Juniors,
-                                        Teens, Youth, and Professional Artists.
-                                    </div>
-                                </div>
-                                <div class="accordion__item">
-                                    <div class="accordion__title">
-                                        <div class="accordion__arrow"><span class="accordion__arrow-item ">
-                                                <svg width="28" height="18" viewBox="0 0 28 28" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <g clip-path="url(#clip0_60_796)">
-                                                        <path
-                                                            d="M0.167847 14.1052C0.167847 13.1491 0.942925 12.374 1.89903 12.374H26.1356C27.0918 12.374 27.8668 13.1491 27.8668 14.1052C27.8668 15.0613 27.0918 15.8364 26.1356 15.8364H1.89903C0.942926 15.8364 0.167847 15.0613 0.167847 14.1052Z"
-                                                            fill="#2D3D4E" />
-                                                        <path
-                                                            d="M12.2861 1.98705C12.2861 1.03094 13.0612 0.255859 14.0173 0.255859C14.9734 0.255859 15.7485 1.03094 15.7485 1.98705V26.2237C15.7485 27.1798 14.9734 27.9548 14.0173 27.9548C13.0612 27.9548 12.2861 27.1798 12.2861 26.2237V1.98705Z"
-                                                            fill="#2D3D4E" />
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0_60_796">
-                                                            <rect width="27.699" height="27.699" fill="white"
-                                                                transform="translate(0.167847 0.255859)" />
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-
-                                            </span></div>
-                                        <span class="accordion__title-text">
-                                            <span>✦</span>
-                                            <span>How many rounds are there in NAS?</span>
-                                        </span>
-                                    </div>
-                                    <div class="accordion__content">
-                                        NAS has three rounds:<br>
-                                        <ul>
-                                            <li> Round 1 : Online Submission</li>
-                                            <li>Round 2 : Online Creative Challenge</li>
-                                            <li>Round 3 : Offline Grand Finale</li>
-                                        </ul>
-
-                                    </div>
-                                </div>
-                                <div class="accordion__item">
-                                    <div class="accordion__title">
-                                        <div class="accordion__arrow"><span class="accordion__arrow-item ">
-                                                <svg width="28" height="18" viewBox="0 0 28 28" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <g clip-path="url(#clip0_60_796)">
-                                                        <path
-                                                            d="M0.167847 14.1052C0.167847 13.1491 0.942925 12.374 1.89903 12.374H26.1356C27.0918 12.374 27.8668 13.1491 27.8668 14.1052C27.8668 15.0613 27.0918 15.8364 26.1356 15.8364H1.89903C0.942926 15.8364 0.167847 15.0613 0.167847 14.1052Z"
-                                                            fill="#2D3D4E" />
-                                                        <path
-                                                            d="M12.2861 1.98705C12.2861 1.03094 13.0612 0.255859 14.0173 0.255859C14.9734 0.255859 15.7485 1.03094 15.7485 1.98705V26.2237C15.7485 27.1798 14.9734 27.9548 14.0173 27.9548C13.0612 27.9548 12.2861 27.1798 12.2861 26.2237V1.98705Z"
-                                                            fill="#2D3D4E" />
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0_60_796">
-                                                            <rect width="27.699" height="27.699" fill="white"
-                                                                transform="translate(0.167847 0.255859)" />
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-
-                                            </span></div>
-                                        <span class="accordion__title-text">
-                                            <span>✦</span>
-                                            <span>What are the participation fees?</span>
-                                        </span>
-                                    </div>
-                                    <div class="accordion__content">
-                                        <ul>
-                                            <li>Junior Artists (9–12 years) – ₹399</li>
-                                            <li>Teen Creators (13–17 years) – ₹499</li>
-                                            <li>Youth Masters (18–22 years) – ₹799</li>
-                                        </ul>
-                              
-
-                                    </div>
-                                </div>
-                                <div class="accordion__item">
-                                    <div class="accordion__title">
-                                        <div class="accordion__arrow"><span class="accordion__arrow-item ">
-                                                <svg width="28" height="18" viewBox="0 0 28 28" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <g clip-path="url(#clip0_60_796)">
-                                                        <path
-                                                            d="M0.167847 14.1052C0.167847 13.1491 0.942925 12.374 1.89903 12.374H26.1356C27.0918 12.374 27.8668 13.1491 27.8668 14.1052C27.8668 15.0613 27.0918 15.8364 26.1356 15.8364H1.89903C0.942926 15.8364 0.167847 15.0613 0.167847 14.1052Z"
-                                                            fill="#2D3D4E" />
-                                                        <path
-                                                            d="M12.2861 1.98705C12.2861 1.03094 13.0612 0.255859 14.0173 0.255859C14.9734 0.255859 15.7485 1.03094 15.7485 1.98705V26.2237C15.7485 27.1798 14.9734 27.9548 14.0173 27.9548C13.0612 27.9548 12.2861 27.1798 12.2861 26.2237V1.98705Z"
-                                                            fill="#2D3D4E" />
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0_60_796">
-                                                            <rect width="27.699" height="27.699" fill="white"
-                                                                transform="translate(0.167847 0.255859)" />
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-
-                                            </span></div>
-                                        <span class="accordion__title-text">
-                                            <span>✦</span>
-                                            <span>Can schools, colleges, and organizations enroll their
-                                                students?</span>
-                                        </span>
-                                    </div>
-                                    <div class="accordion__content">
-                                        Yes! Institutions can register multiple participants and avail special benefits.
-
-                                    </div>
-                                </div>
-                                <div class="accordion__item">
-                                    <div class="accordion__title">
-                                        <div class="accordion__arrow"><span class="accordion__arrow-item ">
-                                                <svg width="28" height="18" viewBox="0 0 28 28" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <g clip-path="url(#clip0_60_796)">
-                                                        <path
-                                                            d="M0.167847 14.1052C0.167847 13.1491 0.942925 12.374 1.89903 12.374H26.1356C27.0918 12.374 27.8668 13.1491 27.8668 14.1052C27.8668 15.0613 27.0918 15.8364 26.1356 15.8364H1.89903C0.942926 15.8364 0.167847 15.0613 0.167847 14.1052Z"
-                                                            fill="#2D3D4E" />
-                                                        <path
-                                                            d="M12.2861 1.98705C12.2861 1.03094 13.0612 0.255859 14.0173 0.255859C14.9734 0.255859 15.7485 1.03094 15.7485 1.98705V26.2237C15.7485 27.1798 14.9734 27.9548 14.0173 27.9548C13.0612 27.9548 12.2861 27.1798 12.2861 26.2237V1.98705Z"
-                                                            fill="#2D3D4E" />
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0_60_796">
-                                                            <rect width="27.699" height="27.699" fill="white"
-                                                                transform="translate(0.167847 0.255859)" />
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-
-                                            </span></div>
-                                        <span class="accordion__title-text">
-                                            <span>✦</span>
-                                            <span>Is there a deadline for registration?</span>
-                                        </span>
-                                    </div>
-                                    <div class="accordion__content">
-                                        Yes, registrations close before the first round begins. We recommend registering
-                                        early to confirm your spot.
-
-                                    </div>
-                                </div>
-                                <div class="accordion__item">
-                                    <div class="accordion__title">
-                                        <div class="accordion__arrow"><span class="accordion__arrow-item ">
-                                                <svg width="28" height="18" viewBox="0 0 28 28" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <g clip-path="url(#clip0_60_796)">
-                                                        <path
-                                                            d="M0.167847 14.1052C0.167847 13.1491 0.942925 12.374 1.89903 12.374H26.1356C27.0918 12.374 27.8668 13.1491 27.8668 14.1052C27.8668 15.0613 27.0918 15.8364 26.1356 15.8364H1.89903C0.942926 15.8364 0.167847 15.0613 0.167847 14.1052Z"
-                                                            fill="#2D3D4E" />
-                                                        <path
-                                                            d="M12.2861 1.98705C12.2861 1.03094 13.0612 0.255859 14.0173 0.255859C14.9734 0.255859 15.7485 1.03094 15.7485 1.98705V26.2237C15.7485 27.1798 14.9734 27.9548 14.0173 27.9548C13.0612 27.9548 12.2861 27.1798 12.2861 26.2237V1.98705Z"
-                                                            fill="#2D3D4E" />
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0_60_796">
-                                                            <rect width="27.699" height="27.699" fill="white"
-                                                                transform="translate(0.167847 0.255859)" />
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-
-                                            </span></div>
-                                        <span class="accordion__title-text">
-                                            <span>✦</span>
-                                            <span>Is the event online or offline?</span>
-                                        </span>
-                                    </div>
-                                    <div class="accordion__content">
-                                        Rounds 1 & 2 are online, and Round 3 (Grand Finale) is offline at a designated
-                                        venue.
-
-                                    </div>
-                                </div>
-                                <div class="accordion__item">
-                                    <div class="accordion__title">
-                                        <div class="accordion__arrow"><span class="accordion__arrow-item ">
-                                                <svg width="28" height="18" viewBox="0 0 28 28" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <g clip-path="url(#clip0_60_796)">
-                                                        <path
-                                                            d="M0.167847 14.1052C0.167847 13.1491 0.942925 12.374 1.89903 12.374H26.1356C27.0918 12.374 27.8668 13.1491 27.8668 14.1052C27.8668 15.0613 27.0918 15.8364 26.1356 15.8364H1.89903C0.942926 15.8364 0.167847 15.0613 0.167847 14.1052Z"
-                                                            fill="#2D3D4E" />
-                                                        <path
-                                                            d="M12.2861 1.98705C12.2861 1.03094 13.0612 0.255859 14.0173 0.255859C14.9734 0.255859 15.7485 1.03094 15.7485 1.98705V26.2237C15.7485 27.1798 14.9734 27.9548 14.0173 27.9548C13.0612 27.9548 12.2861 27.1798 12.2861 26.2237V1.98705Z"
-                                                            fill="#2D3D4E" />
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0_60_796">
-                                                            <rect width="27.699" height="27.699" fill="white"
-                                                                transform="translate(0.167847 0.255859)" />
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-
-                                            </span></div>
-                                        <span class="accordion__title-text">
-                                            <span>✦</span>
-                                            <span>Who can I contact for more details?</span>
-                                        </span>
-                                    </div>
-                                    <div class="accordion__content">
-                                       You can reach us via our official contact page or email us at support@sajreedutech.com.
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </section>
@@ -1828,4 +1533,6 @@ Artists from across the nation compete live, showcasing their talent on stage in
                 }
             });
         </script>
+
+        <!-- tutor form js -->
 {% endblock %}

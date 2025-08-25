@@ -40,7 +40,7 @@
     <form method="post" enctype="multipart/form-data" id="mentorRegistrationForm" novalidate>
         {% csrf_token %}
         
-        <h2 class="form-title">Registration</h2>
+        <h2 class="form-title">Complete Profile</h2>
 
         <!-- Qualification Section -->
          {% if request.user.role == "mentor" %}

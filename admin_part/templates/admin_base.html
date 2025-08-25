@@ -142,6 +142,19 @@
         <p>FAQ's</p>
     </a>
 </li>
+<li class="nav-item {% if request.resolver_match.url_name == 'tutor_enquiries' %}active{% endif %}">
+    <a href="{% url 'tutor_enquiries' %}">
+        <i class="fas fa-users"></i>
+        <p>Tutor Enquiries</p>
+    </a>
+</li>
+
+<li class="nav-item {% if request.resolver_match.url_name == 'view_courses' %}active{% endif %}">
+    <a href="{% url 'view_courses' %}">
+        <i class="fas fa-users"></i>
+        <p>View Courses</p>
+    </a>
+</li>
               <li class="nav-item">
                 <a href="../../documentation/index.html">
                   <i class="fas fa-file"></i>
