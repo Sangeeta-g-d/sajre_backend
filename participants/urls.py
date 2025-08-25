@@ -13,5 +13,6 @@ urlpatterns = [
     path('payment_failed',views.payment_failed,name="payment-failed"),
     path('p_working_on/',views.p_working_on,name="p_working_on"),
     path("add_referral/", views.add_referral, name="add_referral"),
+    path("participants_faq/", views.participants_faq, name="participants_faq"),
 
 ]

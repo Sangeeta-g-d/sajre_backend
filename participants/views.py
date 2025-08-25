@@ -10,6 +10,7 @@ from sajre_backend.utils import login_required_nocache
 from auth_app.models import CustomUser
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from admin_part.models import FAQ
 from django.db.models import F
 from decimal import Decimal
 from django.db.models import Q
@@ -405,3 +406,9 @@ def add_referral(request):
             return JsonResponse({"success": False, "error": str(e)})
 
     return JsonResponse({"success": False, "error": "Invalid request"})
+
+
+@login_required_nocache
+def participants_faq(request):
+    faqs = FAQ.objects.filter(role_type='participant').order_by('created_at')
+    return render(request, 'participants_faq.html', {'faqs': faqs})
