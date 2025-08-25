@@ -39,6 +39,7 @@ urlpatterns = [
     path("faqs/<str:role>/", views.view_faqs_by_role, name="view_faqs_by_role"),   
     path("delete_faq/<int:faq_id>/", views.delete_faq, name="delete_faq"),
     path('enrolled_list/<int:level_id>/',views.enrolled_list,name="enrolled_list"),
+    path("delete_faq/<int:faq_id>/", views.delete_faq, name="delete_faq"),
 
 
 ]

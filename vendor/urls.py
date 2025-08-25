@@ -9,5 +9,6 @@ urlpatterns = [
     path('v_working_on/',views.v_working_on,name="v_working_on"),
     path('create_vendor_profile/',views.create_vendor_profile,name="create_vendor_profile"),
     path('mentor_list/',views.mentor_list,name="mentor_list"),
-    path('mentor_details/<int:mentor_id>/',views.mentor_details,name="mentor_details")
+    path('mentor_details/<int:mentor_id>/',views.mentor_details,name="mentor_details"),
+    path('vendor_faq/',views.vendor_faq,name="vendor_faq"),
 ]

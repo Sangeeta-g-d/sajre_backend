@@ -589,3 +589,11 @@ def delete_course(request, course_id):
         return redirect("/admin_part/courses/")
 
     return JsonResponse({"success": False, "message": "Invalid request"}, status=400)
+
+
+@login_required_nocache
+@require_POST
+def delete_faq(request, faq_id):
+    faq = get_object_or_404(FAQ, id=faq_id)
+    faq.delete()
+    return JsonResponse({"success": True, "message": "FAQ deleted successfully!"})

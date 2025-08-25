@@ -7,6 +7,7 @@ from django.contrib.auth import update_session_auth_hash
 from auth_app.models import MentorProfile
 from sajre_backend.utils import login_required_nocache 
 from django.db.models import Count, Q
+from admin_part.models import FAQ
 
 # Create your views here.
 
@@ -290,3 +291,9 @@ def mentor_details(request, mentor_id):
         "paid_count": paid_count,
         "unpaid_count": unpaid_count,
     })
+
+
+
+def vendor_faq(request):
+    faqs = FAQ.objects.filter(role_type='vendor').order_by('created_at')
+    return render(request, 'vendor_faq.html', {'faqs': faqs})
