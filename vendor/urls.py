@@ -11,4 +11,5 @@ urlpatterns = [
     path('mentor_list/',views.mentor_list,name="mentor_list"),
     path('mentor_details/<int:mentor_id>/',views.mentor_details,name="mentor_details"),
     path('vendor_faq/',views.vendor_faq,name="vendor_faq"),
+    path("vendor_view_participants/<int:mentor_id>/", views.vendor_view_participants, name="vendor_view_participants"),
 ]

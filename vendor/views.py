@@ -10,27 +10,25 @@ from django.db.models import Count, Q
 from admin_part.models import FAQ
 
 # Create your views here.
-
 @login_required_nocache
 def vendor_dashboard(request):
     if request.user.role == "vendor" and not hasattr(request.user, "mentor_profile"):
         return redirect("/auth/complete_profile/")
 
-    # ✅ Get all mentors referred by this vendor
+    # ✅ Mentors referred by this vendor
     referred_mentors = CustomUser.objects.filter(
         referred_by=request.user,
         role="mentor"
     )
     referred_mentors_count = referred_mentors.count()
 
-    # ✅ Get all participants referred by those mentors
+    # ✅ Participants referred by those mentors
     referred_students = CustomUser.objects.filter(
         referred_by__in=referred_mentors,
         role="participant"
     )
     referred_students_count = referred_students.count()
 
-    # ✅ Enrolled participants (via mentor referral)
     enrolled_students_count = Participant.objects.filter(
         user__in=referred_students,
         has_paid=True
@@ -39,12 +37,11 @@ def vendor_dashboard(request):
     # Get all categories
     categories = CompetitionCategory.objects.all()
 
-    # ✅ Category-wise stats (via mentor referrals)
+    # ✅ Category-wise stats (same as before, just using referred_students)
     category_data = []
     for category in categories:
         total = 0
         enrolled = 0
-
         for user in referred_students.select_related("participant", "participant_profile"):
             matched = None
             if hasattr(user, "participant_profile") and user.participant_profile.age:
@@ -64,23 +61,9 @@ def vendor_dashboard(request):
             "not_enrolled": total - enrolled
         })
 
-    # ✅ Fetch participants with their matching category
-    participants = []
-    for user in referred_students.select_related("participant", "participant__category", "participant_profile"):
-        matching_category = None
-        if hasattr(user, 'participant_profile') and user.participant_profile.age:
-            age = user.participant_profile.age
-            for category in categories:
-                if (age >= category.age_min and (category.age_max is None or age <= category.age_max)):
-                    matching_category = category
-                    break
+    # ✅ Prepare mentor list for table
+    mentors = referred_mentors.select_related()
 
-        participants.append({
-            'user': user,
-            'matching_category': matching_category
-        })
-
-    # Vendor-specific logic
     if referred_mentors_count >= 5 and request.user.role == "vendor":
         request.user.active_vendor = True
         request.user.save(update_fields=["active_vendor"])
@@ -90,10 +73,25 @@ def vendor_dashboard(request):
         'referred_students_count': referred_students_count,
         'enrolled_students_count': enrolled_students_count,
         'category_data': category_data,
-        'participants': participants,
+        'mentors': mentors,   # 👈 changed here
         'categories': categories,
     })
 
+
+@login_required_nocache
+def vendor_view_participants(request, mentor_id):
+    mentor = get_object_or_404(CustomUser, id=mentor_id, role="mentor", referred_by=request.user)
+
+    # Participants referred by this mentor
+    participants = CustomUser.objects.filter(
+        referred_by=mentor,
+        role="participant"
+    ).select_related("participant", "participant_profile")
+
+    return render(request, "vendor_mentor_participants.html", {
+        "mentor": mentor,
+        "participants": participants,
+    })
 
 
 @login_required_nocache
