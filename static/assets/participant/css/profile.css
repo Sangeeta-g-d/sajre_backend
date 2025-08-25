@@ -338,7 +338,7 @@ body {
     background: linear-gradient(88deg, #2F4052, #678CB3);
     border: none;
     border-radius: 5px;
-    padding: 8px 15px;
+    padding: 8px 35px;
     color: white;
     text-decoration: none;
     display: inline-block;
@@ -357,7 +357,7 @@ body {
     background-color: #f8f9fa;
     border: 1px solid black; /* Set black border */
     border-radius: 5px;
-    padding: 8px 15px;
+    padding: 8px 35px;
     color: black;
     text-decoration: none;
     display: inline-block;
