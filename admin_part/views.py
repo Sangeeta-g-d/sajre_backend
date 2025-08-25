@@ -8,6 +8,11 @@ from django.views.decorators.http import require_POST
 from django.utils.dateparse import parse_date
 from django.db.models import Max
 from django.utils import timezone
+from django.db.models import Sum, Count
+from django.db.models.functions import TruncMonth
+from datetime import timedelta
+from decimal import Decimal
+from django.utils.timezone import now
 import pytz
 from sajre_backend.utils import login_required_nocache 
 # Create your views here.
@@ -16,9 +21,66 @@ from sajre_backend.utils import login_required_nocache
 def a_index(request):
     return render(request,'a_index.html')
 
+def admin_check(user):
+    return user.is_authenticated and user.role == 'admin'
 @login_required_nocache
 def admin_dashboard(request):
-    return render(request,'admin_dashboard.html')
+    # Stats
+    total_participants = CustomUser.objects.filter(role="participant").count()
+    total_mentors = CustomUser.objects.filter(role="mentor").count()
+    total_vendors = CustomUser.objects.filter(role="vendor").count()
+    total_courses = Course.objects.count()
+    total_categories = CompetitionCategory.objects.count()
+
+    # Revenue
+    total_revenue = (
+        ParticipantPayment.objects.filter(status="paid")
+        .aggregate(total=Sum("amount"))["total"] or 0
+    )
+    monthly_revenue = (
+        ParticipantPayment.objects.filter(status="paid", created_at__month=now().month)
+        .aggregate(total=Sum("amount"))["total"] or 0
+    )
+
+    # Recent 5 payments
+    recent_payments = (
+        ParticipantPayment.objects.filter(status="paid")
+        .select_related("participant__user")
+        .order_by("-created_at")[:5]
+    )
+
+    # ✅ Revenue trend grouped by month (cross-database compatible)
+    revenue_trend = (
+        ParticipantPayment.objects.filter(status="paid")
+        .annotate(month=TruncMonth("created_at"))
+        .values("month")
+        .annotate(total=Sum("amount"))
+        .order_by("month")
+    )
+
+    # Convert months to labels for the chart (like Jan, Feb, …)
+    revenue_trend = [
+        {
+            "month": r["month"].strftime("%b %Y") if r["month"] else "Unknown",
+            "total": r["total"],
+        }
+        for r in revenue_trend
+    ]
+
+    context = {
+        "total_participants": total_participants,
+        "total_mentors": total_mentors,
+        "total_vendors": total_vendors,
+        "total_courses": total_courses,
+        "total_categories": total_categories,
+        "total_revenue": total_revenue,
+        "monthly_revenue": monthly_revenue,
+        "recent_payments": recent_payments,
+        "revenue_trend": revenue_trend,
+    }
+    return render(request, "admin_dashboard.html", context)
+    
+
 
 @login_required_nocache
 def vendor_list(request):
