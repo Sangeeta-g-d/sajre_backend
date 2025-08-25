@@ -1,78 +1,201 @@
 {% extends 'admin_base.html' %}
-{% load static %}
-{% block content %}
 
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+{% block content %}
+<style>
+    body {
+        font-family: "Inter", sans-serif;
+        background: #f4f6f9;
+        margin: 0;
+        padding: 0;
+        color: #333;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 2rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: #222;
+    }
+
+    /* Grid layout */
+    .grid {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .grid-5 {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .grid-2 {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    /* Card styling */
+    .card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .card h5 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        color: #666;
+        font-weight: 600;
+    }
+
+    .card .value {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    /* Colors */
+    .primary { color: #6366f1; }
+    .success { color: #16a34a; }
+    .warning { color: #f59e0b; }
+    .danger { color: #dc2626; }
+    .purple { color: #9333ea; }
+
+    /* Revenue section */
+    .revenue {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #6366f1;
+    }
+    .revenue small {
+        display: block;
+        font-size: 0.9rem;
+        color: #888;
+        margin-top: 0.25rem;
+    }
+
+    /* Table styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+    thead {
+        background: #f1f1f1;
+    }
+    th, td {
+        text-align: left;
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
+    tbody tr {
+        border-bottom: 1px solid #eee;
+    }
+    tbody tr:hover {
+        background: #fafafa;
+    }
+
+    /* Status badges */
+    .badge {
+        padding: 0.35rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: inline-block;
+    }
+    .bg-success { background: #dcfce7; color: #15803d; }
+    .bg-warning { background: #fef9c3; color: #854d0e; }
+    .bg-secondary { background: #e5e7eb; color: #374151; }
+
+</style>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<div class="p-6 bg-gray-100 min-h-screen">
-    <h1 class="text-3xl font-bold mb-6">Admin Dashboard</h1>
+<div class="container">
+    <h1>📊 Admin Dashboard</h1>
 
     <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-8">
-        <div class="p-6 bg-white rounded-xl shadow-md text-center">
-            <h2 class="text-xl font-semibold">Participants</h2>
-            <p class="text-3xl font-bold text-blue-600">{{ total_participants }}</p>
+    <div class="grid grid-5">
+        <div class="card">
+            <div class="primary fs-2">👥</div>
+            <h5>Participants</h5>
+            <p class="value primary">{{ total_participants }}</p>
         </div>
-        <div class="p-6 bg-white rounded-xl shadow-md text-center">
-            <h2 class="text-xl font-semibold">Mentors</h2>
-            <p class="text-3xl font-bold text-green-600">{{ total_mentors }}</p>
+        <div class="card">
+            <div class="success fs-2">🎓</div>
+            <h5>Mentors</h5>
+            <p class="value success">{{ total_mentors }}</p>
         </div>
-        <div class="p-6 bg-white rounded-xl shadow-md text-center">
-            <h2 class="text-xl font-semibold">Vendors</h2>
-            <p class="text-3xl font-bold text-purple-600">{{ total_vendors }}</p>
+        <div class="card">
+            <div class="purple fs-2">🏪</div>
+            <h5>Vendors</h5>
+            <p class="value purple">{{ total_vendors }}</p>
         </div>
-        <div class="p-6 bg-white rounded-xl shadow-md text-center">
-            <h2 class="text-xl font-semibold">Courses</h2>
-            <p class="text-3xl font-bold text-yellow-600">{{ total_courses }}</p>
+        <div class="card">
+            <div class="warning fs-2">📘</div>
+            <h5>Courses</h5>
+            <p class="value warning">{{ total_courses }}</p>
         </div>
-        <div class="p-6 bg-white rounded-xl shadow-md text-center">
-            <h2 class="text-xl font-semibold">Categories</h2>
-            <p class="text-3xl font-bold text-pink-600">{{ total_categories }}</p>
+        <div class="card">
+            <div class="danger fs-2">📂</div>
+            <h5>Categories</h5>
+            <p class="value danger">{{ total_categories }}</p>
         </div>
     </div>
 
-    <!-- Revenue Summary -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div class="p-6 bg-white rounded-xl shadow-md">
-            <h2 class="text-xl font-semibold mb-4">Revenue</h2>
-            <p class="text-2xl font-bold text-indigo-600">₹ {{ total_revenue|floatformat:2 }}</p>
-            <p class="text-gray-500">This Month: ₹ {{ monthly_revenue|floatformat:2 }}</p>
+    <!-- Revenue Section -->
+    <div class="grid grid-2" style="margin-top: 2rem;">
+        <div class="card">
+            <h5>💰 Revenue</h5>
+            <p class="revenue">₹ {{ total_revenue|floatformat:2 }}</p>
+            <small>This Month: ₹ {{ monthly_revenue|floatformat:2 }}</small>
         </div>
-
-        <!-- Revenue Chart -->
-        <div class="p-6 bg-white rounded-xl shadow-md">
-            <h2 class="text-xl font-semibold mb-4">Revenue Trend</h2>
-            <canvas id="revenueChart"></canvas>
+        <div class="card">
+            <h5>📈 Revenue Trend</h5>
+            <canvas id="revenueChart" height="120"></canvas>
         </div>
     </div>
 
     <!-- Recent Payments -->
-    <div class="p-6 bg-white rounded-xl shadow-md">
-        <h2 class="text-xl font-semibold mb-4">Recent Payments</h2>
-        <table class="w-full border-collapse">
+    <div class="card" style="margin-top: 2rem;">
+        <h5>💳 Recent Payments</h5>
+        <table>
             <thead>
-                <tr class="bg-gray-200 text-left">
-                    <th class="p-2">Participant</th>
-                    <th class="p-2">Amount</th>
-                    <th class="p-2">Date</th>
-                    <th class="p-2">Status</th>
+                <tr>
+                    <th>Participant</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
                 {% for payment in recent_payments %}
-                <tr class="border-b">
-                    <td class="p-2">{{ payment.participant.user.full_name }}</td>
-                    <td class="p-2">₹ {{ payment.amount|floatformat:2 }}</td>
-                    <td class="p-2">{{ payment.payment_date|date:"d M, Y H:i" }}</td>
-                    <td class="p-2">
-                        <span class="px-2 py-1 text-sm rounded bg-green-100 text-green-700">
-                            {{ payment.status }}
-                        </span>
+                <tr>
+                    <td>{{ payment.participant.user.full_name }}</td>
+                    <td>₹ {{ payment.amount|floatformat:2 }}</td>
+                    <td>{{ payment.payment_date|date:"d M, Y H:i" }}</td>
+                    <td>
+                        {% if payment.status == "Completed" %}
+                            <span class="badge bg-success">Completed</span>
+                        {% elif payment.status == "Pending" %}
+                            <span class="badge bg-warning">Pending</span>
+                        {% else %}
+                            <span class="badge bg-secondary">{{ payment.status }}</span>
+                        {% endif %}
                     </td>
                 </tr>
                 {% empty %}
-                <tr><td colspan="4" class="p-2 text-center">No payments yet</td></tr>
+                <tr>
+                    <td colspan="4" class="text-center" style="color:#888;">No payments yet</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
@@ -81,29 +204,33 @@
 
 <!-- Chart Script -->
 <script>
-    const ctx = document.getElementById('revenueChart').getContext('2d');
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
     const revenueData = {
         labels: [{% for r in revenue_trend %}"{{ r.month }}",{% endfor %}],
         datasets: [{
             label: 'Revenue (₹)',
             data: [{% for r in revenue_trend %}{{ r.total }},{% endfor %}],
-            backgroundColor: 'rgba(99, 102, 241, 0.2)',
+            backgroundColor: 'rgba(99, 102, 241, 0.15)',
             borderColor: 'rgba(99, 102, 241, 1)',
             borderWidth: 2,
+            pointBackgroundColor: 'rgba(99, 102, 241, 1)',
+            pointRadius: 4,
             fill: true,
             tension: 0.4
         }]
     };
-    new Chart(ctx, {
+    new Chart(revenueCtx, {
         type: 'line',
         data: revenueData,
         options: {
             responsive: true,
+            plugins: {
+                legend: { display: true, labels: { font: { size: 14 } } }
+            },
             scales: {
                 y: { beginAtZero: true }
             }
         }
     });
 </script>
-
 {% endblock %}
